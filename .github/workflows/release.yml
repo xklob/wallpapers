@@ -1,5 +1,8 @@
 name: Render wallpapers and publish release
 on:
+  push:
+    branches: [master]
+    paths: ['.github/workflows/release.yml']
   workflow_dispatch:
     inputs:
       release_tag:
@@ -15,19 +18,26 @@ jobs:
   release:
     runs-on: ubuntu-24.04
     timeout-minutes: 90
+    defaults:
+      run:
+        shell: bash -el {0}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-          cache: pip
-      - name: Install rendering tools
+      - name: Import the verified initial source bundle
+        if: ${{ hashFiles('config/cells.json') == '' }}
         run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y imagemagick fonts-dejavu-core
-          python -m pip install -r requirements.txt
+          curl --fail --silent --show-error --location --retry 3 https://klob-wallpapers.deep-krill-3494.chatgpt.site/rgb-geometry-source.tar.gz -o /tmp/wallpaper-source.tar.gz
+          echo '30e44e71e3178d7d921231adace206cdd8cf3b619663ebc95d11165d23c5734f  /tmp/wallpaper-source.tar.gz' | sha256sum --check
+          tar -xzf /tmp/wallpaper-source.tar.gz
+      - name: Install rendering tools
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-name: wallpapers
+          create-args: >-
+            python=3.12 imagemagick=7 numpy pillow scipy
+          cache-environment: true
       - name: Render PNG wallpapers
         run: |
           python src/render_png.py
@@ -42,9 +52,13 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add renders/png renders/svg catalog.json
-          git diff --cached --quiet || git commit -m "Render PNG and SVG wallpaper collection"
-          git push origin HEAD:master
+          git add assets config docs src requirements.txt renders/svg
+          git diff --cached --quiet || git commit -m "Import sources and SVG wallpapers"
+          for design in renders/png/0*/; do
+            git add "$design"
+            git diff --cached --quiet || git commit -m "Add PNG wallpapers for $(basename "$design")"
+            git push origin HEAD:master
+          done
       - name: Publish release
         env:
           GH_TOKEN: ${{ github.token }}
