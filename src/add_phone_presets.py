@@ -56,10 +56,17 @@ def inset_border(svg, width, height):
             + body[background_end:body_end] + "</g>" + body[body_end:])
 
 
-def add_camera_ring(svg, profile):
+def add_camera_ring(svg, profile, style, width, height):
+    cx, cy, radius = profile["cx"], profile["cy"], profile["radius"]
+    viewport = profile.get("wallpaper_viewports", {}).get(style)
+    if viewport:
+        zoom, shift_x, shift_y = (viewport[k] for k in ("zoom", "shift_x", "shift_y"))
+        cx = width/2 + (cx - width/2 - shift_x) / zoom
+        cy = height/2 + (cy - height/2 - shift_y) / zoom
+        radius /= zoom
     definitions, ring = vector.camera_svg({
-        "camera_center": (profile["cx"], profile["cy"]),
-        "ring_outer_radius": profile["radius"],
+        "camera_center": (cx, cy),
+        "ring_outer_radius": radius,
     })
     return svg.replace("</defs>", definitions + "</defs>", 1).replace("</svg>", ring + "</svg>", 1)
 
@@ -260,16 +267,17 @@ def build(source_root, site_dist, output_root):
                 stem = f"{design_id}/{folder}/{style}/{device}_{width}x{height}_{style}"
                 if profile:
                     path = stem + "_camera.svg"
-                    camera_svg = add_camera_ring(svg, profile)
+                    camera_svg = add_camera_ring(svg, profile, style, width, height)
                     save_svg(path, camera_svg, width, height)
                     rows.append([path, design_id, device, family, width, height, style, profile["accuracy"]])
                 if home:
                     path = stem + "_home_screen.svg"
-                    save_svg(path, add_home_outline(svg, home, style, width, height), width, height)
+                    home_position = home[style]
+                    save_svg(path, add_home_outline(svg, home_position, style, width, height), width, height)
                     rows.append([path, design_id, device, family, width, height, style, "", False, True])
                     if profile:
                         path = stem + "_home_screen_camera.svg"
-                        save_svg(path, add_home_outline(camera_svg, home, style, width, height), width, height)
+                        save_svg(path, add_home_outline(camera_svg, home_position, style, width, height), width, height)
                         rows.append([path, design_id, device, family, width, height, style, profile["accuracy"], False, True])
 
     paths = [row[0] for row in rows]
@@ -277,8 +285,8 @@ def build(source_root, site_dist, output_root):
         raise ValueError("Duplicate wallpaper file path")
     theme["deviceAliases"] = list(aliases.values())
     theme["hiddenPresets"] = sorted(hidden)
-    theme["pngRoot"] = "https://raw.githubusercontent.com/xklob/wallpapers/v1.2.0/renders/png/"
-    theme["pngArchive"] = "https://github.com/xklob/wallpapers/releases/download/v1.2.0/rgb-geometry-png.zip"
+    theme["pngRoot"] = "https://raw.githubusercontent.com/xklob/wallpapers/v1.2.1/renders/png/"
+    theme["pngArchive"] = "https://github.com/xklob/wallpapers/releases/download/v1.2.1/rgb-geometry-png.zip"
     catalog_path.write_text(json.dumps(catalog, separators=(",", ":")) + "\n")
     write_output_files(output_root, site_dist, theme, modified)
     print(f"{model_count} named models, {len(registered)} device screens, {len(new)} new resolutions")

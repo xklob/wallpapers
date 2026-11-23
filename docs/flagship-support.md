@@ -6,11 +6,11 @@ For models that share exact dimensions and the same border treatment, the `devic
 
 ## Wallpaper fit
 
-On Pixel and other Android phones and foldable screens, the standard RGB Border includes extra black canvas around the artwork. The frame and pattern occupy 84% of their original size, with the camera ring kept at native cutout coordinates. The inset is designed around the Android framework's stock 1.10 wallpaper zoom scale. Launcher cropping and wallpaper offsets can vary.
+On Pixel and other Android phones and foldable screens, the standard RGB Border includes extra black canvas around the artwork. The frame and pattern occupy 84% of their original size. The inset is designed around the Android framework's stock 1.10 wallpaper zoom scale. Launcher cropping and wallpaper offsets can vary.
 
 The grid fills the framed area with a narrow gap and solid edge cutoffs. The Pixel 11 Pro XL frame radius is based on Google's front-view product imagery. Other mobile frame radii are scaled to the screen size.
 
-The RGB Camera Ring option is available for supported circular cutouts. Pixel cutouts backed by Android resource definitions are marked as published. Profiles based on product imagery or approximate cutout placement are marked as estimated, including the Pixel 11 Pro XL. The downloads include the camera-ring adjuster.
+The RGB Camera Ring option is available for supported circular cutouts. Pixel cutouts backed by Android resource definitions are marked as published. Profiles based on product imagery or approximate cutout placement are marked as estimated, including the Pixel 11 Pro XL. The 11 Pro XL ring uses the observed wallpaper zoom for each style. The downloads include the camera-ring adjuster.
 
 The Home Row & Search Outline on Pixel 11 Pro XL follows the supplied Pixel Launcher layout. It places a black rounded rectangle and RGB stroke behind the home row and Google Search bar. The placement is calibrated from the layout and scale seen in the screenshot. Different grid, display size, zoom, or launcher settings can affect the fit.
 

@@ -1,4 +1,6 @@
-# RGB Geometry 1.2
+# RGB Geometry 1.2.1
+
+The Pixel 11 Pro XL camera ring and launcher outline compensate for the wallpaper zoom observed in the Plain and RGB Border examples.
 
 - Covers 369 named flagship phones and foldables released from 2020 through November 2026.
 - Shows four pattern previews above the picker. Open any card for a large preview, then use the pattern from the viewer.

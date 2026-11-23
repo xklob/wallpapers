@@ -88,7 +88,19 @@
     "cy": 107,
     "radius": 57,
     "accuracy": "estimated",
-    "source": "https://storage.googleapis.com/gweb-mobius-cdn/pixel-b2b/pdfs/8c5a6f6180c3b18caaa04530fafc67e7cc9d53a3/Pixel%2011%20Pro%20and%20Pixel%2011%20Pro%20XL%20One-Pager.pdf"
+    "source": "https://storage.googleapis.com/gweb-mobius-cdn/pixel-b2b/pdfs/8c5a6f6180c3b18caaa04530fafc67e7cc9d53a3/Pixel%2011%20Pro%20and%20Pixel%2011%20Pro%20XL%20One-Pager.pdf",
+    "wallpaper_viewports": {
+      "original": {
+        "zoom": 1.04514344,
+        "shift_x": 8.666,
+        "shift_y": -38.258
+      },
+      "rgb_border": {
+        "zoom": 1.1,
+        "shift_x": 0,
+        "shift_y": 0
+      }
+    }
   },
   "pixel_fold_cover_portrait": {
     "cx": 540,

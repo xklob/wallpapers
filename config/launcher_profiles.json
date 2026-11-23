@@ -1,10 +1,20 @@
 {
   "pixel_11_pro_xl": {
-    "x": 67,
-    "y": 2360,
-    "width": 1193,
-    "height": 483,
-    "radius": 79,
-    "stroke": 6
+    "original": {
+      "x": 67,
+      "y": 2360,
+      "width": 1193,
+      "height": 483,
+      "radius": 79,
+      "stroke": 6
+    },
+    "rgb_border": {
+      "x": 105,
+      "y": 2282,
+      "width": 1134,
+      "height": 457,
+      "radius": 74,
+      "stroke": 6
+    }
   }
 }
