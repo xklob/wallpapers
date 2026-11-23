@@ -15,6 +15,7 @@ import android.graphics.Typeface;
 import android.os.SystemClock;
 import android.text.format.DateFormat;
 import android.view.GestureDetector;
+import android.view.HapticFeedbackConstants;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -64,28 +65,37 @@ final class LiveClockView extends View {
     }
 
     interface Listener {
-        void onStateChanged(Mode mode, Speed speed);
+        void onStateChanged(Mode mode, Speed speed, boolean bassPulse);
     }
 
     private static final float DESIGN_SIZE = 456f;
+    private static final float CENTER = DESIGN_SIZE * 0.5f;
     private static final long FRAME_MS = 33L;
-    private static final long HUD_DURATION_MS = 1_600L;
+    private static final long HUD_DURATION_MS = 1_700L;
 
     private static final String HUE_SHADER =
             "uniform shader art;\n"
             + "uniform float phase;\n"
+            + "uniform float gain;\n"
+            + "uniform float4 radialWave;\n"
             + "half4 main(float2 p) {\n"
             + "    float3 c = float3(art.eval(p).rgb);\n"
             + "    float hi = max(max(c.r, c.g), c.b);\n"
             + "    float lo = min(min(c.r, c.g), c.b);\n"
             + "    float delta = hi - lo;\n"
-            + "    if (delta < 0.0001) return half4(half3(c), 1.0);\n"
+            + "    if (delta < 0.0001) return half4(half3(c * gain), 1.0);\n"
             + "    float h = hi == c.r ? (c.g - c.b) / delta\n"
             + "            : hi == c.g ? 2.0 + (c.b - c.r) / delta\n"
             + "            : 4.0 + (c.r - c.g) / delta;\n"
-            + "    float3 wheel = clamp(abs(fract(h / 6.0 + phase +\n"
+            + "    float offset = phase;\n"
+            + "    if (radialWave.x > 0.0) {\n"
+            + "        float dist = length(p - float2(radialWave.z, radialWave.z)) * radialWave.w;\n"
+            + "        float band = 1.0 - smoothstep(0.0, 0.28, abs(dist - radialWave.y));\n"
+            + "        offset += radialWave.x * band;\n"
+            + "    }\n"
+            + "    float3 wheel = clamp(abs(fract(h / 6.0 + offset +\n"
             + "            float3(0.0, 2.0 / 3.0, 1.0 / 3.0)) * 6.0 - 3.0) - 1.0, 0.0, 1.0);\n"
-            + "    return half4(half3(lo + delta * wheel), 1.0);\n"
+            + "    return half4(half3(clamp((lo + delta * wheel) * gain, 0.0, 1.0)), 1.0);\n"
             + "}";
 
     private final Paint artPaint = new Paint(Paint.FILTER_BITMAP_FLAG);
@@ -95,6 +105,7 @@ final class LiveClockView extends View {
     private final Paint iconFillPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint iconStrokePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint hudPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint dotPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
     private final RuntimeShader hueShader = new RuntimeShader(HUE_SHADER);
     private final Bitmap artwork;
@@ -108,10 +119,12 @@ final class LiveClockView extends View {
     private final SimpleDateFormat time24Format = new SimpleDateFormat("HH:mm", Locale.US);
     private final Date now = new Date();
     private final GestureDetector gestures;
+    private final BassPulse bassPulse;
     private final Listener listener;
 
-    private Mode mode = Mode.FULL;
-    private Speed speed = Speed.MEDIUM;
+    private Mode mode;
+    private Speed speed;
+    private boolean bassEnabled;
     private int batteryPercent = -1;
     private int heartRate = 0;
     private boolean running;
@@ -130,10 +143,13 @@ final class LiveClockView extends View {
         }
     };
 
-    LiveClockView(Context context, Mode initialMode, Speed initialSpeed, Listener listener) {
+    LiveClockView(Context context, Mode initialMode, Speed initialSpeed, boolean initialBass,
+            BassPulse bassPulse, Listener listener) {
         super(context);
         this.mode = initialMode;
         this.speed = initialSpeed;
+        this.bassEnabled = initialBass;
+        this.bassPulse = bassPulse;
         this.listener = listener;
         setKeepScreenOn(true);
 
@@ -167,6 +183,7 @@ final class LiveClockView extends View {
         iconFillPaint.setStyle(Paint.Style.FILL);
         iconStrokePaint.setStyle(Paint.Style.STROKE);
         iconStrokePaint.setStrokeWidth(1.6f);
+        dotPaint.setStyle(Paint.Style.FILL);
 
         buildHeartPath(144f, 305f, 18f);
 
@@ -179,25 +196,43 @@ final class LiveClockView extends View {
             @Override
             public boolean onSingleTapConfirmed(MotionEvent e) {
                 mode = mode.next();
-                showHud(mode.label + " // " + speed.label);
-                if (LiveClockView.this.listener != null) {
-                    LiveClockView.this.listener.onStateChanged(mode, speed);
-                }
-                invalidate();
+                notifyChange();
                 return true;
             }
 
             @Override
             public boolean onDoubleTap(MotionEvent e) {
                 speed = speed.next();
-                showHud(mode.label + " // " + speed.label);
-                if (LiveClockView.this.listener != null) {
-                    LiveClockView.this.listener.onStateChanged(mode, speed);
-                }
-                invalidate();
+                notifyChange();
                 return true;
             }
+
+            @Override
+            public void onLongPress(MotionEvent e) {
+                performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
+                bassEnabled = !bassEnabled;
+                notifyChange();
+            }
         });
+    }
+
+    private void notifyChange() {
+        showHud(statusLabel());
+        if (listener != null) {
+            listener.onStateChanged(mode, speed, bassEnabled);
+        }
+        invalidate();
+    }
+
+    String statusLabel() {
+        return mode.label + " // " + speed.label + (bassEnabled ? " // BASS" : "");
+    }
+
+    void setBassEnabled(boolean enabled) {
+        if (bassEnabled == enabled) return;
+        bassEnabled = enabled;
+        showHud(statusLabel());
+        invalidate();
     }
 
     private static Bitmap loadArtwork(Context context) {
@@ -274,9 +309,16 @@ final class LiveClockView extends View {
         canvas.drawColor(Color.BLACK);
 
         long nowMs = SystemClock.uptimeMillis();
-        long dt = Math.max(0L, nowMs - lastTickMs);
+        long dt = Math.max(0L, Math.min(150L, nowMs - lastTickMs));
         lastTickMs = nowMs;
-        phase = (phase + (float) dt / (float) speed.periodMs) % 1.0f;
+
+        float pulse = bassEnabled ? bassPulse.pulse(nowMs) : 0f;
+        float activity = bassEnabled ? bassPulse.activity(nowMs) : 0f;
+        float wavePulse = bassEnabled ? bassPulse.wavePulse(nowMs) : 0f;
+        float travel = bassEnabled ? bassPulse.travel(nowMs) : 0f;
+
+        float hueBoost = pulse * activity * 0.00055f;
+        phase = (phase + (float) dt / (float) speed.periodMs + dt * hueBoost) % 1.0f;
 
         float scale = Math.min(getWidth(), getHeight()) / DESIGN_SIZE;
         float offsetX = (getWidth() - DESIGN_SIZE * scale) * 0.5f;
@@ -290,20 +332,38 @@ final class LiveClockView extends View {
         now.setTime(System.currentTimeMillis());
         String timeStr = (DateFormat.is24HourFormat(getContext()) ? time24Format : time12Format).format(now);
 
+        float beatBrightness = 1f - 0.38f * activity * (1f - pulse);
+        float artGain = beatBrightness + 0.24f * pulse * activity;
+
         if (mode == Mode.FULL) {
             if (artwork != null) {
                 hueShader.setFloatUniform("phase", phase);
+                hueShader.setFloatUniform("gain", artGain);
+                hueShader.setFloatUniform("radialWave",
+                        0.26f * wavePulse * activity,
+                        travel,
+                        CENTER,
+                        1f / CENTER);
+                float artScale = 1f + 0.032f * pulse * activity;
+                canvas.save();
+                canvas.scale(artScale, artScale, CENTER, CENTER);
                 canvas.drawRect(0f, 0f, DESIGN_SIZE, DESIGN_SIZE, artPaint);
+                canvas.restore();
             }
 
-            datePaint.setColor(rgbWheel(angle, 190, 65, 255));
+            int fgAlpha = clamp255(Math.round(255f * Math.min(1f, beatBrightness + 0.15f * pulse)));
+            datePaint.setColor(rgbWheel(angle, 190, 65, fgAlpha));
             String dateStr = dateFormat.format(now).toUpperCase(Locale.US);
-            drawCenteredText(canvas, dateStr, 228f, 140f, datePaint);
+            drawCenteredText(canvas, dateStr, CENTER, 140f, datePaint);
 
-            timePaint.setColor(rgbWheel(angle + 1.047198, 205, 50, 255));
-            drawCenteredText(canvas, timeStr, 228f, 227f, timePaint);
+            float timeScale = 1f + 0.06f * pulse * activity;
+            timePaint.setColor(rgbWheel(angle + 1.047198, 205, 50, fgAlpha));
+            canvas.save();
+            canvas.scale(timeScale, timeScale, CENTER, 227f);
+            drawCenteredText(canvas, timeStr, CENTER, 227f, timePaint);
+            canvas.restore();
 
-            int metaColor = rgbWheel(angle + 2.094395, 190, 65, 255);
+            int metaColor = rgbWheel(angle + 2.094395, 190, 65, fgAlpha);
             metaPaint.setColor(metaColor);
             iconFillPaint.setColor(metaColor);
             iconStrokePaint.setColor(metaColor);
@@ -324,15 +384,28 @@ final class LiveClockView extends View {
             double driftSec = (nowMs - startTimeMs) / 1000.0;
             float dx = (float) (Math.sin(driftSec * 0.052) * 4.5);
             float dy = (float) (Math.cos(driftSec * 0.037) * 4.5);
-            int alpha = Math.round(255f * mode.alphaScale);
+            float alphaFactor = mode.alphaScale * Math.min(1.15f, beatBrightness + 0.25f * pulse * activity);
+            int alpha = clamp255(Math.round(255f * alphaFactor));
+            float timeScale = 1f + 0.085f * pulse * activity;
             timePaint.setColor(rgbWheel(angle, 155, 100, alpha));
-            drawCenteredText(canvas, timeStr, 228f + dx, 228f + dy, timePaint);
+            canvas.save();
+            canvas.scale(timeScale, timeScale, CENTER + dx, CENTER + dy);
+            drawCenteredText(canvas, timeStr, CENTER + dx, CENTER + dy, timePaint);
+            canvas.restore();
+        }
+
+        if (bassEnabled && nowMs >= hudUntilMs) {
+            boolean hearing = bassPulse.hasSignal(nowMs);
+            int dotAlpha = hearing ? clamp255(Math.round(110f + 145f * pulse)) : 55;
+            float dotRadius = hearing ? (3.2f + 2.8f * pulse) : 2.6f;
+            dotPaint.setColor(rgbWheel(angle + 2.094395, 180, 75, dotAlpha));
+            canvas.drawCircle(CENTER, 368f, dotRadius, dotPaint);
         }
 
         if (nowMs < hudUntilMs && !hudText.isEmpty()) {
             float fade = Math.min(1f, (hudUntilMs - nowMs) / 350f);
-            hudPaint.setColor(Color.argb(Math.round(190f * fade), 220, 224, 240));
-            drawCenteredText(canvas, hudText, 228f, 378f, hudPaint);
+            hudPaint.setColor(Color.argb(Math.round(200f * fade), 220, 224, 240));
+            drawCenteredText(canvas, hudText, CENTER, 378f, hudPaint);
         }
 
         canvas.restore();

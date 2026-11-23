@@ -23,15 +23,21 @@ public final class LiveClockActivity extends Activity implements SensorEventList
     private static final String PREFS = "wear_live";
     private static final String KEY_MODE = "mode";
     private static final String KEY_SPEED = "speed";
+    private static final String KEY_BASS = "bass_pulse";
     private static final String PERM_READ_HEART_RATE = "android.permission.health.READ_HEART_RATE";
     private static final int REQ_HEART_RATE = 101;
+    private static final int REQ_AUDIO = 102;
 
+    private final BassPulse bassPulse = new BassPulse();
+    private MicrophoneBeatTracker micTracker;
     private LiveClockView clockView;
     private SensorManager sensorManager;
     private Sensor heartRateSensor;
+    private boolean bassEnabled;
+    private boolean resumed;
     private boolean batteryRegistered;
     private boolean sensorRegistered;
-    private boolean askedPermission;
+    private boolean askedHeartRate;
 
     private final BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
         @Override
@@ -52,11 +58,13 @@ public final class LiveClockActivity extends Activity implements SensorEventList
                 LiveClockView.Mode.FULL);
         LiveClockView.Speed speed = parseEnum(LiveClockView.Speed.class, prefs.getString(KEY_SPEED, null),
                 LiveClockView.Speed.MEDIUM);
+        bassEnabled = prefs.getBoolean(KEY_BASS, false);
 
-        clockView = new LiveClockView(this, mode, speed, this);
+        micTracker = new MicrophoneBeatTracker(this, bassPulse);
+        clockView = new LiveClockView(this, mode, speed, bassEnabled, bassPulse, this);
         setContentView(clockView);
         applyBrightness(mode);
-        clockView.showHud(mode.label + " // " + speed.label);
+        clockView.showHud(clockView.statusLabel());
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         if (sensorManager != null) {
@@ -70,6 +78,7 @@ public final class LiveClockActivity extends Activity implements SensorEventList
     @Override
     protected void onResume() {
         super.onResume();
+        resumed = true;
         hideSystemBars();
         clockView.setRunning(true);
 
@@ -79,11 +88,14 @@ public final class LiveClockActivity extends Activity implements SensorEventList
             updateBattery(sticky);
         }
         startHeartRateSensor();
+        updateAudioCapture(false);
     }
 
     @Override
     protected void onPause() {
+        resumed = false;
         clockView.setRunning(false);
+        micTracker.stop();
         if (batteryRegistered) {
             unregisterReceiver(batteryReceiver);
             batteryRegistered = false;
@@ -99,17 +111,29 @@ public final class LiveClockActivity extends Activity implements SensorEventList
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == REQ_HEART_RATE) {
             startHeartRateSensor();
+        } else if (requestCode == REQ_AUDIO) {
+            if (hasAudioPermission()) {
+                updateAudioCapture(false);
+            } else {
+                bassEnabled = false;
+                getSharedPreferences(PREFS, MODE_PRIVATE).edit().putBoolean(KEY_BASS, false).apply();
+                clockView.setBassEnabled(false);
+                clockView.showHud("MIC DENIED");
+            }
         }
     }
 
     @Override
-    public void onStateChanged(LiveClockView.Mode mode, LiveClockView.Speed speed) {
+    public void onStateChanged(LiveClockView.Mode mode, LiveClockView.Speed speed, boolean bass) {
+        bassEnabled = bass;
         getSharedPreferences(PREFS, MODE_PRIVATE)
                 .edit()
                 .putString(KEY_MODE, mode.name())
                 .putString(KEY_SPEED, speed.name())
+                .putBoolean(KEY_BASS, bass)
                 .apply();
         applyBrightness(mode);
+        updateAudioCapture(true);
     }
 
     @Override
@@ -124,6 +148,18 @@ public final class LiveClockActivity extends Activity implements SensorEventList
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
+
+    private void updateAudioCapture(boolean allowPrompt) {
+        if (!resumed || !bassEnabled) {
+            micTracker.stop();
+            return;
+        }
+        if (hasAudioPermission()) {
+            micTracker.start();
+        } else if (allowPrompt) {
+            requestPermissions(new String[] { Manifest.permission.RECORD_AUDIO }, REQ_AUDIO);
+        }
     }
 
     private void applyBrightness(LiveClockView.Mode mode) {
@@ -152,9 +188,13 @@ public final class LiveClockActivity extends Activity implements SensorEventList
                 || checkSelfPermission(Manifest.permission.BODY_SENSORS) == PackageManager.PERMISSION_GRANTED;
     }
 
+    private boolean hasAudioPermission() {
+        return checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
+    }
+
     private void ensureHeartRatePermission() {
-        if (!hasHeartRatePermission() && !askedPermission) {
-            askedPermission = true;
+        if (!hasHeartRatePermission() && !askedHeartRate) {
+            askedHeartRate = true;
             requestPermissions(new String[] { heartRatePermission() }, REQ_HEART_RATE);
         }
     }

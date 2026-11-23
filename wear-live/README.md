@@ -9,6 +9,7 @@ Always-on interactive Wear OS companion app that bypasses the 1-redraw-per-minut
   - `MINIMAL`: RGB hue-rotating time only on pure black, with subtle burn-in pixel drift
   - `DIM`: low-brightness RGB hue-rotating time for dark rooms and lower battery draw
 - **Double tap:** cycle hue speed (`10S` medium // `4S` fast // `20S` slow)
+- **Long press:** toggle **Bass Pulse** (live watch microphone 35-210 Hz bass beat detector; pulses brightness, radial color wave, scale thump, and hue boost on every kick without saving audio)
 - **Crown / hardware button:** exit back to your watch face (accidental swipe-to-dismiss is disabled)
 
 ## Install
