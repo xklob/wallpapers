@@ -1,0 +1,38 @@
+name: Publish RGB Geometry Live Audio Sync preview
+on:
+  push:
+    branches: [audio-sync]
+    paths: [.github/workflows/publish-audio-sync-preview.yml]
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 50be0126790b1b44d84ac1758003cfc14b11da71
+      - name: Fetch and verify signed preview APK
+        run: |
+          apk=RGB-Geometry-Live-1.1.0-preview.1.apk
+          curl --fail --silent --show-error --location --retry 4 \
+            https://wallpapers.klob.io/releases/staging/"$apk" --output "$apk"
+          printf '%s  %s\n' a91ec80282b7cb1a5260868f6fa40d8a767e5c22538fb147470ba1b6a4794d07 "$apk" > SHA256SUMS.txt
+          sha256sum --check SHA256SUMS.txt
+      - name: Tag and publish Android prerelease
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: android-v1.1.0-preview.1
+        run: |
+          git tag "$RELEASE_TAG"
+          git push origin "refs/tags/$RELEASE_TAG"
+          cat > "$RUNNER_TEMP/notes.md" <<'NOTES'
+          First Audio Sync preview for RGB Geometry Live. Bass onsets brighten the RGB lines and briefly speed up the hue cycle. Silence fades back to ambient animation.
+
+          Enable **Animate colors** and **Audio Sync** in the app and grant Android's audio permission. The app uses device playback frequency data without saving audio. The preview is signed for an in-place update from 1.0.0.
+
+          Spotify over Bluetooth and lock-screen audio are pending testing on the Pixel.
+          NOTES
+          gh release create "$RELEASE_TAG" RGB-Geometry-Live-1.1.0-preview.1.apk SHA256SUMS.txt \
+            --verify-tag --prerelease --latest=false \
+            --title "RGB Geometry Live 1.1.0 Preview 1 · Audio Sync" --notes-file "$RUNNER_TEMP/notes.md"
