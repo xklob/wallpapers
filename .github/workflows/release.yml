@@ -8,7 +8,7 @@ on:
     inputs:
       release_tag:
         description: Git tag for the release
-        default: v1.2.0
+        default: v1.2.1
         required: true
 
 permissions:
@@ -26,13 +26,13 @@ jobs:
         with:
           ref: master
 
-      - name: Import the v1.2 source update
-        if: ${{ hashFiles('config/flagship_phones.txt') == '' }}
+      - name: Import the Pixel alignment update
         run: |
-          bundle="$RUNNER_TEMP/rgb-geometry-v1.2.0-package.tar.gz"
+          if grep -q '"wallpaper_viewports"' config/camera_profiles_additions.json; then exit 0; fi
+          bundle="$RUNNER_TEMP/rgb-geometry-v1.2.1-package.tar.gz"
           curl --fail --silent --show-error --location --retry 4 --output "$bundle" \
-            https://wallpapers.klob.io/rgb-geometry-v1.2.0-package.tar.gz
-          printf '%s  %s\n' 7e77d88adaf6aca4c293d2ccc35a224ad93cec057d942bcfd01368d44beb3a62 "$bundle" | sha256sum --check
+            https://wallpapers.klob.io/rgb-geometry-v1.2.1-package.tar.gz
+          printf '%s  %s\n' e3c77113665d28e98809f26c822a8f088d555adb80c29b28a960a8042994373d "$bundle" | sha256sum --check
           tar -xzf "$bundle"
 
       - uses: actions/setup-node@v4
@@ -51,18 +51,18 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add README.md config docs renders site src
           if ! git diff --cached --quiet; then
-            git commit -m 'Add flagship phone wallpapers and refined RGB borders'
+            git commit -m 'Calibrate Pixel 11 Pro XL camera and launcher outlines'
             git push origin HEAD:master
           fi
 
       - name: Publish the GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
-          RELEASE_TAG: ${{ inputs.release_tag || 'v1.2.0' }}
+          RELEASE_TAG: ${{ inputs.release_tag || 'v1.2.1' }}
         run: |
           if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
             gh release upload "$RELEASE_TAG" release/*.zip --clobber
           else
             gh release create "$RELEASE_TAG" release/*.zip --target "$(git rev-parse HEAD)" \
-              --title 'RGB Geometry Wallpapers 1.2' --notes-file docs/RELEASE_NOTES.md
+              --title 'RGB Geometry Wallpapers 1.2.1' --notes-file docs/RELEASE_NOTES.md
           fi
