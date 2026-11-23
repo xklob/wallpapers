@@ -12,7 +12,10 @@ This release contains 2,808 wallpapers per format. The flagship index covers 369
 - `site/` contains the static site and catalog.
 - `src/` contains generation and packaging scripts.
 
-Download [RGB Geometry Live for Android](https://github.com/xklob/wallpapers/releases/tag/android-v1.0.0) or view its [source and build instructions](android-live/README.md).
+- `android-live/` contains the Android live wallpaper app.
+- `wear-watch/` contains the Wear OS watch face.
+
+Download the [Android Live & Wear OS apps (`apps-v1.1.0`)](https://github.com/xklob/wallpapers/releases/tag/apps-v1.1.0), or view build instructions for [Android Live](android-live/README.md) and [Wear OS](wear-watch/README.md).
 
 ## Build the site locally
 

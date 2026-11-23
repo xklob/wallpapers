@@ -8,7 +8,7 @@ Tap **Apply live wallpaper** and select the destination in Android’s wallpaper
 
 A hardware canvas runs a hue-rotation shader at about 30 FPS while the wallpaper is visible. Geometry and black space stay fixed. The app uses local assets.
 
-## Audio Sync preview
+## Audio Sync
 
 With **Animate colors** on, enable **Audio Sync** and grant Android's audio permission. **Device audio** uses Android's output-mix FFT. **Microphone** follows ambient sound. Tap **Start microphone** in the app to arm that session and **Stop microphone** to end it. The microphone is released while the wallpaper and preview are hidden, and the session never saves audio. Silence fades back to the normal animation. Audio Sync is off by default.
 
