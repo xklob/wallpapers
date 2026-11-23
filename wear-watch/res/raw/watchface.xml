@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WatchFace width="456" height="456">
+    <Scene backgroundColor="#000000">
+        <Group name="interactive" x="0" y="0" width="456" height="456">
+            <Variant mode="AMBIENT" target="alpha" value="0" />
+            <PartImage x="0" y="0" width="456" height="456">
+                <Image resource="honeycomb" />
+            </PartImage>
+            <PartText name="date" x="52" y="121" width="352" height="42">
+                <Text align="CENTER">
+                    <Font family="space_grotesk_medium" size="23" color="#9EFBE5">
+                        <Upper><Template>%s · %s %d<Parameter expression="[DAY_OF_WEEK_S]" /><Parameter expression="[MONTH_S]" /><Parameter expression="[DAY]" /></Template></Upper>
+                    </Font>
+                </Text>
+            </PartText>
+            <PartText name="battery" x="219" y="294" width="81" height="40">
+                <Text align="START">
+                    <Font family="space_grotesk_medium" size="22" color="#D3D5EA">
+                        <Template>%d%%<Parameter expression="[BATTERY_PERCENT]" /></Template>
+                    </Font>
+                </Text>
+            </PartText>
+        </Group>
+        <DigitalClock x="38" y="158" width="380" height="138">
+            <TimeText x="0" y="0" width="380" height="138" align="CENTER"
+                format="h:mm" hourFormat="SYNC_TO_DEVICE">
+                <Variant mode="AMBIENT" target="alpha" value="115" />
+                <Font family="space_grotesk_bold" color="#F5F4FF" size="112" />
+            </TimeText>
+        </DigitalClock>
+    </Scene>
+</WatchFace>
