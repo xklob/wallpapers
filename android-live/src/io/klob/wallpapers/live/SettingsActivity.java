@@ -28,10 +28,13 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.function.IntFunction;
 
 public final class SettingsActivity extends Activity {
     private static final int AUDIO_PERMISSION = 31;
+    private static final String EDITING_SCREEN = "editing_screen";
     private final Handler uiHandler = new Handler(Looper.getMainLooper());
     private SharedPreferences preferences;
     private Preview preview;
@@ -40,6 +43,10 @@ public final class SettingsActivity extends Activity {
     private TextView audioStatus;
     private Button microphoneControl;
     private Spinner audioSource;
+    private WallpaperScreen editingScreen = WallpaperScreen.HOME;
+    private Spinner patterns;
+    private final Map<String, Switch> appearanceToggles = new LinkedHashMap<>();
+    private boolean refreshingAppearance;
     private final Runnable audioMeter = new Runnable() {
         @Override public void run() {
             updateAudioStatus();
@@ -48,7 +55,7 @@ public final class SettingsActivity extends Activity {
     };
     private final SharedPreferences.OnSharedPreferenceChangeListener changes = (prefs, key) -> {
         preview.refresh(prefs);
-        if (Settings.ANIMATE.equals(key) || Settings.AUDIO_SYNC.equals(key) || Settings.MICROPHONE.equals(key)) {
+        if (Settings.ANIMATE.equals(key) || Settings.AUDIO_SYNC.equals(key) || Settings.AUDIO_SOURCE.equals(key)) {
             if (!microphoneEnabled()) MicrophoneAudioService.stop(this);
             refreshAudioStatus();
         }
@@ -57,7 +64,10 @@ public final class SettingsActivity extends Activity {
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         preferences = Settings.open(this);
-        preview = new Preview(this, preferences);
+        if (savedInstanceState != null) {
+            editingScreen = WallpaperScreen.fromPreference(savedInstanceState.getString(EDITING_SCREEN));
+        }
+        preview = new Preview(this, preferences, editingScreen);
 
         ScrollView scroll = new ScrollView(this);
         scroll.setFillViewport(true);
@@ -77,12 +87,13 @@ public final class SettingsActivity extends Activity {
         apply.setAllCaps(false);
         apply.setOnClickListener(view -> openWallpaperPicker());
         content.addView(apply, fullWidth(dp(52), 8));
+        addText(content, "Choose the destination in Android’s wallpaper picker.", 14);
+        addLayoutSelector(content);
 
         LinearLayout.LayoutParams previewLayout = new LinearLayout.LayoutParams(dp(126), dp(280));
         previewLayout.gravity = Gravity.CENTER_HORIZONTAL;
         previewLayout.topMargin = dp(12);
         previewLayout.bottomMargin = dp(16);
-        preview.setContentDescription("Live wallpaper preview");
         content.addView(preview, previewLayout);
 
         addToggle(content, "Animate colors", Settings.ANIMATE);
@@ -93,26 +104,31 @@ public final class SettingsActivity extends Activity {
         speed.setEnabled(Settings.enabled(preferences, Settings.ANIMATE));
 
         TextView patternLabel = addText(content, "Pattern", 16);
-        Spinner patterns = new Spinner(this, Spinner.MODE_DROPDOWN);
+        patterns = new Spinner(this, Spinner.MODE_DROPDOWN);
         patterns.setId(View.generateViewId());
         patternLabel.setLabelFor(patterns.getId());
         ArrayAdapter<String> names = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, Settings.PATTERNS);
         names.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         patterns.setAdapter(names);
-        patterns.setSelection(preferences.getInt(Settings.PATTERN, 0));
         patterns.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                preferences.edit().putInt(Settings.PATTERN, pos).apply();
+                if (!refreshingAppearance) preferences.edit().putInt(editingScreen.key(Settings.PATTERN), pos).apply();
             }
             @Override public void onNothingSelected(AdapterView<?> parent) {}
         });
         content.addView(patterns, fullWidth(dp(48), 0));
 
-        addToggle(content, "RGB border", Settings.BORDER);
-        addToggle(content, "Camera ring", Settings.CAMERA);
-        addToggle(content, "Home row and search outline", Settings.DOCK);
-        addToggle(content, "Status bar outline", Settings.STATUS);
+        addAppearanceToggle(content, "RGB border", Settings.BORDER);
+        addAppearanceToggle(content, "Camera ring", Settings.CAMERA);
+        addAppearanceToggle(content, "Home row and search outline", Settings.DOCK);
+        addAppearanceToggle(content, "Status bar outline", Settings.STATUS);
+        refreshAppearance();
+    }
+
+    @Override protected void onSaveInstanceState(Bundle state) {
+        state.putString(EDITING_SCREEN, editingScreen.name());
+        super.onSaveInstanceState(state);
     }
 
     @Override public void onStart() {
@@ -131,6 +147,7 @@ public final class SettingsActivity extends Activity {
     }
 
     private void openWallpaperPicker() {
+        preferences.edit().putString(Settings.PREVIEW_SCREEN, editingScreen.name()).apply();
         Intent intent = new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
         intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,
                 new ComponentName(this, RgbWallpaperService.class));
@@ -159,6 +176,51 @@ public final class SettingsActivity extends Activity {
         label.setTextSize(size);
         content.addView(label);
         return label;
+    }
+
+    private void addLayoutSelector(LinearLayout content) {
+        TextView label = addText(content, "Layout to edit", 16);
+        Spinner layouts = new Spinner(this, Spinner.MODE_DROPDOWN);
+        layouts.setId(View.generateViewId());
+        label.setLabelFor(layouts.getId());
+        ArrayAdapter<WallpaperScreen> names = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, WallpaperScreen.values());
+        names.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        layouts.setAdapter(names);
+        layouts.setSelection(editingScreen.ordinal());
+        layouts.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                editingScreen = (WallpaperScreen) parent.getItemAtPosition(position);
+                refreshAppearance();
+            }
+            @Override public void onNothingSelected(AdapterView<?> parent) {}
+        });
+        content.addView(layouts, fullWidth(dp(48), 0));
+    }
+
+    private void addAppearanceToggle(LinearLayout content, String title, String key) {
+        Switch toggle = new Switch(this);
+        toggle.setText(title);
+        toggle.setTextSize(16);
+        toggle.setOnCheckedChangeListener((button, enabled) -> {
+            if (!refreshingAppearance) preferences.edit().putBoolean(editingScreen.key(key), enabled).apply();
+        });
+        appearanceToggles.put(key, toggle);
+        content.addView(toggle, fullWidth(dp(48), 0));
+    }
+
+    private void refreshAppearance() {
+        refreshingAppearance = true;
+        patterns.setSelection(Settings.pattern(preferences, editingScreen));
+        for (Map.Entry<String, Switch> entry : appearanceToggles.entrySet()) {
+            String key = entry.getKey();
+            Switch toggle = entry.getValue();
+            boolean visible = editingScreen == WallpaperScreen.HOME || !Settings.DOCK.equals(key);
+            toggle.setVisibility(visible ? View.VISIBLE : View.GONE);
+            toggle.setChecked(visible && Settings.enabled(preferences, editingScreen.key(key)));
+        }
+        refreshingAppearance = false;
+        preview.setScreen(preferences, editingScreen);
     }
 
     private void addToggle(LinearLayout content, String title, String key) {
@@ -196,14 +258,15 @@ public final class SettingsActivity extends Activity {
         audioSource = new Spinner(this, Spinner.MODE_DROPDOWN);
         audioSource.setId(View.generateViewId());
         sourceLabel.setLabelFor(audioSource.getId());
-        ArrayAdapter<String> sources = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
-                new String[]{"Device audio", "Microphone"});
+        ArrayAdapter<AudioSource> sources = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
+                AudioSource.values());
         sources.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         audioSource.setAdapter(sources);
-        audioSource.setSelection(Settings.microphone(preferences) ? 1 : 0);
+        audioSource.setSelection(Settings.audioSource(preferences).ordinal());
         audioSource.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                preferences.edit().putBoolean(Settings.MICROPHONE, position == 1).apply();
+                AudioSource source = (AudioSource) parent.getItemAtPosition(position);
+                preferences.edit().putString(Settings.AUDIO_SOURCE, source.name()).apply();
             }
             @Override public void onNothingSelected(AdapterView<?> parent) {}
         });
@@ -224,7 +287,7 @@ public final class SettingsActivity extends Activity {
     }
 
     private boolean microphoneEnabled() {
-        return Settings.microphone(preferences) && Settings.audioSync(preferences)
+        return Settings.audioSource(preferences) != AudioSource.DEVICE && Settings.audioSync(preferences)
                 && Settings.enabled(preferences, Settings.ANIMATE) && OutputAudio.hasPermission(this);
     }
 
@@ -243,17 +306,20 @@ public final class SettingsActivity extends Activity {
     }
 
     private void updateAudioStatus() {
-        boolean microphone = Settings.microphone(preferences);
+        AudioSource source = Settings.audioSource(preferences);
         boolean microphoneRunning = MicrophoneAudioService.isRunning();
         microphoneControl.setVisibility(microphoneEnabled() ? View.VISIBLE : View.GONE);
         String control = microphoneRunning ? "Stop microphone" : "Start microphone";
+        if (source == AudioSource.AUTO) control += " fallback";
         if (!control.contentEquals(microphoneControl.getText())) microphoneControl.setText(control);
         String message;
         if (!audioSync.isChecked()) {
             message = "Audio Sync requires Android’s microphone permission for either audio source.";
         } else if (!audioSync.isEnabled()) {
             message = "Turn on Animate colors to react to audio.";
-        } else if (microphone) {
+        } else if (source == AudioSource.AUTO) {
+            message = automaticAudioStatus(microphoneRunning);
+        } else if (source == AudioSource.MICROPHONE) {
             if (!microphoneRunning) {
                 message = MicrophoneAudioService.failed() ? "Microphone unavailable. Try starting it again."
                         : "Start the microphone to react to sound around you.";
@@ -269,6 +335,14 @@ public final class SettingsActivity extends Activity {
             message = "Waiting for device audio";
         }
         if (!message.contentEquals(audioStatus.getText())) audioStatus.setText(message);
+    }
+
+    private String automaticAudioStatus(boolean microphoneRunning) {
+        if (AutoAudio.INSTANCE.isDevicePlaying()) return "Auto · Device audio";
+        if (AutoAudio.INSTANCE.isUsingMicrophone()) return "Auto · Microphone";
+        if (microphoneRunning) return "Auto · Waiting for a playback pause";
+        if (MicrophoneAudioService.failed()) return "Microphone unavailable. Try starting it again.";
+        return "Start microphone fallback to react when device playback pauses.";
     }
 
     private void addAudioTuner(LinearLayout content) {
@@ -352,15 +426,22 @@ public final class SettingsActivity extends Activity {
     private static final class Preview extends View {
         private final RgbRenderer renderer;
         private boolean active;
+        private WallpaperScreen screen;
 
-        Preview(Context context, SharedPreferences preferences) {
+        Preview(Context context, SharedPreferences preferences, WallpaperScreen screen) {
             super(context);
             renderer = new RgbRenderer(context);
-            renderer.update(preferences);
+            setScreen(preferences, screen);
+        }
+
+        void setScreen(SharedPreferences preferences, WallpaperScreen screen) {
+            this.screen = screen;
+            setContentDescription(screen + " wallpaper preview");
+            refresh(preferences);
         }
 
         void refresh(SharedPreferences preferences) {
-            renderer.update(preferences);
+            renderer.update(preferences, screen);
             invalidate();
         }
 

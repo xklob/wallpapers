@@ -2,13 +2,17 @@
 
 An Android 13+ live wallpaper with all four RGB Geometry patterns. The frame, camera ring, home row and search outline, and status bar outline use the Pixel 11 Pro XL calibration from the static pack. The app lets you toggle each outline and set a 6–60 second color cycle. Switching animation off restores the original colors.
 
-Open **RGB Geometry Live** to configure the artwork, then tap **Apply live wallpaper** to open Android’s wallpaper preview. The same settings are used wherever Android applies this wallpaper. The display fit is tuned for the Pixel 11 Pro XL. Other displays may show black margins.
+Open **RGB Geometry Live**, select **Home screen** or **Lock screen** under **Layout to edit**, and customize the pattern, frame, camera ring, and status outline. The home row and search outline is available on Home only. Existing appearance settings become the initial layouts for both screens. Audio and motion controls are shared.
+
+Tap **Apply live wallpaper** and select the destination in Android’s wallpaper picker. The choices available for live wallpaper depend on the device and Android version. When one live wallpaper serves both screens, the app switches layouts as the device locks and unlocks. The display fit is tuned for the Pixel 11 Pro XL.
 
 A hardware canvas runs a hue-rotation shader at about 30 FPS while the wallpaper is visible. Geometry and black space stay fixed. The app uses local assets.
 
 ## Audio Sync preview
 
 With **Animate colors** on, enable **Audio Sync** and grant Android's audio permission. **Device audio** uses Android's output-mix FFT. **Microphone** follows ambient sound. Tap **Start microphone** in the app to arm that session and **Stop microphone** to end it. The microphone is released while the wallpaper and preview are hidden, and the session never saves audio. Silence fades back to the normal animation. Audio Sync is off by default.
+
+**Auto (device audio first)** monitors playback while the wallpaper or preview is visible. Tap **Start microphone fallback** to allow room sound after about 1.25 seconds of quiet. Playback takes priority as soon as it returns, and the microphone recorder closes during playback. If Android reports active playback without a usable signal, the animation stays ambient until capture is available or playback pauses.
 
 Look for **Device audio detected** or **Microphone audio detected** in the app, then open **Tune audio effects**. Choose Pulse + color, Brightness pulse, Color acceleration, or Diagonal color wave. Intensity sets the effect strength, Smoothness sets its rise and decay, and Bass sensitivity sets how readily a kick triggers it. Changes apply to the preview and active wallpaper. Reset affects only the tuner.
 

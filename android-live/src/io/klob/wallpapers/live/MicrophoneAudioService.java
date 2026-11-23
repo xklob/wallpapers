@@ -33,6 +33,7 @@ public final class MicrophoneAudioService extends Service {
     private static final BassPulse pulses = new BassPulse();
     private static MicrophoneAudioService running;
     private static boolean failed;
+    private static boolean automaticListening;
 
     private final Handler main = new Handler(Looper.getMainLooper());
     private Capture capture;
@@ -52,6 +53,12 @@ public final class MicrophoneAudioService extends Service {
     static void setListening(RgbRenderer renderer, boolean listen) {
         boolean changed = listen ? listeners.add(renderer) : listeners.remove(renderer);
         if (changed && running != null) running.updateCapture();
+    }
+
+    static void setAutomaticListening(boolean listen) {
+        if (automaticListening == listen) return;
+        automaticListening = listen;
+        if (running != null) running.updateCapture();
     }
 
     static void start(Context context) {
@@ -76,7 +83,7 @@ public final class MicrophoneAudioService extends Service {
             startForeground(NOTIFICATION, notification(), ServiceInfo.FOREGROUND_SERVICE_TYPE_MICROPHONE);
             running = this;
             SharedPreferences preferences = Settings.open(this);
-            if (Settings.audioSync(preferences) && Settings.microphone(preferences)
+            if (Settings.audioSync(preferences) && Settings.audioSource(preferences) != AudioSource.DEVICE
                     && Settings.enabled(preferences, Settings.ANIMATE)) updateCapture();
             else stopSelf();
         } catch (SecurityException exception) {
@@ -94,7 +101,7 @@ public final class MicrophoneAudioService extends Service {
         return new Notification.Builder(this, CHANNEL)
                 .setSmallIcon(R.drawable.icon)
                 .setContentTitle("Wallpaper microphone")
-                .setContentText("Listening only while the wallpaper or preview is visible")
+                .setContentText("Microphone armed while the wallpaper or preview is visible")
                 .setContentIntent(open)
                 .setOngoing(true)
                 .addAction(new Notification.Action.Builder(null, "Stop", stopIntent).build())
@@ -102,7 +109,7 @@ public final class MicrophoneAudioService extends Service {
     }
 
     private void updateCapture() {
-        if (listeners.isEmpty()) {
+        if (listeners.isEmpty() && !automaticListening) {
             stopCapture();
         } else if (capture == null) {
             capture = new Capture();

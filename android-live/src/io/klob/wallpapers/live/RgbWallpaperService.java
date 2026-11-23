@@ -1,7 +1,10 @@
 package io.klob.wallpapers.live;
 
+import android.app.KeyguardManager;
+import android.app.WallpaperManager;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.service.wallpaper.WallpaperService;
@@ -16,24 +19,31 @@ public final class RgbWallpaperService extends WallpaperService {
         private final Handler handler = new Handler(Looper.getMainLooper());
         private final RgbRenderer renderer = new RgbRenderer(RgbWallpaperService.this);
         private final SharedPreferences preferences = Settings.open(RgbWallpaperService.this);
+        private final KeyguardManager keyguard = getSystemService(KeyguardManager.class);
         private final Runnable frame = this::draw;
+        private final Runnable screenCheck = this::checkSharedScreen;
+        private WallpaperScreen screen;
         private boolean visible;
         private boolean hasSurface;
         private final SharedPreferences.OnSharedPreferenceChangeListener changes = (prefs, key) -> {
-            renderer.update(prefs);
+            screen = resolveScreen();
+            renderer.update(prefs, screen);
             if (visible) draw();
         };
 
         @Override public void onCreate(SurfaceHolder holder) {
             super.onCreate(holder);
             setOffsetNotificationsEnabled(false);
-            renderer.update(preferences);
+            screen = resolveScreen();
+            renderer.update(preferences, screen);
             preferences.registerOnSharedPreferenceChangeListener(changes);
         }
 
         @Override public void onVisibilityChanged(boolean visible) {
             this.visible = visible;
+            refreshScreen();
             renderer.setVisible(visible && hasSurface);
+            scheduleScreenCheck();
             if (visible) draw();
             else handler.removeCallbacks(frame);
         }
@@ -41,26 +51,70 @@ public final class RgbWallpaperService extends WallpaperService {
         @Override public void onSurfaceChanged(SurfaceHolder holder, int format, int width, int height) {
             super.onSurfaceChanged(holder, format, width, height);
             hasSurface = true;
+            refreshScreen();
             renderer.setVisible(visible);
+            scheduleScreenCheck();
             if (visible) draw();
         }
 
         @Override public void onSurfaceRedrawNeeded(SurfaceHolder holder) {
+            refreshScreen();
             draw();
+        }
+
+        @Override public void onWallpaperFlagsChanged(int which) {
+            if (refreshScreen() && visible) draw();
+            scheduleScreenCheck();
         }
 
         @Override public void onSurfaceDestroyed(SurfaceHolder holder) {
             hasSurface = false;
             renderer.setVisible(false);
             handler.removeCallbacks(frame);
+            handler.removeCallbacks(screenCheck);
             super.onSurfaceDestroyed(holder);
         }
 
         @Override public void onDestroy() {
             handler.removeCallbacks(frame);
+            handler.removeCallbacks(screenCheck);
             renderer.setVisible(false);
             preferences.unregisterOnSharedPreferenceChangeListener(changes);
             super.onDestroy();
+        }
+
+        private int destinationFlags() {
+            return Build.VERSION.SDK_INT >= 34 ? getWallpaperFlags() : 0;
+        }
+
+        private WallpaperScreen resolveScreen() {
+            int flags = destinationFlags();
+            boolean home = (flags & WallpaperManager.FLAG_SYSTEM) != 0;
+            boolean lock = (flags & WallpaperManager.FLAG_LOCK) != 0;
+            WallpaperScreen preview = isPreview() ? WallpaperScreen.fromPreference(
+                    preferences.getString(Settings.PREVIEW_SCREEN, null)) : null;
+            boolean locked = preview == null && home == lock && keyguard != null && keyguard.isKeyguardLocked();
+            return WallpaperScreen.resolve(home, lock, locked, preview);
+        }
+
+        private boolean refreshScreen() {
+            WallpaperScreen next = resolveScreen();
+            if (screen == next) return false;
+            screen = next;
+            renderer.update(preferences, screen);
+            return true;
+        }
+
+        private void checkSharedScreen() {
+            if (refreshScreen() && visible) draw();
+            scheduleScreenCheck();
+        }
+
+        private void scheduleScreenCheck() {
+            handler.removeCallbacks(screenCheck);
+            int flags = destinationFlags() & (WallpaperManager.FLAG_SYSTEM | WallpaperManager.FLAG_LOCK);
+            boolean shared = flags == 0 || flags == (WallpaperManager.FLAG_SYSTEM | WallpaperManager.FLAG_LOCK);
+            if (visible && hasSurface && shared && !isPreview()) handler.postDelayed(screenCheck, 150);
         }
 
         private void draw() {

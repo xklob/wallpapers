@@ -59,7 +59,7 @@ final class RgbRenderer {
     private int periodMillis = 18000;
     private boolean animate = true;
     private boolean audioSync;
-    private boolean microphone;
+    private AudioSource audioSource = AudioSource.DEVICE;
     private AudioEffect audioEffect = AudioEffect.DEFAULT;
     private float audioIntensity = Settings.DEFAULT_INTENSITY / 100f;
     private int audioSmoothness = Settings.DEFAULT_SMOOTHNESS;
@@ -80,8 +80,8 @@ final class RgbRenderer {
         }
     }
 
-    void update(SharedPreferences preferences) {
-        String path = Settings.artPath(preferences);
+    void update(SharedPreferences preferences, WallpaperScreen screen) {
+        String path = Settings.artPath(preferences, screen);
         if (!path.equals(artPath)) {
             try (InputStream file = context.getAssets().open(path)) {
                 Bitmap replacement = BitmapFactory.decodeStream(file);
@@ -101,7 +101,7 @@ final class RgbRenderer {
         periodMillis = Settings.period(preferences) * 1000;
         setAnimation(Settings.enabled(preferences, Settings.ANIMATE));
         audioSync = Settings.audioSync(preferences);
-        microphone = Settings.microphone(preferences);
+        audioSource = Settings.audioSource(preferences);
         audioEffect = Settings.audioEffect(preferences);
         audioIntensity = Settings.percentage(preferences, Settings.AUDIO_INTENSITY, Settings.DEFAULT_INTENSITY) / 100f;
         audioSmoothness = Settings.percentage(preferences, Settings.AUDIO_SMOOTHNESS, Settings.DEFAULT_SMOOTHNESS);
@@ -119,12 +119,17 @@ final class RgbRenderer {
 
     private void updateAudio() {
         boolean listen = audioSync && visible && animate && shader != null && bitmap != null;
-        OutputAudio.INSTANCE.setListening(this, context, listen && !microphone);
-        MicrophoneAudioService.setListening(this, listen && microphone);
+        OutputAudio.INSTANCE.setListening(this, context, listen && audioSource != AudioSource.MICROPHONE);
+        AutoAudio.INSTANCE.setListening(this, context, listen && audioSource == AudioSource.AUTO
+                && OutputAudio.hasPermission(context));
+        MicrophoneAudioService.setListening(this, listen && audioSource == AudioSource.MICROPHONE
+                && OutputAudio.hasPermission(context));
     }
 
     private BassPulse pulses() {
-        return microphone ? MicrophoneAudioService.pulses() : OutputAudio.INSTANCE.pulses();
+        return audioSource == AudioSource.MICROPHONE
+                || (audioSource == AudioSource.AUTO && AutoAudio.INSTANCE.isUsingMicrophone())
+                ? MicrophoneAudioService.pulses() : OutputAudio.INSTANCE.pulses();
     }
 
     private void setAnimation(boolean animate) {
