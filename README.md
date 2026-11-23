@@ -14,8 +14,9 @@ This release contains 2,808 wallpapers per format. The flagship index covers 369
 
 - `android-live/` contains the Android live wallpaper app.
 - `wear-watch/` contains the Wear OS watch face.
+- `wear-live/` contains the always-on 30 FPS Wear OS live clock companion app.
 
-Download the [Android Live & Wear OS apps (`apps-v1.1.0`)](https://github.com/xklob/wallpapers/releases/tag/apps-v1.1.0), or view build instructions for [Android Live](android-live/README.md) and [Wear OS](wear-watch/README.md).
+Download the [Android & Wear OS apps (`apps-v1.2.0`)](https://github.com/xklob/wallpapers/releases/tag/apps-v1.2.0), or view build instructions for [Android Live](android-live/README.md), [Wear OS Watch Face](wear-watch/README.md), and [Wear OS Always-On Live](wear-live/README.md).
 
 ## Build the site locally
 
