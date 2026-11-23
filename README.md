@@ -12,7 +12,7 @@ This release contains 2,808 wallpapers per format. The flagship index covers 369
 - `site/` contains the static site and catalog.
 - `src/` contains generation and packaging scripts.
 
-For the installable Android live wallpaper, see [RGB Geometry Live](android-live/README.md).
+Download [RGB Geometry Live for Android](https://github.com/xklob/wallpapers/releases/tag/android-v1.0.0) or view its [source and build instructions](android-live/README.md).
 
 ## Build the site locally
 
