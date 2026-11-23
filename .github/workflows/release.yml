@@ -1,71 +1,68 @@
-name: Render wallpapers and publish release
+name: Build wallpaper release
+
 on:
   push:
     branches: [master]
-    paths: ['.github/workflows/release.yml']
+    paths: [.github/workflows/release.yml]
   workflow_dispatch:
     inputs:
       release_tag:
-        description: Release tag
+        description: Git tag for the release
+        default: v1.1.0
         required: true
-        default: v1.0.0
+
 permissions:
   contents: write
+
 concurrency:
   group: wallpaper-release
   cancel-in-progress: false
+
 jobs:
   release:
     runs-on: ubuntu-24.04
-    timeout-minutes: 90
-    defaults:
-      run:
-        shell: bash -el {0}
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-      - name: Import the verified initial source bundle
-        if: ${{ hashFiles('config/cells.json') == '' }}
+          ref: master
+
+      - name: Import the v1.1 source update
+        if: ${{ hashFiles('config/refresh_png.json') == '' }}
         run: |
-          curl --fail --silent --show-error --location --retry 3 https://klob-wallpapers.deep-krill-3494.chatgpt.site/rgb-geometry-source.tar.gz -o /tmp/wallpaper-source.tar.gz
-          echo '30e44e71e3178d7d921231adace206cdd8cf3b619663ebc95d11165d23c5734f  /tmp/wallpaper-source.tar.gz' | sha256sum --check
-          tar --exclude=src/package_release.py -xzf /tmp/wallpaper-source.tar.gz
-      - name: Install rendering tools
-        uses: mamba-org/setup-micromamba@v2
+          bundle="$RUNNER_TEMP/rgb-geometry-v1.1.0-source.tar.gz"
+          curl --fail --silent --show-error --location --retry 4 --output "$bundle" \
+            https://wallpapers.klob.io/rgb-geometry-v1.1.0-source.tar.gz
+          printf '%s  %s\n' 4320be495c5e4ca602a69f6a1bdc548f2d776c8f60046902804ae68d95d0fddb "$bundle" | sha256sum --check
+          tar -xzf "$bundle"
+
+      - uses: actions/setup-node@v4
         with:
-          environment-name: wallpapers
-          create-args: >-
-            python=3.12 imagemagick=7 numpy pillow scipy
-          cache-environment: true
-      - name: Render PNG wallpapers
+          node-version: 22
+
+      - name: Render updated PNGs and build ZIPs
         run: |
-          python src/render_png.py
-          python src/render_camera.py
-      - name: Render native SVG wallpapers
-        run: python src/render_vectors.py --data-root . --output renders/svg
-      - name: Validate and package collection
+          npm install --prefix "$RUNNER_TEMP/wallpaper-tools" --no-save --no-audit --no-fund sharp@0.34.5
+          WALLPAPER_SHARP_MODULE="$RUNNER_TEMP/wallpaper-tools/node_modules/sharp" node src/render_updated_pngs.mjs
+          python3 src/package_release.py
+
+      - name: Commit rendered wallpapers and source
         run: |
-          python src/validate.py
-          python src/package_release.py
-      - name: Commit rendered images
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets config docs src requirements.txt renders/svg
-          git diff --cached --quiet || git commit -m "Import sources and SVG wallpapers"
-          for design in renders/png/0*/; do
-            git add "$design"
-            git diff --cached --quiet || git commit -m "Add PNG wallpapers for $(basename "$design")"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add README.md config docs renders site src
+          if ! git diff --cached --quiet; then
+            git commit -m 'Refresh device catalog and desktop wallpapers'
             git push origin HEAD:master
-          done
-      - name: Publish release
+          fi
+
+      - name: Publish the GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
-          RELEASE_TAG: ${{ inputs.release_tag || 'v1.0.0' }}
+          RELEASE_TAG: ${{ inputs.release_tag || 'v1.1.0' }}
         run: |
           if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
-            gh release upload "$RELEASE_TAG" release/* --clobber
+            gh release upload "$RELEASE_TAG" release/*.zip --clobber
           else
-            gh release create "$RELEASE_TAG" release/* --target master --title "RGB geometry · PNG + SVG wallpapers" --notes-file docs/RELEASE_NOTES.md
+            gh release create "$RELEASE_TAG" release/*.zip --target "$(git rev-parse HEAD)" \
+              --title 'RGB Geometry Wallpapers 1.1' --notes-file docs/RELEASE_NOTES.md
           fi
