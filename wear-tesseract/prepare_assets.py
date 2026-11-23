@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render the launcher icon and bundle Space Grotesk for rgb tesseract."""
+"""Render Poly's neon solid-front / dotted-rear launcher icon and bundle Space Grotesk."""
 
 import argparse
 import colorsys
@@ -21,7 +21,7 @@ def render_icon():
     gdraw = ImageDraw.Draw(glow)
     cdraw = ImageDraw.Draw(base)
 
-    # Subtle rainbow outer bezel ring
+    # Rainbow outer bezel ring
     ring_r = res * 0.46
     steps = 180
     for s in range(steps):
@@ -33,60 +33,78 @@ def render_icon():
         p1 = (center + ring_r * math.cos(a1), center + ring_r * math.sin(a1))
         cdraw.line([p0, p1], fill=col, width=round(4.5 * SCALE))
 
-    # Project a 4D tesseract at a classic isometric 4D angle
+    # Poly's iconic cube at three-quarter view: dotted rear edges, glowing solid front edges
     verts = []
-    axw, ayz, axy, azw = 0.62, 0.48, 0.35, 0.28
-    cxw, sxw = math.cos(axw), math.sin(axw)
-    cyz, syz = math.cos(ayz), math.sin(ayz)
-    cxy, sxy = math.cos(axy), math.sin(axy)
-    czw, szw = math.cos(azw), math.sin(azw)
+    yaw, elev = math.radians(30), math.radians(20)
+    cy, sy = math.cos(yaw), math.sin(yaw)
+    ce, se = math.cos(elev), math.sin(elev)
+    inv_r = 1.0 / math.sqrt(3.0)
+    rad = res * 0.34
+    for i in range(8):
+        x = (1.0 if (i & 1) else -1.0) * inv_r
+        y = (1.0 if (i & 2) else -1.0) * inv_r
+        z = (1.0 if (i & 4) else -1.0) * inv_r
+        xx = x * cy + z * sy
+        zz = -x * sy + z * cy
+        yy = y * ce - zz * se
+        verts.append((center + xx * rad, center - yy * rad))
 
-    for i in range(16):
-        x = 0.55 if (i & 1) else -0.55
-        y = 0.55 if (i & 2) else -0.55
-        z = 0.55 if (i & 4) else -0.55
-        w = 0.55 if (i & 8) else -0.55
+    # Cube faces & normals
+    faces = [
+        ((0, 1, 3, 2), (0, 0, -1)),
+        ((4, 5, 7, 6), (0, 0, 1)),
+        ((0, 2, 6, 4), (-1, 0, 0)),
+        ((1, 3, 7, 5), (1, 0, 0)),
+        ((0, 1, 5, 4), (0, -1, 0)),
+        ((2, 3, 7, 6), (0, 1, 0)),
+    ]
+    visible_face = []
+    for _, (nx, ny, nz) in faces:
+        zz = -nx * sy + nz * cy
+        rz = ny * se + zz * ce
+        visible_face.append(rz > 1e-6)
 
-        x, w = x * cxw - w * sxw, x * sxw + w * cxw
-        y, z = y * cyz - z * syz, y * syz + z * cyz
-        x, y = x * cxy - y * sxy, x * sxy + y * cxy
-        z, w = z * czw - w * szw, z * szw + w * czw
+    edge_faces = {}
+    for fi, (ids, _) in enumerate(faces):
+        for k in range(4):
+            a, b = ids[k], ids[(k + 1) % 4]
+            key = (min(a, b), max(a, b))
+            edge_faces.setdefault(key, []).append(fi)
 
-        s4 = 1.0 / (2.35 - w)
-        x3, y3, z3 = x * s4, y * s4, z * s4
-        s3 = 1.0 / (2.8 - z3)
-        px = center + x3 * s3 * res * 1.42
-        py = center + y3 * s3 * res * 1.42
-        verts.append((px, py, w + z3))
+    rear = []
+    front = []
+    for (a, b), fis in edge_faces.items():
+        if any(visible_face[fi] for fi in fis):
+            front.append((a, b))
+        else:
+            rear.append((a, b))
 
-    edges = []
-    for i in range(16):
-        for bit in range(4):
-            j = i ^ (1 << bit)
-            if j > i:
-                depth = 0.5 * (verts[i][2] + verts[j][2])
-                edges.append((depth, i, j))
-    edges.sort()
+    # Rear dotted edges
+    for idx, (a, b) in enumerate(rear):
+        x0, y0 = verts[a]
+        x1, y1 = verts[b]
+        r, g, b_c = colorsys.hsv_to_rgb((0.35 + idx * 0.14) % 1.0, 0.9, 1.0)
+        col = (int(r * 255), int(g * 255), int(b_c * 255), 225)
+        n_dots = 7
+        for s in range(n_dots + 1):
+            t = s / n_dots
+            px, py = x0 + (x1 - x0) * t, y0 + (y1 - y0) * t
+            dr = 3.6 * SCALE
+            cdraw.ellipse((px - dr, py - dr, px + dr, py + dr), fill=col)
 
-    for idx, (depth, i, j) in enumerate(edges):
-        hue = (idx / len(edges) + 0.12) % 1.0
-        r, g, b = colorsys.hsv_to_rgb(hue, 0.95, 1.0)
-        p0 = (verts[i][0], verts[i][1])
-        p1 = (verts[j][0], verts[j][1])
-        gdraw.line([p0, p1], fill=(int(r * 255), int(g * 255), int(b * 255), 180), width=round(8 * SCALE))
-        cdraw.line([p0, p1], fill=(int(r * 255), int(g * 255), int(b * 255), 255), width=round(3.2 * SCALE))
+    # Front solid glowing edges
+    for idx, (a, b) in enumerate(front):
+        r, g, b_c = colorsys.hsv_to_rgb((0.18 + idx * 0.08) % 1.0, 0.95, 1.0)
+        p0, p1 = verts[a], verts[b]
+        gdraw.line([p0, p1], fill=(int(r * 255), int(g * 255), int(b_c * 255), 200), width=round(11 * SCALE))
+        cdraw.line([p0, p1], fill=(int(r * 255), int(g * 255), int(b_c * 255), 255), width=round(5.0 * SCALE))
 
     glow = glow.filter(ImageFilter.GaussianBlur(radius=6 * SCALE))
     out = Image.alpha_composite(base, glow)
     cdraw2 = ImageDraw.Draw(out)
-    for idx, (depth, i, j) in enumerate(edges):
-        hue = (idx / len(edges) + 0.12) % 1.0
-        r, g, b = colorsys.hsv_to_rgb(hue, 0.75, 1.0)
-        cdraw2.line([(verts[i][0], verts[i][1]), (verts[j][0], verts[j][1])],
-                    fill=(int(r * 255), int(g * 255), int(b * 255), 255), width=round(2.4 * SCALE))
-    for px, py, d in verts:
-        rad = round((3.4 + max(-0.5, d) * 1.4) * SCALE)
-        cdraw2.ellipse((px - rad, py - rad, px + rad, py + rad), fill=(245, 248, 255, 255))
+    for idx, (a, b) in enumerate(front):
+        r, g, b_c = colorsys.hsv_to_rgb((0.18 + idx * 0.08) % 1.0, 0.70, 1.0)
+        cdraw2.line([verts[a], verts[b]], fill=(int(r * 255), int(g * 255), int(b_c * 255), 255), width=round(3.6 * SCALE))
 
     return out.convert("RGB").resize((SIZE, SIZE), Image.Resampling.LANCZOS)
 
