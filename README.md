@@ -15,8 +15,9 @@ This release contains 2,808 wallpapers per format. The flagship index covers 369
 - `android-live/` contains the Android live wallpaper app.
 - `wear-watch/` contains the Wear OS watch face.
 - `wear-live/` contains the always-on 30 FPS Wear OS live clock companion app.
+- `wear-tesseract/` contains the standalone morphing 4D tesseract Wear OS rave app (`rgb tesseract`).
 
-Download the [Android & Wear OS apps (`apps-v1.2.1`)](https://github.com/xklob/wallpapers/releases/tag/apps-v1.2.1), or view build instructions for [Android Live](android-live/README.md), [Wear OS Watch Face](wear-watch/README.md), and [Wear OS Always-On Live](wear-live/README.md).
+Download the [Android & Wear OS apps (`apps-v1.3.0`)](https://github.com/xklob/wallpapers/releases/tag/apps-v1.3.0), or view build instructions for [Android Live](android-live/README.md), [Wear OS Watch Face](wear-watch/README.md), [Wear OS Always-On Live](wear-live/README.md), and [rgb tesseract](wear-tesseract/README.md).
 
 ## Build the site locally
 
