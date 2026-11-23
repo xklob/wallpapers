@@ -33,7 +33,7 @@ public final class RgbWallpaperService extends WallpaperService {
 
         @Override public void onVisibilityChanged(boolean visible) {
             this.visible = visible;
-            renderer.setVisible(visible);
+            renderer.setVisible(visible && hasSurface);
             if (visible) draw();
             else handler.removeCallbacks(frame);
         }
@@ -41,6 +41,7 @@ public final class RgbWallpaperService extends WallpaperService {
         @Override public void onSurfaceChanged(SurfaceHolder holder, int format, int width, int height) {
             super.onSurfaceChanged(holder, format, width, height);
             hasSurface = true;
+            renderer.setVisible(visible);
             if (visible) draw();
         }
 
@@ -50,12 +51,14 @@ public final class RgbWallpaperService extends WallpaperService {
 
         @Override public void onSurfaceDestroyed(SurfaceHolder holder) {
             hasSurface = false;
+            renderer.setVisible(false);
             handler.removeCallbacks(frame);
             super.onSurfaceDestroyed(holder);
         }
 
         @Override public void onDestroy() {
             handler.removeCallbacks(frame);
+            renderer.setVisible(false);
             preferences.unregisterOnSharedPreferenceChangeListener(changes);
             super.onDestroy();
         }

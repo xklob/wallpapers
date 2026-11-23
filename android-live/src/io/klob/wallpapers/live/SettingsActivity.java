@@ -1,5 +1,6 @@
 package io.klob.wallpapers.live;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.WallpaperManager;
 import android.content.ActivityNotFoundException;
@@ -7,8 +8,12 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.SystemClock;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,11 +29,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public final class SettingsActivity extends Activity {
+    private static final int AUDIO_PERMISSION = 31;
+    private final Handler uiHandler = new Handler(Looper.getMainLooper());
     private SharedPreferences preferences;
     private Preview preview;
     private SeekBar speed;
-    private final SharedPreferences.OnSharedPreferenceChangeListener changes =
-            (prefs, key) -> preview.refresh(prefs);
+    private Switch audioSync;
+    private TextView audioStatus;
+    private final Runnable audioMeter = new Runnable() {
+        @Override public void run() {
+            updateAudioStatus();
+            if (audioSync.isEnabled() && audioSync.isChecked()) uiHandler.postDelayed(this, 250);
+        }
+    };
+    private final SharedPreferences.OnSharedPreferenceChangeListener changes = (prefs, key) -> {
+        preview.refresh(prefs);
+        if (Settings.ANIMATE.equals(key) || Settings.AUDIO_SYNC.equals(key)) refreshAudioStatus();
+    };
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +100,7 @@ public final class SettingsActivity extends Activity {
         addToggle(content, "Home row and search outline", Settings.DOCK);
         addToggle(content, "Status bar outline", Settings.STATUS);
         addToggle(content, "Animate colors", Settings.ANIMATE);
+        addAudioSync(content);
         addSpeedControl(content);
     }
 
@@ -90,10 +108,14 @@ public final class SettingsActivity extends Activity {
         super.onStart();
         preferences.registerOnSharedPreferenceChangeListener(changes);
         preview.refresh(preferences);
+        preview.setActive(true);
+        refreshAudioStatus();
     }
 
     @Override public void onStop() {
         preferences.unregisterOnSharedPreferenceChangeListener(changes);
+        uiHandler.removeCallbacks(audioMeter);
+        preview.setActive(false);
         super.onStop();
     }
 
@@ -140,6 +162,53 @@ public final class SettingsActivity extends Activity {
         content.addView(toggle, fullWidth(dp(48), 0));
     }
 
+    private void addAudioSync(LinearLayout content) {
+        audioSync = new Switch(this);
+        audioSync.setText("Audio Sync");
+        audioSync.setTextSize(16);
+        audioSync.setChecked(Settings.audioSync(preferences) && OutputAudio.hasPermission(this));
+        audioSync.setOnCheckedChangeListener((button, enabled) -> {
+            if (enabled && !OutputAudio.hasPermission(this)) {
+                audioSync.setChecked(false);
+                requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, AUDIO_PERMISSION);
+                return;
+            }
+            preferences.edit().putBoolean(Settings.AUDIO_SYNC, enabled).apply();
+        });
+        content.addView(audioSync, fullWidth(dp(48), 0));
+        audioStatus = addText(content, "", 14);
+    }
+
+    @Override public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] results) {
+        super.onRequestPermissionsResult(requestCode, permissions, results);
+        if (requestCode == AUDIO_PERMISSION && results.length > 0
+                && results[0] == PackageManager.PERMISSION_GRANTED) {
+            audioSync.setChecked(true);
+        }
+    }
+
+    private void refreshAudioStatus() {
+        audioSync.setEnabled(Settings.enabled(preferences, Settings.ANIMATE));
+        uiHandler.removeCallbacks(audioMeter);
+        audioMeter.run();
+    }
+
+    private void updateAudioStatus() {
+        String message;
+        if (!audioSync.isChecked()) {
+            message = "Uses device playback. Android asks for microphone permission to access it.";
+        } else if (!audioSync.isEnabled()) {
+            message = "Turn on Animate colors to react to audio.";
+        } else if (!OutputAudio.INSTANCE.isAvailable()) {
+            message = "Audio output is unavailable. The regular color cycle is still running.";
+        } else if (OutputAudio.INSTANCE.pulses().hasSignal(SystemClock.uptimeMillis())) {
+            message = "Device audio detected";
+        } else {
+            message = "Waiting for device audio";
+        }
+        if (!message.contentEquals(audioStatus.getText())) audioStatus.setText(message);
+    }
+
     private void addSpeedControl(LinearLayout content) {
         int period = Settings.period(preferences);
         TextView label = addText(content, speedLabel(period), 16);
@@ -168,6 +237,7 @@ public final class SettingsActivity extends Activity {
 
     private static final class Preview extends View {
         private final RgbRenderer renderer;
+        private boolean active;
 
         Preview(Context context, SharedPreferences preferences) {
             super(context);
@@ -180,11 +250,17 @@ public final class SettingsActivity extends Activity {
             invalidate();
         }
 
+        void setActive(boolean active) {
+            this.active = active;
+            renderer.setVisible(active && getWindowVisibility() == VISIBLE);
+            if (active) invalidate();
+        }
+
         @Override protected void onWindowVisibilityChanged(int visibility) {
             super.onWindowVisibilityChanged(visibility);
             if (renderer != null) {
-                renderer.setVisible(visibility == VISIBLE);
-                if (visibility == VISIBLE) invalidate();
+                renderer.setVisible(active && visibility == VISIBLE);
+                if (active && visibility == VISIBLE) invalidate();
             }
         }
 

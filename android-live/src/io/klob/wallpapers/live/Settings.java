@@ -10,6 +10,7 @@ final class Settings {
     static final String DOCK = "dock";
     static final String STATUS = "status";
     static final String ANIMATE = "animate";
+    static final String AUDIO_SYNC = "audio_sync";
     static final String PERIOD = "period";
     static final int MIN_PERIOD = 6;
     static final int MAX_PERIOD = 60;
@@ -33,6 +34,10 @@ final class Settings {
 
     static boolean enabled(SharedPreferences preferences, String key) {
         return preferences.getBoolean(key, true);
+    }
+
+    static boolean audioSync(SharedPreferences preferences) {
+        return preferences.getBoolean(AUDIO_SYNC, false);
     }
 
     static int period(SharedPreferences preferences) {
