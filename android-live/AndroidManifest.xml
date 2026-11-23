@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.klob.wallpapers.live" android:versionCode="1" android:versionName="1.0.0">
+    package="io.klob.wallpapers.live" android:versionCode="4" android:versionName="1.1.0-preview.3">
     <uses-sdk android:minSdkVersion="33" android:targetSdkVersion="34" />
     <uses-feature android:name="android.software.live_wallpaper" android:required="true" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+    <uses-feature android:name="android.hardware.microphone" android:required="false" />
     <application android:label="@string/app_name" android:icon="@drawable/icon"
         android:theme="@style/AppTheme" android:allowBackup="false">
         <activity android:name=".SettingsActivity" android:exported="true">
@@ -18,5 +23,7 @@
             </intent-filter>
             <meta-data android:name="android.service.wallpaper" android:resource="@xml/wallpaper" />
         </service>
+        <service android:name=".MicrophoneAudioService" android:exported="false"
+            android:foregroundServiceType="microphone" />
     </application>
 </manifest>

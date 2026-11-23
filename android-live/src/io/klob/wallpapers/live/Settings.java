@@ -9,7 +9,17 @@ final class Settings {
     static final String CAMERA = "camera";
     static final String DOCK = "dock";
     static final String STATUS = "status";
+    static final String PREVIEW_SCREEN = "preview_screen";
     static final String ANIMATE = "animate";
+    static final String AUDIO_SYNC = "audio_sync";
+    static final String AUDIO_SOURCE = "audio_source";
+    static final String AUDIO_EFFECT = "audio_effect";
+    static final String AUDIO_INTENSITY = "audio_intensity";
+    static final String AUDIO_SMOOTHNESS = "audio_smoothness";
+    static final String BASS_SENSITIVITY = "bass_sensitivity";
+    static final int DEFAULT_INTENSITY = 65;
+    static final int DEFAULT_SMOOTHNESS = 35;
+    static final int DEFAULT_SENSITIVITY = 50;
     static final String PERIOD = "period";
     static final int MIN_PERIOD = 6;
     static final int MAX_PERIOD = 60;
@@ -19,20 +29,48 @@ final class Settings {
     };
 
     static SharedPreferences open(Context context) {
-        return context.getSharedPreferences("live_wallpaper", Context.MODE_PRIVATE);
+        SharedPreferences preferences = context.getSharedPreferences("live_wallpaper", Context.MODE_PRIVATE);
+        if (!preferences.contains(WallpaperScreen.LOCK.key(PATTERN))) {
+            preferences.edit()
+                    .putInt(WallpaperScreen.LOCK.key(PATTERN), pattern(preferences, WallpaperScreen.HOME))
+                    .putBoolean(WallpaperScreen.LOCK.key(BORDER), enabled(preferences, BORDER))
+                    .putBoolean(WallpaperScreen.LOCK.key(CAMERA), enabled(preferences, CAMERA))
+                    .putBoolean(WallpaperScreen.LOCK.key(STATUS), enabled(preferences, STATUS))
+                    .apply();
+        }
+        return preferences;
     }
 
-    static String artPath(SharedPreferences preferences) {
-        int pattern = preferences.getInt(PATTERN, 0);
-        int variant = (enabled(preferences, BORDER) ? 8 : 0)
-                | (enabled(preferences, STATUS) ? 4 : 0)
-                | (enabled(preferences, DOCK) ? 2 : 0)
-                | (enabled(preferences, CAMERA) ? 1 : 0);
-        return "art/" + pattern + "-" + variant + ".webp";
+    static int pattern(SharedPreferences preferences, WallpaperScreen screen) {
+        return Math.max(0, Math.min(PATTERNS.length - 1, preferences.getInt(screen.key(PATTERN), 0)));
+    }
+
+    static String artPath(SharedPreferences preferences, WallpaperScreen screen) {
+        int variant = screen.variant(enabled(preferences, screen.key(BORDER)),
+                enabled(preferences, screen.key(STATUS)), enabled(preferences, DOCK),
+                enabled(preferences, screen.key(CAMERA)));
+        return "art/" + pattern(preferences, screen) + "-" + variant + ".webp";
     }
 
     static boolean enabled(SharedPreferences preferences, String key) {
         return preferences.getBoolean(key, true);
+    }
+
+    static boolean audioSync(SharedPreferences preferences) {
+        return preferences.getBoolean(AUDIO_SYNC, false);
+    }
+
+    static AudioSource audioSource(SharedPreferences preferences) {
+        return AudioSource.fromPreference(preferences.getString(AUDIO_SOURCE, null),
+                preferences.getBoolean("audio_microphone", false));
+    }
+
+    static AudioEffect audioEffect(SharedPreferences preferences) {
+        return AudioEffect.fromPreference(preferences.getString(AUDIO_EFFECT, AudioEffect.DEFAULT.name()));
+    }
+
+    static int percentage(SharedPreferences preferences, String key, int fallback) {
+        return Math.max(0, Math.min(100, preferences.getInt(key, fallback)));
     }
 
     static int period(SharedPreferences preferences) {

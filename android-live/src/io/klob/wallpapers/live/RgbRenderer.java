@@ -23,18 +23,27 @@ final class RgbRenderer {
     private static final String SHADER =
             "uniform shader art;\n"
             + "uniform float phase;\n"
+            + "uniform float gain;\n"
+            + "uniform float4 audioWave;\n"
             + "half4 main(float2 p) {\n"
             + "    float3 c = float3(art.eval(p).rgb);\n"
             + "    float hi = max(max(c.r, c.g), c.b);\n"
             + "    float lo = min(min(c.r, c.g), c.b);\n"
             + "    float delta = hi - lo;\n"
-            + "    if (delta < 0.0001 || phase == 0.0) return half4(half3(c), 1.0);\n"
+            + "    if (delta < 0.0001 || (phase == 0.0 && audioWave.x == 0.0))\n"
+            + "        return half4(half3(c * gain), 1.0);\n"
             + "    float h = hi == c.r ? (c.g - c.b) / delta\n"
             + "            : hi == c.g ? 2.0 + (c.b - c.r) / delta\n"
             + "            : 4.0 + (c.r - c.g) / delta;\n"
-            + "    float3 wheel = clamp(abs(fract(h / 6.0 + phase +\n"
+            + "    float offset = phase;\n"
+            + "    if (audioWave.x > 0.0) {\n"
+            + "        float position = (p.x + p.y - audioWave.z) * audioWave.w;\n"
+            + "        float band = 1.0 - smoothstep(0.0, 0.25, abs(position - audioWave.y));\n"
+            + "        offset += audioWave.x * band;\n"
+            + "    }\n"
+            + "    float3 wheel = clamp(abs(fract(h / 6.0 + offset +\n"
             + "            float3(0.0, 2.0 / 3.0, 1.0 / 3.0)) * 6.0 - 3.0) - 1.0, 0.0, 1.0);\n"
-            + "    return half4(half3(lo + delta * wheel), 1.0);\n"
+            + "    return half4(half3((lo + delta * wheel) * gain), 1.0);\n"
             + "}";
 
     private final Context context;
@@ -49,6 +58,11 @@ final class RgbRenderer {
     private int layoutHeight;
     private int periodMillis = 18000;
     private boolean animate = true;
+    private boolean audioSync;
+    private AudioSource audioSource = AudioSource.DEVICE;
+    private AudioEffect audioEffect = AudioEffect.DEFAULT;
+    private float audioIntensity = Settings.DEFAULT_INTENSITY / 100f;
+    private int audioSmoothness = Settings.DEFAULT_SMOOTHNESS;
     private boolean visible;
     private float phase;
     private long phaseTime;
@@ -66,8 +80,8 @@ final class RgbRenderer {
         }
     }
 
-    void update(SharedPreferences preferences) {
-        String path = Settings.artPath(preferences);
+    void update(SharedPreferences preferences, WallpaperScreen screen) {
+        String path = Settings.artPath(preferences, screen);
         if (!path.equals(artPath)) {
             try (InputStream file = context.getAssets().open(path)) {
                 Bitmap replacement = BitmapFactory.decodeStream(file);
@@ -86,11 +100,36 @@ final class RgbRenderer {
         advance(SystemClock.uptimeMillis());
         periodMillis = Settings.period(preferences) * 1000;
         setAnimation(Settings.enabled(preferences, Settings.ANIMATE));
+        audioSync = Settings.audioSync(preferences);
+        audioSource = Settings.audioSource(preferences);
+        audioEffect = Settings.audioEffect(preferences);
+        audioIntensity = Settings.percentage(preferences, Settings.AUDIO_INTENSITY, Settings.DEFAULT_INTENSITY) / 100f;
+        audioSmoothness = Settings.percentage(preferences, Settings.AUDIO_SMOOTHNESS, Settings.DEFAULT_SMOOTHNESS);
+        int sensitivity = Settings.percentage(preferences, Settings.BASS_SENSITIVITY, Settings.DEFAULT_SENSITIVITY);
+        OutputAudio.INSTANCE.pulses().setSensitivity(sensitivity);
+        MicrophoneAudioService.pulses().setSensitivity(sensitivity);
+        updateAudio();
     }
 
     void setVisible(boolean visible) {
         advance(SystemClock.uptimeMillis());
         this.visible = visible;
+        updateAudio();
+    }
+
+    private void updateAudio() {
+        boolean listen = audioSync && visible && animate && shader != null && bitmap != null;
+        OutputAudio.INSTANCE.setListening(this, context, listen && audioSource != AudioSource.MICROPHONE);
+        AutoAudio.INSTANCE.setListening(this, context, listen && audioSource == AudioSource.AUTO
+                && OutputAudio.hasPermission(context));
+        MicrophoneAudioService.setListening(this, listen && audioSource == AudioSource.MICROPHONE
+                && OutputAudio.hasPermission(context));
+    }
+
+    private BassPulse pulses() {
+        return audioSource == AudioSource.MICROPHONE
+                || (audioSource == AudioSource.AUTO && AutoAudio.INSTANCE.isUsingMicrophone())
+                ? MicrophoneAudioService.pulses() : OutputAudio.INSTANCE.pulses();
     }
 
     private void setAnimation(boolean animate) {
@@ -100,7 +139,10 @@ final class RgbRenderer {
 
     private void advance(long now) {
         if (visible && animate) {
-            phase = (phase + (now - phaseTime) / (float) periodMillis) % 1.0f;
+            long elapsed = now - phaseTime;
+            float kick = audioSync && elapsed <= 150 ? pulses().pulse(now, audioSmoothness) : 0f;
+            float boost = kick * audioIntensity * audioEffect.huePerMillisecond;
+            phase = (phase + elapsed / (float) periodMillis + elapsed * boost) % 1.0f;
         }
         phaseTime = now;
     }
@@ -129,10 +171,19 @@ final class RgbRenderer {
         canvas.drawColor(Color.BLACK);
         if (bitmap == null) return;
         layout(canvas.getWidth(), canvas.getHeight());
-        advance(SystemClock.uptimeMillis());
+        long now = SystemClock.uptimeMillis();
+        advance(now);
 
         if (animate && shader != null && canvas.isHardwareAccelerated()) {
+            BassPulse pulses = pulses();
+            float pulse = audioSync ? pulses.pulse(now, audioSmoothness) : 0f;
+            float intensity = audioSync ? audioIntensity : 0f;
+            float gain = 1f - audioEffect.dimming * intensity * pulses.activity(now) * (1f - pulse);
             shader.setFloatUniform("phase", phase);
+            shader.setFloatUniform("gain", gain);
+            shader.setFloatUniform("audioWave", audioEffect.waveHue * intensity * pulses.wavePulse(now, audioSmoothness),
+                    pulses.travel(now, audioSmoothness), destination.left + destination.top,
+                    1f / (destination.width() + destination.height()));
             paint.setShader(shader);
         } else {
             paint.setShader(input);
