@@ -1,0 +1,569 @@
+{
+  "pixel_5": {
+    "cx": 81,
+    "cy": 77,
+    "radius": 48,
+    "accuracy": "published",
+    "source": "https://android.googlesource.com/device/google/redfin/+/refs/heads/main/redfin/overlay/frameworks/base/core/res/res/values/config.xml"
+  },
+  "pixel_6": {
+    "cx": 540,
+    "cy": 64,
+    "radius": 41,
+    "accuracy": "published",
+    "source": "https://android.googlesource.com/device/google/raviole/+/refs/heads/main/oriole/overlay/frameworks/base/core/res/res/values/config.xml"
+  },
+  "pixel_6_pro": {
+    "cx": 719,
+    "cy": 72,
+    "radius": 50,
+    "accuracy": "published",
+    "source": "https://android.googlesource.com/device/google/raviole/+/refs/heads/main/raven/overlay/frameworks/base/core/res/res/values/config.xml"
+  },
+  "pixel_7": {
+    "cx": 540,
+    "cy": 68,
+    "radius": 42,
+    "accuracy": "published",
+    "source": "https://android.googlesource.com/device/google/pantah/+/refs/heads/main/panther/overlay/frameworks/base/core/res/res/values/config.xml"
+  },
+  "pixel_7_pro": {
+    "cx": 720,
+    "cy": 72,
+    "radius": 51,
+    "accuracy": "published",
+    "source": "https://android.googlesource.com/device/google/pantah/+/refs/heads/main/cheetah/overlay/frameworks/base/core/res/res/values/config.xml"
+  },
+  "pixel_8": {
+    "cx": 539.75,
+    "cy": 65.75,
+    "radius": 44.25,
+    "accuracy": "published",
+    "source": "https://android.googlesource.com/device/google/shusky/+/refs/heads/main/shiba/overlay/frameworks/base/core/res/res/values/config.xml"
+  },
+  "pixel_8_pro": {
+    "cx": 672,
+    "cy": 75,
+    "radius": 51.25,
+    "accuracy": "published",
+    "source": "https://android.googlesource.com/device/google/shusky/+/refs/heads/main/husky/overlay/frameworks/base/core/res/res/values/config.xml"
+  },
+  "pixel_10": {
+    "cx": 540,
+    "cy": 86.5,
+    "radius": 50,
+    "accuracy": "estimated",
+    "source": "https://store.google.com/product/pixel_10_specs"
+  },
+  "pixel_10_pro": {
+    "cx": 640,
+    "cy": 102,
+    "radius": 57,
+    "accuracy": "estimated",
+    "source": "https://store.google.com/product/pixel_10_pro_specs"
+  },
+  "pixel_10_pro_xl": {
+    "cx": 672,
+    "cy": 99.5,
+    "radius": 55,
+    "accuracy": "estimated",
+    "source": "https://store.google.com/product/pixel_10_pro_specs"
+  },
+  "pixel_11": {
+    "cx": 540,
+    "cy": 86.5,
+    "radius": 50,
+    "accuracy": "estimated",
+    "source": "https://store.google.com/product/pixel_11_specs"
+  },
+  "pixel_11_pro": {
+    "cx": 640,
+    "cy": 102,
+    "radius": 55,
+    "accuracy": "estimated",
+    "source": "https://storage.googleapis.com/gweb-mobius-cdn/pixel-b2b/pdfs/8c5a6f6180c3b18caaa04530fafc67e7cc9d53a3/Pixel%2011%20Pro%20and%20Pixel%2011%20Pro%20XL%20One-Pager.pdf"
+  },
+  "pixel_11_pro_xl": {
+    "cx": 672,
+    "cy": 107,
+    "radius": 57,
+    "accuracy": "estimated",
+    "source": "https://storage.googleapis.com/gweb-mobius-cdn/pixel-b2b/pdfs/8c5a6f6180c3b18caaa04530fafc67e7cc9d53a3/Pixel%2011%20Pro%20and%20Pixel%2011%20Pro%20XL%20One-Pager.pdf"
+  },
+  "pixel_fold_cover_portrait": {
+    "cx": 540,
+    "cy": 69,
+    "radius": 33,
+    "accuracy": "estimated",
+    "source": "https://support.google.com/pixelphone/answer/7158570"
+  },
+  "pixel_fold_cover_landscape": {
+    "cx": 69,
+    "cy": 539,
+    "radius": 33,
+    "accuracy": "estimated",
+    "source": "https://support.google.com/pixelphone/answer/7158570"
+  },
+  "pixel_9_pro_fold_cover_portrait": {
+    "cx": 540,
+    "cy": 86,
+    "radius": 46,
+    "accuracy": "estimated",
+    "source": "https://support.google.com/pixelphone/answer/7158570"
+  },
+  "pixel_9_pro_fold_cover_landscape": {
+    "cx": 86,
+    "cy": 539,
+    "radius": 46,
+    "accuracy": "estimated",
+    "source": "https://support.google.com/pixelphone/answer/7158570"
+  },
+  "pixel_9_pro_fold_inner_portrait": {
+    "cx": 1970,
+    "cy": 108,
+    "radius": 46,
+    "accuracy": "estimated",
+    "source": "https://support.google.com/pixelphone/answer/7158570"
+  },
+  "pixel_9_pro_fold_inner_landscape": {
+    "cx": 108,
+    "cy": 105,
+    "radius": 46,
+    "accuracy": "estimated",
+    "source": "https://support.google.com/pixelphone/answer/7158570"
+  },
+  "pixel_11_pro_fold_cover_portrait": {
+    "cx": 540,
+    "cy": 82,
+    "radius": 45,
+    "accuracy": "estimated",
+    "source": "https://support.google.com/pixelphone/answer/7158570"
+  },
+  "pixel_11_pro_fold_cover_landscape": {
+    "cx": 82,
+    "cy": 539,
+    "radius": 45,
+    "accuracy": "estimated",
+    "source": "https://support.google.com/pixelphone/answer/7158570"
+  },
+  "pixel_11_pro_fold_inner_portrait": {
+    "cx": 1970,
+    "cy": 108,
+    "radius": 46,
+    "accuracy": "estimated",
+    "source": "https://support.google.com/pixelphone/answer/7158570"
+  },
+  "pixel_11_pro_fold_inner_landscape": {
+    "cx": 108,
+    "cy": 105,
+    "radius": 46,
+    "accuracy": "estimated",
+    "source": "https://support.google.com/pixelphone/answer/7158570"
+  },
+  "galaxy_s20": {
+    "cx": 720.0,
+    "cy": 83,
+    "radius": 35,
+    "accuracy": "estimated",
+    "source": "https://developer.samsung.com/galaxy-emulator-skin/galaxy-s.html"
+  },
+  "galaxy_s20_plus": {
+    "cx": 720.0,
+    "cy": 83,
+    "radius": 35,
+    "accuracy": "estimated",
+    "source": "https://developer.samsung.com/galaxy-emulator-skin/galaxy-s.html"
+  },
+  "galaxy_s20_ultra": {
+    "cx": 720.0,
+    "cy": 83,
+    "radius": 35,
+    "accuracy": "estimated",
+    "source": "https://developer.samsung.com/galaxy-emulator-skin/galaxy-s.html"
+  },
+  "galaxy_s20_fe": {
+    "cx": 540.0,
+    "cy": 62,
+    "radius": 29,
+    "accuracy": "estimated",
+    "source": "https://developer.samsung.com/galaxy-emulator-skin/galaxy-s.html"
+  },
+  "galaxy_note20": {
+    "cx": 540.0,
+    "cy": 62,
+    "radius": 29,
+    "accuracy": "estimated",
+    "source": "https://developer.samsung.com/galaxy-emulator-skin/galaxy-s.html"
+  },
+  "galaxy_note20_ultra": {
+    "cx": 720.0,
+    "cy": 80,
+    "radius": 35,
+    "accuracy": "estimated",
+    "source": "https://developer.samsung.com/galaxy-emulator-skin/galaxy-s.html"
+  },
+  "galaxy_s21": {
+    "cx": 540.0,
+    "cy": 62,
+    "radius": 29,
+    "accuracy": "estimated",
+    "source": "https://developer.samsung.com/galaxy-emulator-skin/galaxy-s.html"
+  },
+  "galaxy_s21_plus": {
+    "cx": 540.0,
+    "cy": 62,
+    "radius": 29,
+    "accuracy": "estimated",
+    "source": "https://developer.samsung.com/galaxy-emulator-skin/galaxy-s.html"
+  },
+  "galaxy_s21_ultra": {
+    "cx": 720.0,
+    "cy": 83,
+    "radius": 35,
+    "accuracy": "estimated",
+    "source": "https://developer.samsung.com/galaxy-emulator-skin/galaxy-s.html"
+  },
+  "galaxy_s21_fe": {
+    "cx": 540.0,
+    "cy": 62,
+    "radius": 29,
+    "accuracy": "estimated",
+    "source": "https://developer.samsung.com/galaxy-emulator-skin/galaxy-s.html"
+  },
+  "galaxy_s22": {
+    "cx": 540.0,
+    "cy": 60,
+    "radius": 29,
+    "accuracy": "estimated",
+    "source": "https://developer.samsung.com/galaxy-emulator-skin/galaxy-s.html"
+  },
+  "galaxy_s22_plus": {
+    "cx": 540.0,
+    "cy": 60,
+    "radius": 29,
+    "accuracy": "estimated",
+    "source": "https://developer.samsung.com/galaxy-emulator-skin/galaxy-s.html"
+  },
+  "galaxy_s22_ultra": {
+    "cx": 720.0,
+    "cy": 80,
+    "radius": 35,
+    "accuracy": "estimated",
+    "source": "https://developer.samsung.com/galaxy-emulator-skin/galaxy-s.html"
+  },
+  "galaxy_s23": {
+    "cx": 540.0,
+    "cy": 60,
+    "radius": 29,
+    "accuracy": "estimated",
+    "source": "https://developer.samsung.com/galaxy-emulator-skin/galaxy-s.html"
+  },
+  "galaxy_s23_plus": {
+    "cx": 540.0,
+    "cy": 60,
+    "radius": 29,
+    "accuracy": "estimated",
+    "source": "https://developer.samsung.com/galaxy-emulator-skin/galaxy-s.html"
+  },
+  "galaxy_s23_ultra": {
+    "cx": 720.0,
+    "cy": 80,
+    "radius": 35,
+    "accuracy": "estimated",
+    "source": "https://developer.samsung.com/galaxy-emulator-skin/galaxy-s.html"
+  },
+  "galaxy_s23_fe": {
+    "cx": 540.0,
+    "cy": 60,
+    "radius": 29,
+    "accuracy": "estimated",
+    "source": "https://developer.samsung.com/galaxy-emulator-skin/galaxy-s.html"
+  },
+  "galaxy_s24_plus": {
+    "cx": 720.0,
+    "cy": 80,
+    "radius": 35,
+    "accuracy": "estimated",
+    "source": "https://developer.samsung.com/galaxy-emulator-skin/galaxy-s.html"
+  },
+  "galaxy_s24_ultra": {
+    "cx": 720.0,
+    "cy": 80,
+    "radius": 35,
+    "accuracy": "estimated",
+    "source": "https://developer.samsung.com/galaxy-emulator-skin/galaxy-s.html"
+  },
+  "galaxy_s24_fe": {
+    "cx": 540.0,
+    "cy": 60,
+    "radius": 29,
+    "accuracy": "estimated",
+    "source": "https://developer.samsung.com/galaxy-emulator-skin/galaxy-s.html"
+  },
+  "galaxy_s25": {
+    "cx": 540.0,
+    "cy": 60,
+    "radius": 29,
+    "accuracy": "estimated",
+    "source": "https://developer.samsung.com/galaxy-emulator-skin/galaxy-s.html"
+  },
+  "galaxy_s25_plus": {
+    "cx": 720.0,
+    "cy": 80,
+    "radius": 35,
+    "accuracy": "estimated",
+    "source": "https://developer.samsung.com/galaxy-emulator-skin/galaxy-s.html"
+  },
+  "galaxy_s25_edge": {
+    "cx": 720.0,
+    "cy": 80,
+    "radius": 35,
+    "accuracy": "estimated",
+    "source": "https://developer.samsung.com/galaxy-emulator-skin/galaxy-s.html"
+  },
+  "galaxy_s25_ultra": {
+    "cx": 720.0,
+    "cy": 80,
+    "radius": 35,
+    "accuracy": "estimated",
+    "source": "https://developer.samsung.com/galaxy-emulator-skin/galaxy-s.html"
+  },
+  "galaxy_s25_fe": {
+    "cx": 540.0,
+    "cy": 60,
+    "radius": 29,
+    "accuracy": "estimated",
+    "source": "https://developer.samsung.com/galaxy-emulator-skin/galaxy-s.html"
+  },
+  "galaxy_s26": {
+    "cx": 540.0,
+    "cy": 60,
+    "radius": 29,
+    "accuracy": "estimated",
+    "source": "https://developer.samsung.com/galaxy-emulator-skin/galaxy-s.html"
+  },
+  "galaxy_s26_plus": {
+    "cx": 720.0,
+    "cy": 80,
+    "radius": 35,
+    "accuracy": "estimated",
+    "source": "https://developer.samsung.com/galaxy-emulator-skin/galaxy-s.html"
+  },
+  "galaxy_s26_ultra": {
+    "cx": 720.0,
+    "cy": 80,
+    "radius": 35,
+    "accuracy": "estimated",
+    "source": "https://developer.samsung.com/galaxy-emulator-skin/galaxy-s.html"
+  },
+  "galaxy_z_fold2_cover_portrait": {
+    "cx": 408,
+    "cy": 62,
+    "radius": 27,
+    "accuracy": "estimated",
+    "source": "https://www.samsung.com/us/support/answer/ANS10003235/"
+  },
+  "galaxy_z_fold2_cover_landscape": {
+    "cx": 62,
+    "cy": 407,
+    "radius": 27,
+    "accuracy": "estimated",
+    "source": "https://www.samsung.com/us/support/answer/ANS10003235/"
+  },
+  "galaxy_z_fold2_inner_portrait": {
+    "cx": 1326,
+    "cy": 73,
+    "radius": 32,
+    "accuracy": "estimated",
+    "source": "https://www.samsung.com/us/support/answer/ANS10003235/"
+  },
+  "galaxy_z_fold2_inner_landscape": {
+    "cx": 73,
+    "cy": 441,
+    "radius": 32,
+    "accuracy": "estimated",
+    "source": "https://www.samsung.com/us/support/answer/ANS10003235/"
+  },
+  "galaxy_z_fold3_cover_portrait": {
+    "cx": 416,
+    "cy": 60,
+    "radius": 27,
+    "accuracy": "estimated",
+    "source": "https://www.samsung.com/us/support/answer/ANS10003235/"
+  },
+  "galaxy_z_fold3_cover_landscape": {
+    "cx": 60,
+    "cy": 415,
+    "radius": 27,
+    "accuracy": "estimated",
+    "source": "https://www.samsung.com/us/support/answer/ANS10003235/"
+  },
+  "galaxy_z_fold4_cover_portrait": {
+    "cx": 452,
+    "cy": 64,
+    "radius": 28,
+    "accuracy": "estimated",
+    "source": "https://www.samsung.com/us/support/answer/ANS10003235/"
+  },
+  "galaxy_z_fold4_cover_landscape": {
+    "cx": 64,
+    "cy": 451,
+    "radius": 28,
+    "accuracy": "estimated",
+    "source": "https://www.samsung.com/us/support/answer/ANS10003235/"
+  },
+  "galaxy_z_fold5_cover_portrait": {
+    "cx": 452,
+    "cy": 64,
+    "radius": 28,
+    "accuracy": "estimated",
+    "source": "https://www.samsung.com/us/support/answer/ANS10003235/"
+  },
+  "galaxy_z_fold5_cover_landscape": {
+    "cx": 64,
+    "cy": 451,
+    "radius": 28,
+    "accuracy": "estimated",
+    "source": "https://www.samsung.com/us/support/answer/ANS10003235/"
+  },
+  "galaxy_z_fold6_cover_portrait": {
+    "cx": 484,
+    "cy": 64,
+    "radius": 29,
+    "accuracy": "estimated",
+    "source": "https://www.samsung.com/us/support/answer/ANS10003235/"
+  },
+  "galaxy_z_fold6_cover_landscape": {
+    "cx": 64,
+    "cy": 483,
+    "radius": 29,
+    "accuracy": "estimated",
+    "source": "https://www.samsung.com/us/support/answer/ANS10003235/"
+  },
+  "galaxy_z_fold8_cover_portrait": {
+    "cx": 624,
+    "cy": 66,
+    "radius": 32,
+    "accuracy": "estimated",
+    "source": "https://www.samsung.com/us/support/answer/ANS10003235/"
+  },
+  "galaxy_z_fold8_cover_landscape": {
+    "cx": 66,
+    "cy": 623,
+    "radius": 32,
+    "accuracy": "estimated",
+    "source": "https://www.samsung.com/us/support/answer/ANS10003235/"
+  },
+  "galaxy_z_fold8_ultra_cover_portrait": {
+    "cx": 540,
+    "cy": 64,
+    "radius": 30,
+    "accuracy": "estimated",
+    "source": "https://www.samsung.com/us/support/answer/ANS10003235/"
+  },
+  "galaxy_z_fold8_ultra_cover_landscape": {
+    "cx": 64,
+    "cy": 539,
+    "radius": 30,
+    "accuracy": "estimated",
+    "source": "https://www.samsung.com/us/support/answer/ANS10003235/"
+  },
+  "galaxy_z_flip_inner_portrait": {
+    "cx": 540,
+    "cy": 68,
+    "radius": 30,
+    "accuracy": "estimated",
+    "source": "https://www.samsung.com/us/support/answer/ANS10003235/"
+  },
+  "galaxy_z_flip_inner_landscape": {
+    "cx": 68,
+    "cy": 539,
+    "radius": 30,
+    "accuracy": "estimated",
+    "source": "https://www.samsung.com/us/support/answer/ANS10003235/"
+  },
+  "galaxy_z_flip_5g_inner_portrait": {
+    "cx": 540,
+    "cy": 68,
+    "radius": 30,
+    "accuracy": "estimated",
+    "source": "https://www.samsung.com/us/support/answer/ANS10003235/"
+  },
+  "galaxy_z_flip_5g_inner_landscape": {
+    "cx": 68,
+    "cy": 539,
+    "radius": 30,
+    "accuracy": "estimated",
+    "source": "https://www.samsung.com/us/support/answer/ANS10003235/"
+  },
+  "galaxy_z_flip3_inner_portrait": {
+    "cx": 540,
+    "cy": 65,
+    "radius": 30,
+    "accuracy": "estimated",
+    "source": "https://www.samsung.com/us/support/answer/ANS10003235/"
+  },
+  "galaxy_z_flip3_inner_landscape": {
+    "cx": 65,
+    "cy": 539,
+    "radius": 30,
+    "accuracy": "estimated",
+    "source": "https://www.samsung.com/us/support/answer/ANS10003235/"
+  },
+  "galaxy_z_flip4_inner_portrait": {
+    "cx": 540,
+    "cy": 65,
+    "radius": 30,
+    "accuracy": "estimated",
+    "source": "https://www.samsung.com/us/support/answer/ANS10003235/"
+  },
+  "galaxy_z_flip4_inner_landscape": {
+    "cx": 65,
+    "cy": 539,
+    "radius": 30,
+    "accuracy": "estimated",
+    "source": "https://www.samsung.com/us/support/answer/ANS10003235/"
+  },
+  "galaxy_z_flip5_inner_portrait": {
+    "cx": 540,
+    "cy": 65,
+    "radius": 30,
+    "accuracy": "estimated",
+    "source": "https://www.samsung.com/us/support/answer/ANS10003235/"
+  },
+  "galaxy_z_flip5_inner_landscape": {
+    "cx": 65,
+    "cy": 539,
+    "radius": 30,
+    "accuracy": "estimated",
+    "source": "https://www.samsung.com/us/support/answer/ANS10003235/"
+  },
+  "galaxy_z_flip6_inner_portrait": {
+    "cx": 540,
+    "cy": 65,
+    "radius": 30,
+    "accuracy": "estimated",
+    "source": "https://www.samsung.com/us/support/answer/ANS10003235/"
+  },
+  "galaxy_z_flip6_inner_landscape": {
+    "cx": 65,
+    "cy": 539,
+    "radius": 30,
+    "accuracy": "estimated",
+    "source": "https://www.samsung.com/us/support/answer/ANS10003235/"
+  },
+  "galaxy_z_flip8_inner_portrait": {
+    "cx": 540,
+    "cy": 62,
+    "radius": 30,
+    "accuracy": "estimated",
+    "source": "https://www.samsung.com/us/support/answer/ANS10003235/"
+  },
+  "galaxy_z_flip8_inner_landscape": {
+    "cx": 62,
+    "cy": 539,
+    "radius": 30,
+    "accuracy": "estimated",
+    "source": "https://www.samsung.com/us/support/answer/ANS10003235/"
+  }
+}

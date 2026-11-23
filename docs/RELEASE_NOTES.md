@@ -1,5 +1,11 @@
-RGB Geometry 1.1 includes 832 wallpapers in each format. Desktop patterns have roughly twice the number of shapes at each existing resolution.
+# RGB Geometry 1.2
 
-The site now organizes wallpapers by device type, manufacturer, and model. Added presets cover Pixel 10 and 11, Pixel 11 Pro Fold, Galaxy S25 and S26, Galaxy Z Fold8, Fold8 Ultra, Flip8, iPhone 17 and 18 Pro models, iPhone Air, and iPhone Duo.
+- Covers 369 named flagship phones and foldables released from 2020 through November 2026.
+- Shows four pattern previews above the picker. Open any card for a large preview, then use the pattern from the viewer.
+- Aligns solid clipped edges with adjacent hexagon sides. Subtle Honeycomb uses thinner, dimmer strokes.
+- Insets RGB Border by default on Pixel and other Android phones and foldable screens.
+- Extends the grid close to the frame with short clipped edges and rounds mobile borders.
+- Adds 81 camera-ring profiles for Pixel and Galaxy screens, including Pixel 11 Pro XL.
+- Adds a Pixel 11 Pro XL Home Row & Search Outline variant for each pattern, with optional camera ring.
 
-Models sharing an exact screen resolution use the same artwork. The pack includes the alias index. Camera-ring variants are listed only for the existing camera profiles.
+The PNG and SVG archives each contain 2,768 wallpapers, along with the model-to-artwork index and camera-ring adjuster. Camera positions marked estimated and the Pixel Launcher profile can vary with screen layout or wallpaper zoom.

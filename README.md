@@ -1,17 +1,18 @@
 # klob // wallpapers
 
-Browse by device at [wallpapers.klob.io](https://wallpapers.klob.io/). Download the complete [PNG and SVG packs](https://github.com/xklob/wallpapers/releases/tag/v1.1.0).
+Browse [wallpapers.klob.io](https://wallpapers.klob.io/) and download the [PNG or SVG packs](https://github.com/xklob/wallpapers/releases/tag/v1.2.0).
 
-RGB Geometry includes bright and subtle honeycombs, spaced hexagons, and wireframe cubes. There are 832 wallpapers per format. Newer device presets include Pixel 10 and 11, Galaxy S25 and S26, current Samsung foldables, iPhone 17 and 18 Pro models, iPhone Air, and iPhone Duo. Desktop wallpapers have about twice the shape density.
+RGB Geometry includes Bright Honeycomb, Spaced Hexagons, Subtle Honeycomb, and Wireframe Cubes. The site previews each pattern in an expandable gallery and filters available sizes by device type, manufacturer, and model.
 
-- `assets/` contains the artwork and frame references.
-- `renders/` contains the PNG and SVG artwork.
-- `site/` contains the site source and device catalog.
-- `src/` contains tools for rebuilding and packaging the artwork.
+This release contains 2,768 wallpapers per format. The flagship index covers 369 named phone and foldable models from 2020 through November 2026. Models with matching native dimensions share artwork where possible. See [flagship support](docs/flagship-support.md) for the device index, border treatment, camera rings, and Pixel Launcher outline.
 
-## Package and preview
+- `assets/` contains artwork and frame references.
+- `config/` contains resolution, cutout, and launcher profiles.
+- `renders/` contains the native PNG and SVG wallpapers.
+- `site/` contains the static site and catalog.
+- `src/` contains generation and packaging scripts.
 
-Python 3.12 packages the checked-in artwork and assembles the static site. The original renderers also use ImageMagick 7 and the dependencies in `requirements.txt`. Updated PNGs are exported from their native SVGs using Node.js and Sharp.
+## Build the site locally
 
 ```sh
 python src/package_release.py
@@ -19,4 +20,4 @@ python src/build_site.py
 python -m http.server --directory build/site 8000
 ```
 
-Open `http://localhost:8000` to preview the picker. The release workflow commits any regenerated PNGs before publishing both packs.
+Open `http://localhost:8000` to preview the site. The release workflow generates RGB PNGs from the checked-in native SVGs using Sharp, validates image dimensions, and publishes both archives.

@@ -2,11 +2,13 @@ const byId = id => document.getElementById(id);
 const collection = byId('collection');
 const pattern = byId('pattern');
 const patternGrid = byId('pattern-grid');
+const patternViewer = byId('pattern-viewer');
 const group = byId('device-group');
 const manufacturer = byId('manufacturer');
 const screen = byId('screen');
 const style = byId('style');
 const camera = byId('camera');
+const homeScreen = byId('home-screen');
 const appearance = byId('appearance');
 const preview = byId('preview');
 const png = byId('png');
@@ -38,14 +40,16 @@ function manufacturerFor(file) {
 
 function devices(active) {
   const presets = new Map();
-  for (const [file, , id, family, width, height] of active.files) {
+  for (const [file, , id, family, width, height, , cameraRing, , homeOutline] of active.files) {
+    if (cameraRing || homeOutline) continue;
     const manufacturer = manufacturerFor(file);
     presets.set(id, { id, preset: id, family, manufacturer, width, height, name: label(id) });
   }
-  const aliases = (active.deviceAliases ?? []).map(({ id, preset, name }) => ({
-    ...presets.get(preset), id, name, shared: true
+  const hidden = new Set(active.hiddenPresets);
+  const aliases = (active.deviceAliases ?? []).map(alias => ({
+    ...presets.get(alias.preset), ...alias
   }));
-  return [...aliases, ...presets.values()];
+  return [...aliases, ...[...presets.values()].filter(device => !hidden.has(device.id))];
 }
 
 function options(select, entries, fallback) {
@@ -65,11 +69,13 @@ function updatePatternGallery(active) {
     const sample = originals.find(row => row[3] === 'Desktop' && row[4] === 1920 && row[5] === 1080)
       ?? originals.find(row => row[3] === 'Desktop') ?? originals[0];
     if (!sample) continue;
+    const portrait = originals.find(row => row[2] === 'pixel_9_pro_xl')
+      ?? originals.find(row => row[3] === 'Phones' && row[5] > row[4]);
 
     const card = document.createElement('button');
     card.type = 'button';
     card.className = 'pattern-card';
-    card.value = design;
+    card.setAttribute('aria-haspopup', 'dialog');
 
     const image = document.createElement('img');
     image.src = '/art/' + active.id + '/' + sample[0];
@@ -82,8 +88,15 @@ function updatePatternGallery(active) {
     caption.textContent = name;
     card.append(image, caption);
     card.addEventListener('click', () => {
-      pattern.value = design;
-      updatePreview();
+      byId('pattern-viewer-title').textContent = name;
+      const large = byId('pattern-viewer-image');
+      const portraitSource = byId('pattern-viewer-portrait');
+      if (portrait) portraitSource.srcset = '/art/' + active.id + '/' + portrait[0];
+      else portraitSource.removeAttribute('srcset');
+      large.src = image.src;
+      large.alt = name + ' wallpaper';
+      byId('use-pattern').value = design;
+      patternViewer.showModal();
     });
     cards.push(card);
   }
@@ -124,17 +137,20 @@ function updateScreens() {
   updatePreview();
 }
 function updatePreview() {
-  for (const card of patternGrid.children) {
-    card.setAttribute('aria-pressed', String(card.value === pattern.value));
-  }
   const active = theme();
   const device = devices(active).find(item => item.id === screen.value);
-  const matches = active.files.filter(([file, design, name, family, , , variant]) =>
-    design === pattern.value && name === device?.preset && family === group.value &&
-    variant === style.value && manufacturerFor(file) === manufacturer.value);
-  const withCamera = device?.shared ? undefined : matches.find(row => row[7]);
-  byId('camera-label').hidden = !withCamera;
-  const row = (camera.checked && withCamera) || matches.find(item => !item[7]);
+  const cameraPreset = device?.cameraPreset ?? (device?.id === device?.preset ? device?.id : null);
+  const matches = active.files.filter(([, design, id, , , , variant, cameraRing, , homeOutline]) => {
+    if (design !== pattern.value || variant !== style.value) return false;
+    if (homeOutline) return id === device?.id;
+    return id === (cameraRing ? cameraPreset : device?.preset);
+  });
+  const canAddCamera = matches.some(row => row[7]);
+  const canAddHome = matches.some(row => row[9]);
+  byId('camera-label').hidden = !canAddCamera;
+  byId('home-label').hidden = !canAddHome;
+  const row = matches.find(item => Boolean(item[7]) === (canAddCamera && camera.checked) &&
+    Boolean(item[9]) === (canAddHome && homeScreen.checked));
   if (!row) {
     selected = null;
     preview.hidden = true;
@@ -142,13 +158,13 @@ function updatePreview() {
     png.disabled = true;
     return;
   }
-  const [file, design, , , width, height, , accuracy, svgOnly] = row;
+  const [file, design, assetPreset, , width, height, , accuracy, svgOnly, homeOutline] = row;
   const src = '/art/' + active.id + '/' + file;
   const assetName = file.split('/').pop();
   selected = {
     src,
     pngUrl: active.pngRoot && !svgOnly ? active.pngRoot + file.replace(/\.svg$/, '.png') : null,
-    file: device.shared ? device.id + assetName.slice(device.preset.length) : assetName,
+    file: device.id + assetName.slice(assetPreset.length),
     width,
     height
   };
@@ -161,9 +177,10 @@ function updatePreview() {
   png.disabled = false;
   byId('selection-name').textContent = active.designs[design];
   byId('dimensions').textContent = width + ' × ' + height + ' px';
-  byId('detail').textContent = accuracy === 'estimated'
-    ? 'Estimated camera placement. Fit may vary by device and wallpaper zoom.'
-    : '';
+  const detail = [];
+  if (accuracy === 'estimated') detail.push('Estimated camera placement. Fit can vary with wallpaper zoom.');
+  if (homeOutline) detail.push('Fits the Pixel Launcher layout shown for the Pixel 11 Pro XL.');
+  byId('detail').textContent = detail.join(' ');
   status.textContent = '';
 }
 appearance.value = document.documentElement.dataset.theme || 'system';
@@ -173,9 +190,18 @@ appearance.addEventListener('change', () => {
   try { localStorage.setItem('klob-wallpaper-theme', appearance.value); } catch {}
 });
 collection.addEventListener('change', updateCollections);
+patternViewer.addEventListener('click', event => {
+  if (event.target === patternViewer) patternViewer.close();
+});
+byId('use-pattern').addEventListener('click', event => {
+  pattern.value = event.currentTarget.value;
+  updatePreview();
+  patternViewer.close();
+  pattern.focus();
+});
 group.addEventListener('change', updateManufacturers);
 manufacturer.addEventListener('change', updateScreens);
-for (const control of [pattern, screen, style, camera]) {
+for (const control of [pattern, screen, style, camera, homeScreen]) {
   control.addEventListener('change', updatePreview);
 }
 async function rasterize(item) {

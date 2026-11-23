@@ -42,6 +42,7 @@
 <label>Model <select id="screen"></select></label>
 <label>Style <select id="style"><option value="original">Plain</option><option value="rgb_border">RGB Border</option></select></label>
 <label class="check" id="camera-label" hidden><input id="camera" type="checkbox"> RGB Camera Ring</label>
+<label class="check" id="home-label" hidden><input id="home-screen" type="checkbox"> Home Row &amp; Search Outline</label>
 <p id="detail" class="muted"></p>
 </section>
 <section class="result" aria-label="Wallpaper preview">
@@ -60,6 +61,17 @@
 </section>
 <noscript><p><a href="/rgb-geometry-svg.zip" download>Download the RGB Geometry SVG pack</a></p></noscript>
 </main>
+<dialog class="pattern-viewer" id="pattern-viewer" aria-labelledby="pattern-viewer-title">
+<div class="viewer-top">
+<h2 id="pattern-viewer-title"></h2>
+<form method="dialog"><button type="submit" autofocus>Close</button></form>
+</div>
+<picture>
+<source id="pattern-viewer-portrait" media="(orientation: portrait)">
+<img id="pattern-viewer-image" alt="">
+</picture>
+<div class="viewer-actions"><button class="primary" id="use-pattern" type="button">Use This Pattern</button></div>
+</dialog>
 <footer><div class="frame bottom"><div><a href="https://design.klob.io/">Standard Design</a> <a href="https://github.com/xklob/wallpapers">Source on GitHub</a></div></div></footer>
 </body>
 </html>

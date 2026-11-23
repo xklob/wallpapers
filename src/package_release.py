@@ -23,6 +23,8 @@ for theme in themes:
                      compresslevel=7) as archive:
             archive.write(root / "docs/device-guide.md", "README.md")
             archive.write(root / "config/Camera_Ring_Adjuster.html", "Camera_Ring_Adjuster.html")
+            archive.write(root / "docs/flagship-support.md", "Flagship_Support.md")
+            archive.write(root / "config/flagship_phones.txt", "Device_Sizes.txt")
             archive.writestr("device_aliases.json", json.dumps(theme["deviceAliases"], indent=2)+"\n")
             archive.writestr("catalog.json", json.dumps(theme["files"], separators=(",", ":"))+"\n")
             for path in images:

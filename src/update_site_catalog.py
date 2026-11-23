@@ -13,7 +13,8 @@ renderer = arguments.source_root.resolve()
 site = arguments.site_dist.resolve()
 sys.path.insert(0, str(renderer / "src"))
 import render_vectors as vector
-from export_aligned import select_cells
+from aligned_svg import layout
+from desktop_density import count_in_crop, lattice_geometry, smaller_lattice
 
 catalog_path = site / "catalog.json"
 catalog = json.loads(catalog_path.read_text())
@@ -76,81 +77,6 @@ new_screens.extend([
     ("Phones", "phone/iphone", "iphone_air", 1260, 2736),
     ("Phones", "phone/iphone", "iphone_17e", 1170, 2532),
 ])
-
-def layout(design, width, height, style, polygons, stroke_factor=1):
-    pad = round(min(width, height) * (0.085 if style == "rgb_border" else 0.025))
-    inner_width, inner_height = width - 2*pad, height - 2*pad
-    _, box = select_cells(design, inner_width, inner_height)
-    x, y, box_width, box_height = box
-    scale = min(inner_width / box_width, inner_height / box_height)
-    pattern_width, pattern_height = round(box_width*scale), round(box_height*scale)
-    sx, sy = pattern_width / box_width, pattern_height / box_height
-    stroke = max(1.5, vector.STROKES[design["id"]] * scale * stroke_factor)
-    inset = stroke / 2 + 0.5
-
-    def project(point):
-        px, py = point
-        return (max(inset, min(pattern_width - 1 - inset, (px-x)*sx)),
-                max(inset, min(pattern_height - 1 - inset, (py-y)*sy)))
-
-    rect = x, y, x+box_width-1, y+box_height-1
-    caps = [{"a": project(a), "b": project(b)}
-            for polygon in polygons for a, b, _ in vector_caps(polygon, rect)]
-    return {"pad": pad, "source_box": box, "pattern_size": (pattern_width, pattern_height),
-            "cap_stroke": stroke, "caps": caps}
-
-def vector_caps(poly, rect):
-    x0, y0, x1, y1 = rect
-    for axis, value, low, high in ((0,x0,y0,y1),(0,x1,y0,y1),(1,y0,x0,x1),(1,y1,x0,x1)):
-        coords = [point[axis] for point in poly]
-        if not min(coords)+.2 < value < max(coords)-.2:
-            continue
-        intersections = []
-        for a,b in zip(poly, poly[1:]+poly[:1]):
-            if b[axis] == a[axis]:
-                continue
-            t = (value-a[axis])/(b[axis]-a[axis])
-            if -1e-8 <= t <= 1+1e-8:
-                intersections.append(a[1-axis]+t*(b[1-axis]-a[1-axis]))
-        if len(intersections) < 2:
-            continue
-        start, end = max(low,min(intersections)), min(high,max(intersections))
-        if end-start >= 1:
-            yield ((value,start),(value,end),axis) if axis==0 else ((start,value),(end,value),axis)
-
-def lattice_geometry(polygons):
-    rows = []
-    centers = sorted(((poly[0][0], (poly[0][1]+poly[3][1])/2) for poly in polygons),
-                     key=lambda point: point[1])
-    for x,y in centers:
-        if not rows or abs(y-rows[-1][0][1]) > 4:
-            rows.append([])
-        rows[-1].append((x,y))
-    ordinates = [vector.np.median([y for _,y in row]) for row in rows]
-    dx = vector.np.median([b-a for row in rows
-                           for a,b in zip(sorted(x for x,_ in row), sorted(x for x,_ in row)[1:])])
-    dy = vector.np.median(vector.np.diff(ordinates))
-    width = vector.np.median([poly[1][0]-poly[5][0] for poly in polygons])
-    height = vector.np.median([poly[3][1]-poly[0][1] for poly in polygons])
-    return dx, dy, width, height
-
-def smaller_lattice(geometry, scale, phase_x, phase_y):
-    dx, dy, width, height = (value*scale for value in geometry)
-    polygons = []
-    for row in range(-14,15):
-        for column in range(-13,14):
-            cx = 627+(column+0.5*(row%2)+phase_x)*dx
-            cy = 627+(row+phase_y)*dy
-            if cx+width/2 < 0 or cx-width/2 > 1254 or cy+height/2 < 0 or cy-height/2 > 1254:
-                continue
-            polygons.append([(cx,cy-height/2),(cx+width/2,cy-height/4),(cx+width/2,cy+height/4),
-                             (cx,cy+height/2),(cx-width/2,cy+height/4),(cx-width/2,cy-height/4)])
-    return polygons
-
-def count_in_crop(polygons, box):
-    x,y,width,height=box
-    return sum(x <= poly[0][0] <= x+width and y <= (poly[0][1]+poly[3][1])/2 <= y+height
-               for poly in polygons)
 
 art_root = site / "art" / theme["id"]
 ratios = []

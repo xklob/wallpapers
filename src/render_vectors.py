@@ -13,10 +13,12 @@ import colorsys
 import json
 import math
 from pathlib import Path
+import re
 import xml.etree.ElementTree as ET
 
 import numpy as np
 from PIL import Image
+from pattern_edges import align_vertical_edges
 
 STROKES = {"01_honeycomb_bright": 2.0, "02_hexagons": 2.4,
            "03_honeycomb_subtle": 1.8, "04_cubes": 2.2}
@@ -145,7 +147,7 @@ def frame_colors(path):
     return result
 
 
-def frame_svg(width,height,colors):
+def frame_svg(width,height,colors,radius=0):
     short=min(width,height); margin=.02*short; stroke=.006*short
     x0=y0=margin;x1=width-margin;y1=height-margin
     edges=[("top",x0,y0,x1,y0),("right",x1,y0,x1,y1),
@@ -154,7 +156,26 @@ def frame_svg(width,height,colors):
     for name,ax,ay,bx,by in edges:
         stops="".join(f'<stop offset="{num(t)}" stop-color="{c}"/>' for t,c in colors[name])
         defs.append(f'<linearGradient id="frame-{name}" gradientUnits="userSpaceOnUse" x1="{num(ax)}" y1="{num(ay)}" x2="{num(bx)}" y2="{num(by)}">{stops}</linearGradient>')
-        paths.append(f'<path d="M{num(ax)},{num(ay)}L{num(bx)},{num(by)}" stroke="url(#frame-{name})" stroke-width="{num(stroke)}" stroke-linecap="square"/>')
+        if radius:
+            if name in ("bottom", "left"):
+                ax,ay,bx,by = bx,by,ax,ay
+            horizontal = (bx-ax) / max(1, abs(bx-ax))
+            vertical = (by-ay) / max(1, abs(by-ay))
+            inward_x, inward_y = -vertical, horizontal
+            start = ax+horizontal*radius, ay+vertical*radius
+            stop = bx-horizontal*radius, by-vertical*radius
+            diagonal = radius / math.sqrt(2)
+            lead = (start[0]-horizontal*diagonal+inward_x*(radius-diagonal),
+                    start[1]-vertical*diagonal+inward_y*(radius-diagonal))
+            tail = (stop[0]+horizontal*diagonal+inward_x*(radius-diagonal),
+                    stop[1]+vertical*diagonal+inward_y*(radius-diagonal))
+            arc = f'A{num(radius)},{num(radius)} 0 0 1 '
+            position = lambda point: ",".join(num(c) for c in point)
+            path = f'M{position(lead)}{arc}{position(start)}L{position(stop)}{arc}{position(tail)}'
+        else:
+            path = f'M{num(ax)},{num(ay)}L{num(bx)},{num(by)}'
+        cap = "butt" if radius else "square"
+        paths.append(f'<path d="{path}" fill="none" stroke="url(#frame-{name})" stroke-width="{num(stroke)}" stroke-linecap="{cap}"/>')
     return "".join(defs),"".join(paths)
 
 
@@ -172,6 +193,26 @@ def camera_svg(camera):
         defs.append(f'<linearGradient id="camera-{k}" gradientUnits="userSpaceOnUse" x1="{num(ax)}" y1="{num(ay)}" x2="{num(bx)}" y2="{num(by)}"><stop stop-color="{ca}"/><stop offset="1" stop-color="{cb}"/></linearGradient>')
         parts.append(f'<path d="M{num(ax)},{num(ay)}A{num(r)},{num(r)} 0 0 1 {num(bx)},{num(by)}" fill="none" stroke="url(#camera-{k})" stroke-width="{num(stroke)}"/>')
     return "".join(defs),"".join(parts)
+
+
+def soften_honeycomb(svg):
+    """Dim and thin the pattern while preserving any frame or camera ring."""
+    if 'data-palette="subtle"' in svg:
+        return svg
+
+    def dim_gradient(match):
+        gradient = match.group()
+        return re.sub(
+            r'stop-color="#([0-9a-f]{6})"',
+            lambda color: 'stop-color="' + rgbhex(
+                int(color[1][offset:offset+2], 16) * .71 / 255 for offset in (0, 2, 4)
+            ) + '"',
+            gradient.replace('id="rainbow"', 'id="rainbow" data-palette="subtle"'),
+        )
+
+    svg = re.sub(r'<linearGradient id="rainbow"[^>]*>.*?</linearGradient>', dim_gradient, svg)
+    return re.sub(r'(stroke="url\(#rainbow\)" stroke-width=")([\d.]+)"',
+                  lambda match: match[1] + num(float(match[2]) * .8) + '"', svg)
 
 
 def build_svg(meta,base,design,polygons,palette,frame,camera=None):
@@ -202,12 +243,21 @@ def build_svg(meta,base,design,polygons,palette,frame,camera=None):
         ax,ay=x+a[0]/sx,y+a[1]/sy;bx,by=x+b[0]/sx,y+b[1]/sy
         caps.append(f'M{num(ax)},{num(ay)}L{num(bx)},{num(by)}')
     group.append(f'<path d="{"".join(caps)}" fill="none" stroke="url(#rainbow)" stroke-width="{num(base["cap_stroke"]/min(sx,sy))}" stroke-linecap="round"/>')
-    frame_defs,frame_paths=frame_svg(width,height,frame) if meta["style"]=="rgb_border" else ("","")
+    radius=meta.get("frame_radius",0)
+    frame_defs,frame_paths=frame_svg(width,height,frame,radius) if meta["style"]=="rgb_border" else ("","")
     camera_defs,camera_paths=camera_svg(camera)
     defs=hue_gradient(palette)+f'<clipPath id="pattern-clip"><rect x="{num(x)}" y="{num(y)}" width="{num(bw)}" height="{num(bh)}"/></clipPath>'+frame_defs+camera_defs
     pattern=f'<g transform="translate({num(px)} {num(py)}) scale({num(sx)} {num(sy)}) translate({num(-x)} {num(-y)})" clip-path="url(#pattern-clip)">'+"".join(group)+'</g>'
     title=design["id"].replace("_"," ")+" | "+str(width)+"x"+str(height)
-    return f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}"><title>{title}</title><defs>{defs}</defs><rect width="{width}" height="{height}" fill="#000"/>{frame_paths}{pattern}{camera_paths}</svg>\n'
+    svg = f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}"><title>{title}</title><defs>{defs}</defs><rect width="{width}" height="{height}" fill="#000"/>{frame_paths}{pattern}{camera_paths}</svg>\n'
+    if design["id"] == "03_honeycomb_subtle":
+        svg = soften_honeycomb(svg)
+    svg = align_vertical_edges(svg)
+    if radius:
+        corner = max(0,radius-(pad-.02*min(width,height)))
+        rounded = f' rx="{num(corner/sx)}" ry="{num(corner/sy)}"'
+        svg = re.sub(r'(<clipPath id="pattern-clip"[^>]*><rect[^>]*?)/>', r'\1'+rounded+'/>',svg)
+    return svg
 
 
 def main():
