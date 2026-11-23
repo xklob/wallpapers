@@ -1,0 +1,18 @@
+PRESETS = [
+    ('phone/pixel', 'pixel_9', 1080, 2424),
+    ('phone/pixel', 'pixel_9_pro', 1280, 2856),
+    ('phone/pixel', 'pixel_9_pro_xl', 1344, 2992),
+    ('phone/samsung', 'galaxy_s24', 1080, 2340),
+    ('phone/samsung', 'galaxy_fhd_20x9', 1080, 2400),
+    ('phone/samsung', 'galaxy_s24_plus_ultra', 1440, 3120),
+    ('phone/iphone', 'iphone_15_16', 1179, 2556),
+    ('phone/iphone', 'iphone_16_pro', 1206, 2622),
+    ('phone/iphone', 'iphone_16_pro_max', 1320, 2868),
+    ('desktop', 'desktop_1080p', 1920, 1080),
+    ('desktop', 'desktop_1440p', 2560, 1440),
+    ('desktop', 'desktop_4k', 3840, 2160),
+    ('desktop', 'wide_21x9_1440p', 3440, 1440),
+    ('desktop', 'wide_21x9_2160p', 5120, 2160),
+    ('desktop', 'ultrawide_32x9_1440p', 5120, 1440),
+    ('desktop', 'ultrawide_32x9_2160p', 7680, 2160),
+]

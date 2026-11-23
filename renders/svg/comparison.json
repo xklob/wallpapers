@@ -1,0 +1,46 @@
+{
+  "svg_count": 720,
+  "svg_artwork_bytes": 7769698,
+  "png_artwork_bytes": 1322971344,
+  "reduction_percent": 99.413,
+  "samples": [
+    {
+      "design": "01_honeycomb_bright",
+      "width": 3840,
+      "height": 2160,
+      "svg_bytes": 13185,
+      "png_bytes": 3115657,
+      "reduction_percent": 99.577
+    },
+    {
+      "design": "02_hexagons",
+      "width": 3840,
+      "height": 2160,
+      "svg_bytes": 8435,
+      "png_bytes": 1982559,
+      "reduction_percent": 99.575
+    },
+    {
+      "design": "03_honeycomb_subtle",
+      "width": 3840,
+      "height": 2160,
+      "svg_bytes": 13160,
+      "png_bytes": 3591889,
+      "reduction_percent": 99.634
+    },
+    {
+      "design": "04_cubes",
+      "width": 3840,
+      "height": 2160,
+      "svg_bytes": 12986,
+      "png_bytes": 3426926,
+      "reduction_percent": 99.621
+    }
+  ],
+  "validation": {
+    "parsed_xml": 720,
+    "embedded_raster_images": 0,
+    "external_asset_dependencies": 0,
+    "exact_dimensions": true
+  }
+}

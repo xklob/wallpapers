@@ -1,0 +1,3602 @@
+[
+  {
+    "file": "01_honeycomb_bright/phone/pixel/original/camera_outline/pixel_9_1080x2424_original_camera_outline.png",
+    "width": 1080,
+    "height": 2424,
+    "style": "original",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "published",
+    "camera_profile": "pixel_9",
+    "camera_center": [
+      539.5,
+      86.5
+    ],
+    "ring_outer_radius": 50.0
+  },
+  {
+    "file": "01_honeycomb_bright/phone/pixel/rgb_border/camera_outline/pixel_9_1080x2424_rgb_border_camera_outline.png",
+    "width": 1080,
+    "height": 2424,
+    "style": "rgb_border",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "published",
+    "camera_profile": "pixel_9",
+    "camera_center": [
+      539.5,
+      86.5
+    ],
+    "ring_outer_radius": 50.0
+  },
+  {
+    "file": "01_honeycomb_bright/phone/pixel/original/camera_outline/pixel_9_pro_1280x2856_original_camera_outline.png",
+    "width": 1280,
+    "height": 2856,
+    "style": "original",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "published",
+    "camera_profile": "pixel_9_pro",
+    "camera_center": [
+      640.0,
+      102.0
+    ],
+    "ring_outer_radius": 57.0
+  },
+  {
+    "file": "01_honeycomb_bright/phone/pixel/rgb_border/camera_outline/pixel_9_pro_1280x2856_rgb_border_camera_outline.png",
+    "width": 1280,
+    "height": 2856,
+    "style": "rgb_border",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "published",
+    "camera_profile": "pixel_9_pro",
+    "camera_center": [
+      640.0,
+      102.0
+    ],
+    "ring_outer_radius": 57.0
+  },
+  {
+    "file": "01_honeycomb_bright/phone/pixel/original/camera_outline/pixel_9_pro_xl_1344x2992_original_camera_outline.png",
+    "width": 1344,
+    "height": 2992,
+    "style": "original",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "published",
+    "camera_profile": "pixel_9_pro_xl",
+    "camera_center": [
+      672.0,
+      99.5
+    ],
+    "ring_outer_radius": 55.0
+  },
+  {
+    "file": "01_honeycomb_bright/phone/pixel/rgb_border/camera_outline/pixel_9_pro_xl_1344x2992_rgb_border_camera_outline.png",
+    "width": 1344,
+    "height": 2992,
+    "style": "rgb_border",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "published",
+    "camera_profile": "pixel_9_pro_xl",
+    "camera_center": [
+      672.0,
+      99.5
+    ],
+    "ring_outer_radius": 55.0
+  },
+  {
+    "file": "01_honeycomb_bright/phone/samsung/original/camera_outline_estimated/galaxy_s24_1080x2340_original_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2340,
+    "style": "original",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_s24",
+    "camera_center": [
+      540,
+      60
+    ],
+    "ring_outer_radius": 29
+  },
+  {
+    "file": "01_honeycomb_bright/phone/samsung/rgb_border/camera_outline_estimated/galaxy_s24_1080x2340_rgb_border_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2340,
+    "style": "rgb_border",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_s24",
+    "camera_center": [
+      540,
+      60
+    ],
+    "ring_outer_radius": 29
+  },
+  {
+    "file": "01_honeycomb_bright/phone/samsung/original/camera_outline_estimated/galaxy_fhd_20x9_1080x2400_original_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2400,
+    "style": "original",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_fhd_20x9",
+    "camera_center": [
+      540,
+      65
+    ],
+    "ring_outer_radius": 29
+  },
+  {
+    "file": "01_honeycomb_bright/phone/samsung/rgb_border/camera_outline_estimated/galaxy_fhd_20x9_1080x2400_rgb_border_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2400,
+    "style": "rgb_border",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_fhd_20x9",
+    "camera_center": [
+      540,
+      65
+    ],
+    "ring_outer_radius": 29
+  },
+  {
+    "file": "01_honeycomb_bright/phone/samsung/original/camera_outline_estimated/galaxy_s24_plus_ultra_1440x3120_original_camera_outline_estimated.png",
+    "width": 1440,
+    "height": 3120,
+    "style": "original",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_s24_plus_ultra",
+    "camera_center": [
+      720,
+      78
+    ],
+    "ring_outer_radius": 34
+  },
+  {
+    "file": "01_honeycomb_bright/phone/samsung/rgb_border/camera_outline_estimated/galaxy_s24_plus_ultra_1440x3120_rgb_border_camera_outline_estimated.png",
+    "width": 1440,
+    "height": 3120,
+    "style": "rgb_border",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_s24_plus_ultra",
+    "camera_center": [
+      720,
+      78
+    ],
+    "ring_outer_radius": 34
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/samsung/original/camera_outline_estimated/galaxy_z_fold7_cover_portrait_1080x2520_original_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2520,
+    "style": "original",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_fold7_cover_portrait",
+    "camera_center": [
+      540,
+      64
+    ],
+    "ring_outer_radius": 30
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/samsung/rgb_border/camera_outline_estimated/galaxy_z_fold7_cover_portrait_1080x2520_rgb_border_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2520,
+    "style": "rgb_border",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_fold7_cover_portrait",
+    "camera_center": [
+      540,
+      64
+    ],
+    "ring_outer_radius": 30
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/samsung/original/camera_outline_estimated/galaxy_z_fold7_cover_landscape_2520x1080_original_camera_outline_estimated.png",
+    "width": 2520,
+    "height": 1080,
+    "style": "original",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_fold7_cover_landscape",
+    "camera_center": [
+      64,
+      539
+    ],
+    "ring_outer_radius": 30
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/samsung/rgb_border/camera_outline_estimated/galaxy_z_fold7_cover_landscape_2520x1080_rgb_border_camera_outline_estimated.png",
+    "width": 2520,
+    "height": 1080,
+    "style": "rgb_border",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_fold7_cover_landscape",
+    "camera_center": [
+      64,
+      539
+    ],
+    "ring_outer_radius": 30
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/samsung/original/camera_outline_estimated/galaxy_z_fold7_inner_portrait_1968x2184_original_camera_outline_estimated.png",
+    "width": 1968,
+    "height": 2184,
+    "style": "original",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_fold7_inner_portrait",
+    "camera_center": [
+      1476,
+      76
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/samsung/rgb_border/camera_outline_estimated/galaxy_z_fold7_inner_portrait_1968x2184_rgb_border_camera_outline_estimated.png",
+    "width": 1968,
+    "height": 2184,
+    "style": "rgb_border",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_fold7_inner_portrait",
+    "camera_center": [
+      1476,
+      76
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/samsung/original/camera_outline_estimated/galaxy_z_fold7_inner_landscape_2184x1968_original_camera_outline_estimated.png",
+    "width": 2184,
+    "height": 1968,
+    "style": "original",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_fold7_inner_landscape",
+    "camera_center": [
+      76,
+      491
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/samsung/rgb_border/camera_outline_estimated/galaxy_z_fold7_inner_landscape_2184x1968_rgb_border_camera_outline_estimated.png",
+    "width": 2184,
+    "height": 1968,
+    "style": "rgb_border",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_fold7_inner_landscape",
+    "camera_center": [
+      76,
+      491
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/google/original/camera_outline_estimated/pixel_10_pro_fold_cover_portrait_1080x2364_original_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2364,
+    "style": "original",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "pixel_10_pro_fold_cover_portrait",
+    "camera_center": [
+      540,
+      82
+    ],
+    "ring_outer_radius": 45
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/google/rgb_border/camera_outline_estimated/pixel_10_pro_fold_cover_portrait_1080x2364_rgb_border_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2364,
+    "style": "rgb_border",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "pixel_10_pro_fold_cover_portrait",
+    "camera_center": [
+      540,
+      82
+    ],
+    "ring_outer_radius": 45
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/google/original/camera_outline_estimated/pixel_10_pro_fold_cover_landscape_2364x1080_original_camera_outline_estimated.png",
+    "width": 2364,
+    "height": 1080,
+    "style": "original",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "pixel_10_pro_fold_cover_landscape",
+    "camera_center": [
+      82,
+      539
+    ],
+    "ring_outer_radius": 45
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/google/rgb_border/camera_outline_estimated/pixel_10_pro_fold_cover_landscape_2364x1080_rgb_border_camera_outline_estimated.png",
+    "width": 2364,
+    "height": 1080,
+    "style": "rgb_border",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "pixel_10_pro_fold_cover_landscape",
+    "camera_center": [
+      82,
+      539
+    ],
+    "ring_outer_radius": 45
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/google/original/camera_outline_estimated/pixel_10_pro_fold_inner_portrait_2076x2152_original_camera_outline_estimated.png",
+    "width": 2076,
+    "height": 2152,
+    "style": "original",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "pixel_10_pro_fold_inner_portrait",
+    "camera_center": [
+      1970,
+      108
+    ],
+    "ring_outer_radius": 46
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/google/rgb_border/camera_outline_estimated/pixel_10_pro_fold_inner_portrait_2076x2152_rgb_border_camera_outline_estimated.png",
+    "width": 2076,
+    "height": 2152,
+    "style": "rgb_border",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "pixel_10_pro_fold_inner_portrait",
+    "camera_center": [
+      1970,
+      108
+    ],
+    "ring_outer_radius": 46
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/google/original/camera_outline_estimated/pixel_10_pro_fold_inner_landscape_2152x2076_original_camera_outline_estimated.png",
+    "width": 2152,
+    "height": 2076,
+    "style": "original",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "pixel_10_pro_fold_inner_landscape",
+    "camera_center": [
+      108,
+      105
+    ],
+    "ring_outer_radius": 46
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/google/rgb_border/camera_outline_estimated/pixel_10_pro_fold_inner_landscape_2152x2076_rgb_border_camera_outline_estimated.png",
+    "width": 2152,
+    "height": 2076,
+    "style": "rgb_border",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "pixel_10_pro_fold_inner_landscape",
+    "camera_center": [
+      108,
+      105
+    ],
+    "ring_outer_radius": 46
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/oneplus/original/camera_outline_estimated/oneplus_open_cover_portrait_1116x2484_original_camera_outline_estimated.png",
+    "width": 1116,
+    "height": 2484,
+    "style": "original",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oneplus_open_cover_portrait",
+    "camera_center": [
+      558,
+      72
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/oneplus/rgb_border/camera_outline_estimated/oneplus_open_cover_portrait_1116x2484_rgb_border_camera_outline_estimated.png",
+    "width": 1116,
+    "height": 2484,
+    "style": "rgb_border",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oneplus_open_cover_portrait",
+    "camera_center": [
+      558,
+      72
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/oneplus/original/camera_outline_estimated/oneplus_open_cover_landscape_2484x1116_original_camera_outline_estimated.png",
+    "width": 2484,
+    "height": 1116,
+    "style": "original",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oneplus_open_cover_landscape",
+    "camera_center": [
+      72,
+      557
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/oneplus/rgb_border/camera_outline_estimated/oneplus_open_cover_landscape_2484x1116_rgb_border_camera_outline_estimated.png",
+    "width": 2484,
+    "height": 1116,
+    "style": "rgb_border",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oneplus_open_cover_landscape",
+    "camera_center": [
+      72,
+      557
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/oneplus/original/camera_outline_estimated/oneplus_open_inner_portrait_2268x2440_original_camera_outline_estimated.png",
+    "width": 2268,
+    "height": 2440,
+    "style": "original",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oneplus_open_inner_portrait",
+    "camera_center": [
+      2154,
+      105
+    ],
+    "ring_outer_radius": 36
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/oneplus/rgb_border/camera_outline_estimated/oneplus_open_inner_portrait_2268x2440_rgb_border_camera_outline_estimated.png",
+    "width": 2268,
+    "height": 2440,
+    "style": "rgb_border",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oneplus_open_inner_portrait",
+    "camera_center": [
+      2154,
+      105
+    ],
+    "ring_outer_radius": 36
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/oneplus/original/camera_outline_estimated/oneplus_open_inner_landscape_2440x2268_original_camera_outline_estimated.png",
+    "width": 2440,
+    "height": 2268,
+    "style": "original",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oneplus_open_inner_landscape",
+    "camera_center": [
+      105,
+      113
+    ],
+    "ring_outer_radius": 36
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/oneplus/rgb_border/camera_outline_estimated/oneplus_open_inner_landscape_2440x2268_rgb_border_camera_outline_estimated.png",
+    "width": 2440,
+    "height": 2268,
+    "style": "rgb_border",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oneplus_open_inner_landscape",
+    "camera_center": [
+      105,
+      113
+    ],
+    "ring_outer_radius": 36
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/oppo/original/camera_outline_estimated/oppo_find_n5_cover_portrait_1140x2616_original_camera_outline_estimated.png",
+    "width": 1140,
+    "height": 2616,
+    "style": "original",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oppo_find_n5_cover_portrait",
+    "camera_center": [
+      570,
+      76
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/oppo/rgb_border/camera_outline_estimated/oppo_find_n5_cover_portrait_1140x2616_rgb_border_camera_outline_estimated.png",
+    "width": 1140,
+    "height": 2616,
+    "style": "rgb_border",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oppo_find_n5_cover_portrait",
+    "camera_center": [
+      570,
+      76
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/oppo/original/camera_outline_estimated/oppo_find_n5_cover_landscape_2616x1140_original_camera_outline_estimated.png",
+    "width": 2616,
+    "height": 1140,
+    "style": "original",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oppo_find_n5_cover_landscape",
+    "camera_center": [
+      76,
+      569
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/oppo/rgb_border/camera_outline_estimated/oppo_find_n5_cover_landscape_2616x1140_rgb_border_camera_outline_estimated.png",
+    "width": 2616,
+    "height": 1140,
+    "style": "rgb_border",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oppo_find_n5_cover_landscape",
+    "camera_center": [
+      76,
+      569
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/oppo/original/camera_outline_estimated/oppo_find_n5_inner_portrait_2248x2480_original_camera_outline_estimated.png",
+    "width": 2248,
+    "height": 2480,
+    "style": "original",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oppo_find_n5_inner_portrait",
+    "camera_center": [
+      2140,
+      105
+    ],
+    "ring_outer_radius": 36
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/oppo/rgb_border/camera_outline_estimated/oppo_find_n5_inner_portrait_2248x2480_rgb_border_camera_outline_estimated.png",
+    "width": 2248,
+    "height": 2480,
+    "style": "rgb_border",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oppo_find_n5_inner_portrait",
+    "camera_center": [
+      2140,
+      105
+    ],
+    "ring_outer_radius": 36
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/oppo/original/camera_outline_estimated/oppo_find_n5_inner_landscape_2480x2248_original_camera_outline_estimated.png",
+    "width": 2480,
+    "height": 2248,
+    "style": "original",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oppo_find_n5_inner_landscape",
+    "camera_center": [
+      105,
+      107
+    ],
+    "ring_outer_radius": 36
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/oppo/rgb_border/camera_outline_estimated/oppo_find_n5_inner_landscape_2480x2248_rgb_border_camera_outline_estimated.png",
+    "width": 2480,
+    "height": 2248,
+    "style": "rgb_border",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oppo_find_n5_inner_landscape",
+    "camera_center": [
+      105,
+      107
+    ],
+    "ring_outer_radius": 36
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/honor/original/camera_outline_estimated/honor_magic_v5_cover_portrait_1060x2376_original_camera_outline_estimated.png",
+    "width": 1060,
+    "height": 2376,
+    "style": "original",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "honor_magic_v5_cover_portrait",
+    "camera_center": [
+      530,
+      68
+    ],
+    "ring_outer_radius": 31
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/honor/rgb_border/camera_outline_estimated/honor_magic_v5_cover_portrait_1060x2376_rgb_border_camera_outline_estimated.png",
+    "width": 1060,
+    "height": 2376,
+    "style": "rgb_border",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "honor_magic_v5_cover_portrait",
+    "camera_center": [
+      530,
+      68
+    ],
+    "ring_outer_radius": 31
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/honor/original/camera_outline_estimated/honor_magic_v5_cover_landscape_2376x1060_original_camera_outline_estimated.png",
+    "width": 2376,
+    "height": 1060,
+    "style": "original",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "honor_magic_v5_cover_landscape",
+    "camera_center": [
+      68,
+      529
+    ],
+    "ring_outer_radius": 31
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/honor/rgb_border/camera_outline_estimated/honor_magic_v5_cover_landscape_2376x1060_rgb_border_camera_outline_estimated.png",
+    "width": 2376,
+    "height": 1060,
+    "style": "rgb_border",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "honor_magic_v5_cover_landscape",
+    "camera_center": [
+      68,
+      529
+    ],
+    "ring_outer_radius": 31
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/honor/original/camera_outline_estimated/honor_magic_v5_inner_portrait_2172x2352_original_camera_outline_estimated.png",
+    "width": 2172,
+    "height": 2352,
+    "style": "original",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "honor_magic_v5_inner_portrait",
+    "camera_center": [
+      2068,
+      101
+    ],
+    "ring_outer_radius": 35
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/honor/rgb_border/camera_outline_estimated/honor_magic_v5_inner_portrait_2172x2352_rgb_border_camera_outline_estimated.png",
+    "width": 2172,
+    "height": 2352,
+    "style": "rgb_border",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "honor_magic_v5_inner_portrait",
+    "camera_center": [
+      2068,
+      101
+    ],
+    "ring_outer_radius": 35
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/honor/original/camera_outline_estimated/honor_magic_v5_inner_landscape_2352x2172_original_camera_outline_estimated.png",
+    "width": 2352,
+    "height": 2172,
+    "style": "original",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "honor_magic_v5_inner_landscape",
+    "camera_center": [
+      101,
+      103
+    ],
+    "ring_outer_radius": 35
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/honor/rgb_border/camera_outline_estimated/honor_magic_v5_inner_landscape_2352x2172_rgb_border_camera_outline_estimated.png",
+    "width": 2352,
+    "height": 2172,
+    "style": "rgb_border",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "honor_magic_v5_inner_landscape",
+    "camera_center": [
+      101,
+      103
+    ],
+    "ring_outer_radius": 35
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/samsung/original/camera_outline_estimated/galaxy_z_flip7_inner_portrait_1080x2520_original_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2520,
+    "style": "original",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_flip7_inner_portrait",
+    "camera_center": [
+      540,
+      62
+    ],
+    "ring_outer_radius": 30
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/samsung/rgb_border/camera_outline_estimated/galaxy_z_flip7_inner_portrait_1080x2520_rgb_border_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2520,
+    "style": "rgb_border",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_flip7_inner_portrait",
+    "camera_center": [
+      540,
+      62
+    ],
+    "ring_outer_radius": 30
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/samsung/original/camera_outline_estimated/galaxy_z_flip7_inner_landscape_2520x1080_original_camera_outline_estimated.png",
+    "width": 2520,
+    "height": 1080,
+    "style": "original",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_flip7_inner_landscape",
+    "camera_center": [
+      62,
+      539
+    ],
+    "ring_outer_radius": 30
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/samsung/rgb_border/camera_outline_estimated/galaxy_z_flip7_inner_landscape_2520x1080_rgb_border_camera_outline_estimated.png",
+    "width": 2520,
+    "height": 1080,
+    "style": "rgb_border",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_flip7_inner_landscape",
+    "camera_center": [
+      62,
+      539
+    ],
+    "ring_outer_radius": 30
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/motorola/original/camera_outline_estimated/motorola_razr_ultra_2025_inner_portrait_1224x2992_original_camera_outline_estimated.png",
+    "width": 1224,
+    "height": 2992,
+    "style": "original",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "motorola_razr_ultra_2025_inner_portrait",
+    "camera_center": [
+      612,
+      75
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/motorola/rgb_border/camera_outline_estimated/motorola_razr_ultra_2025_inner_portrait_1224x2992_rgb_border_camera_outline_estimated.png",
+    "width": 1224,
+    "height": 2992,
+    "style": "rgb_border",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "motorola_razr_ultra_2025_inner_portrait",
+    "camera_center": [
+      612,
+      75
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/motorola/original/camera_outline_estimated/motorola_razr_ultra_2025_inner_landscape_2992x1224_original_camera_outline_estimated.png",
+    "width": 2992,
+    "height": 1224,
+    "style": "original",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "motorola_razr_ultra_2025_inner_landscape",
+    "camera_center": [
+      75,
+      611
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "01_honeycomb_bright/foldable/motorola/rgb_border/camera_outline_estimated/motorola_razr_ultra_2025_inner_landscape_2992x1224_rgb_border_camera_outline_estimated.png",
+    "width": 2992,
+    "height": 1224,
+    "style": "rgb_border",
+    "design": "01_honeycomb_bright",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "motorola_razr_ultra_2025_inner_landscape",
+    "camera_center": [
+      75,
+      611
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "02_hexagons/phone/pixel/original/camera_outline/pixel_9_1080x2424_original_camera_outline.png",
+    "width": 1080,
+    "height": 2424,
+    "style": "original",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "published",
+    "camera_profile": "pixel_9",
+    "camera_center": [
+      539.5,
+      86.5
+    ],
+    "ring_outer_radius": 50.0
+  },
+  {
+    "file": "02_hexagons/phone/pixel/rgb_border/camera_outline/pixel_9_1080x2424_rgb_border_camera_outline.png",
+    "width": 1080,
+    "height": 2424,
+    "style": "rgb_border",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "published",
+    "camera_profile": "pixel_9",
+    "camera_center": [
+      539.5,
+      86.5
+    ],
+    "ring_outer_radius": 50.0
+  },
+  {
+    "file": "02_hexagons/phone/pixel/original/camera_outline/pixel_9_pro_1280x2856_original_camera_outline.png",
+    "width": 1280,
+    "height": 2856,
+    "style": "original",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "published",
+    "camera_profile": "pixel_9_pro",
+    "camera_center": [
+      640.0,
+      102.0
+    ],
+    "ring_outer_radius": 57.0
+  },
+  {
+    "file": "02_hexagons/phone/pixel/rgb_border/camera_outline/pixel_9_pro_1280x2856_rgb_border_camera_outline.png",
+    "width": 1280,
+    "height": 2856,
+    "style": "rgb_border",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "published",
+    "camera_profile": "pixel_9_pro",
+    "camera_center": [
+      640.0,
+      102.0
+    ],
+    "ring_outer_radius": 57.0
+  },
+  {
+    "file": "02_hexagons/phone/pixel/original/camera_outline/pixel_9_pro_xl_1344x2992_original_camera_outline.png",
+    "width": 1344,
+    "height": 2992,
+    "style": "original",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "published",
+    "camera_profile": "pixel_9_pro_xl",
+    "camera_center": [
+      672.0,
+      99.5
+    ],
+    "ring_outer_radius": 55.0
+  },
+  {
+    "file": "02_hexagons/phone/pixel/rgb_border/camera_outline/pixel_9_pro_xl_1344x2992_rgb_border_camera_outline.png",
+    "width": 1344,
+    "height": 2992,
+    "style": "rgb_border",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "published",
+    "camera_profile": "pixel_9_pro_xl",
+    "camera_center": [
+      672.0,
+      99.5
+    ],
+    "ring_outer_radius": 55.0
+  },
+  {
+    "file": "02_hexagons/phone/samsung/original/camera_outline_estimated/galaxy_s24_1080x2340_original_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2340,
+    "style": "original",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_s24",
+    "camera_center": [
+      540,
+      60
+    ],
+    "ring_outer_radius": 29
+  },
+  {
+    "file": "02_hexagons/phone/samsung/rgb_border/camera_outline_estimated/galaxy_s24_1080x2340_rgb_border_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2340,
+    "style": "rgb_border",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_s24",
+    "camera_center": [
+      540,
+      60
+    ],
+    "ring_outer_radius": 29
+  },
+  {
+    "file": "02_hexagons/phone/samsung/original/camera_outline_estimated/galaxy_fhd_20x9_1080x2400_original_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2400,
+    "style": "original",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_fhd_20x9",
+    "camera_center": [
+      540,
+      65
+    ],
+    "ring_outer_radius": 29
+  },
+  {
+    "file": "02_hexagons/phone/samsung/rgb_border/camera_outline_estimated/galaxy_fhd_20x9_1080x2400_rgb_border_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2400,
+    "style": "rgb_border",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_fhd_20x9",
+    "camera_center": [
+      540,
+      65
+    ],
+    "ring_outer_radius": 29
+  },
+  {
+    "file": "02_hexagons/phone/samsung/original/camera_outline_estimated/galaxy_s24_plus_ultra_1440x3120_original_camera_outline_estimated.png",
+    "width": 1440,
+    "height": 3120,
+    "style": "original",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_s24_plus_ultra",
+    "camera_center": [
+      720,
+      78
+    ],
+    "ring_outer_radius": 34
+  },
+  {
+    "file": "02_hexagons/phone/samsung/rgb_border/camera_outline_estimated/galaxy_s24_plus_ultra_1440x3120_rgb_border_camera_outline_estimated.png",
+    "width": 1440,
+    "height": 3120,
+    "style": "rgb_border",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_s24_plus_ultra",
+    "camera_center": [
+      720,
+      78
+    ],
+    "ring_outer_radius": 34
+  },
+  {
+    "file": "02_hexagons/foldable/samsung/original/camera_outline_estimated/galaxy_z_fold7_cover_portrait_1080x2520_original_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2520,
+    "style": "original",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_fold7_cover_portrait",
+    "camera_center": [
+      540,
+      64
+    ],
+    "ring_outer_radius": 30
+  },
+  {
+    "file": "02_hexagons/foldable/samsung/rgb_border/camera_outline_estimated/galaxy_z_fold7_cover_portrait_1080x2520_rgb_border_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2520,
+    "style": "rgb_border",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_fold7_cover_portrait",
+    "camera_center": [
+      540,
+      64
+    ],
+    "ring_outer_radius": 30
+  },
+  {
+    "file": "02_hexagons/foldable/samsung/original/camera_outline_estimated/galaxy_z_fold7_cover_landscape_2520x1080_original_camera_outline_estimated.png",
+    "width": 2520,
+    "height": 1080,
+    "style": "original",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_fold7_cover_landscape",
+    "camera_center": [
+      64,
+      539
+    ],
+    "ring_outer_radius": 30
+  },
+  {
+    "file": "02_hexagons/foldable/samsung/rgb_border/camera_outline_estimated/galaxy_z_fold7_cover_landscape_2520x1080_rgb_border_camera_outline_estimated.png",
+    "width": 2520,
+    "height": 1080,
+    "style": "rgb_border",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_fold7_cover_landscape",
+    "camera_center": [
+      64,
+      539
+    ],
+    "ring_outer_radius": 30
+  },
+  {
+    "file": "02_hexagons/foldable/samsung/original/camera_outline_estimated/galaxy_z_fold7_inner_portrait_1968x2184_original_camera_outline_estimated.png",
+    "width": 1968,
+    "height": 2184,
+    "style": "original",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_fold7_inner_portrait",
+    "camera_center": [
+      1476,
+      76
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "02_hexagons/foldable/samsung/rgb_border/camera_outline_estimated/galaxy_z_fold7_inner_portrait_1968x2184_rgb_border_camera_outline_estimated.png",
+    "width": 1968,
+    "height": 2184,
+    "style": "rgb_border",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_fold7_inner_portrait",
+    "camera_center": [
+      1476,
+      76
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "02_hexagons/foldable/samsung/original/camera_outline_estimated/galaxy_z_fold7_inner_landscape_2184x1968_original_camera_outline_estimated.png",
+    "width": 2184,
+    "height": 1968,
+    "style": "original",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_fold7_inner_landscape",
+    "camera_center": [
+      76,
+      491
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "02_hexagons/foldable/samsung/rgb_border/camera_outline_estimated/galaxy_z_fold7_inner_landscape_2184x1968_rgb_border_camera_outline_estimated.png",
+    "width": 2184,
+    "height": 1968,
+    "style": "rgb_border",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_fold7_inner_landscape",
+    "camera_center": [
+      76,
+      491
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "02_hexagons/foldable/google/original/camera_outline_estimated/pixel_10_pro_fold_cover_portrait_1080x2364_original_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2364,
+    "style": "original",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "pixel_10_pro_fold_cover_portrait",
+    "camera_center": [
+      540,
+      82
+    ],
+    "ring_outer_radius": 45
+  },
+  {
+    "file": "02_hexagons/foldable/google/rgb_border/camera_outline_estimated/pixel_10_pro_fold_cover_portrait_1080x2364_rgb_border_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2364,
+    "style": "rgb_border",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "pixel_10_pro_fold_cover_portrait",
+    "camera_center": [
+      540,
+      82
+    ],
+    "ring_outer_radius": 45
+  },
+  {
+    "file": "02_hexagons/foldable/google/original/camera_outline_estimated/pixel_10_pro_fold_cover_landscape_2364x1080_original_camera_outline_estimated.png",
+    "width": 2364,
+    "height": 1080,
+    "style": "original",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "pixel_10_pro_fold_cover_landscape",
+    "camera_center": [
+      82,
+      539
+    ],
+    "ring_outer_radius": 45
+  },
+  {
+    "file": "02_hexagons/foldable/google/rgb_border/camera_outline_estimated/pixel_10_pro_fold_cover_landscape_2364x1080_rgb_border_camera_outline_estimated.png",
+    "width": 2364,
+    "height": 1080,
+    "style": "rgb_border",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "pixel_10_pro_fold_cover_landscape",
+    "camera_center": [
+      82,
+      539
+    ],
+    "ring_outer_radius": 45
+  },
+  {
+    "file": "02_hexagons/foldable/google/original/camera_outline_estimated/pixel_10_pro_fold_inner_portrait_2076x2152_original_camera_outline_estimated.png",
+    "width": 2076,
+    "height": 2152,
+    "style": "original",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "pixel_10_pro_fold_inner_portrait",
+    "camera_center": [
+      1970,
+      108
+    ],
+    "ring_outer_radius": 46
+  },
+  {
+    "file": "02_hexagons/foldable/google/rgb_border/camera_outline_estimated/pixel_10_pro_fold_inner_portrait_2076x2152_rgb_border_camera_outline_estimated.png",
+    "width": 2076,
+    "height": 2152,
+    "style": "rgb_border",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "pixel_10_pro_fold_inner_portrait",
+    "camera_center": [
+      1970,
+      108
+    ],
+    "ring_outer_radius": 46
+  },
+  {
+    "file": "02_hexagons/foldable/google/original/camera_outline_estimated/pixel_10_pro_fold_inner_landscape_2152x2076_original_camera_outline_estimated.png",
+    "width": 2152,
+    "height": 2076,
+    "style": "original",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "pixel_10_pro_fold_inner_landscape",
+    "camera_center": [
+      108,
+      105
+    ],
+    "ring_outer_radius": 46
+  },
+  {
+    "file": "02_hexagons/foldable/google/rgb_border/camera_outline_estimated/pixel_10_pro_fold_inner_landscape_2152x2076_rgb_border_camera_outline_estimated.png",
+    "width": 2152,
+    "height": 2076,
+    "style": "rgb_border",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "pixel_10_pro_fold_inner_landscape",
+    "camera_center": [
+      108,
+      105
+    ],
+    "ring_outer_radius": 46
+  },
+  {
+    "file": "02_hexagons/foldable/oneplus/original/camera_outline_estimated/oneplus_open_cover_portrait_1116x2484_original_camera_outline_estimated.png",
+    "width": 1116,
+    "height": 2484,
+    "style": "original",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oneplus_open_cover_portrait",
+    "camera_center": [
+      558,
+      72
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "02_hexagons/foldable/oneplus/rgb_border/camera_outline_estimated/oneplus_open_cover_portrait_1116x2484_rgb_border_camera_outline_estimated.png",
+    "width": 1116,
+    "height": 2484,
+    "style": "rgb_border",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oneplus_open_cover_portrait",
+    "camera_center": [
+      558,
+      72
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "02_hexagons/foldable/oneplus/original/camera_outline_estimated/oneplus_open_cover_landscape_2484x1116_original_camera_outline_estimated.png",
+    "width": 2484,
+    "height": 1116,
+    "style": "original",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oneplus_open_cover_landscape",
+    "camera_center": [
+      72,
+      557
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "02_hexagons/foldable/oneplus/rgb_border/camera_outline_estimated/oneplus_open_cover_landscape_2484x1116_rgb_border_camera_outline_estimated.png",
+    "width": 2484,
+    "height": 1116,
+    "style": "rgb_border",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oneplus_open_cover_landscape",
+    "camera_center": [
+      72,
+      557
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "02_hexagons/foldable/oneplus/original/camera_outline_estimated/oneplus_open_inner_portrait_2268x2440_original_camera_outline_estimated.png",
+    "width": 2268,
+    "height": 2440,
+    "style": "original",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oneplus_open_inner_portrait",
+    "camera_center": [
+      2154,
+      105
+    ],
+    "ring_outer_radius": 36
+  },
+  {
+    "file": "02_hexagons/foldable/oneplus/rgb_border/camera_outline_estimated/oneplus_open_inner_portrait_2268x2440_rgb_border_camera_outline_estimated.png",
+    "width": 2268,
+    "height": 2440,
+    "style": "rgb_border",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oneplus_open_inner_portrait",
+    "camera_center": [
+      2154,
+      105
+    ],
+    "ring_outer_radius": 36
+  },
+  {
+    "file": "02_hexagons/foldable/oneplus/original/camera_outline_estimated/oneplus_open_inner_landscape_2440x2268_original_camera_outline_estimated.png",
+    "width": 2440,
+    "height": 2268,
+    "style": "original",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oneplus_open_inner_landscape",
+    "camera_center": [
+      105,
+      113
+    ],
+    "ring_outer_radius": 36
+  },
+  {
+    "file": "02_hexagons/foldable/oneplus/rgb_border/camera_outline_estimated/oneplus_open_inner_landscape_2440x2268_rgb_border_camera_outline_estimated.png",
+    "width": 2440,
+    "height": 2268,
+    "style": "rgb_border",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oneplus_open_inner_landscape",
+    "camera_center": [
+      105,
+      113
+    ],
+    "ring_outer_radius": 36
+  },
+  {
+    "file": "02_hexagons/foldable/oppo/original/camera_outline_estimated/oppo_find_n5_cover_portrait_1140x2616_original_camera_outline_estimated.png",
+    "width": 1140,
+    "height": 2616,
+    "style": "original",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oppo_find_n5_cover_portrait",
+    "camera_center": [
+      570,
+      76
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "02_hexagons/foldable/oppo/rgb_border/camera_outline_estimated/oppo_find_n5_cover_portrait_1140x2616_rgb_border_camera_outline_estimated.png",
+    "width": 1140,
+    "height": 2616,
+    "style": "rgb_border",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oppo_find_n5_cover_portrait",
+    "camera_center": [
+      570,
+      76
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "02_hexagons/foldable/oppo/original/camera_outline_estimated/oppo_find_n5_cover_landscape_2616x1140_original_camera_outline_estimated.png",
+    "width": 2616,
+    "height": 1140,
+    "style": "original",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oppo_find_n5_cover_landscape",
+    "camera_center": [
+      76,
+      569
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "02_hexagons/foldable/oppo/rgb_border/camera_outline_estimated/oppo_find_n5_cover_landscape_2616x1140_rgb_border_camera_outline_estimated.png",
+    "width": 2616,
+    "height": 1140,
+    "style": "rgb_border",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oppo_find_n5_cover_landscape",
+    "camera_center": [
+      76,
+      569
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "02_hexagons/foldable/oppo/original/camera_outline_estimated/oppo_find_n5_inner_portrait_2248x2480_original_camera_outline_estimated.png",
+    "width": 2248,
+    "height": 2480,
+    "style": "original",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oppo_find_n5_inner_portrait",
+    "camera_center": [
+      2140,
+      105
+    ],
+    "ring_outer_radius": 36
+  },
+  {
+    "file": "02_hexagons/foldable/oppo/rgb_border/camera_outline_estimated/oppo_find_n5_inner_portrait_2248x2480_rgb_border_camera_outline_estimated.png",
+    "width": 2248,
+    "height": 2480,
+    "style": "rgb_border",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oppo_find_n5_inner_portrait",
+    "camera_center": [
+      2140,
+      105
+    ],
+    "ring_outer_radius": 36
+  },
+  {
+    "file": "02_hexagons/foldable/oppo/original/camera_outline_estimated/oppo_find_n5_inner_landscape_2480x2248_original_camera_outline_estimated.png",
+    "width": 2480,
+    "height": 2248,
+    "style": "original",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oppo_find_n5_inner_landscape",
+    "camera_center": [
+      105,
+      107
+    ],
+    "ring_outer_radius": 36
+  },
+  {
+    "file": "02_hexagons/foldable/oppo/rgb_border/camera_outline_estimated/oppo_find_n5_inner_landscape_2480x2248_rgb_border_camera_outline_estimated.png",
+    "width": 2480,
+    "height": 2248,
+    "style": "rgb_border",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oppo_find_n5_inner_landscape",
+    "camera_center": [
+      105,
+      107
+    ],
+    "ring_outer_radius": 36
+  },
+  {
+    "file": "02_hexagons/foldable/honor/original/camera_outline_estimated/honor_magic_v5_cover_portrait_1060x2376_original_camera_outline_estimated.png",
+    "width": 1060,
+    "height": 2376,
+    "style": "original",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "honor_magic_v5_cover_portrait",
+    "camera_center": [
+      530,
+      68
+    ],
+    "ring_outer_radius": 31
+  },
+  {
+    "file": "02_hexagons/foldable/honor/rgb_border/camera_outline_estimated/honor_magic_v5_cover_portrait_1060x2376_rgb_border_camera_outline_estimated.png",
+    "width": 1060,
+    "height": 2376,
+    "style": "rgb_border",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "honor_magic_v5_cover_portrait",
+    "camera_center": [
+      530,
+      68
+    ],
+    "ring_outer_radius": 31
+  },
+  {
+    "file": "02_hexagons/foldable/honor/original/camera_outline_estimated/honor_magic_v5_cover_landscape_2376x1060_original_camera_outline_estimated.png",
+    "width": 2376,
+    "height": 1060,
+    "style": "original",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "honor_magic_v5_cover_landscape",
+    "camera_center": [
+      68,
+      529
+    ],
+    "ring_outer_radius": 31
+  },
+  {
+    "file": "02_hexagons/foldable/honor/rgb_border/camera_outline_estimated/honor_magic_v5_cover_landscape_2376x1060_rgb_border_camera_outline_estimated.png",
+    "width": 2376,
+    "height": 1060,
+    "style": "rgb_border",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "honor_magic_v5_cover_landscape",
+    "camera_center": [
+      68,
+      529
+    ],
+    "ring_outer_radius": 31
+  },
+  {
+    "file": "02_hexagons/foldable/honor/original/camera_outline_estimated/honor_magic_v5_inner_portrait_2172x2352_original_camera_outline_estimated.png",
+    "width": 2172,
+    "height": 2352,
+    "style": "original",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "honor_magic_v5_inner_portrait",
+    "camera_center": [
+      2068,
+      101
+    ],
+    "ring_outer_radius": 35
+  },
+  {
+    "file": "02_hexagons/foldable/honor/rgb_border/camera_outline_estimated/honor_magic_v5_inner_portrait_2172x2352_rgb_border_camera_outline_estimated.png",
+    "width": 2172,
+    "height": 2352,
+    "style": "rgb_border",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "honor_magic_v5_inner_portrait",
+    "camera_center": [
+      2068,
+      101
+    ],
+    "ring_outer_radius": 35
+  },
+  {
+    "file": "02_hexagons/foldable/honor/original/camera_outline_estimated/honor_magic_v5_inner_landscape_2352x2172_original_camera_outline_estimated.png",
+    "width": 2352,
+    "height": 2172,
+    "style": "original",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "honor_magic_v5_inner_landscape",
+    "camera_center": [
+      101,
+      103
+    ],
+    "ring_outer_radius": 35
+  },
+  {
+    "file": "02_hexagons/foldable/honor/rgb_border/camera_outline_estimated/honor_magic_v5_inner_landscape_2352x2172_rgb_border_camera_outline_estimated.png",
+    "width": 2352,
+    "height": 2172,
+    "style": "rgb_border",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "honor_magic_v5_inner_landscape",
+    "camera_center": [
+      101,
+      103
+    ],
+    "ring_outer_radius": 35
+  },
+  {
+    "file": "02_hexagons/foldable/samsung/original/camera_outline_estimated/galaxy_z_flip7_inner_portrait_1080x2520_original_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2520,
+    "style": "original",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_flip7_inner_portrait",
+    "camera_center": [
+      540,
+      62
+    ],
+    "ring_outer_radius": 30
+  },
+  {
+    "file": "02_hexagons/foldable/samsung/rgb_border/camera_outline_estimated/galaxy_z_flip7_inner_portrait_1080x2520_rgb_border_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2520,
+    "style": "rgb_border",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_flip7_inner_portrait",
+    "camera_center": [
+      540,
+      62
+    ],
+    "ring_outer_radius": 30
+  },
+  {
+    "file": "02_hexagons/foldable/samsung/original/camera_outline_estimated/galaxy_z_flip7_inner_landscape_2520x1080_original_camera_outline_estimated.png",
+    "width": 2520,
+    "height": 1080,
+    "style": "original",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_flip7_inner_landscape",
+    "camera_center": [
+      62,
+      539
+    ],
+    "ring_outer_radius": 30
+  },
+  {
+    "file": "02_hexagons/foldable/samsung/rgb_border/camera_outline_estimated/galaxy_z_flip7_inner_landscape_2520x1080_rgb_border_camera_outline_estimated.png",
+    "width": 2520,
+    "height": 1080,
+    "style": "rgb_border",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_flip7_inner_landscape",
+    "camera_center": [
+      62,
+      539
+    ],
+    "ring_outer_radius": 30
+  },
+  {
+    "file": "02_hexagons/foldable/motorola/original/camera_outline_estimated/motorola_razr_ultra_2025_inner_portrait_1224x2992_original_camera_outline_estimated.png",
+    "width": 1224,
+    "height": 2992,
+    "style": "original",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "motorola_razr_ultra_2025_inner_portrait",
+    "camera_center": [
+      612,
+      75
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "02_hexagons/foldable/motorola/rgb_border/camera_outline_estimated/motorola_razr_ultra_2025_inner_portrait_1224x2992_rgb_border_camera_outline_estimated.png",
+    "width": 1224,
+    "height": 2992,
+    "style": "rgb_border",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "motorola_razr_ultra_2025_inner_portrait",
+    "camera_center": [
+      612,
+      75
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "02_hexagons/foldable/motorola/original/camera_outline_estimated/motorola_razr_ultra_2025_inner_landscape_2992x1224_original_camera_outline_estimated.png",
+    "width": 2992,
+    "height": 1224,
+    "style": "original",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "motorola_razr_ultra_2025_inner_landscape",
+    "camera_center": [
+      75,
+      611
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "02_hexagons/foldable/motorola/rgb_border/camera_outline_estimated/motorola_razr_ultra_2025_inner_landscape_2992x1224_rgb_border_camera_outline_estimated.png",
+    "width": 2992,
+    "height": 1224,
+    "style": "rgb_border",
+    "design": "02_hexagons",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "motorola_razr_ultra_2025_inner_landscape",
+    "camera_center": [
+      75,
+      611
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "03_honeycomb_subtle/phone/pixel/original/camera_outline/pixel_9_1080x2424_original_camera_outline.png",
+    "width": 1080,
+    "height": 2424,
+    "style": "original",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "published",
+    "camera_profile": "pixel_9",
+    "camera_center": [
+      539.5,
+      86.5
+    ],
+    "ring_outer_radius": 50.0
+  },
+  {
+    "file": "03_honeycomb_subtle/phone/pixel/rgb_border/camera_outline/pixel_9_1080x2424_rgb_border_camera_outline.png",
+    "width": 1080,
+    "height": 2424,
+    "style": "rgb_border",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "published",
+    "camera_profile": "pixel_9",
+    "camera_center": [
+      539.5,
+      86.5
+    ],
+    "ring_outer_radius": 50.0
+  },
+  {
+    "file": "03_honeycomb_subtle/phone/pixel/original/camera_outline/pixel_9_pro_1280x2856_original_camera_outline.png",
+    "width": 1280,
+    "height": 2856,
+    "style": "original",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "published",
+    "camera_profile": "pixel_9_pro",
+    "camera_center": [
+      640.0,
+      102.0
+    ],
+    "ring_outer_radius": 57.0
+  },
+  {
+    "file": "03_honeycomb_subtle/phone/pixel/rgb_border/camera_outline/pixel_9_pro_1280x2856_rgb_border_camera_outline.png",
+    "width": 1280,
+    "height": 2856,
+    "style": "rgb_border",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "published",
+    "camera_profile": "pixel_9_pro",
+    "camera_center": [
+      640.0,
+      102.0
+    ],
+    "ring_outer_radius": 57.0
+  },
+  {
+    "file": "03_honeycomb_subtle/phone/pixel/original/camera_outline/pixel_9_pro_xl_1344x2992_original_camera_outline.png",
+    "width": 1344,
+    "height": 2992,
+    "style": "original",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "published",
+    "camera_profile": "pixel_9_pro_xl",
+    "camera_center": [
+      672.0,
+      99.5
+    ],
+    "ring_outer_radius": 55.0
+  },
+  {
+    "file": "03_honeycomb_subtle/phone/pixel/rgb_border/camera_outline/pixel_9_pro_xl_1344x2992_rgb_border_camera_outline.png",
+    "width": 1344,
+    "height": 2992,
+    "style": "rgb_border",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "published",
+    "camera_profile": "pixel_9_pro_xl",
+    "camera_center": [
+      672.0,
+      99.5
+    ],
+    "ring_outer_radius": 55.0
+  },
+  {
+    "file": "03_honeycomb_subtle/phone/samsung/original/camera_outline_estimated/galaxy_s24_1080x2340_original_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2340,
+    "style": "original",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_s24",
+    "camera_center": [
+      540,
+      60
+    ],
+    "ring_outer_radius": 29
+  },
+  {
+    "file": "03_honeycomb_subtle/phone/samsung/rgb_border/camera_outline_estimated/galaxy_s24_1080x2340_rgb_border_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2340,
+    "style": "rgb_border",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_s24",
+    "camera_center": [
+      540,
+      60
+    ],
+    "ring_outer_radius": 29
+  },
+  {
+    "file": "03_honeycomb_subtle/phone/samsung/original/camera_outline_estimated/galaxy_fhd_20x9_1080x2400_original_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2400,
+    "style": "original",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_fhd_20x9",
+    "camera_center": [
+      540,
+      65
+    ],
+    "ring_outer_radius": 29
+  },
+  {
+    "file": "03_honeycomb_subtle/phone/samsung/rgb_border/camera_outline_estimated/galaxy_fhd_20x9_1080x2400_rgb_border_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2400,
+    "style": "rgb_border",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_fhd_20x9",
+    "camera_center": [
+      540,
+      65
+    ],
+    "ring_outer_radius": 29
+  },
+  {
+    "file": "03_honeycomb_subtle/phone/samsung/original/camera_outline_estimated/galaxy_s24_plus_ultra_1440x3120_original_camera_outline_estimated.png",
+    "width": 1440,
+    "height": 3120,
+    "style": "original",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_s24_plus_ultra",
+    "camera_center": [
+      720,
+      78
+    ],
+    "ring_outer_radius": 34
+  },
+  {
+    "file": "03_honeycomb_subtle/phone/samsung/rgb_border/camera_outline_estimated/galaxy_s24_plus_ultra_1440x3120_rgb_border_camera_outline_estimated.png",
+    "width": 1440,
+    "height": 3120,
+    "style": "rgb_border",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_s24_plus_ultra",
+    "camera_center": [
+      720,
+      78
+    ],
+    "ring_outer_radius": 34
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/samsung/original/camera_outline_estimated/galaxy_z_fold7_cover_portrait_1080x2520_original_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2520,
+    "style": "original",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_fold7_cover_portrait",
+    "camera_center": [
+      540,
+      64
+    ],
+    "ring_outer_radius": 30
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/samsung/rgb_border/camera_outline_estimated/galaxy_z_fold7_cover_portrait_1080x2520_rgb_border_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2520,
+    "style": "rgb_border",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_fold7_cover_portrait",
+    "camera_center": [
+      540,
+      64
+    ],
+    "ring_outer_radius": 30
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/samsung/original/camera_outline_estimated/galaxy_z_fold7_cover_landscape_2520x1080_original_camera_outline_estimated.png",
+    "width": 2520,
+    "height": 1080,
+    "style": "original",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_fold7_cover_landscape",
+    "camera_center": [
+      64,
+      539
+    ],
+    "ring_outer_radius": 30
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/samsung/rgb_border/camera_outline_estimated/galaxy_z_fold7_cover_landscape_2520x1080_rgb_border_camera_outline_estimated.png",
+    "width": 2520,
+    "height": 1080,
+    "style": "rgb_border",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_fold7_cover_landscape",
+    "camera_center": [
+      64,
+      539
+    ],
+    "ring_outer_radius": 30
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/samsung/original/camera_outline_estimated/galaxy_z_fold7_inner_portrait_1968x2184_original_camera_outline_estimated.png",
+    "width": 1968,
+    "height": 2184,
+    "style": "original",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_fold7_inner_portrait",
+    "camera_center": [
+      1476,
+      76
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/samsung/rgb_border/camera_outline_estimated/galaxy_z_fold7_inner_portrait_1968x2184_rgb_border_camera_outline_estimated.png",
+    "width": 1968,
+    "height": 2184,
+    "style": "rgb_border",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_fold7_inner_portrait",
+    "camera_center": [
+      1476,
+      76
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/samsung/original/camera_outline_estimated/galaxy_z_fold7_inner_landscape_2184x1968_original_camera_outline_estimated.png",
+    "width": 2184,
+    "height": 1968,
+    "style": "original",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_fold7_inner_landscape",
+    "camera_center": [
+      76,
+      491
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/samsung/rgb_border/camera_outline_estimated/galaxy_z_fold7_inner_landscape_2184x1968_rgb_border_camera_outline_estimated.png",
+    "width": 2184,
+    "height": 1968,
+    "style": "rgb_border",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_fold7_inner_landscape",
+    "camera_center": [
+      76,
+      491
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/google/original/camera_outline_estimated/pixel_10_pro_fold_cover_portrait_1080x2364_original_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2364,
+    "style": "original",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "pixel_10_pro_fold_cover_portrait",
+    "camera_center": [
+      540,
+      82
+    ],
+    "ring_outer_radius": 45
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/google/rgb_border/camera_outline_estimated/pixel_10_pro_fold_cover_portrait_1080x2364_rgb_border_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2364,
+    "style": "rgb_border",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "pixel_10_pro_fold_cover_portrait",
+    "camera_center": [
+      540,
+      82
+    ],
+    "ring_outer_radius": 45
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/google/original/camera_outline_estimated/pixel_10_pro_fold_cover_landscape_2364x1080_original_camera_outline_estimated.png",
+    "width": 2364,
+    "height": 1080,
+    "style": "original",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "pixel_10_pro_fold_cover_landscape",
+    "camera_center": [
+      82,
+      539
+    ],
+    "ring_outer_radius": 45
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/google/rgb_border/camera_outline_estimated/pixel_10_pro_fold_cover_landscape_2364x1080_rgb_border_camera_outline_estimated.png",
+    "width": 2364,
+    "height": 1080,
+    "style": "rgb_border",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "pixel_10_pro_fold_cover_landscape",
+    "camera_center": [
+      82,
+      539
+    ],
+    "ring_outer_radius": 45
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/google/original/camera_outline_estimated/pixel_10_pro_fold_inner_portrait_2076x2152_original_camera_outline_estimated.png",
+    "width": 2076,
+    "height": 2152,
+    "style": "original",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "pixel_10_pro_fold_inner_portrait",
+    "camera_center": [
+      1970,
+      108
+    ],
+    "ring_outer_radius": 46
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/google/rgb_border/camera_outline_estimated/pixel_10_pro_fold_inner_portrait_2076x2152_rgb_border_camera_outline_estimated.png",
+    "width": 2076,
+    "height": 2152,
+    "style": "rgb_border",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "pixel_10_pro_fold_inner_portrait",
+    "camera_center": [
+      1970,
+      108
+    ],
+    "ring_outer_radius": 46
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/google/original/camera_outline_estimated/pixel_10_pro_fold_inner_landscape_2152x2076_original_camera_outline_estimated.png",
+    "width": 2152,
+    "height": 2076,
+    "style": "original",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "pixel_10_pro_fold_inner_landscape",
+    "camera_center": [
+      108,
+      105
+    ],
+    "ring_outer_radius": 46
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/google/rgb_border/camera_outline_estimated/pixel_10_pro_fold_inner_landscape_2152x2076_rgb_border_camera_outline_estimated.png",
+    "width": 2152,
+    "height": 2076,
+    "style": "rgb_border",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "pixel_10_pro_fold_inner_landscape",
+    "camera_center": [
+      108,
+      105
+    ],
+    "ring_outer_radius": 46
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/oneplus/original/camera_outline_estimated/oneplus_open_cover_portrait_1116x2484_original_camera_outline_estimated.png",
+    "width": 1116,
+    "height": 2484,
+    "style": "original",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oneplus_open_cover_portrait",
+    "camera_center": [
+      558,
+      72
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/oneplus/rgb_border/camera_outline_estimated/oneplus_open_cover_portrait_1116x2484_rgb_border_camera_outline_estimated.png",
+    "width": 1116,
+    "height": 2484,
+    "style": "rgb_border",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oneplus_open_cover_portrait",
+    "camera_center": [
+      558,
+      72
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/oneplus/original/camera_outline_estimated/oneplus_open_cover_landscape_2484x1116_original_camera_outline_estimated.png",
+    "width": 2484,
+    "height": 1116,
+    "style": "original",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oneplus_open_cover_landscape",
+    "camera_center": [
+      72,
+      557
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/oneplus/rgb_border/camera_outline_estimated/oneplus_open_cover_landscape_2484x1116_rgb_border_camera_outline_estimated.png",
+    "width": 2484,
+    "height": 1116,
+    "style": "rgb_border",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oneplus_open_cover_landscape",
+    "camera_center": [
+      72,
+      557
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/oneplus/original/camera_outline_estimated/oneplus_open_inner_portrait_2268x2440_original_camera_outline_estimated.png",
+    "width": 2268,
+    "height": 2440,
+    "style": "original",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oneplus_open_inner_portrait",
+    "camera_center": [
+      2154,
+      105
+    ],
+    "ring_outer_radius": 36
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/oneplus/rgb_border/camera_outline_estimated/oneplus_open_inner_portrait_2268x2440_rgb_border_camera_outline_estimated.png",
+    "width": 2268,
+    "height": 2440,
+    "style": "rgb_border",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oneplus_open_inner_portrait",
+    "camera_center": [
+      2154,
+      105
+    ],
+    "ring_outer_radius": 36
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/oneplus/original/camera_outline_estimated/oneplus_open_inner_landscape_2440x2268_original_camera_outline_estimated.png",
+    "width": 2440,
+    "height": 2268,
+    "style": "original",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oneplus_open_inner_landscape",
+    "camera_center": [
+      105,
+      113
+    ],
+    "ring_outer_radius": 36
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/oneplus/rgb_border/camera_outline_estimated/oneplus_open_inner_landscape_2440x2268_rgb_border_camera_outline_estimated.png",
+    "width": 2440,
+    "height": 2268,
+    "style": "rgb_border",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oneplus_open_inner_landscape",
+    "camera_center": [
+      105,
+      113
+    ],
+    "ring_outer_radius": 36
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/oppo/original/camera_outline_estimated/oppo_find_n5_cover_portrait_1140x2616_original_camera_outline_estimated.png",
+    "width": 1140,
+    "height": 2616,
+    "style": "original",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oppo_find_n5_cover_portrait",
+    "camera_center": [
+      570,
+      76
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/oppo/rgb_border/camera_outline_estimated/oppo_find_n5_cover_portrait_1140x2616_rgb_border_camera_outline_estimated.png",
+    "width": 1140,
+    "height": 2616,
+    "style": "rgb_border",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oppo_find_n5_cover_portrait",
+    "camera_center": [
+      570,
+      76
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/oppo/original/camera_outline_estimated/oppo_find_n5_cover_landscape_2616x1140_original_camera_outline_estimated.png",
+    "width": 2616,
+    "height": 1140,
+    "style": "original",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oppo_find_n5_cover_landscape",
+    "camera_center": [
+      76,
+      569
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/oppo/rgb_border/camera_outline_estimated/oppo_find_n5_cover_landscape_2616x1140_rgb_border_camera_outline_estimated.png",
+    "width": 2616,
+    "height": 1140,
+    "style": "rgb_border",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oppo_find_n5_cover_landscape",
+    "camera_center": [
+      76,
+      569
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/oppo/original/camera_outline_estimated/oppo_find_n5_inner_portrait_2248x2480_original_camera_outline_estimated.png",
+    "width": 2248,
+    "height": 2480,
+    "style": "original",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oppo_find_n5_inner_portrait",
+    "camera_center": [
+      2140,
+      105
+    ],
+    "ring_outer_radius": 36
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/oppo/rgb_border/camera_outline_estimated/oppo_find_n5_inner_portrait_2248x2480_rgb_border_camera_outline_estimated.png",
+    "width": 2248,
+    "height": 2480,
+    "style": "rgb_border",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oppo_find_n5_inner_portrait",
+    "camera_center": [
+      2140,
+      105
+    ],
+    "ring_outer_radius": 36
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/oppo/original/camera_outline_estimated/oppo_find_n5_inner_landscape_2480x2248_original_camera_outline_estimated.png",
+    "width": 2480,
+    "height": 2248,
+    "style": "original",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oppo_find_n5_inner_landscape",
+    "camera_center": [
+      105,
+      107
+    ],
+    "ring_outer_radius": 36
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/oppo/rgb_border/camera_outline_estimated/oppo_find_n5_inner_landscape_2480x2248_rgb_border_camera_outline_estimated.png",
+    "width": 2480,
+    "height": 2248,
+    "style": "rgb_border",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oppo_find_n5_inner_landscape",
+    "camera_center": [
+      105,
+      107
+    ],
+    "ring_outer_radius": 36
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/honor/original/camera_outline_estimated/honor_magic_v5_cover_portrait_1060x2376_original_camera_outline_estimated.png",
+    "width": 1060,
+    "height": 2376,
+    "style": "original",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "honor_magic_v5_cover_portrait",
+    "camera_center": [
+      530,
+      68
+    ],
+    "ring_outer_radius": 31
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/honor/rgb_border/camera_outline_estimated/honor_magic_v5_cover_portrait_1060x2376_rgb_border_camera_outline_estimated.png",
+    "width": 1060,
+    "height": 2376,
+    "style": "rgb_border",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "honor_magic_v5_cover_portrait",
+    "camera_center": [
+      530,
+      68
+    ],
+    "ring_outer_radius": 31
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/honor/original/camera_outline_estimated/honor_magic_v5_cover_landscape_2376x1060_original_camera_outline_estimated.png",
+    "width": 2376,
+    "height": 1060,
+    "style": "original",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "honor_magic_v5_cover_landscape",
+    "camera_center": [
+      68,
+      529
+    ],
+    "ring_outer_radius": 31
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/honor/rgb_border/camera_outline_estimated/honor_magic_v5_cover_landscape_2376x1060_rgb_border_camera_outline_estimated.png",
+    "width": 2376,
+    "height": 1060,
+    "style": "rgb_border",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "honor_magic_v5_cover_landscape",
+    "camera_center": [
+      68,
+      529
+    ],
+    "ring_outer_radius": 31
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/honor/original/camera_outline_estimated/honor_magic_v5_inner_portrait_2172x2352_original_camera_outline_estimated.png",
+    "width": 2172,
+    "height": 2352,
+    "style": "original",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "honor_magic_v5_inner_portrait",
+    "camera_center": [
+      2068,
+      101
+    ],
+    "ring_outer_radius": 35
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/honor/rgb_border/camera_outline_estimated/honor_magic_v5_inner_portrait_2172x2352_rgb_border_camera_outline_estimated.png",
+    "width": 2172,
+    "height": 2352,
+    "style": "rgb_border",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "honor_magic_v5_inner_portrait",
+    "camera_center": [
+      2068,
+      101
+    ],
+    "ring_outer_radius": 35
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/honor/original/camera_outline_estimated/honor_magic_v5_inner_landscape_2352x2172_original_camera_outline_estimated.png",
+    "width": 2352,
+    "height": 2172,
+    "style": "original",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "honor_magic_v5_inner_landscape",
+    "camera_center": [
+      101,
+      103
+    ],
+    "ring_outer_radius": 35
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/honor/rgb_border/camera_outline_estimated/honor_magic_v5_inner_landscape_2352x2172_rgb_border_camera_outline_estimated.png",
+    "width": 2352,
+    "height": 2172,
+    "style": "rgb_border",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "honor_magic_v5_inner_landscape",
+    "camera_center": [
+      101,
+      103
+    ],
+    "ring_outer_radius": 35
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/samsung/original/camera_outline_estimated/galaxy_z_flip7_inner_portrait_1080x2520_original_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2520,
+    "style": "original",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_flip7_inner_portrait",
+    "camera_center": [
+      540,
+      62
+    ],
+    "ring_outer_radius": 30
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/samsung/rgb_border/camera_outline_estimated/galaxy_z_flip7_inner_portrait_1080x2520_rgb_border_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2520,
+    "style": "rgb_border",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_flip7_inner_portrait",
+    "camera_center": [
+      540,
+      62
+    ],
+    "ring_outer_radius": 30
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/samsung/original/camera_outline_estimated/galaxy_z_flip7_inner_landscape_2520x1080_original_camera_outline_estimated.png",
+    "width": 2520,
+    "height": 1080,
+    "style": "original",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_flip7_inner_landscape",
+    "camera_center": [
+      62,
+      539
+    ],
+    "ring_outer_radius": 30
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/samsung/rgb_border/camera_outline_estimated/galaxy_z_flip7_inner_landscape_2520x1080_rgb_border_camera_outline_estimated.png",
+    "width": 2520,
+    "height": 1080,
+    "style": "rgb_border",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_flip7_inner_landscape",
+    "camera_center": [
+      62,
+      539
+    ],
+    "ring_outer_radius": 30
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/motorola/original/camera_outline_estimated/motorola_razr_ultra_2025_inner_portrait_1224x2992_original_camera_outline_estimated.png",
+    "width": 1224,
+    "height": 2992,
+    "style": "original",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "motorola_razr_ultra_2025_inner_portrait",
+    "camera_center": [
+      612,
+      75
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/motorola/rgb_border/camera_outline_estimated/motorola_razr_ultra_2025_inner_portrait_1224x2992_rgb_border_camera_outline_estimated.png",
+    "width": 1224,
+    "height": 2992,
+    "style": "rgb_border",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "motorola_razr_ultra_2025_inner_portrait",
+    "camera_center": [
+      612,
+      75
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/motorola/original/camera_outline_estimated/motorola_razr_ultra_2025_inner_landscape_2992x1224_original_camera_outline_estimated.png",
+    "width": 2992,
+    "height": 1224,
+    "style": "original",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "motorola_razr_ultra_2025_inner_landscape",
+    "camera_center": [
+      75,
+      611
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "03_honeycomb_subtle/foldable/motorola/rgb_border/camera_outline_estimated/motorola_razr_ultra_2025_inner_landscape_2992x1224_rgb_border_camera_outline_estimated.png",
+    "width": 2992,
+    "height": 1224,
+    "style": "rgb_border",
+    "design": "03_honeycomb_subtle",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "motorola_razr_ultra_2025_inner_landscape",
+    "camera_center": [
+      75,
+      611
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "04_cubes/phone/pixel/original/camera_outline/pixel_9_1080x2424_original_camera_outline.png",
+    "width": 1080,
+    "height": 2424,
+    "style": "original",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "published",
+    "camera_profile": "pixel_9",
+    "camera_center": [
+      539.5,
+      86.5
+    ],
+    "ring_outer_radius": 50.0
+  },
+  {
+    "file": "04_cubes/phone/pixel/rgb_border/camera_outline/pixel_9_1080x2424_rgb_border_camera_outline.png",
+    "width": 1080,
+    "height": 2424,
+    "style": "rgb_border",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "published",
+    "camera_profile": "pixel_9",
+    "camera_center": [
+      539.5,
+      86.5
+    ],
+    "ring_outer_radius": 50.0
+  },
+  {
+    "file": "04_cubes/phone/pixel/original/camera_outline/pixel_9_pro_1280x2856_original_camera_outline.png",
+    "width": 1280,
+    "height": 2856,
+    "style": "original",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "published",
+    "camera_profile": "pixel_9_pro",
+    "camera_center": [
+      640.0,
+      102.0
+    ],
+    "ring_outer_radius": 57.0
+  },
+  {
+    "file": "04_cubes/phone/pixel/rgb_border/camera_outline/pixel_9_pro_1280x2856_rgb_border_camera_outline.png",
+    "width": 1280,
+    "height": 2856,
+    "style": "rgb_border",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "published",
+    "camera_profile": "pixel_9_pro",
+    "camera_center": [
+      640.0,
+      102.0
+    ],
+    "ring_outer_radius": 57.0
+  },
+  {
+    "file": "04_cubes/phone/pixel/original/camera_outline/pixel_9_pro_xl_1344x2992_original_camera_outline.png",
+    "width": 1344,
+    "height": 2992,
+    "style": "original",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "published",
+    "camera_profile": "pixel_9_pro_xl",
+    "camera_center": [
+      672.0,
+      99.5
+    ],
+    "ring_outer_radius": 55.0
+  },
+  {
+    "file": "04_cubes/phone/pixel/rgb_border/camera_outline/pixel_9_pro_xl_1344x2992_rgb_border_camera_outline.png",
+    "width": 1344,
+    "height": 2992,
+    "style": "rgb_border",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "published",
+    "camera_profile": "pixel_9_pro_xl",
+    "camera_center": [
+      672.0,
+      99.5
+    ],
+    "ring_outer_radius": 55.0
+  },
+  {
+    "file": "04_cubes/phone/samsung/original/camera_outline_estimated/galaxy_s24_1080x2340_original_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2340,
+    "style": "original",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_s24",
+    "camera_center": [
+      540,
+      60
+    ],
+    "ring_outer_radius": 29
+  },
+  {
+    "file": "04_cubes/phone/samsung/rgb_border/camera_outline_estimated/galaxy_s24_1080x2340_rgb_border_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2340,
+    "style": "rgb_border",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_s24",
+    "camera_center": [
+      540,
+      60
+    ],
+    "ring_outer_radius": 29
+  },
+  {
+    "file": "04_cubes/phone/samsung/original/camera_outline_estimated/galaxy_fhd_20x9_1080x2400_original_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2400,
+    "style": "original",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_fhd_20x9",
+    "camera_center": [
+      540,
+      65
+    ],
+    "ring_outer_radius": 29
+  },
+  {
+    "file": "04_cubes/phone/samsung/rgb_border/camera_outline_estimated/galaxy_fhd_20x9_1080x2400_rgb_border_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2400,
+    "style": "rgb_border",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_fhd_20x9",
+    "camera_center": [
+      540,
+      65
+    ],
+    "ring_outer_radius": 29
+  },
+  {
+    "file": "04_cubes/phone/samsung/original/camera_outline_estimated/galaxy_s24_plus_ultra_1440x3120_original_camera_outline_estimated.png",
+    "width": 1440,
+    "height": 3120,
+    "style": "original",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_s24_plus_ultra",
+    "camera_center": [
+      720,
+      78
+    ],
+    "ring_outer_radius": 34
+  },
+  {
+    "file": "04_cubes/phone/samsung/rgb_border/camera_outline_estimated/galaxy_s24_plus_ultra_1440x3120_rgb_border_camera_outline_estimated.png",
+    "width": 1440,
+    "height": 3120,
+    "style": "rgb_border",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_s24_plus_ultra",
+    "camera_center": [
+      720,
+      78
+    ],
+    "ring_outer_radius": 34
+  },
+  {
+    "file": "04_cubes/foldable/samsung/original/camera_outline_estimated/galaxy_z_fold7_cover_portrait_1080x2520_original_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2520,
+    "style": "original",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_fold7_cover_portrait",
+    "camera_center": [
+      540,
+      64
+    ],
+    "ring_outer_radius": 30
+  },
+  {
+    "file": "04_cubes/foldable/samsung/rgb_border/camera_outline_estimated/galaxy_z_fold7_cover_portrait_1080x2520_rgb_border_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2520,
+    "style": "rgb_border",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_fold7_cover_portrait",
+    "camera_center": [
+      540,
+      64
+    ],
+    "ring_outer_radius": 30
+  },
+  {
+    "file": "04_cubes/foldable/samsung/original/camera_outline_estimated/galaxy_z_fold7_cover_landscape_2520x1080_original_camera_outline_estimated.png",
+    "width": 2520,
+    "height": 1080,
+    "style": "original",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_fold7_cover_landscape",
+    "camera_center": [
+      64,
+      539
+    ],
+    "ring_outer_radius": 30
+  },
+  {
+    "file": "04_cubes/foldable/samsung/rgb_border/camera_outline_estimated/galaxy_z_fold7_cover_landscape_2520x1080_rgb_border_camera_outline_estimated.png",
+    "width": 2520,
+    "height": 1080,
+    "style": "rgb_border",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_fold7_cover_landscape",
+    "camera_center": [
+      64,
+      539
+    ],
+    "ring_outer_radius": 30
+  },
+  {
+    "file": "04_cubes/foldable/samsung/original/camera_outline_estimated/galaxy_z_fold7_inner_portrait_1968x2184_original_camera_outline_estimated.png",
+    "width": 1968,
+    "height": 2184,
+    "style": "original",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_fold7_inner_portrait",
+    "camera_center": [
+      1476,
+      76
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "04_cubes/foldable/samsung/rgb_border/camera_outline_estimated/galaxy_z_fold7_inner_portrait_1968x2184_rgb_border_camera_outline_estimated.png",
+    "width": 1968,
+    "height": 2184,
+    "style": "rgb_border",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_fold7_inner_portrait",
+    "camera_center": [
+      1476,
+      76
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "04_cubes/foldable/samsung/original/camera_outline_estimated/galaxy_z_fold7_inner_landscape_2184x1968_original_camera_outline_estimated.png",
+    "width": 2184,
+    "height": 1968,
+    "style": "original",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_fold7_inner_landscape",
+    "camera_center": [
+      76,
+      491
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "04_cubes/foldable/samsung/rgb_border/camera_outline_estimated/galaxy_z_fold7_inner_landscape_2184x1968_rgb_border_camera_outline_estimated.png",
+    "width": 2184,
+    "height": 1968,
+    "style": "rgb_border",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_fold7_inner_landscape",
+    "camera_center": [
+      76,
+      491
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "04_cubes/foldable/google/original/camera_outline_estimated/pixel_10_pro_fold_cover_portrait_1080x2364_original_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2364,
+    "style": "original",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "pixel_10_pro_fold_cover_portrait",
+    "camera_center": [
+      540,
+      82
+    ],
+    "ring_outer_radius": 45
+  },
+  {
+    "file": "04_cubes/foldable/google/rgb_border/camera_outline_estimated/pixel_10_pro_fold_cover_portrait_1080x2364_rgb_border_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2364,
+    "style": "rgb_border",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "pixel_10_pro_fold_cover_portrait",
+    "camera_center": [
+      540,
+      82
+    ],
+    "ring_outer_radius": 45
+  },
+  {
+    "file": "04_cubes/foldable/google/original/camera_outline_estimated/pixel_10_pro_fold_cover_landscape_2364x1080_original_camera_outline_estimated.png",
+    "width": 2364,
+    "height": 1080,
+    "style": "original",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "pixel_10_pro_fold_cover_landscape",
+    "camera_center": [
+      82,
+      539
+    ],
+    "ring_outer_radius": 45
+  },
+  {
+    "file": "04_cubes/foldable/google/rgb_border/camera_outline_estimated/pixel_10_pro_fold_cover_landscape_2364x1080_rgb_border_camera_outline_estimated.png",
+    "width": 2364,
+    "height": 1080,
+    "style": "rgb_border",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "pixel_10_pro_fold_cover_landscape",
+    "camera_center": [
+      82,
+      539
+    ],
+    "ring_outer_radius": 45
+  },
+  {
+    "file": "04_cubes/foldable/google/original/camera_outline_estimated/pixel_10_pro_fold_inner_portrait_2076x2152_original_camera_outline_estimated.png",
+    "width": 2076,
+    "height": 2152,
+    "style": "original",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "pixel_10_pro_fold_inner_portrait",
+    "camera_center": [
+      1970,
+      108
+    ],
+    "ring_outer_radius": 46
+  },
+  {
+    "file": "04_cubes/foldable/google/rgb_border/camera_outline_estimated/pixel_10_pro_fold_inner_portrait_2076x2152_rgb_border_camera_outline_estimated.png",
+    "width": 2076,
+    "height": 2152,
+    "style": "rgb_border",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "pixel_10_pro_fold_inner_portrait",
+    "camera_center": [
+      1970,
+      108
+    ],
+    "ring_outer_radius": 46
+  },
+  {
+    "file": "04_cubes/foldable/google/original/camera_outline_estimated/pixel_10_pro_fold_inner_landscape_2152x2076_original_camera_outline_estimated.png",
+    "width": 2152,
+    "height": 2076,
+    "style": "original",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "pixel_10_pro_fold_inner_landscape",
+    "camera_center": [
+      108,
+      105
+    ],
+    "ring_outer_radius": 46
+  },
+  {
+    "file": "04_cubes/foldable/google/rgb_border/camera_outline_estimated/pixel_10_pro_fold_inner_landscape_2152x2076_rgb_border_camera_outline_estimated.png",
+    "width": 2152,
+    "height": 2076,
+    "style": "rgb_border",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "pixel_10_pro_fold_inner_landscape",
+    "camera_center": [
+      108,
+      105
+    ],
+    "ring_outer_radius": 46
+  },
+  {
+    "file": "04_cubes/foldable/oneplus/original/camera_outline_estimated/oneplus_open_cover_portrait_1116x2484_original_camera_outline_estimated.png",
+    "width": 1116,
+    "height": 2484,
+    "style": "original",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oneplus_open_cover_portrait",
+    "camera_center": [
+      558,
+      72
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "04_cubes/foldable/oneplus/rgb_border/camera_outline_estimated/oneplus_open_cover_portrait_1116x2484_rgb_border_camera_outline_estimated.png",
+    "width": 1116,
+    "height": 2484,
+    "style": "rgb_border",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oneplus_open_cover_portrait",
+    "camera_center": [
+      558,
+      72
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "04_cubes/foldable/oneplus/original/camera_outline_estimated/oneplus_open_cover_landscape_2484x1116_original_camera_outline_estimated.png",
+    "width": 2484,
+    "height": 1116,
+    "style": "original",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oneplus_open_cover_landscape",
+    "camera_center": [
+      72,
+      557
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "04_cubes/foldable/oneplus/rgb_border/camera_outline_estimated/oneplus_open_cover_landscape_2484x1116_rgb_border_camera_outline_estimated.png",
+    "width": 2484,
+    "height": 1116,
+    "style": "rgb_border",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oneplus_open_cover_landscape",
+    "camera_center": [
+      72,
+      557
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "04_cubes/foldable/oneplus/original/camera_outline_estimated/oneplus_open_inner_portrait_2268x2440_original_camera_outline_estimated.png",
+    "width": 2268,
+    "height": 2440,
+    "style": "original",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oneplus_open_inner_portrait",
+    "camera_center": [
+      2154,
+      105
+    ],
+    "ring_outer_radius": 36
+  },
+  {
+    "file": "04_cubes/foldable/oneplus/rgb_border/camera_outline_estimated/oneplus_open_inner_portrait_2268x2440_rgb_border_camera_outline_estimated.png",
+    "width": 2268,
+    "height": 2440,
+    "style": "rgb_border",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oneplus_open_inner_portrait",
+    "camera_center": [
+      2154,
+      105
+    ],
+    "ring_outer_radius": 36
+  },
+  {
+    "file": "04_cubes/foldable/oneplus/original/camera_outline_estimated/oneplus_open_inner_landscape_2440x2268_original_camera_outline_estimated.png",
+    "width": 2440,
+    "height": 2268,
+    "style": "original",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oneplus_open_inner_landscape",
+    "camera_center": [
+      105,
+      113
+    ],
+    "ring_outer_radius": 36
+  },
+  {
+    "file": "04_cubes/foldable/oneplus/rgb_border/camera_outline_estimated/oneplus_open_inner_landscape_2440x2268_rgb_border_camera_outline_estimated.png",
+    "width": 2440,
+    "height": 2268,
+    "style": "rgb_border",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oneplus_open_inner_landscape",
+    "camera_center": [
+      105,
+      113
+    ],
+    "ring_outer_radius": 36
+  },
+  {
+    "file": "04_cubes/foldable/oppo/original/camera_outline_estimated/oppo_find_n5_cover_portrait_1140x2616_original_camera_outline_estimated.png",
+    "width": 1140,
+    "height": 2616,
+    "style": "original",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oppo_find_n5_cover_portrait",
+    "camera_center": [
+      570,
+      76
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "04_cubes/foldable/oppo/rgb_border/camera_outline_estimated/oppo_find_n5_cover_portrait_1140x2616_rgb_border_camera_outline_estimated.png",
+    "width": 1140,
+    "height": 2616,
+    "style": "rgb_border",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oppo_find_n5_cover_portrait",
+    "camera_center": [
+      570,
+      76
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "04_cubes/foldable/oppo/original/camera_outline_estimated/oppo_find_n5_cover_landscape_2616x1140_original_camera_outline_estimated.png",
+    "width": 2616,
+    "height": 1140,
+    "style": "original",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oppo_find_n5_cover_landscape",
+    "camera_center": [
+      76,
+      569
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "04_cubes/foldable/oppo/rgb_border/camera_outline_estimated/oppo_find_n5_cover_landscape_2616x1140_rgb_border_camera_outline_estimated.png",
+    "width": 2616,
+    "height": 1140,
+    "style": "rgb_border",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oppo_find_n5_cover_landscape",
+    "camera_center": [
+      76,
+      569
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "04_cubes/foldable/oppo/original/camera_outline_estimated/oppo_find_n5_inner_portrait_2248x2480_original_camera_outline_estimated.png",
+    "width": 2248,
+    "height": 2480,
+    "style": "original",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oppo_find_n5_inner_portrait",
+    "camera_center": [
+      2140,
+      105
+    ],
+    "ring_outer_radius": 36
+  },
+  {
+    "file": "04_cubes/foldable/oppo/rgb_border/camera_outline_estimated/oppo_find_n5_inner_portrait_2248x2480_rgb_border_camera_outline_estimated.png",
+    "width": 2248,
+    "height": 2480,
+    "style": "rgb_border",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oppo_find_n5_inner_portrait",
+    "camera_center": [
+      2140,
+      105
+    ],
+    "ring_outer_radius": 36
+  },
+  {
+    "file": "04_cubes/foldable/oppo/original/camera_outline_estimated/oppo_find_n5_inner_landscape_2480x2248_original_camera_outline_estimated.png",
+    "width": 2480,
+    "height": 2248,
+    "style": "original",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oppo_find_n5_inner_landscape",
+    "camera_center": [
+      105,
+      107
+    ],
+    "ring_outer_radius": 36
+  },
+  {
+    "file": "04_cubes/foldable/oppo/rgb_border/camera_outline_estimated/oppo_find_n5_inner_landscape_2480x2248_rgb_border_camera_outline_estimated.png",
+    "width": 2480,
+    "height": 2248,
+    "style": "rgb_border",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "oppo_find_n5_inner_landscape",
+    "camera_center": [
+      105,
+      107
+    ],
+    "ring_outer_radius": 36
+  },
+  {
+    "file": "04_cubes/foldable/honor/original/camera_outline_estimated/honor_magic_v5_cover_portrait_1060x2376_original_camera_outline_estimated.png",
+    "width": 1060,
+    "height": 2376,
+    "style": "original",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "honor_magic_v5_cover_portrait",
+    "camera_center": [
+      530,
+      68
+    ],
+    "ring_outer_radius": 31
+  },
+  {
+    "file": "04_cubes/foldable/honor/rgb_border/camera_outline_estimated/honor_magic_v5_cover_portrait_1060x2376_rgb_border_camera_outline_estimated.png",
+    "width": 1060,
+    "height": 2376,
+    "style": "rgb_border",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "honor_magic_v5_cover_portrait",
+    "camera_center": [
+      530,
+      68
+    ],
+    "ring_outer_radius": 31
+  },
+  {
+    "file": "04_cubes/foldable/honor/original/camera_outline_estimated/honor_magic_v5_cover_landscape_2376x1060_original_camera_outline_estimated.png",
+    "width": 2376,
+    "height": 1060,
+    "style": "original",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "honor_magic_v5_cover_landscape",
+    "camera_center": [
+      68,
+      529
+    ],
+    "ring_outer_radius": 31
+  },
+  {
+    "file": "04_cubes/foldable/honor/rgb_border/camera_outline_estimated/honor_magic_v5_cover_landscape_2376x1060_rgb_border_camera_outline_estimated.png",
+    "width": 2376,
+    "height": 1060,
+    "style": "rgb_border",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "honor_magic_v5_cover_landscape",
+    "camera_center": [
+      68,
+      529
+    ],
+    "ring_outer_radius": 31
+  },
+  {
+    "file": "04_cubes/foldable/honor/original/camera_outline_estimated/honor_magic_v5_inner_portrait_2172x2352_original_camera_outline_estimated.png",
+    "width": 2172,
+    "height": 2352,
+    "style": "original",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "honor_magic_v5_inner_portrait",
+    "camera_center": [
+      2068,
+      101
+    ],
+    "ring_outer_radius": 35
+  },
+  {
+    "file": "04_cubes/foldable/honor/rgb_border/camera_outline_estimated/honor_magic_v5_inner_portrait_2172x2352_rgb_border_camera_outline_estimated.png",
+    "width": 2172,
+    "height": 2352,
+    "style": "rgb_border",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "honor_magic_v5_inner_portrait",
+    "camera_center": [
+      2068,
+      101
+    ],
+    "ring_outer_radius": 35
+  },
+  {
+    "file": "04_cubes/foldable/honor/original/camera_outline_estimated/honor_magic_v5_inner_landscape_2352x2172_original_camera_outline_estimated.png",
+    "width": 2352,
+    "height": 2172,
+    "style": "original",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "honor_magic_v5_inner_landscape",
+    "camera_center": [
+      101,
+      103
+    ],
+    "ring_outer_radius": 35
+  },
+  {
+    "file": "04_cubes/foldable/honor/rgb_border/camera_outline_estimated/honor_magic_v5_inner_landscape_2352x2172_rgb_border_camera_outline_estimated.png",
+    "width": 2352,
+    "height": 2172,
+    "style": "rgb_border",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "honor_magic_v5_inner_landscape",
+    "camera_center": [
+      101,
+      103
+    ],
+    "ring_outer_radius": 35
+  },
+  {
+    "file": "04_cubes/foldable/samsung/original/camera_outline_estimated/galaxy_z_flip7_inner_portrait_1080x2520_original_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2520,
+    "style": "original",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_flip7_inner_portrait",
+    "camera_center": [
+      540,
+      62
+    ],
+    "ring_outer_radius": 30
+  },
+  {
+    "file": "04_cubes/foldable/samsung/rgb_border/camera_outline_estimated/galaxy_z_flip7_inner_portrait_1080x2520_rgb_border_camera_outline_estimated.png",
+    "width": 1080,
+    "height": 2520,
+    "style": "rgb_border",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_flip7_inner_portrait",
+    "camera_center": [
+      540,
+      62
+    ],
+    "ring_outer_radius": 30
+  },
+  {
+    "file": "04_cubes/foldable/samsung/original/camera_outline_estimated/galaxy_z_flip7_inner_landscape_2520x1080_original_camera_outline_estimated.png",
+    "width": 2520,
+    "height": 1080,
+    "style": "original",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_flip7_inner_landscape",
+    "camera_center": [
+      62,
+      539
+    ],
+    "ring_outer_radius": 30
+  },
+  {
+    "file": "04_cubes/foldable/samsung/rgb_border/camera_outline_estimated/galaxy_z_flip7_inner_landscape_2520x1080_rgb_border_camera_outline_estimated.png",
+    "width": 2520,
+    "height": 1080,
+    "style": "rgb_border",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "galaxy_z_flip7_inner_landscape",
+    "camera_center": [
+      62,
+      539
+    ],
+    "ring_outer_radius": 30
+  },
+  {
+    "file": "04_cubes/foldable/motorola/original/camera_outline_estimated/motorola_razr_ultra_2025_inner_portrait_1224x2992_original_camera_outline_estimated.png",
+    "width": 1224,
+    "height": 2992,
+    "style": "original",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "motorola_razr_ultra_2025_inner_portrait",
+    "camera_center": [
+      612,
+      75
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "04_cubes/foldable/motorola/rgb_border/camera_outline_estimated/motorola_razr_ultra_2025_inner_portrait_1224x2992_rgb_border_camera_outline_estimated.png",
+    "width": 1224,
+    "height": 2992,
+    "style": "rgb_border",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "motorola_razr_ultra_2025_inner_portrait",
+    "camera_center": [
+      612,
+      75
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "04_cubes/foldable/motorola/original/camera_outline_estimated/motorola_razr_ultra_2025_inner_landscape_2992x1224_original_camera_outline_estimated.png",
+    "width": 2992,
+    "height": 1224,
+    "style": "original",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "motorola_razr_ultra_2025_inner_landscape",
+    "camera_center": [
+      75,
+      611
+    ],
+    "ring_outer_radius": 33
+  },
+  {
+    "file": "04_cubes/foldable/motorola/rgb_border/camera_outline_estimated/motorola_razr_ultra_2025_inner_landscape_2992x1224_rgb_border_camera_outline_estimated.png",
+    "width": 2992,
+    "height": 1224,
+    "style": "rgb_border",
+    "design": "04_cubes",
+    "camera_outline": true,
+    "camera_accuracy": "estimated",
+    "camera_profile": "motorola_razr_ultra_2025_inner_landscape",
+    "camera_center": [
+      75,
+      611
+    ],
+    "ring_outer_radius": 33
+  }
+]

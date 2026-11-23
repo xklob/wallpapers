@@ -1,0 +1,305 @@
+[
+  {
+    "folder": "phone/pixel",
+    "name": "pixel_9",
+    "width": 1080,
+    "height": 2424,
+    "cx": 539.5,
+    "cy": 86.5,
+    "cutout_radius": 42.0,
+    "accuracy": "published",
+    "source": "https://android.googlesource.com/device/google/caimito/+/refs/heads/main/tokay/overlay/frameworks/base/core/res/res/values/config.xml"
+  },
+  {
+    "folder": "phone/pixel",
+    "name": "pixel_9_pro",
+    "width": 1280,
+    "height": 2856,
+    "cx": 640.0,
+    "cy": 102.0,
+    "cutout_radius": 49.0,
+    "accuracy": "published",
+    "source": "https://android.googlesource.com/device/google/caimito/+/refs/heads/main/caiman/overlay/frameworks/base/core/res/res/values/config.xml"
+  },
+  {
+    "folder": "phone/pixel",
+    "name": "pixel_9_pro_xl",
+    "width": 1344,
+    "height": 2992,
+    "cx": 672.0,
+    "cy": 99.5,
+    "cutout_radius": 47.0,
+    "accuracy": "published",
+    "source": "https://android.googlesource.com/device/google/caimito/+/refs/heads/main/komodo/overlay/frameworks/base/core/res/res/values/config.xml"
+  },
+  {
+    "folder": "phone/samsung",
+    "name": "galaxy_s24",
+    "width": 1080,
+    "height": 2340,
+    "cx": 540,
+    "cy": 60,
+    "cutout_radius": 21,
+    "accuracy": "estimated"
+  },
+  {
+    "folder": "phone/samsung",
+    "name": "galaxy_fhd_20x9",
+    "width": 1080,
+    "height": 2400,
+    "cx": 540,
+    "cy": 65,
+    "cutout_radius": 21,
+    "accuracy": "estimated"
+  },
+  {
+    "folder": "phone/samsung",
+    "name": "galaxy_s24_plus_ultra",
+    "width": 1440,
+    "height": 3120,
+    "cx": 720,
+    "cy": 78,
+    "cutout_radius": 26,
+    "accuracy": "estimated"
+  },
+  {
+    "folder": "foldable/samsung",
+    "name": "galaxy_z_fold7_cover_portrait",
+    "width": 1080,
+    "height": 2520,
+    "cx": 540,
+    "cy": 64,
+    "cutout_radius": 22,
+    "accuracy": "estimated"
+  },
+  {
+    "folder": "foldable/samsung",
+    "name": "galaxy_z_fold7_cover_landscape",
+    "width": 2520,
+    "height": 1080,
+    "cx": 64,
+    "cy": 539,
+    "cutout_radius": 22,
+    "accuracy": "estimated"
+  },
+  {
+    "folder": "foldable/samsung",
+    "name": "galaxy_z_fold7_inner_portrait",
+    "width": 1968,
+    "height": 2184,
+    "cx": 1476,
+    "cy": 76,
+    "cutout_radius": 25,
+    "accuracy": "estimated"
+  },
+  {
+    "folder": "foldable/samsung",
+    "name": "galaxy_z_fold7_inner_landscape",
+    "width": 2184,
+    "height": 1968,
+    "cx": 76,
+    "cy": 491,
+    "cutout_radius": 25,
+    "accuracy": "estimated"
+  },
+  {
+    "folder": "foldable/google",
+    "name": "pixel_10_pro_fold_cover_portrait",
+    "width": 1080,
+    "height": 2364,
+    "cx": 540,
+    "cy": 82,
+    "cutout_radius": 37,
+    "accuracy": "estimated"
+  },
+  {
+    "folder": "foldable/google",
+    "name": "pixel_10_pro_fold_cover_landscape",
+    "width": 2364,
+    "height": 1080,
+    "cx": 82,
+    "cy": 539,
+    "cutout_radius": 37,
+    "accuracy": "estimated"
+  },
+  {
+    "folder": "foldable/google",
+    "name": "pixel_10_pro_fold_inner_portrait",
+    "width": 2076,
+    "height": 2152,
+    "cx": 1970,
+    "cy": 108,
+    "cutout_radius": 38,
+    "accuracy": "estimated"
+  },
+  {
+    "folder": "foldable/google",
+    "name": "pixel_10_pro_fold_inner_landscape",
+    "width": 2152,
+    "height": 2076,
+    "cx": 108,
+    "cy": 105,
+    "cutout_radius": 38,
+    "accuracy": "estimated"
+  },
+  {
+    "folder": "foldable/oneplus",
+    "name": "oneplus_open_cover_portrait",
+    "width": 1116,
+    "height": 2484,
+    "cx": 558,
+    "cy": 72,
+    "cutout_radius": 25,
+    "accuracy": "estimated"
+  },
+  {
+    "folder": "foldable/oneplus",
+    "name": "oneplus_open_cover_landscape",
+    "width": 2484,
+    "height": 1116,
+    "cx": 72,
+    "cy": 557,
+    "cutout_radius": 25,
+    "accuracy": "estimated"
+  },
+  {
+    "folder": "foldable/oneplus",
+    "name": "oneplus_open_inner_portrait",
+    "width": 2268,
+    "height": 2440,
+    "cx": 2154,
+    "cy": 105,
+    "cutout_radius": 28,
+    "accuracy": "estimated"
+  },
+  {
+    "folder": "foldable/oneplus",
+    "name": "oneplus_open_inner_landscape",
+    "width": 2440,
+    "height": 2268,
+    "cx": 105,
+    "cy": 113,
+    "cutout_radius": 28,
+    "accuracy": "estimated"
+  },
+  {
+    "folder": "foldable/oppo",
+    "name": "oppo_find_n5_cover_portrait",
+    "width": 1140,
+    "height": 2616,
+    "cx": 570,
+    "cy": 76,
+    "cutout_radius": 25,
+    "accuracy": "estimated"
+  },
+  {
+    "folder": "foldable/oppo",
+    "name": "oppo_find_n5_cover_landscape",
+    "width": 2616,
+    "height": 1140,
+    "cx": 76,
+    "cy": 569,
+    "cutout_radius": 25,
+    "accuracy": "estimated"
+  },
+  {
+    "folder": "foldable/oppo",
+    "name": "oppo_find_n5_inner_portrait",
+    "width": 2248,
+    "height": 2480,
+    "cx": 2140,
+    "cy": 105,
+    "cutout_radius": 28,
+    "accuracy": "estimated"
+  },
+  {
+    "folder": "foldable/oppo",
+    "name": "oppo_find_n5_inner_landscape",
+    "width": 2480,
+    "height": 2248,
+    "cx": 105,
+    "cy": 107,
+    "cutout_radius": 28,
+    "accuracy": "estimated"
+  },
+  {
+    "folder": "foldable/honor",
+    "name": "honor_magic_v5_cover_portrait",
+    "width": 1060,
+    "height": 2376,
+    "cx": 530,
+    "cy": 68,
+    "cutout_radius": 23,
+    "accuracy": "estimated"
+  },
+  {
+    "folder": "foldable/honor",
+    "name": "honor_magic_v5_cover_landscape",
+    "width": 2376,
+    "height": 1060,
+    "cx": 68,
+    "cy": 529,
+    "cutout_radius": 23,
+    "accuracy": "estimated"
+  },
+  {
+    "folder": "foldable/honor",
+    "name": "honor_magic_v5_inner_portrait",
+    "width": 2172,
+    "height": 2352,
+    "cx": 2068,
+    "cy": 101,
+    "cutout_radius": 27,
+    "accuracy": "estimated"
+  },
+  {
+    "folder": "foldable/honor",
+    "name": "honor_magic_v5_inner_landscape",
+    "width": 2352,
+    "height": 2172,
+    "cx": 101,
+    "cy": 103,
+    "cutout_radius": 27,
+    "accuracy": "estimated"
+  },
+  {
+    "folder": "foldable/samsung",
+    "name": "galaxy_z_flip7_inner_portrait",
+    "width": 1080,
+    "height": 2520,
+    "cx": 540,
+    "cy": 62,
+    "cutout_radius": 22,
+    "accuracy": "estimated"
+  },
+  {
+    "folder": "foldable/samsung",
+    "name": "galaxy_z_flip7_inner_landscape",
+    "width": 2520,
+    "height": 1080,
+    "cx": 62,
+    "cy": 539,
+    "cutout_radius": 22,
+    "accuracy": "estimated"
+  },
+  {
+    "folder": "foldable/motorola",
+    "name": "motorola_razr_ultra_2025_inner_portrait",
+    "width": 1224,
+    "height": 2992,
+    "cx": 612,
+    "cy": 75,
+    "cutout_radius": 25,
+    "accuracy": "estimated"
+  },
+  {
+    "folder": "foldable/motorola",
+    "name": "motorola_razr_ultra_2025_inner_landscape",
+    "width": 2992,
+    "height": 1224,
+    "cx": 75,
+    "cy": 611,
+    "cutout_radius": 25,
+    "accuracy": "estimated"
+  }
+]
