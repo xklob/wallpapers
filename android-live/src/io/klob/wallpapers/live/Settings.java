@@ -11,6 +11,14 @@ final class Settings {
     static final String STATUS = "status";
     static final String ANIMATE = "animate";
     static final String AUDIO_SYNC = "audio_sync";
+    static final String MICROPHONE = "audio_microphone";
+    static final String AUDIO_EFFECT = "audio_effect";
+    static final String AUDIO_INTENSITY = "audio_intensity";
+    static final String AUDIO_SMOOTHNESS = "audio_smoothness";
+    static final String BASS_SENSITIVITY = "bass_sensitivity";
+    static final int DEFAULT_INTENSITY = 65;
+    static final int DEFAULT_SMOOTHNESS = 35;
+    static final int DEFAULT_SENSITIVITY = 50;
     static final String PERIOD = "period";
     static final int MIN_PERIOD = 6;
     static final int MAX_PERIOD = 60;
@@ -38,6 +46,18 @@ final class Settings {
 
     static boolean audioSync(SharedPreferences preferences) {
         return preferences.getBoolean(AUDIO_SYNC, false);
+    }
+
+    static boolean microphone(SharedPreferences preferences) {
+        return preferences.getBoolean(MICROPHONE, false);
+    }
+
+    static AudioEffect audioEffect(SharedPreferences preferences) {
+        return AudioEffect.fromPreference(preferences.getString(AUDIO_EFFECT, AudioEffect.DEFAULT.name()));
+    }
+
+    static int percentage(SharedPreferences preferences, String key, int fallback) {
+        return Math.max(0, Math.min(100, preferences.getInt(key, fallback)));
     }
 
     static int period(SharedPreferences preferences) {

@@ -28,6 +28,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.function.IntFunction;
+
 public final class SettingsActivity extends Activity {
     private static final int AUDIO_PERMISSION = 31;
     private final Handler uiHandler = new Handler(Looper.getMainLooper());
@@ -36,6 +38,8 @@ public final class SettingsActivity extends Activity {
     private SeekBar speed;
     private Switch audioSync;
     private TextView audioStatus;
+    private Button microphoneControl;
+    private Spinner audioSource;
     private final Runnable audioMeter = new Runnable() {
         @Override public void run() {
             updateAudioStatus();
@@ -44,7 +48,10 @@ public final class SettingsActivity extends Activity {
     };
     private final SharedPreferences.OnSharedPreferenceChangeListener changes = (prefs, key) -> {
         preview.refresh(prefs);
-        if (Settings.ANIMATE.equals(key) || Settings.AUDIO_SYNC.equals(key)) refreshAudioStatus();
+        if (Settings.ANIMATE.equals(key) || Settings.AUDIO_SYNC.equals(key) || Settings.MICROPHONE.equals(key)) {
+            if (!microphoneEnabled()) MicrophoneAudioService.stop(this);
+            refreshAudioStatus();
+        }
     };
 
     @Override public void onCreate(Bundle savedInstanceState) {
@@ -78,6 +85,13 @@ public final class SettingsActivity extends Activity {
         preview.setContentDescription("Live wallpaper preview");
         content.addView(preview, previewLayout);
 
+        addToggle(content, "Animate colors", Settings.ANIMATE);
+        addAudioSync(content);
+        addAudioTuner(content);
+        speed = addSlider(content, Settings.PERIOD, Settings.MIN_PERIOD, Settings.MAX_PERIOD,
+                Settings.period(preferences), seconds -> "Cycle duration · " + seconds + " s");
+        speed.setEnabled(Settings.enabled(preferences, Settings.ANIMATE));
+
         TextView patternLabel = addText(content, "Pattern", 16);
         Spinner patterns = new Spinner(this, Spinner.MODE_DROPDOWN);
         patterns.setId(View.generateViewId());
@@ -99,9 +113,6 @@ public final class SettingsActivity extends Activity {
         addToggle(content, "Camera ring", Settings.CAMERA);
         addToggle(content, "Home row and search outline", Settings.DOCK);
         addToggle(content, "Status bar outline", Settings.STATUS);
-        addToggle(content, "Animate colors", Settings.ANIMATE);
-        addAudioSync(content);
-        addSpeedControl(content);
     }
 
     @Override public void onStart() {
@@ -176,7 +187,45 @@ public final class SettingsActivity extends Activity {
             preferences.edit().putBoolean(Settings.AUDIO_SYNC, enabled).apply();
         });
         content.addView(audioSync, fullWidth(dp(48), 0));
+        addAudioSource(content);
         audioStatus = addText(content, "", 14);
+    }
+
+    private void addAudioSource(LinearLayout content) {
+        TextView sourceLabel = addText(content, "Audio source", 16);
+        audioSource = new Spinner(this, Spinner.MODE_DROPDOWN);
+        audioSource.setId(View.generateViewId());
+        sourceLabel.setLabelFor(audioSource.getId());
+        ArrayAdapter<String> sources = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
+                new String[]{"Device audio", "Microphone"});
+        sources.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        audioSource.setAdapter(sources);
+        audioSource.setSelection(Settings.microphone(preferences) ? 1 : 0);
+        audioSource.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                preferences.edit().putBoolean(Settings.MICROPHONE, position == 1).apply();
+            }
+            @Override public void onNothingSelected(AdapterView<?> parent) {}
+        });
+        content.addView(audioSource, fullWidth(dp(48), 0));
+
+        microphoneControl = new Button(this);
+        microphoneControl.setAllCaps(false);
+        microphoneControl.setOnClickListener(view -> {
+            try {
+                if (MicrophoneAudioService.isRunning()) MicrophoneAudioService.stop(this);
+                else MicrophoneAudioService.start(this);
+            } catch (IllegalStateException | SecurityException exception) {
+                Toast.makeText(this, "Could not start microphone audio.", Toast.LENGTH_SHORT).show();
+            }
+            refreshAudioStatus();
+        });
+        content.addView(microphoneControl, fullWidth(dp(48), 4));
+    }
+
+    private boolean microphoneEnabled() {
+        return Settings.microphone(preferences) && Settings.audioSync(preferences)
+                && Settings.enabled(preferences, Settings.ANIMATE) && OutputAudio.hasPermission(this);
     }
 
     @Override public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] results) {
@@ -194,11 +243,24 @@ public final class SettingsActivity extends Activity {
     }
 
     private void updateAudioStatus() {
+        boolean microphone = Settings.microphone(preferences);
+        boolean microphoneRunning = MicrophoneAudioService.isRunning();
+        microphoneControl.setVisibility(microphoneEnabled() ? View.VISIBLE : View.GONE);
+        String control = microphoneRunning ? "Stop microphone" : "Start microphone";
+        if (!control.contentEquals(microphoneControl.getText())) microphoneControl.setText(control);
         String message;
         if (!audioSync.isChecked()) {
-            message = "Uses device playback. Android asks for microphone permission to access it.";
+            message = "Audio Sync requires Android’s microphone permission for either audio source.";
         } else if (!audioSync.isEnabled()) {
             message = "Turn on Animate colors to react to audio.";
+        } else if (microphone) {
+            if (!microphoneRunning) {
+                message = MicrophoneAudioService.failed() ? "Microphone unavailable. Try starting it again."
+                        : "Start the microphone to react to sound around you.";
+            } else {
+                message = MicrophoneAudioService.pulses().hasSignal(SystemClock.uptimeMillis())
+                        ? "Microphone audio detected" : "Listening for microphone audio";
+            }
         } else if (!OutputAudio.INSTANCE.isAvailable()) {
             message = "Audio output is unavailable. The regular color cycle is still running.";
         } else if (OutputAudio.INSTANCE.pulses().hasSignal(SystemClock.uptimeMillis())) {
@@ -209,30 +271,82 @@ public final class SettingsActivity extends Activity {
         if (!message.contentEquals(audioStatus.getText())) audioStatus.setText(message);
     }
 
-    private void addSpeedControl(LinearLayout content) {
-        int period = Settings.period(preferences);
-        TextView label = addText(content, speedLabel(period), 16);
-        speed = new SeekBar(this);
-        speed.setId(View.generateViewId());
-        label.setLabelFor(speed.getId());
-        speed.setMax(Settings.MAX_PERIOD - Settings.MIN_PERIOD);
-        speed.setProgress(period - Settings.MIN_PERIOD);
-        speed.setEnabled(Settings.enabled(preferences, Settings.ANIMATE));
-        speed.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+    private void addAudioTuner(LinearLayout content) {
+        Button tune = new Button(this);
+        tune.setAllCaps(false);
+        tune.setText("Tune audio effects");
+        content.addView(tune, fullWidth(dp(48), 6));
+
+        LinearLayout panel = new LinearLayout(this);
+        panel.setOrientation(LinearLayout.VERTICAL);
+        panel.setVisibility(View.GONE);
+        content.addView(panel, fullWidth(ViewGroup.LayoutParams.WRAP_CONTENT, 8));
+        tune.setOnClickListener(view -> {
+            boolean opening = panel.getVisibility() != View.VISIBLE;
+            panel.setVisibility(opening ? View.VISIBLE : View.GONE);
+            tune.setText(opening ? "Close audio tuner" : "Tune audio effects");
+        });
+
+        TextView effectLabel = addText(panel, "Effect", 16);
+        Spinner effects = new Spinner(this, Spinner.MODE_DROPDOWN);
+        effects.setId(View.generateViewId());
+        effectLabel.setLabelFor(effects.getId());
+        ArrayAdapter<AudioEffect> choices = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, AudioEffect.values());
+        choices.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        effects.setAdapter(choices);
+        effects.setSelection(Settings.audioEffect(preferences).ordinal());
+        effects.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                AudioEffect effect = (AudioEffect) parent.getItemAtPosition(position);
+                preferences.edit().putString(Settings.AUDIO_EFFECT, effect.name()).apply();
+            }
+            @Override public void onNothingSelected(AdapterView<?> parent) {}
+        });
+        panel.addView(effects, fullWidth(dp(48), 0));
+
+        SeekBar intensity = addAudioSlider(panel, "Intensity", Settings.AUDIO_INTENSITY, Settings.DEFAULT_INTENSITY);
+        SeekBar smoothness = addAudioSlider(panel, "Smoothness", Settings.AUDIO_SMOOTHNESS, Settings.DEFAULT_SMOOTHNESS);
+        SeekBar sensitivity = addAudioSlider(panel, "Bass sensitivity", Settings.BASS_SENSITIVITY, Settings.DEFAULT_SENSITIVITY);
+
+        Button reset = new Button(this);
+        reset.setAllCaps(false);
+        reset.setText("Reset audio effects");
+        reset.setOnClickListener(view -> {
+            preferences.edit().remove(Settings.AUDIO_EFFECT).remove(Settings.AUDIO_INTENSITY)
+                    .remove(Settings.AUDIO_SMOOTHNESS).remove(Settings.BASS_SENSITIVITY).apply();
+            effects.setSelection(AudioEffect.DEFAULT.ordinal());
+            intensity.setProgress(Settings.DEFAULT_INTENSITY);
+            smoothness.setProgress(Settings.DEFAULT_SMOOTHNESS);
+            sensitivity.setProgress(Settings.DEFAULT_SENSITIVITY);
+        });
+        panel.addView(reset, fullWidth(dp(48), 4));
+    }
+
+    private SeekBar addAudioSlider(LinearLayout panel, String label, String key, int fallback) {
+        return addSlider(panel, key, 0, 100, Settings.percentage(preferences, key, fallback),
+                value -> label + " · " + value + "%");
+    }
+
+    private SeekBar addSlider(LinearLayout content, String key, int min, int max, int value,
+            IntFunction<String> formatLabel) {
+        TextView label = addText(content, formatLabel.apply(value), 16);
+        SeekBar slider = new SeekBar(this);
+        slider.setId(View.generateViewId());
+        label.setLabelFor(slider.getId());
+        slider.setMin(min);
+        slider.setMax(max);
+        slider.setProgress(value);
+        slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override public void onProgressChanged(SeekBar slider, int progress, boolean fromUser) {
-                if (!fromUser) return;
-                int seconds = progress + Settings.MIN_PERIOD;
-                label.setText(speedLabel(seconds));
-                preferences.edit().putInt(Settings.PERIOD, seconds).apply();
+                label.setText(formatLabel.apply(progress));
+                if (fromUser) preferences.edit().putInt(key, progress).apply();
             }
             @Override public void onStartTrackingTouch(SeekBar slider) {}
             @Override public void onStopTrackingTouch(SeekBar slider) {}
         });
-        content.addView(speed, fullWidth(dp(48), 0));
-    }
-
-    private static String speedLabel(int seconds) {
-        return "Cycle duration · " + seconds + " s";
+        content.addView(slider, fullWidth(dp(48), 0));
+        return slider;
     }
 
     private static final class Preview extends View {

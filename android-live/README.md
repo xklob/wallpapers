@@ -8,9 +8,11 @@ A hardware canvas runs a hue-rotation shader at about 30 FPS while the wallpaper
 
 ## Audio Sync preview
 
-With **Animate colors** on, enable **Audio Sync** and grant Android's audio permission. The app uses the low-resolution FFT from Android's output mix. Bass onsets brighten the lines and briefly speed up the hue cycle. Silence fades back to the normal animation. Audio Sync is off by default and processes frequency data in memory while the wallpaper or its preview is visible.
+With **Animate colors** on, enable **Audio Sync** and grant Android's audio permission. **Device audio** uses Android's output-mix FFT. **Microphone** follows ambient sound. Tap **Start microphone** in the app to arm that session and **Stop microphone** to end it. The microphone is released while the wallpaper and preview are hidden, and the session never saves audio. Silence fades back to the normal animation. Audio Sync is off by default.
 
-Play music and look for **Device audio detected** in the app, then check the wallpaper on the home screen. Playback route and lock-screen support can vary by device. Spotify and Bluetooth still need on-device validation.
+Look for **Device audio detected** or **Microphone audio detected** in the app, then open **Tune audio effects**. Choose Pulse + color, Brightness pulse, Color acceleration, or Diagonal color wave. Intensity sets the effect strength, Smoothness sets its rise and decay, and Bass sensitivity sets how readily a kick triggers it. Changes apply to the preview and active wallpaper. Reset affects only the tuner.
+
+Output-mix capture was confirmed on a Pixel over standard playback and Bluetooth. The microphone mode and lock-screen capture still need testing on the device.
 
 ## Build
 
