@@ -8,7 +8,7 @@ on:
     inputs:
       release_tag:
         description: Git tag for the release
-        default: v1.2.3
+        default: v1.2.4
         required: true
 
 permissions:
@@ -26,13 +26,13 @@ jobs:
         with:
           ref: master
 
-      - name: Import the continuous-grid border update
+      - name: Import the full-screen Pixel frame update
         run: |
-          if grep -q 'VERSION = "v1.2.3"' src/refine_bordered_wallpapers.py; then exit 0; fi
-          bundle="$RUNNER_TEMP/rgb-geometry-v1.2.3-package.tar.gz"
+          if grep -q 'VERSION = "v1.2.4"' src/extend_pixel_dock_frame.py 2>/dev/null; then exit 0; fi
+          bundle="$RUNNER_TEMP/rgb-geometry-v1.2.4-package.tar.gz"
           curl --fail --silent --show-error --location --retry 4 --output "$bundle" \
-            https://wallpapers.klob.io/rgb-geometry-v1.2.3-package.tar.gz
-          printf '%s  %s\n' 8bc961b6e4fa58a15fa322c9b6dc0157ab4be3227cc021ed593c959dd676dab3 "$bundle" | sha256sum --check
+            https://wallpapers.klob.io/rgb-geometry-v1.2.4-package.tar.gz
+          printf '%s  %s\n' 54fce4df347b2894c238b8ad9a008d9c3308d512df3cbb54535c9c2adff064f2 "$bundle" | sha256sum --check
           tar -xzf "$bundle"
 
       - uses: actions/setup-node@v4
@@ -51,18 +51,18 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add README.md config docs renders site src
           if ! git diff --cached --quiet; then
-            git commit -m 'Clip the continuous wallpaper lattice at the RGB frame'
+            git commit -m 'Extend the Pixel dock wallpaper frame around the full display'
             git push origin HEAD:master
           fi
 
       - name: Publish the GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
-          RELEASE_TAG: ${{ inputs.release_tag || 'v1.2.3' }}
+          RELEASE_TAG: ${{ inputs.release_tag || 'v1.2.4' }}
         run: |
           if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
             gh release upload "$RELEASE_TAG" release/*.zip --clobber
           else
             gh release create "$RELEASE_TAG" release/*.zip --target "$(git rev-parse HEAD)" \
-              --title 'RGB Geometry Wallpapers 1.2.3' --notes-file docs/RELEASE_NOTES.md
+              --title 'RGB Geometry Wallpapers 1.2.4' --notes-file docs/RELEASE_NOTES.md
           fi
