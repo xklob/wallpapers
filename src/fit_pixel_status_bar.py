@@ -13,7 +13,7 @@ NS = "http://www.w3.org/2000/svg"
 ET.register_namespace("", NS)
 DEVICE = "pixel_11_pro_xl"
 OLD_VERSION = "v1.2.4"
-VERSION = "v1.2.5"
+VERSION = "v1.2.6"
 
 
 @dataclass(frozen=True)
@@ -80,16 +80,18 @@ def add_status_outline(root, viewport, layout):
     for offset, color in (("0", "#ff4000"), (".39", "#ffed00"), (".68", "#59ff00"), ("1", "#00bdff")):
         ET.SubElement(gradient, f"{{{NS}}}stop", {"offset": offset, "stop-color": color})
 
-    # Preserve the long shallow strip while following the top corners of the
-    # display. A single rounded rectangle would cap the radius at half its height.
-    cap = min(top_radius, height - bottom_radius)
+    # Keep the top corners aligned with the display and use shallower bottom curves.
+    bottom_curve_height = min(bottom_radius, height - top_radius)
+    if bottom_curve_height <= 0:
+        raise ValueError("Status outline must be taller than its top corner radius")
+    bottom_curve_top = bottom - bottom_curve_height
     d = (f"M{x + top_radius:.3f},{y:.3f} H{right - top_radius:.3f} "
-         f"A{top_radius:.3f},{cap:.3f} 0 0 1 {right:.3f},{y + cap:.3f} "
-         f"V{bottom - bottom_radius:.3f} "
-         f"A{bottom_radius:.3f},{bottom_radius:.3f} 0 0 1 {right - bottom_radius:.3f},{bottom:.3f} "
+         f"A{top_radius:.3f},{top_radius:.3f} 0 0 1 {right:.3f},{y + top_radius:.3f} "
+         f"V{bottom_curve_top:.3f} "
+         f"A{bottom_radius:.3f},{bottom_curve_height:.3f} 0 0 1 {right - bottom_radius:.3f},{bottom:.3f} "
          f"H{x + bottom_radius:.3f} "
-         f"A{bottom_radius:.3f},{bottom_radius:.3f} 0 0 1 {x:.3f},{bottom - bottom_radius:.3f} "
-         f"V{y + cap:.3f} A{top_radius:.3f},{cap:.3f} 0 0 1 {x + top_radius:.3f},{y:.3f} Z")
+         f"A{bottom_radius:.3f},{bottom_curve_height:.3f} 0 0 1 {x:.3f},{bottom_curve_top:.3f} "
+         f"V{y + top_radius:.3f} A{top_radius:.3f},{top_radius:.3f} 0 0 1 {x + top_radius:.3f},{y:.3f} Z")
     panel = ET.Element(f"{{{NS}}}path", {
         "id": "pixel-status-panel", "d": d, "fill": "#000",
         "stroke": "url(#status-outline)", "stroke-width": f"{stroke:.3f}",
