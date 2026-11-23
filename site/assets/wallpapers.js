@@ -1,6 +1,7 @@
 const byId = id => document.getElementById(id);
 const collection = byId('collection');
 const pattern = byId('pattern');
+const patternGrid = byId('pattern-grid');
 const group = byId('device-group');
 const manufacturer = byId('manufacturer');
 const screen = byId('screen');
@@ -56,9 +57,43 @@ function options(select, entries, fallback) {
 function theme() {
   return themes.find(item => item.id === collection.value);
 }
+function updatePatternGallery(active) {
+  const cards = [];
+  for (const [design, name] of Object.entries(active.designs)) {
+    const originals = active.files.filter(row =>
+      row[1] === design && row[6] === 'original' && !row[7]);
+    const sample = originals.find(row => row[3] === 'Desktop' && row[4] === 1920 && row[5] === 1080)
+      ?? originals.find(row => row[3] === 'Desktop') ?? originals[0];
+    if (!sample) continue;
+
+    const card = document.createElement('button');
+    card.type = 'button';
+    card.className = 'pattern-card';
+    card.value = design;
+
+    const image = document.createElement('img');
+    image.src = '/art/' + active.id + '/' + sample[0];
+    image.alt = '';
+    image.width = sample[4];
+    image.height = sample[5];
+    image.decoding = 'async';
+
+    const caption = document.createElement('span');
+    caption.textContent = name;
+    card.append(image, caption);
+    card.addEventListener('click', () => {
+      pattern.value = design;
+      updatePreview();
+    });
+    cards.push(card);
+  }
+  patternGrid.replaceChildren(...cards);
+  byId('patterns').hidden = !cards.length;
+}
 function updateCollections() {
   const active = theme();
   options(pattern, Object.entries(active.designs), '02_hexagons');
+  updatePatternGallery(active);
   options(group, [...new Set(active.files.map(row => row[3]))].map(name => [name, name]), 'Phones');
   byId('archive').href = '/' + active.archive;
   byId('archive').download = active.archive;
@@ -89,6 +124,9 @@ function updateScreens() {
   updatePreview();
 }
 function updatePreview() {
+  for (const card of patternGrid.children) {
+    card.setAttribute('aria-pressed', String(card.value === pattern.value));
+  }
   const active = theme();
   const device = devices(active).find(item => item.id === screen.value);
   const matches = active.files.filter(([file, design, name, family, , , variant]) =>
