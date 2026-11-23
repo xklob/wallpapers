@@ -3,30 +3,102 @@
     <Scene backgroundColor="#000000">
         <Group name="interactive" x="0" y="0" width="456" height="456">
             <Variant mode="AMBIENT" target="alpha" value="0" />
-            <PartImage x="0" y="0" width="456" height="456">
-                <Image resource="honeycomb" />
-            </PartImage>
-            <PartText name="date" x="52" y="121" width="352" height="42">
+            <PartAnimatedImage name="honeycomb" x="0" y="0" width="456" height="456">
+                <AnimationController play="ON_VISIBLE" repeat="TRUE" />
+                <AnimatedImage resource="honeycomb_anim" format="WEBP" thumbnail="honeycomb" />
+                <Thumbnail resource="honeycomb" />
+            </PartAnimatedImage>
+            <PartText name="date" x="52" y="119" width="352" height="42">
                 <Text align="CENTER">
-                    <Font family="space_grotesk_medium" size="23" color="#9EFBE5">
+                    <Font family="space_grotesk" weight="MEDIUM" slant="NORMAL" size="23" color="#9EFBE5">
+                        <Transform target="color"
+                            value="colorRgb(round(190 + 65 * cos(([SECOND_MILLISECOND] % 10) * 0.6283185)), round(190 + 65 * cos(([SECOND_MILLISECOND] % 10) * 0.6283185 - 2.094395)), round(190 + 65 * cos(([SECOND_MILLISECOND] % 10) * 0.6283185 - 4.18879)))" />
                         <Upper><Template>%s · %s %d<Parameter expression="[DAY_OF_WEEK_S]" /><Parameter expression="[MONTH_S]" /><Parameter expression="[DAY]" /></Template></Upper>
                     </Font>
                 </Text>
             </PartText>
-            <PartText name="battery" x="219" y="294" width="81" height="40">
+            <Condition>
+                <Expressions>
+                    <Expression name="is24Hour"><![CDATA[[IS_24HOUR_MODE] == 1]]></Expression>
+                </Expressions>
+                <Compare expression="is24Hour">
+                    <PartText name="time_24h" x="38" y="158" width="380" height="138">
+                        <Text align="CENTER">
+                            <Font family="space_grotesk" weight="BOLD" slant="NORMAL" size="112" color="#F5F4FF">
+                                <Transform target="color"
+                                    value="colorRgb(round(205 + 50 * cos(([SECOND_MILLISECOND] % 10) * 0.6283185 + 1.047198)), round(205 + 50 * cos(([SECOND_MILLISECOND] % 10) * 0.6283185 - 1.047198)), round(205 + 50 * cos(([SECOND_MILLISECOND] % 10) * 0.6283185 - 3.141593)))" />
+                                <Template>%s:%s<Parameter expression="[HOUR_0_23_Z]" /><Parameter expression="[MINUTE_Z]" /></Template>
+                            </Font>
+                        </Text>
+                    </PartText>
+                </Compare>
+                <Default>
+                    <PartText name="time_12h" x="38" y="158" width="380" height="138">
+                        <Text align="CENTER">
+                            <Font family="space_grotesk" weight="BOLD" slant="NORMAL" size="112" color="#F5F4FF">
+                                <Transform target="color"
+                                    value="colorRgb(round(205 + 50 * cos(([SECOND_MILLISECOND] % 10) * 0.6283185 + 1.047198)), round(205 + 50 * cos(([SECOND_MILLISECOND] % 10) * 0.6283185 - 1.047198)), round(205 + 50 * cos(([SECOND_MILLISECOND] % 10) * 0.6283185 - 3.141593)))" />
+                                <Template>%d:%s<Parameter expression="[HOUR_1_12]" /><Parameter expression="[MINUTE_Z]" /></Template>
+                            </Font>
+                        </Text>
+                    </PartText>
+                </Default>
+            </Condition>
+            <PartImage name="heart_icon" x="144" y="305" width="18" height="18" tintColor="#D3D5EA">
+                <Transform target="tintColor"
+                    value="colorRgb(round(190 + 65 * cos(([SECOND_MILLISECOND] % 10) * 0.6283185 + 2.094395)), round(190 + 65 * cos(([SECOND_MILLISECOND] % 10) * 0.6283185)), round(190 + 65 * cos(([SECOND_MILLISECOND] % 10) * 0.6283185 - 2.094395)))" />
+                <Image resource="heart_icon" />
+            </PartImage>
+            <Condition>
+                <Expressions>
+                    <Expression name="hasHeartRate"><![CDATA[[HEART_RATE] > 0]]></Expression>
+                </Expressions>
+                <Compare expression="hasHeartRate">
+                    <PartText name="heart_rate" x="168" y="294" width="52" height="40">
+                        <Text align="START">
+                            <Font family="space_grotesk" weight="MEDIUM" slant="NORMAL" size="22" color="#D3D5EA">
+                                <Transform target="color"
+                                    value="colorRgb(round(190 + 65 * cos(([SECOND_MILLISECOND] % 10) * 0.6283185 + 2.094395)), round(190 + 65 * cos(([SECOND_MILLISECOND] % 10) * 0.6283185)), round(190 + 65 * cos(([SECOND_MILLISECOND] % 10) * 0.6283185 - 2.094395)))" />
+                                <Template>%d<Parameter expression="round([HEART_RATE])" /></Template>
+                            </Font>
+                        </Text>
+                    </PartText>
+                </Compare>
+                <Default>
+                    <PartText name="heart_rate_empty" x="168" y="294" width="52" height="40">
+                        <Text align="START">
+                            <Font family="space_grotesk" weight="MEDIUM" slant="NORMAL" size="22" color="#D3D5EA">
+                                <Transform target="color"
+                                    value="colorRgb(round(190 + 65 * cos(([SECOND_MILLISECOND] % 10) * 0.6283185 + 2.094395)), round(190 + 65 * cos(([SECOND_MILLISECOND] % 10) * 0.6283185)), round(190 + 65 * cos(([SECOND_MILLISECOND] % 10) * 0.6283185 - 2.094395)))" />
+                                <Template>--</Template>
+                            </Font>
+                        </Text>
+                    </PartText>
+                </Default>
+            </Condition>
+            <PartImage name="battery_icon" x="242" y="307" width="24" height="14" tintColor="#D3D5EA">
+                <Transform target="tintColor"
+                    value="colorRgb(round(190 + 65 * cos(([SECOND_MILLISECOND] % 10) * 0.6283185 + 2.094395)), round(190 + 65 * cos(([SECOND_MILLISECOND] % 10) * 0.6283185)), round(190 + 65 * cos(([SECOND_MILLISECOND] % 10) * 0.6283185 - 2.094395)))" />
+                <Image resource="battery_icon" />
+            </PartImage>
+            <PartText name="battery" x="272" y="294" width="76" height="40">
                 <Text align="START">
-                    <Font family="space_grotesk_medium" size="22" color="#D3D5EA">
+                    <Font family="space_grotesk" weight="MEDIUM" slant="NORMAL" size="22" color="#D3D5EA">
+                        <Transform target="color"
+                            value="colorRgb(round(190 + 65 * cos(([SECOND_MILLISECOND] % 10) * 0.6283185 + 2.094395)), round(190 + 65 * cos(([SECOND_MILLISECOND] % 10) * 0.6283185)), round(190 + 65 * cos(([SECOND_MILLISECOND] % 10) * 0.6283185 - 2.094395)))" />
                         <Template>%d%%<Parameter expression="[BATTERY_PERCENT]" /></Template>
                     </Font>
                 </Text>
             </PartText>
         </Group>
-        <DigitalClock x="38" y="158" width="380" height="138">
-            <TimeText x="0" y="0" width="380" height="138" align="CENTER"
-                format="h:mm" hourFormat="SYNC_TO_DEVICE">
-                <Variant mode="AMBIENT" target="alpha" value="115" />
-                <Font family="space_grotesk_bold" color="#F5F4FF" size="112" />
-            </TimeText>
-        </DigitalClock>
+        <Group name="ambient_clock" x="38" y="158" width="380" height="138" alpha="0">
+            <Variant mode="AMBIENT" target="alpha" value="115" />
+            <DigitalClock x="0" y="0" width="380" height="138">
+                <TimeText x="0" y="0" width="380" height="138" align="CENTER"
+                    format="h:mm" hourFormat="SYNC_TO_DEVICE">
+                    <Font family="space_grotesk" weight="BOLD" slant="NORMAL" color="#F5F4FF" size="112" />
+                </TimeText>
+            </DigitalClock>
+        </Group>
     </Scene>
 </WatchFace>
