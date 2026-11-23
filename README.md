@@ -12,6 +12,8 @@ This release contains 2,808 wallpapers per format. The flagship index covers 369
 - `site/` contains the static site and catalog.
 - `src/` contains generation and packaging scripts.
 
+For the installable Android live wallpaper, see [RGB Geometry Live](android-live/README.md).
+
 ## Build the site locally
 
 ```sh
