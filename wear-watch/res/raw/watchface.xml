@@ -92,13 +92,34 @@
             </PartText>
         </Group>
         <Group name="ambient_clock" x="38" y="158" width="380" height="138" alpha="0">
-            <Variant mode="AMBIENT" target="alpha" value="115" />
-            <DigitalClock x="0" y="0" width="380" height="138">
-                <TimeText x="0" y="0" width="380" height="138" align="CENTER"
-                    format="h:mm" hourFormat="SYNC_TO_DEVICE">
-                    <Font family="space_grotesk" weight="BOLD" slant="NORMAL" color="#F5F4FF" size="112" />
-                </TimeText>
-            </DigitalClock>
+            <Variant mode="AMBIENT" target="alpha" value="155" />
+            <Condition>
+                <Expressions>
+                    <Expression name="is24HourAmbient"><![CDATA[[IS_24HOUR_MODE] == 1]]></Expression>
+                </Expressions>
+                <Compare expression="is24HourAmbient">
+                    <PartText name="ambient_time_24h" x="0" y="0" width="380" height="138">
+                        <Text align="CENTER">
+                            <Font family="space_grotesk" weight="BOLD" slant="NORMAL" color="#9EFBE5" size="112">
+                                <Transform target="color"
+                                    value="colorRgb(round(155 + 100 * cos([MINUTE] * 1.047198)), round(155 + 100 * cos([MINUTE] * 1.047198 - 2.094395)), round(155 + 100 * cos([MINUTE] * 1.047198 - 4.18879)))" />
+                                <Template>%s:%s<Parameter expression="[HOUR_0_23_Z]" /><Parameter expression="[MINUTE_Z]" /></Template>
+                            </Font>
+                        </Text>
+                    </PartText>
+                </Compare>
+                <Default>
+                    <PartText name="ambient_time_12h" x="0" y="0" width="380" height="138">
+                        <Text align="CENTER">
+                            <Font family="space_grotesk" weight="BOLD" slant="NORMAL" color="#9EFBE5" size="112">
+                                <Transform target="color"
+                                    value="colorRgb(round(155 + 100 * cos([MINUTE] * 1.047198)), round(155 + 100 * cos([MINUTE] * 1.047198 - 2.094395)), round(155 + 100 * cos([MINUTE] * 1.047198 - 4.18879)))" />
+                                <Template>%d:%s<Parameter expression="[HOUR_1_12]" /><Parameter expression="[MINUTE_Z]" /></Template>
+                            </Font>
+                        </Text>
+                    </PartText>
+                </Default>
+            </Condition>
         </Group>
     </Scene>
 </WatchFace>

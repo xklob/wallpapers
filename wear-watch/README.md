@@ -1,6 +1,6 @@
 # RGB Honeycomb for Wear OS
 
-A round, black-and-RGB face for the Pixel Watch 3 in both sizes. The interactive face shows the time, date, live heart rate, and watch battery level in Space Grotesk with a continuous 10-second full-face hue shift. Always-on mode shows only the dimmed time. Wear OS draws the face using Watch Face Format v4.
+A round, black-and-RGB face for the Pixel Watch 3 in both sizes. The interactive face shows the time, date, live heart rate, and watch battery level in Space Grotesk with a continuous 10-second full-face hue shift. Always-on mode shows the dimmed time rotating through the RGB spectrum each minute. Wear OS draws the face using Watch Face Format v4.
 
 ## Install
 
