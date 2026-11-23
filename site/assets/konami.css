@@ -1,0 +1,60 @@
+/* The rainbow and its slow warp are shared with klob.io. */
+html:root.psychedelic {
+  color-scheme: light;
+  background: #f2d6de;
+}
+html.psychedelic body {
+  color-scheme: light;
+  --text: #23142d;
+  --muted: #4a3550;
+  --line: rgb(35 20 45 / .32);
+  --surface: rgb(255 255 255 / .8);
+  --hover: rgb(255 255 255 / .58);
+  --accent: #005e18;
+  --accent-soft: #e2f4df;
+  --accent-border: #64866a;
+  isolation: isolate;
+  background: transparent;
+  color: var(--text);
+}
+html.psychedelic body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(135deg, #ff8cc8, #ffbc78, #ffe783, #a0f793, #6eecd8, #8db9ff, #c99cff);
+  background-size: 170% 170%;
+  animation: klob-rainbow-flow 24s linear infinite;
+}
+.psychedelic [data-konami-surface] {
+  background: linear-gradient(115deg, #492343, #205046, #273a62, #492343);
+  color: #eeeeea;
+  background-size: 240% 240%;
+  animation: klob-rainbow-surface 24s ease-in-out infinite;
+}
+.psychedelic [data-konami-ink] {
+  transform-origin: center;
+  animation: klob-rainbow-ink 24s linear infinite, klob-rainbow-warp 12s ease-in-out infinite;
+}
+@keyframes klob-rainbow-flow {
+  0% { background-position: 0% 0%; filter: hue-rotate(0deg); }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; filter: hue-rotate(360deg); }
+}
+@keyframes klob-rainbow-surface {
+  0%, 100% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+}
+@keyframes klob-rainbow-ink {
+  from { filter: hue-rotate(0deg); }
+  to { filter: hue-rotate(360deg); }
+}
+@keyframes klob-rainbow-warp {
+  0%, 100% { transform: scale(1.006) skew(.18deg, -.12deg); }
+  50% { transform: scale(1.012) skew(-.18deg, .12deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html.psychedelic body::before, .psychedelic [data-konami-surface], .psychedelic [data-konami-ink] { animation: none; }
+  html.psychedelic body::before, .psychedelic [data-konami-surface] { background-size: 100% 100%; }
+}

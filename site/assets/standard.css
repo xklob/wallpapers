@@ -1,0 +1,74 @@
+/* klob // Standard Design. Keep the fonts directory next to this file. */
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("./fonts/space-grotesk-latin.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+}
+
+:root {
+  --font-sans: "Space Grotesk", system-ui, sans-serif;
+  --brand-green: #00ff00;
+  --light-surface: #fafaf8;
+  --light-text: #202020;
+  --light-muted: #686862;
+  --light-line: #deded7;
+  --light-hover: #f0f0eb;
+  --light-accent: #007500;
+  --light-accent-soft: #ecf8e8;
+  --light-accent-border: #8bbf82;
+  --dark-surface: #171717;
+  --dark-text: #eeeeea;
+  --dark-muted: #a5a5a0;
+  --dark-line: #363634;
+  --dark-hover: #222220;
+  --dark-accent: var(--brand-green);
+  --dark-accent-soft: #172b15;
+  --dark-accent-border: #3b6434;
+  font-family: var(--font-sans);
+}
+
+:root, [data-theme="dark"] {
+  color-scheme: dark;
+  --surface: var(--dark-surface);
+  --text: var(--dark-text);
+  --muted: var(--dark-muted);
+  --line: var(--dark-line);
+  --hover: var(--dark-hover);
+  --accent: var(--dark-accent);
+  --accent-soft: var(--dark-accent-soft);
+  --accent-border: var(--dark-accent-border);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]):not([data-theme="light"]) {
+    color-scheme: light;
+    --surface: var(--light-surface);
+    --text: var(--light-text);
+    --muted: var(--light-muted);
+    --line: var(--light-line);
+    --hover: var(--light-hover);
+    --accent: var(--light-accent);
+    --accent-soft: var(--light-accent-soft);
+    --accent-border: var(--light-accent-border);
+  }
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --surface: var(--light-surface);
+  --text: var(--light-text);
+  --muted: var(--light-muted);
+  --line: var(--light-line);
+  --hover: var(--light-hover);
+  --accent: var(--light-accent);
+  --accent-soft: var(--light-accent-soft);
+  --accent-border: var(--light-accent-border);
+}
+
+:where(h1, h2, h3, h4, h5, h6, [role="heading"]) { text-transform: capitalize; }
+body { background: var(--surface); color: var(--text); }
+button, input, select, textarea { font-family: inherit; }
+::selection { background: var(--brand-green); color: var(--dark-surface); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }

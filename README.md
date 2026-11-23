@@ -1,24 +1,22 @@
 # klob // wallpapers
 
-Browse geometric wallpapers by device at [wallpapers.klob.io](https://wallpapers.klob.io/) or [open the hosted picker](https://klob-wallpapers.deep-krill-3494.chatgpt.site/). Get the complete PNG and SVG packs from the [v1.0.0 release](https://github.com/xklob/wallpapers/releases/tag/v1.0.0).
+Browse by device at [wallpapers.klob.io](https://wallpapers.klob.io/). Download the complete [PNG and SVG packs](https://github.com/xklob/wallpapers/releases/tag/v1.1.0).
 
-**RGB Geometry** includes bright and subtle honeycombs, spaced hexagons, and wireframe cubes. All four patterns have 60 screen and orientation presets, two border styles, and 30 optional camera-ring profiles. Clipped cells close with solid edges. There are 720 wallpapers per format.
+RGB Geometry includes bright and subtle honeycombs, spaced hexagons, and wireframe cubes. There are 832 wallpapers per format. Newer device presets include Pixel 10 and 11, Galaxy S25 and S26, current Samsung foldables, iPhone 17 and 18 Pro models, iPhone Air, and iPhone Duo. Desktop wallpapers have about twice the shape density.
 
-[Device sizes](config/device_sizes.csv) · [Device and camera guide](docs/device-guide.md)
+- `assets/` contains the artwork and frame references.
+- `renders/` contains the PNG and SVG artwork.
+- `site/` contains the site source and device catalog.
+- `src/` contains tools for rebuilding and packaging the artwork.
 
-The PNGs retain the source raster artwork. The native SVGs reconstruct the artwork as paths and gradients and may differ slightly in color or line feel. SVG is suitable for editing and scales without raster pixelation. PNG is ready for standard wallpaper pickers.
+## Package and preview
 
-## Build
-
-From the repository root, install Python 3.12, ImageMagick 7, and the Python dependencies. The four source images and frame assets are in `assets/`. Input geometry and device metadata are in `config/`.
+Python 3.12 packages the checked-in artwork and assembles the static site. The original renderers also use ImageMagick 7 and the dependencies in `requirements.txt`. Updated PNGs are exported from their native SVGs using Node.js and Sharp.
 
 ```sh
-python -m pip install -r requirements.txt
-python src/render_png.py
-python src/render_camera.py
-python src/render_vectors.py --data-root . --output renders/svg
-python src/validate.py
 python src/package_release.py
+python src/build_site.py
+python -m http.server --directory build/site 8000
 ```
 
-The renderers write to `renders/`. The packager writes the complete downloads to `release/`. Run the release workflow from the Actions tab to publish another version.
+Open `http://localhost:8000` to preview the picker. The release workflow commits any regenerated PNGs before publishing both packs.

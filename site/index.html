@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" data-design="standard">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Geometric wallpapers for phones, tablets, foldables and desktops. Download at your screen size in PNG or SVG.">
+<link rel="canonical" href="https://wallpapers.klob.io/">
+<link rel="icon" href="/assets/favicon.svg">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="stylesheet" href="/assets/standard.css">
+<link rel="stylesheet" href="/assets/konami.css">
+<link rel="stylesheet" href="/assets/wallpapers.css">
+<script src="/assets/theme.js"></script>
+<script defer src="/assets/konami.js"></script>
+<script type="module" src="/assets/wallpapers.js"></script>
+<title>Wallpapers // klob</title>
+</head>
+<body>
+<header><div class="frame top">
+<a href="/" class="wordmark">klob <span data-konami-ink>//</span> wallpapers</a>
+<div class="top-links">
+<a href="https://klob.io/">klob.io</a>
+<label>Appearance <select id="appearance" aria-label="Appearance"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+</div></div></header>
+<main class="frame">
+<section class="intro">
+<h1>Wallpapers</h1>
+<p>Geometric wallpapers sized for your screen.</p>
+</section>
+<div class="workspace">
+<section class="options" aria-labelledby="pick-heading">
+<h2 id="pick-heading">Pick A Wallpaper</h2>
+<label>Collection <select id="collection"></select></label>
+<label>Pattern <select id="pattern"></select></label>
+<label>Device Type <select id="device-group"></select></label>
+<label>Manufacturer <select id="manufacturer"></select></label>
+<label>Model <select id="screen"></select></label>
+<label>Style <select id="style"><option value="original">Plain</option><option value="rgb_border">RGB Border</option></select></label>
+<label class="check" id="camera-label" hidden><input id="camera" type="checkbox"> RGB Camera Ring</label>
+<p id="detail" class="muted"></p>
+</section>
+<section class="result" aria-label="Wallpaper preview">
+<div class="preview"><img id="preview" alt="" hidden></div>
+<div class="download">
+<div><strong id="selection-name">Loading Wallpapers</strong><br><span class="muted" id="dimensions"></span></div>
+<div class="actions"><button class="primary" id="png" type="button" disabled>Download PNG</button><a class="button" id="svg" hidden>Download SVG</a></div>
+</div>
+<p class="status" role="status" id="status"></p>
+</section>
+</div>
+<section class="packs">
+<h2>Download The Collection</h2>
+<p class="muted" id="pack-detail"></p>
+<div class="actions"><a class="button" id="archive" hidden>Download SVG Pack</a><a class="button" id="release" href="https://github.com/xklob/wallpapers/releases">View PNG Releases</a></div>
+</section>
+<noscript><p><a href="/rgb-geometry-svg.zip" download>Download the RGB Geometry SVG pack</a></p></noscript>
+</main>
+<footer><div class="frame bottom"><div><a href="https://design.klob.io/">Standard Design</a> <a href="https://github.com/xklob/wallpapers">Source on GitHub</a></div></div></footer>
+</body>
+</html>

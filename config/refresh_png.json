@@ -1,0 +1,842 @@
+[
+  {
+    "path": "01_honeycomb_bright/desktop/original/desktop_1080p_1920x1080_original.svg",
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "path": "01_honeycomb_bright/desktop/rgb_border/desktop_1080p_1920x1080_rgb_border.svg",
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "path": "01_honeycomb_bright/desktop/original/desktop_1440p_2560x1440_original.svg",
+    "width": 2560,
+    "height": 1440
+  },
+  {
+    "path": "01_honeycomb_bright/desktop/rgb_border/desktop_1440p_2560x1440_rgb_border.svg",
+    "width": 2560,
+    "height": 1440
+  },
+  {
+    "path": "01_honeycomb_bright/desktop/original/desktop_4k_3840x2160_original.svg",
+    "width": 3840,
+    "height": 2160
+  },
+  {
+    "path": "01_honeycomb_bright/desktop/rgb_border/desktop_4k_3840x2160_rgb_border.svg",
+    "width": 3840,
+    "height": 2160
+  },
+  {
+    "path": "01_honeycomb_bright/desktop/original/wide_21x9_1440p_3440x1440_original.svg",
+    "width": 3440,
+    "height": 1440
+  },
+  {
+    "path": "01_honeycomb_bright/desktop/rgb_border/wide_21x9_1440p_3440x1440_rgb_border.svg",
+    "width": 3440,
+    "height": 1440
+  },
+  {
+    "path": "01_honeycomb_bright/desktop/original/wide_21x9_2160p_5120x2160_original.svg",
+    "width": 5120,
+    "height": 2160
+  },
+  {
+    "path": "01_honeycomb_bright/desktop/rgb_border/wide_21x9_2160p_5120x2160_rgb_border.svg",
+    "width": 5120,
+    "height": 2160
+  },
+  {
+    "path": "01_honeycomb_bright/desktop/original/ultrawide_32x9_1440p_5120x1440_original.svg",
+    "width": 5120,
+    "height": 1440
+  },
+  {
+    "path": "01_honeycomb_bright/desktop/rgb_border/ultrawide_32x9_1440p_5120x1440_rgb_border.svg",
+    "width": 5120,
+    "height": 1440
+  },
+  {
+    "path": "01_honeycomb_bright/desktop/original/ultrawide_32x9_2160p_7680x2160_original.svg",
+    "width": 7680,
+    "height": 2160
+  },
+  {
+    "path": "01_honeycomb_bright/desktop/rgb_border/ultrawide_32x9_2160p_7680x2160_rgb_border.svg",
+    "width": 7680,
+    "height": 2160
+  },
+  {
+    "path": "02_hexagons/desktop/original/desktop_1080p_1920x1080_original.svg",
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "path": "02_hexagons/desktop/rgb_border/desktop_1080p_1920x1080_rgb_border.svg",
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "path": "02_hexagons/desktop/original/desktop_1440p_2560x1440_original.svg",
+    "width": 2560,
+    "height": 1440
+  },
+  {
+    "path": "02_hexagons/desktop/rgb_border/desktop_1440p_2560x1440_rgb_border.svg",
+    "width": 2560,
+    "height": 1440
+  },
+  {
+    "path": "02_hexagons/desktop/original/desktop_4k_3840x2160_original.svg",
+    "width": 3840,
+    "height": 2160
+  },
+  {
+    "path": "02_hexagons/desktop/rgb_border/desktop_4k_3840x2160_rgb_border.svg",
+    "width": 3840,
+    "height": 2160
+  },
+  {
+    "path": "02_hexagons/desktop/original/wide_21x9_1440p_3440x1440_original.svg",
+    "width": 3440,
+    "height": 1440
+  },
+  {
+    "path": "02_hexagons/desktop/rgb_border/wide_21x9_1440p_3440x1440_rgb_border.svg",
+    "width": 3440,
+    "height": 1440
+  },
+  {
+    "path": "02_hexagons/desktop/original/wide_21x9_2160p_5120x2160_original.svg",
+    "width": 5120,
+    "height": 2160
+  },
+  {
+    "path": "02_hexagons/desktop/rgb_border/wide_21x9_2160p_5120x2160_rgb_border.svg",
+    "width": 5120,
+    "height": 2160
+  },
+  {
+    "path": "02_hexagons/desktop/original/ultrawide_32x9_1440p_5120x1440_original.svg",
+    "width": 5120,
+    "height": 1440
+  },
+  {
+    "path": "02_hexagons/desktop/rgb_border/ultrawide_32x9_1440p_5120x1440_rgb_border.svg",
+    "width": 5120,
+    "height": 1440
+  },
+  {
+    "path": "02_hexagons/desktop/original/ultrawide_32x9_2160p_7680x2160_original.svg",
+    "width": 7680,
+    "height": 2160
+  },
+  {
+    "path": "02_hexagons/desktop/rgb_border/ultrawide_32x9_2160p_7680x2160_rgb_border.svg",
+    "width": 7680,
+    "height": 2160
+  },
+  {
+    "path": "03_honeycomb_subtle/desktop/original/desktop_1080p_1920x1080_original.svg",
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "path": "03_honeycomb_subtle/desktop/rgb_border/desktop_1080p_1920x1080_rgb_border.svg",
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "path": "03_honeycomb_subtle/desktop/original/desktop_1440p_2560x1440_original.svg",
+    "width": 2560,
+    "height": 1440
+  },
+  {
+    "path": "03_honeycomb_subtle/desktop/rgb_border/desktop_1440p_2560x1440_rgb_border.svg",
+    "width": 2560,
+    "height": 1440
+  },
+  {
+    "path": "03_honeycomb_subtle/desktop/original/desktop_4k_3840x2160_original.svg",
+    "width": 3840,
+    "height": 2160
+  },
+  {
+    "path": "03_honeycomb_subtle/desktop/rgb_border/desktop_4k_3840x2160_rgb_border.svg",
+    "width": 3840,
+    "height": 2160
+  },
+  {
+    "path": "03_honeycomb_subtle/desktop/original/wide_21x9_1440p_3440x1440_original.svg",
+    "width": 3440,
+    "height": 1440
+  },
+  {
+    "path": "03_honeycomb_subtle/desktop/rgb_border/wide_21x9_1440p_3440x1440_rgb_border.svg",
+    "width": 3440,
+    "height": 1440
+  },
+  {
+    "path": "03_honeycomb_subtle/desktop/original/wide_21x9_2160p_5120x2160_original.svg",
+    "width": 5120,
+    "height": 2160
+  },
+  {
+    "path": "03_honeycomb_subtle/desktop/rgb_border/wide_21x9_2160p_5120x2160_rgb_border.svg",
+    "width": 5120,
+    "height": 2160
+  },
+  {
+    "path": "03_honeycomb_subtle/desktop/original/ultrawide_32x9_1440p_5120x1440_original.svg",
+    "width": 5120,
+    "height": 1440
+  },
+  {
+    "path": "03_honeycomb_subtle/desktop/rgb_border/ultrawide_32x9_1440p_5120x1440_rgb_border.svg",
+    "width": 5120,
+    "height": 1440
+  },
+  {
+    "path": "03_honeycomb_subtle/desktop/original/ultrawide_32x9_2160p_7680x2160_original.svg",
+    "width": 7680,
+    "height": 2160
+  },
+  {
+    "path": "03_honeycomb_subtle/desktop/rgb_border/ultrawide_32x9_2160p_7680x2160_rgb_border.svg",
+    "width": 7680,
+    "height": 2160
+  },
+  {
+    "path": "04_cubes/desktop/original/desktop_1080p_1920x1080_original.svg",
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "path": "04_cubes/desktop/rgb_border/desktop_1080p_1920x1080_rgb_border.svg",
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "path": "04_cubes/desktop/original/desktop_1440p_2560x1440_original.svg",
+    "width": 2560,
+    "height": 1440
+  },
+  {
+    "path": "04_cubes/desktop/rgb_border/desktop_1440p_2560x1440_rgb_border.svg",
+    "width": 2560,
+    "height": 1440
+  },
+  {
+    "path": "04_cubes/desktop/original/desktop_4k_3840x2160_original.svg",
+    "width": 3840,
+    "height": 2160
+  },
+  {
+    "path": "04_cubes/desktop/rgb_border/desktop_4k_3840x2160_rgb_border.svg",
+    "width": 3840,
+    "height": 2160
+  },
+  {
+    "path": "04_cubes/desktop/original/wide_21x9_1440p_3440x1440_original.svg",
+    "width": 3440,
+    "height": 1440
+  },
+  {
+    "path": "04_cubes/desktop/rgb_border/wide_21x9_1440p_3440x1440_rgb_border.svg",
+    "width": 3440,
+    "height": 1440
+  },
+  {
+    "path": "04_cubes/desktop/original/wide_21x9_2160p_5120x2160_original.svg",
+    "width": 5120,
+    "height": 2160
+  },
+  {
+    "path": "04_cubes/desktop/rgb_border/wide_21x9_2160p_5120x2160_rgb_border.svg",
+    "width": 5120,
+    "height": 2160
+  },
+  {
+    "path": "04_cubes/desktop/original/ultrawide_32x9_1440p_5120x1440_original.svg",
+    "width": 5120,
+    "height": 1440
+  },
+  {
+    "path": "04_cubes/desktop/rgb_border/ultrawide_32x9_1440p_5120x1440_rgb_border.svg",
+    "width": 5120,
+    "height": 1440
+  },
+  {
+    "path": "04_cubes/desktop/original/ultrawide_32x9_2160p_7680x2160_original.svg",
+    "width": 7680,
+    "height": 2160
+  },
+  {
+    "path": "04_cubes/desktop/rgb_border/ultrawide_32x9_2160p_7680x2160_rgb_border.svg",
+    "width": 7680,
+    "height": 2160
+  },
+  {
+    "path": "01_honeycomb_bright/foldable/google/original/pixel_11_pro_fold_cover_portrait_1080x2342_original.svg",
+    "width": 1080,
+    "height": 2342
+  },
+  {
+    "path": "01_honeycomb_bright/foldable/google/rgb_border/pixel_11_pro_fold_cover_portrait_1080x2342_rgb_border.svg",
+    "width": 1080,
+    "height": 2342
+  },
+  {
+    "path": "01_honeycomb_bright/foldable/google/original/pixel_11_pro_fold_cover_landscape_2342x1080_original.svg",
+    "width": 2342,
+    "height": 1080
+  },
+  {
+    "path": "01_honeycomb_bright/foldable/google/rgb_border/pixel_11_pro_fold_cover_landscape_2342x1080_rgb_border.svg",
+    "width": 2342,
+    "height": 1080
+  },
+  {
+    "path": "01_honeycomb_bright/foldable/samsung/original/galaxy_z_fold8_ultra_inner_portrait_2256x2504_original.svg",
+    "width": 2256,
+    "height": 2504
+  },
+  {
+    "path": "01_honeycomb_bright/foldable/samsung/rgb_border/galaxy_z_fold8_ultra_inner_portrait_2256x2504_rgb_border.svg",
+    "width": 2256,
+    "height": 2504
+  },
+  {
+    "path": "01_honeycomb_bright/foldable/samsung/original/galaxy_z_fold8_ultra_inner_landscape_2504x2256_original.svg",
+    "width": 2504,
+    "height": 2256
+  },
+  {
+    "path": "01_honeycomb_bright/foldable/samsung/rgb_border/galaxy_z_fold8_ultra_inner_landscape_2504x2256_rgb_border.svg",
+    "width": 2504,
+    "height": 2256
+  },
+  {
+    "path": "01_honeycomb_bright/foldable/samsung/original/galaxy_z_fold8_cover_portrait_1248x1972_original.svg",
+    "width": 1248,
+    "height": 1972
+  },
+  {
+    "path": "01_honeycomb_bright/foldable/samsung/rgb_border/galaxy_z_fold8_cover_portrait_1248x1972_rgb_border.svg",
+    "width": 1248,
+    "height": 1972
+  },
+  {
+    "path": "01_honeycomb_bright/foldable/samsung/original/galaxy_z_fold8_cover_landscape_1972x1248_original.svg",
+    "width": 1972,
+    "height": 1248
+  },
+  {
+    "path": "01_honeycomb_bright/foldable/samsung/rgb_border/galaxy_z_fold8_cover_landscape_1972x1248_rgb_border.svg",
+    "width": 1972,
+    "height": 1248
+  },
+  {
+    "path": "01_honeycomb_bright/foldable/samsung/original/galaxy_z_fold8_inner_portrait_1848x2448_original.svg",
+    "width": 1848,
+    "height": 2448
+  },
+  {
+    "path": "01_honeycomb_bright/foldable/samsung/rgb_border/galaxy_z_fold8_inner_portrait_1848x2448_rgb_border.svg",
+    "width": 1848,
+    "height": 2448
+  },
+  {
+    "path": "01_honeycomb_bright/foldable/samsung/original/galaxy_z_fold8_inner_landscape_2448x1848_original.svg",
+    "width": 2448,
+    "height": 1848
+  },
+  {
+    "path": "01_honeycomb_bright/foldable/samsung/rgb_border/galaxy_z_fold8_inner_landscape_2448x1848_rgb_border.svg",
+    "width": 2448,
+    "height": 1848
+  },
+  {
+    "path": "01_honeycomb_bright/foldable/apple/original/iphone_duo_cover_portrait_1398x2034_original.svg",
+    "width": 1398,
+    "height": 2034
+  },
+  {
+    "path": "01_honeycomb_bright/foldable/apple/rgb_border/iphone_duo_cover_portrait_1398x2034_rgb_border.svg",
+    "width": 1398,
+    "height": 2034
+  },
+  {
+    "path": "01_honeycomb_bright/foldable/apple/original/iphone_duo_cover_landscape_2034x1398_original.svg",
+    "width": 2034,
+    "height": 1398
+  },
+  {
+    "path": "01_honeycomb_bright/foldable/apple/rgb_border/iphone_duo_cover_landscape_2034x1398_rgb_border.svg",
+    "width": 2034,
+    "height": 1398
+  },
+  {
+    "path": "01_honeycomb_bright/foldable/apple/original/iphone_duo_inner_portrait_1878x2670_original.svg",
+    "width": 1878,
+    "height": 2670
+  },
+  {
+    "path": "01_honeycomb_bright/foldable/apple/rgb_border/iphone_duo_inner_portrait_1878x2670_rgb_border.svg",
+    "width": 1878,
+    "height": 2670
+  },
+  {
+    "path": "01_honeycomb_bright/foldable/apple/original/iphone_duo_inner_landscape_2670x1878_original.svg",
+    "width": 2670,
+    "height": 1878
+  },
+  {
+    "path": "01_honeycomb_bright/foldable/apple/rgb_border/iphone_duo_inner_landscape_2670x1878_rgb_border.svg",
+    "width": 2670,
+    "height": 1878
+  },
+  {
+    "path": "01_honeycomb_bright/phone/iphone/original/iphone_air_1260x2736_original.svg",
+    "width": 1260,
+    "height": 2736
+  },
+  {
+    "path": "01_honeycomb_bright/phone/iphone/rgb_border/iphone_air_1260x2736_rgb_border.svg",
+    "width": 1260,
+    "height": 2736
+  },
+  {
+    "path": "01_honeycomb_bright/phone/iphone/original/iphone_17e_1170x2532_original.svg",
+    "width": 1170,
+    "height": 2532
+  },
+  {
+    "path": "01_honeycomb_bright/phone/iphone/rgb_border/iphone_17e_1170x2532_rgb_border.svg",
+    "width": 1170,
+    "height": 2532
+  },
+  {
+    "path": "02_hexagons/foldable/google/original/pixel_11_pro_fold_cover_portrait_1080x2342_original.svg",
+    "width": 1080,
+    "height": 2342
+  },
+  {
+    "path": "02_hexagons/foldable/google/rgb_border/pixel_11_pro_fold_cover_portrait_1080x2342_rgb_border.svg",
+    "width": 1080,
+    "height": 2342
+  },
+  {
+    "path": "02_hexagons/foldable/google/original/pixel_11_pro_fold_cover_landscape_2342x1080_original.svg",
+    "width": 2342,
+    "height": 1080
+  },
+  {
+    "path": "02_hexagons/foldable/google/rgb_border/pixel_11_pro_fold_cover_landscape_2342x1080_rgb_border.svg",
+    "width": 2342,
+    "height": 1080
+  },
+  {
+    "path": "02_hexagons/foldable/samsung/original/galaxy_z_fold8_ultra_inner_portrait_2256x2504_original.svg",
+    "width": 2256,
+    "height": 2504
+  },
+  {
+    "path": "02_hexagons/foldable/samsung/rgb_border/galaxy_z_fold8_ultra_inner_portrait_2256x2504_rgb_border.svg",
+    "width": 2256,
+    "height": 2504
+  },
+  {
+    "path": "02_hexagons/foldable/samsung/original/galaxy_z_fold8_ultra_inner_landscape_2504x2256_original.svg",
+    "width": 2504,
+    "height": 2256
+  },
+  {
+    "path": "02_hexagons/foldable/samsung/rgb_border/galaxy_z_fold8_ultra_inner_landscape_2504x2256_rgb_border.svg",
+    "width": 2504,
+    "height": 2256
+  },
+  {
+    "path": "02_hexagons/foldable/samsung/original/galaxy_z_fold8_cover_portrait_1248x1972_original.svg",
+    "width": 1248,
+    "height": 1972
+  },
+  {
+    "path": "02_hexagons/foldable/samsung/rgb_border/galaxy_z_fold8_cover_portrait_1248x1972_rgb_border.svg",
+    "width": 1248,
+    "height": 1972
+  },
+  {
+    "path": "02_hexagons/foldable/samsung/original/galaxy_z_fold8_cover_landscape_1972x1248_original.svg",
+    "width": 1972,
+    "height": 1248
+  },
+  {
+    "path": "02_hexagons/foldable/samsung/rgb_border/galaxy_z_fold8_cover_landscape_1972x1248_rgb_border.svg",
+    "width": 1972,
+    "height": 1248
+  },
+  {
+    "path": "02_hexagons/foldable/samsung/original/galaxy_z_fold8_inner_portrait_1848x2448_original.svg",
+    "width": 1848,
+    "height": 2448
+  },
+  {
+    "path": "02_hexagons/foldable/samsung/rgb_border/galaxy_z_fold8_inner_portrait_1848x2448_rgb_border.svg",
+    "width": 1848,
+    "height": 2448
+  },
+  {
+    "path": "02_hexagons/foldable/samsung/original/galaxy_z_fold8_inner_landscape_2448x1848_original.svg",
+    "width": 2448,
+    "height": 1848
+  },
+  {
+    "path": "02_hexagons/foldable/samsung/rgb_border/galaxy_z_fold8_inner_landscape_2448x1848_rgb_border.svg",
+    "width": 2448,
+    "height": 1848
+  },
+  {
+    "path": "02_hexagons/foldable/apple/original/iphone_duo_cover_portrait_1398x2034_original.svg",
+    "width": 1398,
+    "height": 2034
+  },
+  {
+    "path": "02_hexagons/foldable/apple/rgb_border/iphone_duo_cover_portrait_1398x2034_rgb_border.svg",
+    "width": 1398,
+    "height": 2034
+  },
+  {
+    "path": "02_hexagons/foldable/apple/original/iphone_duo_cover_landscape_2034x1398_original.svg",
+    "width": 2034,
+    "height": 1398
+  },
+  {
+    "path": "02_hexagons/foldable/apple/rgb_border/iphone_duo_cover_landscape_2034x1398_rgb_border.svg",
+    "width": 2034,
+    "height": 1398
+  },
+  {
+    "path": "02_hexagons/foldable/apple/original/iphone_duo_inner_portrait_1878x2670_original.svg",
+    "width": 1878,
+    "height": 2670
+  },
+  {
+    "path": "02_hexagons/foldable/apple/rgb_border/iphone_duo_inner_portrait_1878x2670_rgb_border.svg",
+    "width": 1878,
+    "height": 2670
+  },
+  {
+    "path": "02_hexagons/foldable/apple/original/iphone_duo_inner_landscape_2670x1878_original.svg",
+    "width": 2670,
+    "height": 1878
+  },
+  {
+    "path": "02_hexagons/foldable/apple/rgb_border/iphone_duo_inner_landscape_2670x1878_rgb_border.svg",
+    "width": 2670,
+    "height": 1878
+  },
+  {
+    "path": "02_hexagons/phone/iphone/original/iphone_air_1260x2736_original.svg",
+    "width": 1260,
+    "height": 2736
+  },
+  {
+    "path": "02_hexagons/phone/iphone/rgb_border/iphone_air_1260x2736_rgb_border.svg",
+    "width": 1260,
+    "height": 2736
+  },
+  {
+    "path": "02_hexagons/phone/iphone/original/iphone_17e_1170x2532_original.svg",
+    "width": 1170,
+    "height": 2532
+  },
+  {
+    "path": "02_hexagons/phone/iphone/rgb_border/iphone_17e_1170x2532_rgb_border.svg",
+    "width": 1170,
+    "height": 2532
+  },
+  {
+    "path": "03_honeycomb_subtle/foldable/google/original/pixel_11_pro_fold_cover_portrait_1080x2342_original.svg",
+    "width": 1080,
+    "height": 2342
+  },
+  {
+    "path": "03_honeycomb_subtle/foldable/google/rgb_border/pixel_11_pro_fold_cover_portrait_1080x2342_rgb_border.svg",
+    "width": 1080,
+    "height": 2342
+  },
+  {
+    "path": "03_honeycomb_subtle/foldable/google/original/pixel_11_pro_fold_cover_landscape_2342x1080_original.svg",
+    "width": 2342,
+    "height": 1080
+  },
+  {
+    "path": "03_honeycomb_subtle/foldable/google/rgb_border/pixel_11_pro_fold_cover_landscape_2342x1080_rgb_border.svg",
+    "width": 2342,
+    "height": 1080
+  },
+  {
+    "path": "03_honeycomb_subtle/foldable/samsung/original/galaxy_z_fold8_ultra_inner_portrait_2256x2504_original.svg",
+    "width": 2256,
+    "height": 2504
+  },
+  {
+    "path": "03_honeycomb_subtle/foldable/samsung/rgb_border/galaxy_z_fold8_ultra_inner_portrait_2256x2504_rgb_border.svg",
+    "width": 2256,
+    "height": 2504
+  },
+  {
+    "path": "03_honeycomb_subtle/foldable/samsung/original/galaxy_z_fold8_ultra_inner_landscape_2504x2256_original.svg",
+    "width": 2504,
+    "height": 2256
+  },
+  {
+    "path": "03_honeycomb_subtle/foldable/samsung/rgb_border/galaxy_z_fold8_ultra_inner_landscape_2504x2256_rgb_border.svg",
+    "width": 2504,
+    "height": 2256
+  },
+  {
+    "path": "03_honeycomb_subtle/foldable/samsung/original/galaxy_z_fold8_cover_portrait_1248x1972_original.svg",
+    "width": 1248,
+    "height": 1972
+  },
+  {
+    "path": "03_honeycomb_subtle/foldable/samsung/rgb_border/galaxy_z_fold8_cover_portrait_1248x1972_rgb_border.svg",
+    "width": 1248,
+    "height": 1972
+  },
+  {
+    "path": "03_honeycomb_subtle/foldable/samsung/original/galaxy_z_fold8_cover_landscape_1972x1248_original.svg",
+    "width": 1972,
+    "height": 1248
+  },
+  {
+    "path": "03_honeycomb_subtle/foldable/samsung/rgb_border/galaxy_z_fold8_cover_landscape_1972x1248_rgb_border.svg",
+    "width": 1972,
+    "height": 1248
+  },
+  {
+    "path": "03_honeycomb_subtle/foldable/samsung/original/galaxy_z_fold8_inner_portrait_1848x2448_original.svg",
+    "width": 1848,
+    "height": 2448
+  },
+  {
+    "path": "03_honeycomb_subtle/foldable/samsung/rgb_border/galaxy_z_fold8_inner_portrait_1848x2448_rgb_border.svg",
+    "width": 1848,
+    "height": 2448
+  },
+  {
+    "path": "03_honeycomb_subtle/foldable/samsung/original/galaxy_z_fold8_inner_landscape_2448x1848_original.svg",
+    "width": 2448,
+    "height": 1848
+  },
+  {
+    "path": "03_honeycomb_subtle/foldable/samsung/rgb_border/galaxy_z_fold8_inner_landscape_2448x1848_rgb_border.svg",
+    "width": 2448,
+    "height": 1848
+  },
+  {
+    "path": "03_honeycomb_subtle/foldable/apple/original/iphone_duo_cover_portrait_1398x2034_original.svg",
+    "width": 1398,
+    "height": 2034
+  },
+  {
+    "path": "03_honeycomb_subtle/foldable/apple/rgb_border/iphone_duo_cover_portrait_1398x2034_rgb_border.svg",
+    "width": 1398,
+    "height": 2034
+  },
+  {
+    "path": "03_honeycomb_subtle/foldable/apple/original/iphone_duo_cover_landscape_2034x1398_original.svg",
+    "width": 2034,
+    "height": 1398
+  },
+  {
+    "path": "03_honeycomb_subtle/foldable/apple/rgb_border/iphone_duo_cover_landscape_2034x1398_rgb_border.svg",
+    "width": 2034,
+    "height": 1398
+  },
+  {
+    "path": "03_honeycomb_subtle/foldable/apple/original/iphone_duo_inner_portrait_1878x2670_original.svg",
+    "width": 1878,
+    "height": 2670
+  },
+  {
+    "path": "03_honeycomb_subtle/foldable/apple/rgb_border/iphone_duo_inner_portrait_1878x2670_rgb_border.svg",
+    "width": 1878,
+    "height": 2670
+  },
+  {
+    "path": "03_honeycomb_subtle/foldable/apple/original/iphone_duo_inner_landscape_2670x1878_original.svg",
+    "width": 2670,
+    "height": 1878
+  },
+  {
+    "path": "03_honeycomb_subtle/foldable/apple/rgb_border/iphone_duo_inner_landscape_2670x1878_rgb_border.svg",
+    "width": 2670,
+    "height": 1878
+  },
+  {
+    "path": "03_honeycomb_subtle/phone/iphone/original/iphone_air_1260x2736_original.svg",
+    "width": 1260,
+    "height": 2736
+  },
+  {
+    "path": "03_honeycomb_subtle/phone/iphone/rgb_border/iphone_air_1260x2736_rgb_border.svg",
+    "width": 1260,
+    "height": 2736
+  },
+  {
+    "path": "03_honeycomb_subtle/phone/iphone/original/iphone_17e_1170x2532_original.svg",
+    "width": 1170,
+    "height": 2532
+  },
+  {
+    "path": "03_honeycomb_subtle/phone/iphone/rgb_border/iphone_17e_1170x2532_rgb_border.svg",
+    "width": 1170,
+    "height": 2532
+  },
+  {
+    "path": "04_cubes/foldable/google/original/pixel_11_pro_fold_cover_portrait_1080x2342_original.svg",
+    "width": 1080,
+    "height": 2342
+  },
+  {
+    "path": "04_cubes/foldable/google/rgb_border/pixel_11_pro_fold_cover_portrait_1080x2342_rgb_border.svg",
+    "width": 1080,
+    "height": 2342
+  },
+  {
+    "path": "04_cubes/foldable/google/original/pixel_11_pro_fold_cover_landscape_2342x1080_original.svg",
+    "width": 2342,
+    "height": 1080
+  },
+  {
+    "path": "04_cubes/foldable/google/rgb_border/pixel_11_pro_fold_cover_landscape_2342x1080_rgb_border.svg",
+    "width": 2342,
+    "height": 1080
+  },
+  {
+    "path": "04_cubes/foldable/samsung/original/galaxy_z_fold8_ultra_inner_portrait_2256x2504_original.svg",
+    "width": 2256,
+    "height": 2504
+  },
+  {
+    "path": "04_cubes/foldable/samsung/rgb_border/galaxy_z_fold8_ultra_inner_portrait_2256x2504_rgb_border.svg",
+    "width": 2256,
+    "height": 2504
+  },
+  {
+    "path": "04_cubes/foldable/samsung/original/galaxy_z_fold8_ultra_inner_landscape_2504x2256_original.svg",
+    "width": 2504,
+    "height": 2256
+  },
+  {
+    "path": "04_cubes/foldable/samsung/rgb_border/galaxy_z_fold8_ultra_inner_landscape_2504x2256_rgb_border.svg",
+    "width": 2504,
+    "height": 2256
+  },
+  {
+    "path": "04_cubes/foldable/samsung/original/galaxy_z_fold8_cover_portrait_1248x1972_original.svg",
+    "width": 1248,
+    "height": 1972
+  },
+  {
+    "path": "04_cubes/foldable/samsung/rgb_border/galaxy_z_fold8_cover_portrait_1248x1972_rgb_border.svg",
+    "width": 1248,
+    "height": 1972
+  },
+  {
+    "path": "04_cubes/foldable/samsung/original/galaxy_z_fold8_cover_landscape_1972x1248_original.svg",
+    "width": 1972,
+    "height": 1248
+  },
+  {
+    "path": "04_cubes/foldable/samsung/rgb_border/galaxy_z_fold8_cover_landscape_1972x1248_rgb_border.svg",
+    "width": 1972,
+    "height": 1248
+  },
+  {
+    "path": "04_cubes/foldable/samsung/original/galaxy_z_fold8_inner_portrait_1848x2448_original.svg",
+    "width": 1848,
+    "height": 2448
+  },
+  {
+    "path": "04_cubes/foldable/samsung/rgb_border/galaxy_z_fold8_inner_portrait_1848x2448_rgb_border.svg",
+    "width": 1848,
+    "height": 2448
+  },
+  {
+    "path": "04_cubes/foldable/samsung/original/galaxy_z_fold8_inner_landscape_2448x1848_original.svg",
+    "width": 2448,
+    "height": 1848
+  },
+  {
+    "path": "04_cubes/foldable/samsung/rgb_border/galaxy_z_fold8_inner_landscape_2448x1848_rgb_border.svg",
+    "width": 2448,
+    "height": 1848
+  },
+  {
+    "path": "04_cubes/foldable/apple/original/iphone_duo_cover_portrait_1398x2034_original.svg",
+    "width": 1398,
+    "height": 2034
+  },
+  {
+    "path": "04_cubes/foldable/apple/rgb_border/iphone_duo_cover_portrait_1398x2034_rgb_border.svg",
+    "width": 1398,
+    "height": 2034
+  },
+  {
+    "path": "04_cubes/foldable/apple/original/iphone_duo_cover_landscape_2034x1398_original.svg",
+    "width": 2034,
+    "height": 1398
+  },
+  {
+    "path": "04_cubes/foldable/apple/rgb_border/iphone_duo_cover_landscape_2034x1398_rgb_border.svg",
+    "width": 2034,
+    "height": 1398
+  },
+  {
+    "path": "04_cubes/foldable/apple/original/iphone_duo_inner_portrait_1878x2670_original.svg",
+    "width": 1878,
+    "height": 2670
+  },
+  {
+    "path": "04_cubes/foldable/apple/rgb_border/iphone_duo_inner_portrait_1878x2670_rgb_border.svg",
+    "width": 1878,
+    "height": 2670
+  },
+  {
+    "path": "04_cubes/foldable/apple/original/iphone_duo_inner_landscape_2670x1878_original.svg",
+    "width": 2670,
+    "height": 1878
+  },
+  {
+    "path": "04_cubes/foldable/apple/rgb_border/iphone_duo_inner_landscape_2670x1878_rgb_border.svg",
+    "width": 2670,
+    "height": 1878
+  },
+  {
+    "path": "04_cubes/phone/iphone/original/iphone_air_1260x2736_original.svg",
+    "width": 1260,
+    "height": 2736
+  },
+  {
+    "path": "04_cubes/phone/iphone/rgb_border/iphone_air_1260x2736_rgb_border.svg",
+    "width": 1260,
+    "height": 2736
+  },
+  {
+    "path": "04_cubes/phone/iphone/original/iphone_17e_1170x2532_original.svg",
+    "width": 1170,
+    "height": 2532
+  },
+  {
+    "path": "04_cubes/phone/iphone/rgb_border/iphone_17e_1170x2532_rgb_border.svg",
+    "width": 1170,
+    "height": 2532
+  }
+]
