@@ -35,6 +35,8 @@ The Home Row & Search Outline on Pixel 11 Pro XL follows the supplied Pixel Laun
 
 ## RGB frames
 
-The Pixel 11 Pro XL has dedicated artwork calibrated against the observed centered 1.10× zoom on the stock launcher and lock screen. At rest, the border centerline targets roughly 16 native display pixels from each edge. The Home Row & Search Outline variant continues the border around the full display and masks the hexagons only inside the dock outline.
+The Pixel 11 Pro XL has dedicated artwork calibrated against the observed centered 1.10× zoom on the stock launcher and lock screen. At rest, the border centerline targets roughly 6 native display pixels from each edge. The Home Row & Search Outline variant continues the border around the full display and masks the hexagons only inside the dock outline.
 
 Bordered patterns continue the hexagonal lattice to the frame. The frame clips any portion of the pattern outside its outline. To regenerate these results from a v1.2.1 site tree, run `src/refine_bordered_wallpapers.py --help`.
+
+The Pixel 11 Pro XL Status Bar Outline clears the wallpaper behind the time, notification icons, and system indicators. It can be combined with either or both of RGB Camera Ring and Home Row & Search Outline. Its placement uses the same wallpaper crop assumptions as the other Pixel Launcher profiles.

@@ -1,6 +1,36 @@
 [
   {
+    "path": "01_honeycomb_bright/phone/google/original/pixel_11_pro_xl_1344x2992_original_camera_status_bar.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "01_honeycomb_bright/phone/google/original/pixel_11_pro_xl_1344x2992_original_home_screen_status_bar.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "01_honeycomb_bright/phone/google/original/pixel_11_pro_xl_1344x2992_original_home_screen_camera_status_bar.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "01_honeycomb_bright/phone/google/rgb_border/pixel_11_pro_xl_1344x2992_rgb_border_camera.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "01_honeycomb_bright/phone/google/rgb_border/pixel_11_pro_xl_1344x2992_rgb_border_camera_status_bar.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
     "path": "01_honeycomb_bright/phone/google/rgb_border/pixel_11_pro_xl_1344x2992_rgb_border_home_screen.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "01_honeycomb_bright/phone/google/rgb_border/pixel_11_pro_xl_1344x2992_rgb_border_home_screen_status_bar.svg",
     "width": 1344,
     "height": 2992
   },
@@ -10,7 +40,42 @@
     "height": 2992
   },
   {
+    "path": "01_honeycomb_bright/phone/google/rgb_border/pixel_11_pro_xl_1344x2992_rgb_border_home_screen_camera_status_bar.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "02_hexagons/phone/google/original/pixel_11_pro_xl_1344x2992_original_camera_status_bar.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "02_hexagons/phone/google/original/pixel_11_pro_xl_1344x2992_original_home_screen_status_bar.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "02_hexagons/phone/google/original/pixel_11_pro_xl_1344x2992_original_home_screen_camera_status_bar.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "02_hexagons/phone/google/rgb_border/pixel_11_pro_xl_1344x2992_rgb_border_camera.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "02_hexagons/phone/google/rgb_border/pixel_11_pro_xl_1344x2992_rgb_border_camera_status_bar.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
     "path": "02_hexagons/phone/google/rgb_border/pixel_11_pro_xl_1344x2992_rgb_border_home_screen.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "02_hexagons/phone/google/rgb_border/pixel_11_pro_xl_1344x2992_rgb_border_home_screen_status_bar.svg",
     "width": 1344,
     "height": 2992
   },
@@ -20,7 +85,42 @@
     "height": 2992
   },
   {
+    "path": "02_hexagons/phone/google/rgb_border/pixel_11_pro_xl_1344x2992_rgb_border_home_screen_camera_status_bar.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "03_honeycomb_subtle/phone/google/original/pixel_11_pro_xl_1344x2992_original_camera_status_bar.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "03_honeycomb_subtle/phone/google/original/pixel_11_pro_xl_1344x2992_original_home_screen_status_bar.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "03_honeycomb_subtle/phone/google/original/pixel_11_pro_xl_1344x2992_original_home_screen_camera_status_bar.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "03_honeycomb_subtle/phone/google/rgb_border/pixel_11_pro_xl_1344x2992_rgb_border_camera.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "03_honeycomb_subtle/phone/google/rgb_border/pixel_11_pro_xl_1344x2992_rgb_border_camera_status_bar.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
     "path": "03_honeycomb_subtle/phone/google/rgb_border/pixel_11_pro_xl_1344x2992_rgb_border_home_screen.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "03_honeycomb_subtle/phone/google/rgb_border/pixel_11_pro_xl_1344x2992_rgb_border_home_screen_status_bar.svg",
     "width": 1344,
     "height": 2992
   },
@@ -30,12 +130,112 @@
     "height": 2992
   },
   {
+    "path": "03_honeycomb_subtle/phone/google/rgb_border/pixel_11_pro_xl_1344x2992_rgb_border_home_screen_camera_status_bar.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "04_cubes/phone/google/original/pixel_11_pro_xl_1344x2992_original_camera_status_bar.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "04_cubes/phone/google/original/pixel_11_pro_xl_1344x2992_original_home_screen_status_bar.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "04_cubes/phone/google/original/pixel_11_pro_xl_1344x2992_original_home_screen_camera_status_bar.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "04_cubes/phone/google/rgb_border/pixel_11_pro_xl_1344x2992_rgb_border_camera.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "04_cubes/phone/google/rgb_border/pixel_11_pro_xl_1344x2992_rgb_border_camera_status_bar.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
     "path": "04_cubes/phone/google/rgb_border/pixel_11_pro_xl_1344x2992_rgb_border_home_screen.svg",
     "width": 1344,
     "height": 2992
   },
   {
+    "path": "04_cubes/phone/google/rgb_border/pixel_11_pro_xl_1344x2992_rgb_border_home_screen_status_bar.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
     "path": "04_cubes/phone/google/rgb_border/pixel_11_pro_xl_1344x2992_rgb_border_home_screen_camera.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "04_cubes/phone/google/rgb_border/pixel_11_pro_xl_1344x2992_rgb_border_home_screen_camera_status_bar.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "01_honeycomb_bright/phone/google/original/pixel_11_pro_xl_1344x2992_original_status_bar.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "01_honeycomb_bright/phone/google/rgb_border/pixel_11_pro_xl_1344x2992_rgb_border.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "01_honeycomb_bright/phone/google/rgb_border/pixel_11_pro_xl_1344x2992_rgb_border_status_bar.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "02_hexagons/phone/google/original/pixel_11_pro_xl_1344x2992_original_status_bar.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "02_hexagons/phone/google/rgb_border/pixel_11_pro_xl_1344x2992_rgb_border.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "02_hexagons/phone/google/rgb_border/pixel_11_pro_xl_1344x2992_rgb_border_status_bar.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "03_honeycomb_subtle/phone/google/original/pixel_11_pro_xl_1344x2992_original_status_bar.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "03_honeycomb_subtle/phone/google/rgb_border/pixel_11_pro_xl_1344x2992_rgb_border.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "03_honeycomb_subtle/phone/google/rgb_border/pixel_11_pro_xl_1344x2992_rgb_border_status_bar.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "04_cubes/phone/google/original/pixel_11_pro_xl_1344x2992_original_status_bar.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "04_cubes/phone/google/rgb_border/pixel_11_pro_xl_1344x2992_rgb_border.svg",
+    "width": 1344,
+    "height": 2992
+  },
+  {
+    "path": "04_cubes/phone/google/rgb_border/pixel_11_pro_xl_1344x2992_rgb_border_status_bar.svg",
     "width": 1344,
     "height": 2992
   }

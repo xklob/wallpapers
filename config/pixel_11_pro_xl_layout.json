@@ -1,0 +1,15 @@
+{
+  "outer_frame_inset": 6,
+  "outer_frame_radius": 174,
+  "status_outline": {
+    "reference_width": 690,
+    "reference_height": 1536,
+    "left": 24,
+    "top": 16,
+    "right": 666,
+    "bottom": 104,
+    "top_radius": 65,
+    "bottom_radius": 22,
+    "stroke_width": 1.6
+  }
+}

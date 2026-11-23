@@ -9,6 +9,7 @@ const screen = byId('screen');
 const style = byId('style');
 const camera = byId('camera');
 const homeScreen = byId('home-screen');
+const statusBar = byId('status-bar');
 const appearance = byId('appearance');
 const preview = byId('preview');
 const png = byId('png');
@@ -40,8 +41,8 @@ function manufacturerFor(file) {
 
 function devices(active) {
   const presets = new Map();
-  for (const [file, , id, family, width, height, , cameraRing, , homeOutline] of active.files) {
-    if (cameraRing || homeOutline) continue;
+  for (const [file, , id, family, width, height, , cameraRing, , homeOutline, statusOutline] of active.files) {
+    if (cameraRing || homeOutline || statusOutline) continue;
     const manufacturer = manufacturerFor(file);
     presets.set(id, { id, preset: id, family, manufacturer, width, height, name: label(id) });
   }
@@ -140,17 +141,20 @@ function updatePreview() {
   const active = theme();
   const device = devices(active).find(item => item.id === screen.value);
   const cameraPreset = device?.cameraPreset ?? (device?.id === device?.preset ? device?.id : null);
-  const matches = active.files.filter(([, design, id, , , , variant, cameraRing, , homeOutline]) => {
+  const matches = active.files.filter(([, design, id, , , , variant, cameraRing, , homeOutline, statusOutline]) => {
     if (design !== pattern.value || variant !== style.value) return false;
-    if (homeOutline) return id === device?.id;
+    if (homeOutline || statusOutline) return id === device?.id;
     return id === (cameraRing ? cameraPreset : device?.preset);
   });
   const canAddCamera = matches.some(row => row[7]);
   const canAddHome = matches.some(row => row[9]);
+  const canAddStatus = matches.some(row => row[10]);
   byId('camera-label').hidden = !canAddCamera;
   byId('home-label').hidden = !canAddHome;
+  byId('status-bar-label').hidden = !canAddStatus;
   const row = matches.find(item => Boolean(item[7]) === (canAddCamera && camera.checked) &&
-    Boolean(item[9]) === (canAddHome && homeScreen.checked));
+    Boolean(item[9]) === (canAddHome && homeScreen.checked) &&
+    Boolean(item[10]) === (canAddStatus && statusBar.checked));
   if (!row) {
     selected = null;
     preview.hidden = true;
@@ -158,7 +162,7 @@ function updatePreview() {
     png.disabled = true;
     return;
   }
-  const [file, design, assetPreset, , width, height, , accuracy, svgOnly, homeOutline] = row;
+  const [file, design, assetPreset, , width, height, , accuracy, svgOnly, homeOutline, statusOutline] = row;
   const src = '/art/' + active.id + '/' + file;
   const assetName = file.split('/').pop();
   selected = {
@@ -179,7 +183,7 @@ function updatePreview() {
   byId('dimensions').textContent = width + ' × ' + height + ' px';
   const detail = [];
   if (accuracy === 'estimated') detail.push('Estimated camera placement. Fit can vary with wallpaper zoom.');
-  if (homeOutline) detail.push('Fits the Pixel Launcher layout shown for the Pixel 11 Pro XL.');
+  if (homeOutline || statusOutline) detail.push('Fits the stock Pixel 11 Pro XL layout.');
   byId('detail').textContent = detail.join(' ');
   status.textContent = '';
 }
@@ -201,7 +205,7 @@ byId('use-pattern').addEventListener('click', event => {
 });
 group.addEventListener('change', updateManufacturers);
 manufacturer.addEventListener('change', updateScreens);
-for (const control of [pattern, screen, style, camera, homeScreen]) {
+for (const control of [pattern, screen, style, camera, homeScreen, statusBar]) {
   control.addEventListener('change', updatePreview);
 }
 async function rasterize(item) {
