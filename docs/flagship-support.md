@@ -37,4 +37,4 @@ The Home Row & Search Outline on Pixel 11 Pro XL follows the supplied Pixel Laun
 
 The Pixel 11 Pro XL has dedicated artwork calibrated against the observed centered 1.10× zoom on the stock launcher and lock screen. At rest, the border centerline targets roughly 16 native display pixels from each edge. The Home Row & Search Outline variant fits the full-width main frame above its separate dock outline.
 
-Bordered patterns use complete six-sided cells. Perimeter strokes reach the frame from the outermost visible cells. To regenerate these results from a v1.2.1 site tree, run `src/refine_bordered_wallpapers.py --help`.
+Bordered patterns continue the hexagonal lattice to the frame. The frame clips any portion of the pattern outside its outline. To regenerate these results from a v1.2.1 site tree, run `src/refine_bordered_wallpapers.py --help`.
