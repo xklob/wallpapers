@@ -30,7 +30,7 @@ jobs:
         run: |
           curl --fail --silent --show-error --location --retry 3 https://klob-wallpapers.deep-krill-3494.chatgpt.site/rgb-geometry-source.tar.gz -o /tmp/wallpaper-source.tar.gz
           echo '30e44e71e3178d7d921231adace206cdd8cf3b619663ebc95d11165d23c5734f  /tmp/wallpaper-source.tar.gz' | sha256sum --check
-          tar -xzf /tmp/wallpaper-source.tar.gz
+          tar --exclude=src/package_release.py -xzf /tmp/wallpaper-source.tar.gz
       - name: Install rendering tools
         uses: mamba-org/setup-micromamba@v2
         with:
