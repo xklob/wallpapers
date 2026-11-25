@@ -1,7 +1,7 @@
 # RGB Geometry wallpapers
 
-There are 832 wallpapers in each format. The updated desktop versions have smaller shapes at all seven resolutions. Plain and padded RGB borders are available throughout.
+Each pack contains 2,808 wallpapers across four patterns and 603 model and screen profiles. Choose a screen and either Plain or RGB Border in the [wallpaper picker](https://wallpapers.klob.io/). Foldable covers, inner screens and orientations have separate entries.
 
-Use the picker at https://wallpapers.klob.io/ to find your device. The catalog in this ZIP lists each artwork's preset and pixel dimensions. When multiple devices use the same screen dimensions, `device_aliases.json` identifies their shared preset. Every alias works with both plain and RGB-border styles.
+The archive’s `catalog.json` lists the file path, preset and native pixel dimensions for each artwork. Models that share artwork appear in `device_aliases.json`. The website names each download for the model you select.
 
-Camera rings use model-specific placement. The Pixel 9 family uses published Android cutout coordinates. The other existing camera profiles are marked estimated and can be adjusted with `Camera_Ring_Adjuster.html`. The new model aliases do not inherit camera placements.
+Camera rings are available on 111 screen profiles. Ten use published cutout coordinates and 101 use estimates. The picker indicates estimated placements. Use `Camera_Ring_Adjuster.html` to personalize the ring. Pixel 11 Pro XL also supports status bar and home row outlines. See `Flagship_Support.md` for launcher and display fit details.

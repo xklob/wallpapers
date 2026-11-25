@@ -1,4 +1,4 @@
-## RGB Geometry 1.2.6
+## RGB Geometry Wallpapers 1.2.7
 
-- Tightens the bottom edge of the Pixel 11 Pro XL Status Bar Outline, with shallower lower corners.
-- Updates all 32 status-bar variants in the PNG and SVG packs.
+- Plain Wireframe Cubes now fills about 94% of the Xiaomi Mi MIX Fold landscape cover’s height, up from 64%, while preserving cube proportions and the native 2520 × 840 resolution.
+- Both the PNG and SVG packs include the corrected artwork. All 2,808 PNGs were checked at their catalog dimensions and compared with the corresponding SVG rendering.

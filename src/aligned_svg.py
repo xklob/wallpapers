@@ -11,6 +11,18 @@ def layout(design, width, height, style, polygons, stroke_factor=1, fitted=False
         box = ((1254 - crop_width) / 2, (1254 - crop_height) / 2, crop_width, crop_height)
     else:
         _, box = select_cells(design, inner_width, inner_height)
+        # A narrow foldable cover can miss the next whole row by a few pixels.
+        # Allow an extra row/column when that makes better use of both axes.
+        def coverage(candidate):
+            ratio = candidate[2] * inner_height / (candidate[3] * inner_width)
+            return min(ratio, 1 / ratio)
+
+        if style == "original" and coverage(box) < .70:
+            if inner_width >= inner_height:
+                _, expanded = select_cells(design, inner_width, inner_height * 1.10)
+            else:
+                _, expanded = select_cells(design, inner_width * 1.10, inner_height)
+            box = max((box, expanded), key=coverage)
     x, y, box_width, box_height = box
     scale = min(inner_width / box_width, inner_height / box_height)
     pattern_width, pattern_height = round(box_width*scale), round(box_height*scale)
