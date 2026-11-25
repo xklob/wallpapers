@@ -107,6 +107,10 @@ final class MengerWindows {
     }
 
     void draw(Canvas canvas, int width, int height, double phase) {
+        draw(canvas, width, height, phase, 1);
+    }
+
+    void draw(Canvas canvas, int width, int height, double phase, float magnification) {
         canvas.drawColor(0xff101015);
         float extent = Math.max(width, height);
         double span = extent * Math.pow(RATIO, phase);
@@ -120,14 +124,15 @@ final class MengerWindows {
             canvas.translate(width * .49f - side * FOCUS_X, height * .50f - side * FOCUS_Y);
             canvas.scale(side / size, side / size);
             paint.setShader(texture);
-            RuntimeShader transition = side > size * .8f && canvas.isHardwareAccelerated() ? detailBlend() : null;
+            float texelScale = side * magnification / size;
+            RuntimeShader transition = texelScale > .8f && canvas.isHardwareAccelerated() ? detailBlend() : null;
             if (transition != null) {
                 // Use the same projection for each source. Fade in magnification detail
                 // and feather its boundary without stacking two translucent surfaces.
-                float t = Math.min(1, (side / size - .8f) / .5f);
+                float t = Math.min(1, (texelScale - .8f) / .5f);
                 transition.setFloatUniform("mixAmount", t * t * (3 - 2 * t));
                 paint.setShader(transition);
-            } else if (side > size) {
+            } else if (texelScale > 1f) {
                 // Also keep high detail available when baking the still on a software canvas.
                 canvas.save();
                 canvas.clipOutRect(detailBounds);

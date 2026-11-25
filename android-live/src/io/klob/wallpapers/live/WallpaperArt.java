@@ -51,14 +51,19 @@ final class WallpaperArt {
 
     static Bitmap renderStatic(Context context, String path, int width, int height, Catalog.Model model,
                                PanelCorners corners, int rotation, WallpaperTone tone) throws IOException {
+        return renderStatic(context, path, width, height, model, corners, rotation, ArtworkTransform.FIT, tone);
+    }
+
+    static Bitmap renderStatic(Context context, String path, int width, int height, Catalog.Model model,
+                               PanelCorners corners, int rotation, int zoom, WallpaperTone tone) throws IOException {
         // ImageWallpaper zooms the committed bitmap around its center at rest.
         // Submit a padded display-space image so the frame and camera stay visible.
         Resources resources = context.getResources();
         int id = resources.getIdentifier("config_wallpaperMaxScale", "dimen", "android");
-        float zoom = id == 0 ? 1.10f : resources.getFloat(id);
-        float scale = 1f / Math.max(1f, zoom);
-        boolean turned = ArtworkRotation.normalized(rotation) != 0;
-        if (!turned && tone.filter() == null) {
+        float launcherZoom = id == 0 ? 1.10f : resources.getFloat(id);
+        float scale = 1f / Math.max(1f, launcherZoom);
+        boolean framed = ArtworkTransform.isActive(rotation, zoom);
+        if (!framed && tone.filter() == null) {
             return render(context, path, width, height, scale, model, corners);
         }
 
@@ -71,14 +76,14 @@ final class WallpaperArt {
         int toneLayer = tone.saveLayer(canvas, width, height);
         boolean scene = hasScene(path);
         if (toneLayer != 0 && !scene) canvas.drawColor(Color.BLACK);
-        if (scene || turned) {
+        if (scene || framed) {
             canvas.save();
-            ArtworkRotation.apply(canvas, width, height, rotation);
-            if (scene) drawScene(context, canvas, path, width, height);
+            float magnification = ArtworkTransform.apply(canvas, width, height, rotation, zoom);
+            if (scene) drawScene(context, canvas, path, width, height, magnification);
             else drawSvg(svg, canvas, width, height, Layer.ARTWORK);
             canvas.restore();
         }
-        drawSvg(svg, canvas, width, height, turned && !scene ? Layer.FRAME : Layer.FULL);
+        drawSvg(svg, canvas, width, height, framed && !scene ? Layer.FRAME : Layer.FULL);
         if (toneLayer != 0) canvas.restoreToCount(toneLayer);
         return bitmap;
     }
@@ -100,7 +105,7 @@ final class WallpaperArt {
         canvas.scale(scale, scale, width / 2f, height / 2f);
         if (includeScene && hasScene(path)) {
             canvas.clipRect(0, 0, width, height);
-            drawScene(context, canvas, path, width, height);
+            drawScene(context, canvas, path, width, height, 1f);
         }
         drawSvg(svg, canvas, width, height, Layer.FULL);
         return bitmap;
@@ -137,9 +142,34 @@ final class WallpaperArt {
         }
     }
 
-    private static void drawScene(Context context, Canvas canvas, String path, int width, int height) {
+    static ArtworkLayer artworkLayer(Context context, String path, int width, int height,
+                                     Catalog.Model model, PanelCorners corners) throws IOException {
+        return new ArtworkLayer(loadSvg(context, path, width, height, model, corners), width, height);
+    }
+
+    static final class ArtworkLayer {
+        private final SVG svg;
+        private final int width, height;
+
+        ArtworkLayer(SVG svg, int width, int height) {
+            this.svg = svg;
+            this.width = width;
+            this.height = height;
+        }
+
+        Bitmap rasterize(int rotation, int zoom) {
+            Bitmap bitmap = createBitmap(width, height, true);
+            Canvas canvas = new Canvas(bitmap);
+            ArtworkTransform.apply(canvas, width, height, rotation, zoom);
+            drawSvg(svg, canvas, width, height, Layer.ARTWORK);
+            return bitmap;
+        }
+    }
+
+    private static void drawScene(Context context, Canvas canvas, String path, int width, int height,
+                                  float magnification) {
         if (MandelbrotZoom.uses(path)) MandelbrotZoom.drawStill(context, canvas, width, height);
-        else new MengerWindows(context).draw(canvas, width, height, 0);
+        else new MengerWindows(context).draw(canvas, width, height, 0, magnification);
     }
 
     private static void drawSvg(SVG svg, Canvas canvas, int width, int height, Layer layer) {

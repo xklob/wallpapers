@@ -58,6 +58,7 @@ public final class RenderMatrix extends Instrumentation {
             checkFramePacing();
             checkRotation();
             checkToneAdjustments();
+            checkFramingZoom();
             int scaleId = context.getResources().getIdentifier("config_wallpaperMaxScale", "dimen", "android");
             launcherZoom = scaleId == 0 ? 1.10f : Math.max(1f, context.getResources().getFloat(scaleId));
             try (BufferedReader data = new BufferedReader(new InputStreamReader(context.getAssets().open("rings.tsv")))) {
@@ -293,6 +294,61 @@ public final class RenderMatrix extends Instrumentation {
                         "Zero saturation left visible hue on " + description);
             }
         }
+    }
+
+    private void checkFramingZoom() throws Exception {
+        SharedPreferences prefs = context.getSharedPreferences("framing-fixture", Context.MODE_PRIVATE);
+        Catalog.Model model = Catalog.get(context).lookup("pixel_11_pro_xl");
+        prefs.edit().clear().putString(Settings.MODEL, model.id).putBoolean(Settings.ANIMATE, false)
+                .putInt(Settings.ZOOM_SPEED, 7).putInt(WallpaperScreen.LOCK.key(Settings.FRAMING_ZOOM), 335).apply();
+        require(Settings.framingZoom(prefs, WallpaperScreen.HOME) == ArtworkTransform.FIT, "Unexpected default crop");
+
+        final int width = 240, height = 530;
+        RgbRenderer scene = new RgbRenderer(context);
+        try (FrameCapture frames = new FrameCapture(width, height)) {
+            for (int pattern = 0; pattern < Settings.PATTERNS.length; pattern++) {
+                prefs.edit().putInt(Settings.PATTERN, pattern).putInt(Settings.ROTATION, 0)
+                        .remove(Settings.FRAMING_ZOOM).apply();
+                String path = Settings.artPath(model, prefs, WallpaperScreen.HOME);
+                scene.update(prefs, WallpaperScreen.HOME);
+                Bitmap base = frames.draw(scene);
+                Bitmap still = WallpaperArt.renderStatic(context, path, width, height, model, null);
+                Bitmap overlay = WallpaperArt.hasScene(path)
+                        ? WallpaperArt.render(context, path, width, height, 1, model, null, false)
+                        : WallpaperArt.renderLayer(context, path, width, height, model, null, WallpaperArt.Layer.FRAME);
+                Bitmap previous = base;
+                for (int zoom : new int[]{175, 300, 400}) {
+                    int rotation = zoom == 400 ? 37 : 0;
+                    prefs.edit().putInt(Settings.FRAMING_ZOOM, zoom).putInt(Settings.ROTATION, rotation).apply();
+                    scene.update(prefs, WallpaperScreen.HOME);
+                    Bitmap live = frames.draw(scene);
+                    Bitmap regular = WallpaperArt.renderStatic(context, path, width, height, model, null,
+                            rotation, zoom, WallpaperTone.NEUTRAL);
+                    require(meanChannelDifference(previous, live) > 1.5,
+                            "Framing did not change at " + zoom + "% for live pattern " + pattern);
+                    require(meanChannelDifference(still, regular) > 1.5,
+                            "Framing did not change at " + zoom + "% for still pattern " + pattern);
+                    checkFixedOutlines(overlay, live);
+                    if (previous != base) previous.recycle();
+                    previous = live;
+                    regular.recycle();
+                }
+                previous.recycle();
+                prefs.edit().remove(Settings.FRAMING_ZOOM).putInt(Settings.ROTATION, 0).apply();
+                scene.update(prefs, WallpaperScreen.HOME);
+                Bitmap restored = frames.draw(scene);
+                require(restored.sameAs(base), "Returning to 1× did not restore the original fit");
+                restored.recycle();
+                overlay.recycle();
+                still.recycle();
+                base.recycle();
+            }
+        }
+        require(Settings.framingZoom(prefs, WallpaperScreen.LOCK) == 335, "Home edits changed the Lock zoom");
+        require(Settings.zoomSpeed(prefs) == 7, "Framing zoom changed the animation speed");
+        prefs.edit().putInt(Settings.FRAMING_ZOOM, 999).apply();
+        require(Settings.framingZoom(prefs, WallpaperScreen.HOME) == ArtworkTransform.MAX_ZOOM, "Wrong zoom cap");
+        Log.i(TAG, "Framing zoom: all five patterns, hardware and still output, fixed outlines, fit and speed isolation");
     }
 
     private static double meanChannelDifference(Bitmap first, Bitmap second) {

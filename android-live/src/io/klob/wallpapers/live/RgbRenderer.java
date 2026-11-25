@@ -51,9 +51,12 @@ final class RgbRenderer {
     private final RuntimeShader shader = createShader();
     private Bitmap bitmap;
     private BitmapShader input;
+    private WallpaperArt.ArtworkLayer artworkLayer;
     private BitmapShader artworkInput;
+    private int rasterRotation, rasterZoom;
     private RuntimeShader artworkColors;
     private int rotation;
+    private int framingZoom = ArtworkTransform.FIT;
     private WallpaperTone tone = WallpaperTone.NEUTRAL;
     private MengerWindows menger;
     private MandelbrotZoom mandelbrot;
@@ -91,11 +94,13 @@ final class RgbRenderer {
 
     void update(SharedPreferences preferences, WallpaperScreen screen) {
         advance(SystemClock.uptimeMillis());
-        int angle = ArtworkRotation.normalized(Settings.rotation(preferences, screen));
-        if ((rotation == 0) != (angle == 0) && (artPath == null || !WallpaperArt.hasScene(artPath))) {
-            layoutWidth = layoutHeight = 0;
-        }
+        int angle = ArtworkTransform.angle(Settings.rotation(preferences, screen));
+        int zoom = Settings.framingZoom(preferences, screen);
+        boolean splitBefore = ArtworkTransform.isActive(rotation, framingZoom);
+        boolean splitAfter = ArtworkTransform.isActive(angle, zoom);
+        if (splitBefore != splitAfter && !WallpaperArt.hasScene(artPath)) layoutWidth = layoutHeight = 0;
         rotation = angle;
+        framingZoom = zoom;
         tone = Settings.tone(preferences, screen, tone);
         Catalog.Model selected = Settings.model(context, preferences, screen);
         Catalog.Model rotated = Catalog.get(context).forOrientation(selected, selected.width <= selected.height);
@@ -205,16 +210,11 @@ final class RgbRenderer {
             boolean rotate = (width > height) != (model.width > model.height);
             Catalog.Model displayed = rotate ? rotatedModel : model;
             String path = rotate ? rotatedPath : artPath;
-            boolean split = rotation != 0 && !WallpaperArt.hasScene(path);
+            boolean split = ArtworkTransform.isActive(rotation, framingZoom) && !WallpaperArt.hasScene(path);
             artworkInput = null;
+            artworkLayer = null;
             if (split) {
-                Bitmap artwork = WallpaperArt.renderLayer(context, path, width, height, displayed, corners,
-                        WallpaperArt.Layer.ARTWORK);
-                artworkInput = sample(artwork);
-                if (shader != null) {
-                    if (artworkColors == null) artworkColors = createShader();
-                    if (artworkColors != null) artworkColors.setInputShader("art", artworkInput);
-                }
+                artworkLayer = WallpaperArt.artworkLayer(context, path, width, height, displayed, corners);
                 bitmap = WallpaperArt.renderLayer(context, path, width, height, displayed, corners,
                         WallpaperArt.Layer.FRAME);
             } else {
@@ -226,6 +226,7 @@ final class RgbRenderer {
         } catch (IOException exception) {
             bitmap = null;
             input = null;
+            artworkLayer = null;
             artworkInput = null;
             artworkColors = null;
             Log.e("RgbGeometryLive", "Could not load " + artPath, exception);
@@ -234,6 +235,21 @@ final class RgbRenderer {
         destination.set(0, 0, width, height);
         layoutWidth = width;
         layoutHeight = height;
+    }
+
+    private void refreshArtwork() {
+        if (artworkLayer == null || (artworkInput != null && rasterRotation == rotation && rasterZoom == framingZoom)) {
+            return;
+        }
+        // Rasterize the transformed vector only when framing changes. Scaling a cached
+        // screen-size bitmap would soften the geometric lines at high zoom.
+        artworkInput = sample(artworkLayer.rasterize(rotation, framingZoom));
+        rasterRotation = rotation;
+        rasterZoom = framingZoom;
+        if (shader != null) {
+            if (artworkColors == null) artworkColors = createShader();
+            if (artworkColors != null) artworkColors.setInputShader("art", artworkInput);
+        }
     }
 
     private static BitmapShader sample(Bitmap image) {
@@ -254,6 +270,7 @@ final class RgbRenderer {
         layout(width, height);
         if (bitmap == null || (menger == null && mandelbrot == null)) canvas.drawColor(Color.BLACK);
         if (bitmap == null) return;
+        refreshArtwork();
         long now = SystemClock.uptimeMillis();
         advance(now);
 
@@ -278,21 +295,20 @@ final class RgbRenderer {
         boolean composite = menger != null || mandelbrot != null || artworkInput != null;
         int toneLayer = composite ? tone.saveLayer(canvas, width, height) : 0;
         paint.setColorFilter(composite ? null : tone.filter());
-        if (composite) {
-            if (toneLayer != 0 && artworkInput != null) canvas.drawColor(Color.BLACK);
+        if (menger != null || mandelbrot != null) {
             canvas.save();
-            ArtworkRotation.apply(canvas, width, height, rotation);
+            float magnification = ArtworkTransform.apply(canvas, width, height, rotation, framingZoom);
             if (menger != null) {
-                menger.draw(canvas, width, height, zoomPhase);
-            } else if (mandelbrot != null) {
-                if (!colorize) mandelbrot.setColor(0, 1, 0, 0);
-                mandelbrot.draw(context, canvas, width, height, zoomPhase);
+                menger.draw(canvas, width, height, zoomPhase, magnification);
             } else {
-                paint.setShader(colorize && artworkColors != null ? artworkColors : artworkInput);
-                canvas.drawRect(destination, paint);
-                paint.setShader(colorize ? shader : input);
+                if (!colorize) mandelbrot.setColor(0, 1, 0, 0);
+                mandelbrot.draw(context, canvas, width, height, zoomPhase, magnification);
             }
             canvas.restore();
+        } else if (artworkInput != null) {
+            paint.setShader(colorize && artworkColors != null ? artworkColors : artworkInput);
+            canvas.drawRect(destination, paint);
+            paint.setShader(colorize ? shader : input);
         }
         canvas.drawRect(destination, paint);
         if (toneLayer != 0) canvas.restoreToCount(toneLayer);

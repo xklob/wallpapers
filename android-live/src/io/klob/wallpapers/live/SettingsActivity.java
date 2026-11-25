@@ -69,6 +69,7 @@ public final class SettingsActivity extends Activity {
     private LinearLayout colorControls;
     private SeekBar zoomSpeed;
     private SeekBar rotationSlider;
+    private SeekBar framingZoomSlider;
     private final Map<String, SeekBar> toneSliders = new LinkedHashMap<>();
     private Switch audioSync;
     private TextView audioStatus;
@@ -178,10 +179,17 @@ public final class SettingsActivity extends Activity {
             @Override public void onNothingSelected(AdapterView<?> parent) {}
         });
         content.addView(patterns, fullWidth(-2, 0));
-        rotationSlider = addSlider(content, 0, ArtworkRotation.MAX_DEGREES, Settings.rotation(preferences, editingScreen),
+        rotationSlider = addSlider(content, 0, ArtworkTransform.FULL_TURN, Settings.rotation(preferences, editingScreen),
                 degrees -> "Rotation // " + degrees + "°",
                 degrees -> preferences.edit().putInt(editingScreen.key(Settings.ROTATION), degrees).apply());
         rotationSlider.setKeyProgressIncrement(1);
+        int maxZoomStep = (ArtworkTransform.MAX_ZOOM - ArtworkTransform.FIT) / ArtworkTransform.ZOOM_STEP;
+        framingZoomSlider = addSlider(content, 0, maxZoomStep, framingZoomStep(),
+                step -> "Framing zoom // " + java.text.NumberFormat.getNumberInstance().format(
+                        (ArtworkTransform.FIT + step * ArtworkTransform.ZOOM_STEP) / 100.0) + "×",
+                step -> preferences.edit().putInt(editingScreen.key(Settings.FRAMING_ZOOM),
+                        ArtworkTransform.FIT + step * ArtworkTransform.ZOOM_STEP).apply());
+        framingZoomSlider.setKeyProgressIncrement(1);
 
         LinearLayout previewPanel = addPanel(column, "Preview");
         LinearLayout stage = new LinearLayout(this);
@@ -281,6 +289,7 @@ public final class SettingsActivity extends Activity {
                 bounds.width() > bounds.height());
         String path = Settings.artPath(model, preferences, target);
         int rotation = Settings.rotation(preferences, target);
+        int zoom = Settings.framingZoom(preferences, target);
         WallpaperTone tone = Settings.tone(preferences, target, WallpaperTone.NEUTRAL);
         Context context = getApplicationContext();
         regularButton.setEnabled(false);
@@ -288,7 +297,7 @@ public final class SettingsActivity extends Activity {
             String message;
             try {
                 int id = RegularWallpaper.apply(context, path, bounds.width(), bounds.height(),
-                        target, model, corners, rotation, tone);
+                        target, model, corners, rotation, zoom, tone);
                 message = id > 0 ? target + " wallpaper set." : "Android could not set the wallpaper.";
             } catch (IOException | RuntimeException exception) {
                 android.util.Log.e("RgbGeometryLive", "Could not set regular wallpaper", exception);
@@ -486,6 +495,7 @@ public final class SettingsActivity extends Activity {
         colorControls.setVisibility(pattern == Settings.MENGER ? View.GONE : View.VISIBLE);
         zoomSpeed.setProgress(Settings.zoomSpeed(preferences));
         rotationSlider.setProgress(Settings.rotation(preferences, editingScreen));
+        framingZoomSlider.setProgress(framingZoomStep());
         refreshToneControls();
         int style = Settings.enabled(preferences, editingScreen.key(Settings.BORDER)) ? Catalog.BORDER : 0;
         patterns.setSelection(pattern);
@@ -699,6 +709,11 @@ public final class SettingsActivity extends Activity {
             sensitivity.setProgress(Settings.DEFAULT_SENSITIVITY);
         });
         panel.addView(reset, fullWidth(dp(48), 4));
+    }
+
+    private int framingZoomStep() {
+        return (Settings.framingZoom(preferences, editingScreen) - ArtworkTransform.FIT)
+                / ArtworkTransform.ZOOM_STEP;
     }
 
     private void addToneControls(LinearLayout panel) {

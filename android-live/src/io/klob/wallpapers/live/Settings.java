@@ -12,6 +12,7 @@ final class Settings {
     static final String CAMERA = "camera";
     static final String DOCK = "dock";
     static final String STATUS = "status";
+    static final String FRAMING_ZOOM = "framing_zoom";
     static final String ROTATION = "rotation_degrees";
     static final String BRIGHTNESS = "brightness";
     static final String CONTRAST = "contrast";
@@ -102,7 +103,12 @@ final class Settings {
     }
 
     static int rotation(SharedPreferences preferences, WallpaperScreen screen) {
-        return Math.max(0, Math.min(ArtworkRotation.MAX_DEGREES, preferences.getInt(screen.key(ROTATION), 0)));
+        return Math.max(0, Math.min(ArtworkTransform.FULL_TURN, preferences.getInt(screen.key(ROTATION), 0)));
+    }
+
+    static int framingZoom(SharedPreferences prefs, WallpaperScreen screen) {
+        int zoom = prefs.getInt(screen.key(FRAMING_ZOOM), ArtworkTransform.FIT);
+        return Math.max(ArtworkTransform.FIT, Math.min(ArtworkTransform.MAX_ZOOM, zoom));
     }
 
     static int adjustment(SharedPreferences prefs, WallpaperScreen screen, String key) {

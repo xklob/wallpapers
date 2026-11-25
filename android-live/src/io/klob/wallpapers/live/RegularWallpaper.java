@@ -20,16 +20,16 @@ final class RegularWallpaper {
 
     static int apply(Context context, String path, int width, int height, WallpaperScreen screen,
                      Catalog.Model model, PanelCorners corners, int rotation) throws IOException {
-        return apply(context, path, width, height, screen, model, corners, rotation, WallpaperTone.NEUTRAL);
+        return apply(context, path, width, height, screen, model, corners, rotation, ArtworkTransform.FIT, WallpaperTone.NEUTRAL);
     }
 
     static int apply(Context context, String path, int width, int height, WallpaperScreen screen,
-                     Catalog.Model model, PanelCorners corners, int rotation, WallpaperTone tone) throws IOException {
+                     Catalog.Model model, PanelCorners corners, int rotation, int zoom, WallpaperTone tone) throws IOException {
         WallpaperManager manager = WallpaperManager.getInstance(context);
         if (!manager.isWallpaperSupported() || !manager.isSetWallpaperAllowed()) {
             throw new IOException("Android has disabled wallpaper changes on this device.");
         }
-        Bitmap image = WallpaperArt.renderStatic(context, path, width, height, model, corners, rotation, tone);
+        Bitmap image = WallpaperArt.renderStatic(context, path, width, height, model, corners, rotation, zoom, tone);
         try {
             int flag = screen == WallpaperScreen.LOCK ? WallpaperManager.FLAG_LOCK : WallpaperManager.FLAG_SYSTEM;
             return manager.setBitmap(image, new Rect(0, 0, width, height), false, flag);

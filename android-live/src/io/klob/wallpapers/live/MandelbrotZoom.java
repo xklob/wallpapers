@@ -65,7 +65,7 @@ final class MandelbrotZoom {
             + "    float2 a = uv * r.z;\n"
             + "    if (detail.z == 0.0) return shade(readTile(a, auxiliary), span);\n"
             + "    // Fractional texture footprints reduce shimmer without blurring the whole field.\n"
-            + "    float d = r.y * r.z * .27;\n"
+            + "    float d = r.y * r.z * (.27 * detail.z);\n"
             + "    return (shade(readTile(a + float2(-d, -d), auxiliary), span)\n"
             + "          + shade(readTile(a + float2( d, -d), auxiliary), span)\n"
             + "          + shade(readTile(a + float2(-d,  d), auxiliary), span)\n"
@@ -201,6 +201,10 @@ final class MandelbrotZoom {
     }
 
     void draw(Context context, Canvas canvas, int width, int height, double phase) {
+        draw(context, canvas, width, height, phase, 1);
+    }
+
+    void draw(Context context, Canvas canvas, int width, int height, double phase, float magnification) {
         if (projection == null || !canvas.isHardwareAccelerated()) {
             drawStill(context, canvas, width, height);
             return;
@@ -253,7 +257,7 @@ final class MandelbrotZoom {
         map("other", blendTo, base, length, alternateScale);
         projection.setFloatUniform("view", width / 2f, height / 2f, turned(width, height) ? 1 : 0, blend);
         projection.setFloatUniform("detail", log2(SCENE_SPAN * scale),
-                log2(SCENE_SPAN * alternateScale), antialias ? 1 : 0);
+                log2(SCENE_SPAN * alternateScale), antialias ? 1 / magnification : 0);
         projection.setFloatUniform("phase", this.phase);
         projection.setFloatUniform("gain", gain);
         projection.setFloatUniform("audioWave", wave, travel, 0, 1f / (width + height));

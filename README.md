@@ -12,12 +12,12 @@ The flagship index covers 370 named phone and foldable models from 2020 through 
 - `site/` contains the static site and catalog.
 - `src/` contains generation and packaging scripts.
 
-- `android-live/` contains the Android 13+ app for live and regular wallpapers. Its offline picker includes all 603 catalog screen profiles, Menger Windows, and Mandelbrot Zoom. Both fractals have adjustable zoom speed and frame-rate caps. Mandelbrot Zoom also has three texture quality modes. All five patterns support 0°–360° artwork rotation and brightness, contrast, and saturation controls for live and still wallpapers.
+- `android-live/` contains the Android 13+ app for live and regular wallpapers. Its offline picker includes all 603 catalog screen profiles, Menger Windows, and Mandelbrot Zoom. Both fractals have adjustable zoom speed and frame-rate caps. Mandelbrot Zoom also has three texture quality modes. All five patterns support 0°–360° artwork rotation, 1×–4× framing zoom, and brightness, contrast, and saturation controls for live and still wallpapers.
 - `wear-watch/` contains the Wear OS watch face.
 - `wear-live/` contains the always-on 30 FPS Wear OS live clock companion app.
 - `wear-tesseract/` contains the standalone Wear OS rave app (`rgb poly`), running Poly's 6-solid morph loop with RGB hue rotation and bass pulse.
 
-Download [rgb geometry live 1.6.0 and the Wear OS apps](https://github.com/xklob/wallpapers/releases/tag/apps-v1.8.0), or view build instructions for [Android Live](android-live/README.md), [Wear OS Watch Face](wear-watch/README.md), [Wear OS Always-On Live](wear-live/README.md), and [rgb poly](wear-tesseract/README.md).
+Download [rgb geometry live 1.7.0 and the Wear OS apps](https://github.com/xklob/wallpapers/releases/tag/apps-v1.9.0), or view build instructions for [Android Live](android-live/README.md), [Wear OS Watch Face](wear-watch/README.md), [Wear OS Always-On Live](wear-live/README.md), and [rgb poly](wear-tesseract/README.md).
 
 ## Build the site locally
 
