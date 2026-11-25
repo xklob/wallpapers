@@ -26,9 +26,13 @@ final class Settings {
     static final String PERIOD = "period";
     static final int MIN_PERIOD = 6;
     static final int MAX_PERIOD = 60;
+    static final String ZOOM_SPEED = "menger_zoom_speed";
+    static final int DEFAULT_ZOOM = 4; // quarter-speed increments; 4 is 1×
+    static final int MAX_ZOOM = 16;
+    static final int MENGER = 3;
 
     static final String[] PATTERNS = {
-        "Bright Honeycomb", "Spaced Hexagons", "Wireframe Cubes"
+        "Bright Honeycomb", "Spaced Hexagons", "Wireframe Cubes", "Menger Windows"
     };
 
     static synchronized SharedPreferences open(Context context) {
@@ -119,6 +123,10 @@ final class Settings {
 
     static int period(SharedPreferences preferences) {
         return preferences.getInt(PERIOD, 18);
+    }
+
+    static int zoomSpeed(SharedPreferences preferences) {
+        return Math.max(1, Math.min(MAX_ZOOM, preferences.getInt(ZOOM_SPEED, DEFAULT_ZOOM)));
     }
 
     private Settings() {}

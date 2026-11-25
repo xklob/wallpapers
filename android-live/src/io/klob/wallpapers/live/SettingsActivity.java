@@ -46,6 +46,8 @@ public final class SettingsActivity extends Activity {
     private SharedPreferences preferences;
     private Preview preview;
     private SeekBar speed;
+    private LinearLayout zoomControls;
+    private SeekBar zoomSpeed;
     private Switch audioSync;
     private TextView audioStatus;
     private Button microphoneControl;
@@ -64,6 +66,7 @@ public final class SettingsActivity extends Activity {
     };
     private final SharedPreferences.OnSharedPreferenceChangeListener changes = (prefs, key) -> {
         preview.refresh(prefs);
+        if (Settings.ZOOM_SPEED.equals(key)) zoomSpeed.setProgress(Settings.zoomSpeed(prefs));
         if (Settings.ANIMATE.equals(key) || Settings.AUDIO_SYNC.equals(key) || Settings.AUDIO_SOURCE.equals(key)) {
             if (!microphoneEnabled()) MicrophoneAudioService.stop(this);
             refreshAudioStatus();
@@ -127,6 +130,11 @@ public final class SettingsActivity extends Activity {
         addAppearanceToggle(content, "Camera ring", Settings.CAMERA);
         addAppearanceToggle(content, "Home row and search outline", Settings.DOCK);
         addAppearanceToggle(content, "Status bar outline", Settings.STATUS);
+        zoomControls = new LinearLayout(this);
+        zoomControls.setOrientation(LinearLayout.VERTICAL);
+        content.addView(zoomControls, fullWidth(ViewGroup.LayoutParams.WRAP_CONTENT, 0));
+        zoomSpeed = addSlider(zoomControls, Settings.ZOOM_SPEED, 1, Settings.MAX_ZOOM, Settings.zoomSpeed(preferences),
+                step -> "Zoom speed · " + java.text.NumberFormat.getNumberInstance().format(step / 4.0) + "×");
         LinearLayout.LayoutParams previewLayout = new LinearLayout.LayoutParams(1, 1);
         previewLayout.gravity = Gravity.CENTER_HORIZONTAL;
         previewLayout.topMargin = dp(12);
@@ -282,6 +290,8 @@ public final class SettingsActivity extends Activity {
         modelButton.setText(suggestion + model.name + " // " + model.width + " × " + model.height);
         regularButton.setText(editingScreen == WallpaperScreen.LOCK ? "SET LOCK WALLPAPER" : "SET HOME WALLPAPER");
         int pattern = Settings.pattern(preferences, editingScreen);
+        zoomControls.setVisibility(pattern == Settings.MENGER ? View.VISIBLE : View.GONE);
+        zoomSpeed.setProgress(Settings.zoomSpeed(preferences));
         int style = Settings.enabled(preferences, editingScreen.key(Settings.BORDER)) ? Catalog.BORDER : 0;
         patterns.setSelection(pattern);
         for (Map.Entry<String, Switch> entry : appearanceToggles.entrySet()) {
@@ -504,9 +514,11 @@ public final class SettingsActivity extends Activity {
         slider.setMin(min);
         slider.setMax(max);
         slider.setProgress(value);
+        slider.setStateDescription(label.getText());
         slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override public void onProgressChanged(SeekBar slider, int progress, boolean fromUser) {
                 label.setText(formatLabel.apply(progress));
+                slider.setStateDescription(label.getText());
                 if (fromUser) preferences.edit().putInt(key, progress).apply();
             }
             @Override public void onStartTrackingTouch(SeekBar slider) {}

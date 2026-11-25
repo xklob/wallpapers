@@ -39,6 +39,12 @@ final class WallpaperArt {
     static Bitmap render(Context context, String path, int width, int height, float scale,
                          Catalog.Model model, PanelCorners corners)
             throws IOException {
+        return render(context, path, width, height, scale, model, corners, true);
+    }
+
+    static Bitmap render(Context context, String path, int width, int height, float scale,
+                         Catalog.Model model, PanelCorners corners, boolean includeScene)
+            throws IOException {
         try (InputStream file = context.getAssets().open(path)) {
             SVG svg;
             if (corners != null && corners.matches(model, Build.MODEL, Build.MANUFACTURER, width, height) && path.contains("/rgb_border/")) {
@@ -59,10 +65,15 @@ final class WallpaperArt {
             svg.setDocumentHeight(viewHeight);
             svg.setDocumentPreserveAspectRatio(PreserveAspectRatio.FULLSCREEN);
             Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-            bitmap.eraseColor(Color.BLACK);
+            boolean menger = MengerWindows.uses(path);
+            if (includeScene || !menger) bitmap.eraseColor(Color.BLACK);
             bitmap.setDensity(Bitmap.DENSITY_NONE);
             Canvas canvas = new Canvas(bitmap);
             canvas.scale(scale, scale, width / 2f, height / 2f);
+            if (menger && includeScene) {
+                canvas.clipRect(0, 0, width, height);
+                new MengerWindows(context).draw(canvas, width, height, 0, null);
+            }
             if (rotate) {
                 // Foldable landscape presets use a counterclockwise rotation from portrait.
                 if (width > height) {

@@ -232,8 +232,11 @@ public final class ApplyMatrix extends Instrumentation {
 
     private void checkVisible(Context context, String path, Rect bounds, int index, boolean live, float[] ring,
                               Catalog.Model model, PanelCorners corners) throws Exception {
-        Bitmap expected = WallpaperArt.render(context, path, bounds.width(), bounds.height(), 1f, model, corners);
+        boolean zooming = live && MengerWindows.uses(path);
+        Bitmap expected = WallpaperArt.render(context, path, bounds.width(), bounds.height(), 1f, model, corners,
+                !zooming);
         int[] target = samples(expected, live);
+        int[] lastFrame = null;
         int[] expectedRing = ring == null ? null : ringLight(expected, ring);
         expected.recycle();
         long deadline = SystemClock.elapsedRealtime() + 4000;
@@ -252,9 +255,13 @@ public final class ApplyMatrix extends Instrumentation {
             }
             int[] actual = samples(screenshot, live);
             screenshot.recycle();
-            error = difference(target, actual);
-            if (error < (live ? 0.10 : 0.24) && ringVisible) return;
-            SystemClock.sleep(24);
+            error = difference(target, actual, zooming);
+            // With color animation off, only Menger moves. Verify the stationary
+            // frame at the selected geometry and motion between consecutive screenshots.
+            boolean moved = !zooming || (lastFrame != null && difference(lastFrame, actual, false) > .015);
+            if (error < (live ? 0.10 : 0.24) && ringVisible && moved) return;
+            lastFrame = actual;
+            SystemClock.sleep(zooming ? 150 : 24);
         } while (SystemClock.elapsedRealtime() < deadline);
         throw new AssertionError("Visible wallpaper mismatch at " + index + " " + path + " error=" + error);
     }
@@ -294,15 +301,17 @@ public final class ApplyMatrix extends Instrumentation {
     }
 
     // Normalize by expected brightness so dark geometry cannot pass with an empty screen.
-    private static double difference(int[] expected, int[] actual) {
+    private static double difference(int[] expected, int[] actual, boolean opaqueOnly) {
         long difference = 0, signal = 0;
         for (int i = 0; i < expected.length; i++) {
+            if (opaqueOnly && (expected[i] >>> 24) < 250) continue;
             for (int shift = 0; shift <= 16; shift += 8) {
                 int channel = (expected[i] >> shift) & 255;
                 difference += Math.abs(channel - ((actual[i] >> shift) & 255));
                 signal += channel;
             }
         }
+        if (signal == 0 && opaqueOnly && difference == 0) return 0;
         return signal > 0 ? difference / (double) signal : Double.POSITIVE_INFINITY;
     }
 }

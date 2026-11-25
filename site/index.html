@@ -63,15 +63,15 @@
 </section>
 <section class="packs" id="android" aria-labelledby="android-heading">
 <h2 id="android-heading">Wallpapers for Android &amp; Wear OS</h2>
-<p class="muted">rgb geometry live 1.2.3 sets live or regular wallpapers on Android 13+. Choose from 603 screen profiles and use separate Home and Lock layouts. Live wallpapers also support Audio Sync.</p>
+<p class="muted">rgb geometry live 1.3.0 adds Menger Windows, a 3D fractal with a continuous inward zoom. Set the zoom from 0.25× to 4× and adjust the RGB color cycle separately. All four patterns support live and regular wallpapers across 603 screen profiles on Android 13+.</p>
 <div class="actions">
-<a class="button primary" href="https://github.com/xklob/wallpapers/releases/download/apps-v1.4.2/RGB-Geometry-Live-1.2.3.apk">Download Android APK</a>
-<a class="button" href="https://github.com/xklob/wallpapers/releases/download/apps-v1.4.2/RGB-Honeycomb-Pixel-Watch-3.apk">Download Wear OS Face</a>
-<a class="button" href="https://github.com/xklob/wallpapers/releases/download/apps-v1.4.2/RGB-Honeycomb-Live-Pixel-Watch-3.apk">Download Wear OS Live App</a>
-<a class="button" href="https://github.com/xklob/wallpapers/releases/download/apps-v1.4.2/RGB-Poly-Pixel-Watch-3.apk">Download rgb poly</a>
+<a class="button primary" id="download-android" href="https://github.com/xklob/wallpapers/releases/download/apps-v1.5.0/RGB-Geometry-Live-1.3.0.apk">Download Android APK</a>
+<a class="button" href="https://github.com/xklob/wallpapers/releases/download/apps-v1.5.0/RGB-Honeycomb-Pixel-Watch-3.apk">Download Wear OS Face</a>
+<a class="button" href="https://github.com/xklob/wallpapers/releases/download/apps-v1.5.0/RGB-Honeycomb-Live-Pixel-Watch-3.apk">Download Wear OS Live App</a>
+<a class="button" href="https://github.com/xklob/wallpapers/releases/download/apps-v1.5.0/RGB-Poly-Pixel-Watch-3.apk">Download rgb poly</a>
 </div>
 <ol>
-<li>Open the Android APK to install it. Version 1.2.3 updates 1.2.2 in place and keeps your Home and Lock settings. If prompted, allow installation from the app that opened the file.</li>
+<li>Open the Android APK or refresh <strong>rgb geometry live</strong> in klobstore. Updating from 1.2.3 keeps your Home and Lock settings.</li>
 <li>Open <strong>rgb geometry live</strong>, select Home or Lock, and choose your model, pattern and outlines.</li>
 <li>For a live wallpaper, tap <strong>Apply live wallpaper</strong> and confirm in Android’s picker. For a still image, tap <strong>Set home wallpaper</strong> or <strong>Set lock wallpaper</strong>.</li>
 </ol>
@@ -83,11 +83,12 @@
 <h2 id="pattern-viewer-title"></h2>
 <form method="dialog"><button type="submit" autofocus>Close</button></form>
 </div>
-<picture>
+<picture id="pattern-viewer-still">
 <source id="pattern-viewer-portrait" media="(orientation: portrait)">
 <img id="pattern-viewer-image" alt="">
 </picture>
-<div class="viewer-actions"><button class="primary" id="use-pattern" type="button">Use This Pattern</button></div>
+<video id="pattern-viewer-video" aria-labelledby="pattern-viewer-title" controls loop muted playsinline preload="none" hidden></video>
+<div class="viewer-actions"><button class="primary" id="use-pattern" type="button">Use This Pattern</button><a class="button primary" id="live-app" href="#android" hidden>Get the Android app</a></div>
 </dialog>
 <footer><div class="frame bottom"><div><a href="https://design.klob.io/">Standard Design</a> <a href="https://github.com/xklob/wallpapers">Source on GitHub</a></div></div></footer>
 </body>

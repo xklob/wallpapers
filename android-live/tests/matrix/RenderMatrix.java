@@ -50,6 +50,7 @@ public final class RenderMatrix extends Instrumentation {
             context = getTargetContext();
             SettingsMigrationTest.run(context);
             PanelCornersTest.run(context);
+            MengerWindowsTest.run(context);
             int scaleId = context.getResources().getIdentifier("config_wallpaperMaxScale", "dimen", "android");
             launcherZoom = scaleId == 0 ? 1.10f : Math.max(1f, context.getResources().getFloat(scaleId));
             try (BufferedReader data = new BufferedReader(new InputStreamReader(context.getAssets().open("rings.tsv")))) {

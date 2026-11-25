@@ -15,7 +15,7 @@ mkdir -p "$out/classes" "$out/dex"
 zoom=$("$adb" -s "${ANDROID_SERIAL:?Select a test target}" shell cmd overlay lookup android android:dimen/config_wallpaperMaxScale | tr -d '\r')
 "${PYTHON:-python3}" "$here/references.py" "$out/assets" "$zoom"
 "$bt/aapt2" link -I "$platform" --manifest "$here/AndroidManifest.xml" \
-    -A "$assets" -A "$out/assets" -o "$out/test.apk"
+    -A "$assets" -A "$out/assets" -o "$out/test.apk" "$appbuild/resources.zip"
 javac --release 8 -cp "$platform:$appbuild/classes" -d "$out/classes" "$here"/*.java
 mapfile -t classes < <(find "$out/classes" -name '*.class')
 "$bt/d8" --lib "$platform" --classpath "$appbuild/classes" --min-api 34 --output "$out/dex" "${classes[@]}"

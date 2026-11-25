@@ -25,12 +25,13 @@ final class RgbRenderer {
             + "uniform float gain;\n"
             + "uniform float4 audioWave;\n"
             + "half4 main(float2 p) {\n"
-            + "    float3 c = float3(art.eval(p).rgb);\n"
+            + "    half4 pixel = art.eval(p);\n"
+            + "    float3 c = float3(pixel.rgb);\n"
             + "    float hi = max(max(c.r, c.g), c.b);\n"
             + "    float lo = min(min(c.r, c.g), c.b);\n"
             + "    float delta = hi - lo;\n"
             + "    if (delta < 0.0001 || (phase == 0.0 && audioWave.x == 0.0))\n"
-            + "        return half4(half3(c * gain), 1.0);\n"
+            + "        return half4(half3(c * gain), pixel.a);\n"
             + "    float h = hi == c.r ? (c.g - c.b) / delta\n"
             + "            : hi == c.g ? 2.0 + (c.b - c.r) / delta\n"
             + "            : 4.0 + (c.r - c.g) / delta;\n"
@@ -42,7 +43,7 @@ final class RgbRenderer {
             + "    }\n"
             + "    float3 wheel = clamp(abs(fract(h / 6.0 + offset +\n"
             + "            float3(0.0, 2.0 / 3.0, 1.0 / 3.0)) * 6.0 - 3.0) - 1.0, 0.0, 1.0);\n"
-            + "    return half4(half3((lo + delta * wheel) * gain), 1.0);\n"
+            + "    return half4(half3((lo + delta * wheel) * gain), pixel.a);\n"
             + "}";
 
     private final Context context;
@@ -51,6 +52,10 @@ final class RgbRenderer {
     private final RuntimeShader shader = createShader();
     private Bitmap bitmap;
     private BitmapShader input;
+    private MengerWindows menger;
+    private RuntimeShader moduleColors;
+    private double zoomPhase;
+    private float zoomSpeed = 1f;
     private String artPath, rotatedPath;
     private Catalog.Model model, rotatedModel;
     private PanelCorners corners;
@@ -81,6 +86,7 @@ final class RgbRenderer {
     }
 
     void update(SharedPreferences preferences, WallpaperScreen screen) {
+        advance(SystemClock.uptimeMillis());
         Catalog.Model selected = Settings.model(context, preferences, screen);
         Catalog.Model rotated = Catalog.get(context).forOrientation(selected, selected.width <= selected.height);
         String path = Settings.artPath(selected, preferences, screen);
@@ -91,9 +97,19 @@ final class RgbRenderer {
             artPath = path;
             rotatedPath = other;
             layoutWidth = layoutHeight = 0;
+            if (MengerWindows.uses(path)) {
+                if (menger == null) {
+                    menger = new MengerWindows(context);
+                    moduleColors = createShader();
+                    if (moduleColors != null) moduleColors.setInputShader("art", menger.texture);
+                }
+            } else {
+                menger = null;
+                moduleColors = null;
+            }
         }
 
-        advance(SystemClock.uptimeMillis());
+        zoomSpeed = Settings.zoomSpeed(preferences) / 4f;
         periodMillis = Settings.period(preferences) * 1000;
         setAnimation(Settings.enabled(preferences, Settings.ANIMATE));
         audioSync = Settings.audioSync(preferences);
@@ -141,8 +157,9 @@ final class RgbRenderer {
     }
 
     private void advance(long now) {
+        long elapsed = now - phaseTime;
+        if (visible && menger != null) zoomPhase = MengerWindows.advance(zoomPhase, elapsed, zoomSpeed);
         if (visible && animate) {
-            long elapsed = now - phaseTime;
             float kick = audioSync && elapsed <= 150 ? pulses().pulse(now, audioSmoothness) : 0f;
             float boost = kick * audioIntensity * audioEffect.huePerMillisecond;
             phase = (phase + elapsed / (float) periodMillis + elapsed * boost) % 1.0f;
@@ -151,7 +168,7 @@ final class RgbRenderer {
     }
 
     boolean isAnimating() {
-        return animate && visible && shader != null && bitmap != null;
+        return visible && bitmap != null && (menger != null || (animate && shader != null));
     }
 
     private void layout(int width, int height) {
@@ -159,7 +176,7 @@ final class RgbRenderer {
         try {
             boolean rotate = (width > height) != (model.width > model.height);
             bitmap = WallpaperArt.render(context, rotate ? rotatedPath : artPath, width, height, 1f,
-                    rotate ? rotatedModel : model, corners);
+                    rotate ? rotatedModel : model, corners, false);
             input = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
             input.setFilterMode(BitmapShader.FILTER_MODE_LINEAR);
             if (shader != null) shader.setInputShader("art", input);
@@ -179,27 +196,37 @@ final class RgbRenderer {
     }
 
     void draw(Canvas canvas, int width, int height) {
-        canvas.drawColor(Color.BLACK);
-        if (artPath == null || width <= 0 || height <= 0) return;
+        if (artPath == null || width <= 0 || height <= 0) {
+            canvas.drawColor(Color.BLACK);
+            return;
+        }
         layout(width, height);
+        if (menger == null || bitmap == null) canvas.drawColor(Color.BLACK);
         if (bitmap == null) return;
         long now = SystemClock.uptimeMillis();
         advance(now);
 
-        if (animate && shader != null && canvas.isHardwareAccelerated()) {
+        boolean colorize = animate && shader != null && canvas.isHardwareAccelerated();
+        if (colorize) {
             BassPulse pulses = pulses();
             float pulse = audioSync ? pulses.pulse(now, audioSmoothness) : 0f;
             float intensity = audioSync ? audioIntensity : 0f;
             float gain = 1f - audioEffect.dimming * intensity * pulses.activity(now) * (1f - pulse);
-            shader.setFloatUniform("phase", phase);
-            shader.setFloatUniform("gain", gain);
-            shader.setFloatUniform("audioWave", audioEffect.waveHue * intensity * pulses.wavePulse(now, audioSmoothness),
-                    pulses.travel(now, audioSmoothness), destination.left + destination.top,
-                    1f / (destination.width() + destination.height()));
+            float wave = audioEffect.waveHue * intensity * pulses.wavePulse(now, audioSmoothness);
+            float travel = pulses.travel(now, audioSmoothness);
+            tint(shader, gain, wave, travel, destination.width() + destination.height());
+            if (moduleColors != null) tint(moduleColors, gain, wave, travel, 2 * menger.size);
             paint.setShader(shader);
         } else {
             paint.setShader(input);
         }
+        if (menger != null) menger.draw(canvas, width, height, zoomPhase, colorize ? moduleColors : null);
         canvas.drawRect(destination, paint);
+    }
+
+    private void tint(RuntimeShader effect, float gain, float wave, float travel, float diagonal) {
+        effect.setFloatUniform("phase", phase);
+        effect.setFloatUniform("gain", gain);
+        effect.setFloatUniform("audioWave", wave, travel, 0f, 1f / diagonal);
     }
 }

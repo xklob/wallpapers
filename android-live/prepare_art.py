@@ -10,6 +10,7 @@ from xml.etree import ElementTree as ET
 
 ROOT = Path(__file__).resolve().parent.parent
 PATTERNS = ("01_honeycomb_bright", "02_hexagons", "04_cubes")
+MENGER_FRAMES = "menger-frames"
 SPECIAL = {"ipad": "iPad", "iphone": "iPhone", "rgb": "RGB", "xl": "XL", "oppo": "OPPO",
            "huawei": "HUAWEI", "oneplus": "OnePlus", "honor": "HONOR", "fhd": "FHD", "4k": "4K"}
 BRANDS = {"iphone": "Apple", "ipad": "Apple", "pixel": "Google", "google": "Google"}
@@ -89,7 +90,42 @@ def prepare_file(source, output, row, viewport):
         ET.ElementTree(svg).write(output / path, encoding="utf-8")
     else:
         shutil.copyfile(source / name, output / path)
+    if row[1] == PATTERNS[0]:
+        write_menger_frame(svg, output / MENGER_FRAMES / path, row[6] == "rgb_border")
     return path.as_posix()
+
+
+def write_menger_frame(svg, output, bordered):
+    """Keep the profile's stationary frame and launcher artwork, exposing the fractal inside."""
+    ns = "{http://www.w3.org/2000/svg}"
+    parents = {child: parent for parent in svg.iter() for child in parent}
+    group = svg.find(".//*[@stroke='url(#rainbow)']")
+    while group.get("clip-path") is None:
+        group = parents[group]
+    parents[group].remove(group)
+    background = svg.find(ns + "rect")
+    if bordered:
+        # Paint the black gutter only outside the calibrated silhouette. The clip
+        # shares the original transforms and any runtime hardware-corner adjustment.
+        defs = svg.find(ns + "defs")
+        mask = ET.SubElement(defs, ns + "mask", id="menger-gutter")
+        area = dict(x="-100%", y="-100%", width="300%", height="300%")
+        ET.SubElement(mask, ns + "rect", area, fill="white")
+        branch = ET.Element(ns + "g", {"clip-path": group.get("clip-path")})
+        ET.SubElement(branch, ns + "rect", area, fill="black")
+        parent = parents[group]
+        while parent is not svg:
+            wrapper = ET.Element(ns + "g", dict(parent.attrib))
+            wrapper.attrib.pop("id", None)
+            wrapper.append(branch)
+            branch = wrapper
+            parent = parents[parent]
+        mask.append(branch)
+        background.set("mask", "url(#menger-gutter)")
+    else:
+        svg.remove(background)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    ET.ElementTree(svg).write(output, encoding="utf-8")
 
 
 def assets(source, profiles, output, catalog):
@@ -122,6 +158,8 @@ def assets(source, profiles, output, catalog):
         if key in group[preset]:
             raise ValueError(f"Duplicate artwork for {preset} {key}")
         group[preset][key] = path
+        if pattern == PATTERNS[0]:
+            group[preset][f"{len(PATTERNS)}-{mask}"] = f"{MENGER_FRAMES}/{path}"
 
     hidden = set(active.get("hiddenPresets", []))
     devices = [{**presets[a["preset"]], **a} for a in active["deviceAliases"]]

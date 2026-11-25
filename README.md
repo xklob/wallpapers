@@ -12,12 +12,12 @@ The flagship index covers 370 named phone and foldable models from 2020 through 
 - `site/` contains the static site and catalog.
 - `src/` contains generation and packaging scripts.
 
-- `android-live/` contains the Android 13+ app for live and regular wallpapers. Its offline picker includes all 603 catalog screen profiles.
+- `android-live/` contains the Android 13+ app for live and regular wallpapers. Its offline picker includes all 603 catalog screen profiles and Menger Windows, a continuously zooming RGB fractal with adjustable speed.
 - `wear-watch/` contains the Wear OS watch face.
 - `wear-live/` contains the always-on 30 FPS Wear OS live clock companion app.
 - `wear-tesseract/` contains the standalone Wear OS rave app (`rgb poly`), running Poly's 6-solid morph loop with RGB hue rotation and bass pulse.
 
-Download the [Android & Wear OS apps (`apps-v1.4.2`)](https://github.com/xklob/wallpapers/releases/tag/apps-v1.4.2), or view build instructions for [Android Live](android-live/README.md), [Wear OS Watch Face](wear-watch/README.md), [Wear OS Always-On Live](wear-live/README.md), and [rgb poly](wear-tesseract/README.md).
+Download [rgb geometry live 1.3.0 and the Wear OS apps](https://github.com/xklob/wallpapers/releases/tag/apps-v1.5.0), or view build instructions for [Android Live](android-live/README.md), [Wear OS Watch Face](wear-watch/README.md), [Wear OS Always-On Live](wear-live/README.md), and [rgb poly](wear-tesseract/README.md).
 
 ## Build the site locally
 

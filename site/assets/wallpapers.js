@@ -3,6 +3,7 @@ const collection = byId('collection');
 const pattern = byId('pattern');
 const patternGrid = byId('pattern-grid');
 const patternViewer = byId('pattern-viewer');
+const viewerVideo = byId('pattern-viewer-video');
 const group = byId('device-group');
 const manufacturer = byId('manufacturer');
 const screen = byId('screen');
@@ -62,6 +63,29 @@ function options(select, entries, fallback) {
 function theme() {
   return themes.find(item => item.id === collection.value);
 }
+function patternCard(name, poster, onOpen) {
+  const card = document.createElement('button');
+  card.type = 'button';
+  card.className = 'pattern-card';
+  card.setAttribute('aria-haspopup', 'dialog');
+  const image = document.createElement('img');
+  image.src = poster;
+  image.alt = '';
+  image.decoding = 'async';
+  const caption = document.createElement('span');
+  caption.textContent = name;
+  card.append(image, caption);
+  card.addEventListener('click', onOpen);
+  return card;
+}
+function openPatternViewer(name, live) {
+  byId('pattern-viewer-title').textContent = name;
+  byId('pattern-viewer-still').hidden = live;
+  byId('use-pattern').hidden = live;
+  viewerVideo.hidden = !live;
+  byId('live-app').hidden = !live;
+  patternViewer.showModal();
+}
 function updatePatternGallery(active) {
   const cards = [];
   for (const [design, name] of Object.entries(active.designs)) {
@@ -73,33 +97,27 @@ function updatePatternGallery(active) {
     const portrait = originals.find(row => row[2] === 'pixel_9_pro_xl')
       ?? originals.find(row => row[3] === 'Phones' && row[5] > row[4]);
 
-    const card = document.createElement('button');
-    card.type = 'button';
-    card.className = 'pattern-card';
-    card.setAttribute('aria-haspopup', 'dialog');
-
-    const image = document.createElement('img');
-    image.src = '/art/' + active.id + '/' + sample[0];
-    image.alt = '';
-    image.width = sample[4];
-    image.height = sample[5];
-    image.decoding = 'async';
-
-    const caption = document.createElement('span');
-    caption.textContent = name;
-    card.append(image, caption);
-    card.addEventListener('click', () => {
-      byId('pattern-viewer-title').textContent = name;
+    const poster = '/art/' + active.id + '/' + sample[0];
+    cards.push(patternCard(name, poster, () => {
       const large = byId('pattern-viewer-image');
       const portraitSource = byId('pattern-viewer-portrait');
       if (portrait) portraitSource.srcset = '/art/' + active.id + '/' + portrait[0];
       else portraitSource.removeAttribute('srcset');
-      large.src = image.src;
+      large.src = poster;
       large.alt = name + ' wallpaper';
       byId('use-pattern').value = design;
-      patternViewer.showModal();
-    });
-    cards.push(card);
+      openPatternViewer(name, false);
+    }));
+  }
+  for (const {name, poster, video} of active.livePreviews ?? []) {
+    cards.push(patternCard(name + ' · Android live', poster, () => {
+      viewerVideo.poster = poster;
+      viewerVideo.src = video;
+      openPatternViewer(name, true);
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        viewerVideo.play().catch(() => {});
+      }
+    }));
   }
   patternGrid.replaceChildren(...cards);
   byId('patterns').hidden = !cards.length;
@@ -200,6 +218,11 @@ appearance.addEventListener('change', () => {
 collection.addEventListener('change', updateCollections);
 patternViewer.addEventListener('click', event => {
   if (event.target === patternViewer) patternViewer.close();
+});
+patternViewer.addEventListener('close', () => viewerVideo.pause());
+byId('live-app').addEventListener('click', () => {
+  patternViewer.close();
+  byId('download-android').focus();
 });
 byId('use-pattern').addEventListener('click', event => {
   pattern.value = event.currentTarget.value;
