@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.HardwareBufferRenderer;
 import android.graphics.RenderNode;
 import android.hardware.HardwareBuffer;
@@ -25,6 +26,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 
 /** API 34+ test APK, self-instrumented so the installed wallpaper and preferences stay untouched. */
 public final class RenderMatrix extends Instrumentation {
@@ -51,6 +53,7 @@ public final class RenderMatrix extends Instrumentation {
             SettingsMigrationTest.run(context);
             PanelCornersTest.run(context);
             MengerWindowsTest.run(context);
+            checkMandelbrot();
             int scaleId = context.getResources().getIdentifier("config_wallpaperMaxScale", "dimen", "android");
             launcherZoom = scaleId == 0 ? 1.10f : Math.max(1f, context.getResources().getFloat(scaleId));
             try (BufferedReader data = new BufferedReader(new InputStreamReader(context.getAssets().open("rings.tsv")))) {
@@ -89,6 +92,50 @@ public final class RenderMatrix extends Instrumentation {
         Bundle result = new Bundle();
         result.putString("stream", detail + "\n");
         finish(failures == 0 ? Activity.RESULT_OK : Activity.RESULT_CANCELED, result);
+    }
+
+    private void checkMandelbrot() throws Exception {
+        for (Catalog.Model model : Catalog.get(context).models) {
+            for (int mask = 0; mask < 16; mask++) {
+                String path = model.path(Settings.MANDELBROT, mask);
+                require(MandelbrotZoom.uses(path) && WallpaperArt.assetPath(path).equals(model.path(Settings.MENGER, mask)),
+                        "Wrong Mandelbrot overlay for " + model.id);
+            }
+        }
+        MandelbrotZoom scene = new MandelbrotZoom(context);
+        require(scene.isAvailable(), "Mandelbrot projection shader did not compile");
+        for (int[] size : new int[][]{{270, 600}, {640, 400}, {400, 400}}) {
+            int width = size[0], height = size[1];
+            try (FrameCapture frames = new FrameCapture(width, height)) {
+                Bitmap start = frames.draw(canvas -> scene.draw(context, canvas, width, height, 0, null));
+                Bitmap wrap = frames.draw(canvas -> scene.draw(context, canvas, width, height, .999999, null));
+                Bitmap middle = frames.draw(canvas -> scene.draw(context, canvas, width, height, .47, null));
+                Bitmap still = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+                MandelbrotZoom.drawStill(context, new Canvas(still), width, height);
+                require(hasColor(start) && hasColor(middle), "Blank Mandelbrot scene");
+                require(meanChannelDifference(start, wrap) < .8, "Mandelbrot zoom jumps at the wrap");
+                require(meanChannelDifference(start, middle) > 5, "Mandelbrot did not zoom with colors fixed");
+                require(meanChannelDifference(start, still) < 5, "Mandelbrot still differs from the initial view");
+                start.recycle();
+                wrap.recycle();
+                middle.recycle();
+                still.recycle();
+            }
+        }
+        Log.i(TAG, "Mandelbrot: all 603 model profiles, GPU zoom wrap, and matching stills verified");
+    }
+
+    private static double meanChannelDifference(Bitmap first, Bitmap second) {
+        long difference = 0, count = 0;
+        for (int y = 0; y < first.getHeight(); y += 3) {
+            for (int x = 0; x < first.getWidth(); x += 3) {
+                int a = first.getPixel(x, y), b = second.getPixel(x, y);
+                difference += Math.abs(Color.red(a) - Color.red(b)) + Math.abs(Color.green(a) - Color.green(b))
+                        + Math.abs(Color.blue(a) - Color.blue(b));
+                count += 3;
+            }
+        }
+        return (double) difference / count;
     }
 
     private String summary() {
@@ -270,8 +317,12 @@ public final class RenderMatrix extends Instrumentation {
         }
 
         Bitmap draw(RgbRenderer renderer) throws Exception {
+            return draw(renderer::draw);
+        }
+
+        Bitmap draw(Consumer<Canvas> draw) throws Exception {
             Canvas canvas = node.beginRecording(w, h);
-            renderer.draw(canvas);
+            draw.accept(canvas);
             node.endRecording();
             LinkedBlockingQueue<HardwareBufferRenderer.RenderResult> queue = new LinkedBlockingQueue<>(1);
             gpu.obtainRenderRequest().draw(Runnable::run, queue::add);

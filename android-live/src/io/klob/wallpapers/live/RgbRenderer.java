@@ -53,7 +53,8 @@ final class RgbRenderer {
     private Bitmap bitmap;
     private BitmapShader input;
     private MengerWindows menger;
-    private RuntimeShader moduleColors;
+    private MandelbrotZoom mandelbrot;
+    private RuntimeShader mandelbrotColors;
     private double zoomPhase;
     private float zoomSpeed = 1f;
     private String artPath, rotatedPath;
@@ -98,20 +99,24 @@ final class RgbRenderer {
             rotatedPath = other;
             layoutWidth = layoutHeight = 0;
             if (MengerWindows.uses(path)) {
-                if (menger == null) {
-                    menger = new MengerWindows(context);
-                    moduleColors = createShader();
-                    if (moduleColors != null) moduleColors.setInputShader("art", menger.texture);
-                }
+                if (menger == null) menger = new MengerWindows(context);
             } else {
                 menger = null;
-                moduleColors = null;
+            }
+            if (MandelbrotZoom.uses(path)) {
+                if (mandelbrot == null) {
+                    mandelbrot = new MandelbrotZoom(context);
+                    mandelbrotColors = mandelbrot.isAvailable() ? createShader() : null;
+                }
+            } else {
+                mandelbrot = null;
+                mandelbrotColors = null;
             }
         }
 
         zoomSpeed = Settings.zoomSpeed(preferences) / 4f;
         periodMillis = Settings.period(preferences) * 1000;
-        setAnimation(Settings.enabled(preferences, Settings.ANIMATE));
+        setAnimation(menger == null && Settings.enabled(preferences, Settings.ANIMATE));
         audioSync = Settings.audioSync(preferences);
         audioSource = Settings.audioSource(preferences);
         audioEffect = Settings.audioEffect(preferences);
@@ -158,7 +163,7 @@ final class RgbRenderer {
 
     private void advance(long now) {
         long elapsed = now - phaseTime;
-        if (visible && menger != null) zoomPhase = MengerWindows.advance(zoomPhase, elapsed, zoomSpeed);
+        if (visible && hasZoom()) zoomPhase = advanceZoom(zoomPhase, elapsed, zoomSpeed);
         if (visible && animate) {
             float kick = audioSync && elapsed <= 150 ? pulses().pulse(now, audioSmoothness) : 0f;
             float boost = kick * audioIntensity * audioEffect.huePerMillisecond;
@@ -167,8 +172,16 @@ final class RgbRenderer {
         phaseTime = now;
     }
 
+    static double advanceZoom(double phase, long elapsedMillis, float speed) {
+        return (phase + elapsedMillis * (double) speed / 16000) % 1.0;
+    }
+
+    private boolean hasZoom() {
+        return menger != null || (mandelbrot != null && mandelbrot.isAvailable());
+    }
+
     boolean isAnimating() {
-        return visible && bitmap != null && (menger != null || (animate && shader != null));
+        return visible && bitmap != null && (hasZoom() || (animate && shader != null));
     }
 
     private void layout(int width, int height) {
@@ -201,7 +214,7 @@ final class RgbRenderer {
             return;
         }
         layout(width, height);
-        if (menger == null || bitmap == null) canvas.drawColor(Color.BLACK);
+        if (bitmap == null || (menger == null && mandelbrot == null)) canvas.drawColor(Color.BLACK);
         if (bitmap == null) return;
         long now = SystemClock.uptimeMillis();
         advance(now);
@@ -215,12 +228,18 @@ final class RgbRenderer {
             float wave = audioEffect.waveHue * intensity * pulses.wavePulse(now, audioSmoothness);
             float travel = pulses.travel(now, audioSmoothness);
             tint(shader, gain, wave, travel, destination.width() + destination.height());
-            if (moduleColors != null) tint(moduleColors, gain, wave, travel, 2 * menger.size);
+            if (mandelbrotColors != null) {
+                tint(mandelbrotColors, gain, wave, travel, destination.width() + destination.height());
+            }
             paint.setShader(shader);
         } else {
             paint.setShader(input);
         }
-        if (menger != null) menger.draw(canvas, width, height, zoomPhase, colorize ? moduleColors : null);
+        if (menger != null) {
+            menger.draw(canvas, width, height, zoomPhase);
+        } else if (mandelbrot != null) {
+            mandelbrot.draw(context, canvas, width, height, zoomPhase, colorize ? mandelbrotColors : null);
+        }
         canvas.drawRect(destination, paint);
     }
 

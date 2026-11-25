@@ -47,6 +47,7 @@ public final class SettingsActivity extends Activity {
     private Preview preview;
     private SeekBar speed;
     private LinearLayout zoomControls;
+    private LinearLayout colorControls;
     private SeekBar zoomSpeed;
     private Switch audioSync;
     private TextView audioStatus;
@@ -150,10 +151,13 @@ public final class SettingsActivity extends Activity {
         regularButton.setOnClickListener(view -> applyRegularWallpaper());
         content.addView(regularButton, fullWidth(dp(52), 0));
 
-        addToggle(content, "Animate colors", Settings.ANIMATE);
-        addAudioSync(content);
-        addAudioTuner(content);
-        speed = addSlider(content, Settings.PERIOD, Settings.MIN_PERIOD, Settings.MAX_PERIOD,
+        colorControls = new LinearLayout(this);
+        colorControls.setOrientation(LinearLayout.VERTICAL);
+        content.addView(colorControls, fullWidth(ViewGroup.LayoutParams.WRAP_CONTENT, 0));
+        addToggle(colorControls, "Animate colors", Settings.ANIMATE);
+        addAudioSync(colorControls);
+        addAudioTuner(colorControls);
+        speed = addSlider(colorControls, Settings.PERIOD, Settings.MIN_PERIOD, Settings.MAX_PERIOD,
                 Settings.period(preferences), seconds -> "Cycle duration · " + seconds + " s");
         speed.setEnabled(Settings.enabled(preferences, Settings.ANIMATE));
         refreshAppearance();
@@ -290,7 +294,8 @@ public final class SettingsActivity extends Activity {
         modelButton.setText(suggestion + model.name + " // " + model.width + " × " + model.height);
         regularButton.setText(editingScreen == WallpaperScreen.LOCK ? "SET LOCK WALLPAPER" : "SET HOME WALLPAPER");
         int pattern = Settings.pattern(preferences, editingScreen);
-        zoomControls.setVisibility(pattern == Settings.MENGER ? View.VISIBLE : View.GONE);
+        zoomControls.setVisibility(Settings.hasZoom(pattern) ? View.VISIBLE : View.GONE);
+        colorControls.setVisibility(pattern == Settings.MENGER ? View.GONE : View.VISIBLE);
         zoomSpeed.setProgress(Settings.zoomSpeed(preferences));
         int style = Settings.enabled(preferences, editingScreen.key(Settings.BORDER)) ? Catalog.BORDER : 0;
         patterns.setSelection(pattern);

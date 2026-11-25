@@ -24,8 +24,8 @@ final class MengerWindowsTest {
         }
         android.util.Log.i("WallpaperMatrix", "Menger Windows: " + catalog.models.size() + " models, "
                 + frames.size() + " distinct overlays rendered");
-        double fast = MengerWindows.advance(.27, 800, 4f);
-        double slow = MengerWindows.advance(.27, 12800, .25f);
+        double fast = RgbRenderer.advanceZoom(.27, 800, 4f);
+        double slow = RgbRenderer.advanceZoom(.27, 12800, .25f);
         expect(Math.abs(fast - slow) < 1e-9, "Zoom speed ratio");
         MengerWindows scene = new MengerWindows(context);
         for (int[] size : new int[][]{{320, 200}, {150, 334}, {240, 240}}) {
@@ -38,6 +38,7 @@ final class MengerWindowsTest {
             end.recycle();
             middle.recycle();
         }
+        checkPortalCoverage(scene);
         Catalog.Model tablet = catalog.lookup("pixel_tablet_landscape");
         int w = 384, h = 240;
         for (int mask : new int[]{Catalog.BORDER, Catalog.BORDER | Catalog.DOCK}) {
@@ -76,6 +77,27 @@ final class MengerWindowsTest {
         }
     }
 
+    private static void checkPortalCoverage(MengerWindows scene) {
+        for (int[] size : new int[][]{{720, 1600}, {1600, 720}, {1024, 1024}}) {
+            Bitmap image = Bitmap.createBitmap(size[0], size[1], Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(image);
+            int[] row = new int[size[0]];
+            for (int step = 0; step < 16; step++) {
+                scene.draw(canvas, size[0], size[1], step / 16.0);
+                int exposed = 0;
+                for (int y = 0; y < size[1]; y += 4) {
+                    image.getPixels(row, 0, row.length, 0, y, row.length, 1);
+                    for (int x = 0; x < size[0]; x += 4) {
+                        if (row[x] == 0xff101015) exposed++;
+                    }
+                }
+                expect(exposed == 0, "Background visible through a Menger portal at " + size[0] + "×"
+                        + size[1] + ", phase " + step + "/16: " + exposed + " samples");
+            }
+            image.recycle();
+        }
+    }
+
     private static void checkFrame(Context context, Catalog.Model model, String path, int mask) throws Exception {
         float scale = 240f / Math.max(model.width, model.height);
         int w = Math.max(1, Math.round(model.width * scale)), h = Math.max(1, Math.round(model.height * scale));
@@ -102,7 +124,7 @@ final class MengerWindowsTest {
 
     private static Bitmap frame(MengerWindows scene, int[] size, double phase) {
         Bitmap image = Bitmap.createBitmap(size[0], size[1], Bitmap.Config.ARGB_8888);
-        scene.draw(new Canvas(image), size[0], size[1], phase, null);
+        scene.draw(new Canvas(image), size[0], size[1], phase);
         return image;
     }
 

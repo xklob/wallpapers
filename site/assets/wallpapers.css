@@ -17,7 +17,7 @@ h2 { font-size: 1.25rem; margin: 0; }
 p { line-height: 1.45; }
 .intro p { margin: .6rem 0 0; color: var(--muted); }
 .patterns { margin-block-end: 1.5rem; }
-.pattern-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .75rem; margin-block-start: .75rem; }
+.pattern-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: .75rem; margin-block-start: .75rem; }
 button.pattern-card { display: flex; flex-direction: column; min-width: 0; padding: 0; text-align: start; }
 .pattern-card img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; background: #080808; }
 .pattern-card span { padding: .65rem .75rem; }

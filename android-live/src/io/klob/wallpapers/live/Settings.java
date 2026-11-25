@@ -26,13 +26,14 @@ final class Settings {
     static final String PERIOD = "period";
     static final int MIN_PERIOD = 6;
     static final int MAX_PERIOD = 60;
-    static final String ZOOM_SPEED = "menger_zoom_speed";
+    static final String ZOOM_SPEED = "menger_zoom_speed"; // Keep the saved speed from the original zoom pattern.
     static final int DEFAULT_ZOOM = 4; // quarter-speed increments; 4 is 1×
     static final int MAX_ZOOM = 16;
     static final int MENGER = 3;
+    static final int MANDELBROT = 4;
 
     static final String[] PATTERNS = {
-        "Bright Honeycomb", "Spaced Hexagons", "Wireframe Cubes", "Menger Windows"
+        "Bright Honeycomb", "Spaced Hexagons", "Wireframe Cubes", "Menger Windows", "Mandelbrot Zoom"
     };
 
     static synchronized SharedPreferences open(Context context) {
@@ -81,6 +82,10 @@ final class Settings {
 
     static int pattern(SharedPreferences preferences, WallpaperScreen screen) {
         return Math.max(0, Math.min(PATTERNS.length - 1, preferences.getInt(screen.key(PATTERN), 0)));
+    }
+
+    static boolean hasZoom(int pattern) {
+        return pattern == MENGER || pattern == MANDELBROT;
     }
 
     static Catalog.Model model(Context context, SharedPreferences preferences, WallpaperScreen screen) {

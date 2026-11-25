@@ -196,7 +196,7 @@ public final class ApplyMatrix extends Instrumentation {
 
     private static float[] cameraRing(Context context, String path, Rect bounds) throws Exception {
         XmlPullParser parser = Xml.newPullParser();
-        try (InputStream stream = context.getAssets().open(path)) {
+        try (InputStream stream = context.getAssets().open(WallpaperArt.assetPath(path))) {
             parser.setInput(stream, null);
             float left = 0f, top = 0f, scale = 1f;
             while (parser.next() != XmlPullParser.END_DOCUMENT) {
@@ -232,7 +232,7 @@ public final class ApplyMatrix extends Instrumentation {
 
     private void checkVisible(Context context, String path, Rect bounds, int index, boolean live, float[] ring,
                               Catalog.Model model, PanelCorners corners) throws Exception {
-        boolean zooming = live && MengerWindows.uses(path);
+        boolean zooming = live && WallpaperArt.hasScene(path);
         Bitmap expected = WallpaperArt.render(context, path, bounds.width(), bounds.height(), 1f, model, corners,
                 !zooming);
         int[] target = samples(expected, live);
@@ -256,7 +256,7 @@ public final class ApplyMatrix extends Instrumentation {
             int[] actual = samples(screenshot, live);
             screenshot.recycle();
             error = difference(target, actual, zooming);
-            // With color animation off, only Menger moves. Verify the stationary
+            // With color animation off, only the fractal moves. Verify the stationary
             // frame at the selected geometry and motion between consecutive screenshots.
             boolean moved = !zooming || (lastFrame != null && difference(lastFrame, actual, false) > .015);
             if (error < (live ? 0.10 : 0.24) && ringVisible && moved) return;

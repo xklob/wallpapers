@@ -159,7 +159,9 @@ def assets(source, profiles, output, catalog):
             raise ValueError(f"Duplicate artwork for {preset} {key}")
         group[preset][key] = path
         if pattern == PATTERNS[0]:
-            group[preset][f"{len(PATTERNS)}-{mask}"] = f"{MENGER_FRAMES}/{path}"
+            frame = f"{MENGER_FRAMES}/{path}"
+            group[preset][f"{len(PATTERNS)}-{mask}"] = frame
+            group[preset][f"{len(PATTERNS) + 1}-{mask}"] = f"mandelbrot/{frame}"
 
     hidden = set(active.get("hiddenPresets", []))
     devices = [{**presets[a["preset"]], **a} for a in active["deviceAliases"]]

@@ -18,6 +18,14 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
 final class WallpaperArt {
+    static String assetPath(String path) {
+        return MandelbrotZoom.uses(path) ? path.substring(MandelbrotZoom.PREFIX.length()) : path;
+    }
+
+    static boolean hasScene(String path) {
+        return MengerWindows.uses(path) || MandelbrotZoom.uses(path);
+    }
+
     static Bitmap renderStatic(Context context, String path, int width, int height) throws IOException {
         return renderStatic(context, path, width, height, null, null);
     }
@@ -45,7 +53,7 @@ final class WallpaperArt {
     static Bitmap render(Context context, String path, int width, int height, float scale,
                          Catalog.Model model, PanelCorners corners, boolean includeScene)
             throws IOException {
-        try (InputStream file = context.getAssets().open(path)) {
+        try (InputStream file = context.getAssets().open(assetPath(path))) {
             SVG svg;
             if (corners != null && corners.matches(model, Build.MODEL, Build.MANUFACTURER, width, height) && path.contains("/rgb_border/")) {
                 InputStreamReader reader = new InputStreamReader(file, StandardCharsets.UTF_8);
@@ -65,14 +73,17 @@ final class WallpaperArt {
             svg.setDocumentHeight(viewHeight);
             svg.setDocumentPreserveAspectRatio(PreserveAspectRatio.FULLSCREEN);
             Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-            boolean menger = MengerWindows.uses(path);
-            if (includeScene || !menger) bitmap.eraseColor(Color.BLACK);
+            if (includeScene || !hasScene(path)) bitmap.eraseColor(Color.BLACK);
             bitmap.setDensity(Bitmap.DENSITY_NONE);
             Canvas canvas = new Canvas(bitmap);
             canvas.scale(scale, scale, width / 2f, height / 2f);
-            if (menger && includeScene) {
+            if (includeScene && hasScene(path)) {
                 canvas.clipRect(0, 0, width, height);
-                new MengerWindows(context).draw(canvas, width, height, 0, null);
+                if (MandelbrotZoom.uses(path)) {
+                    MandelbrotZoom.drawStill(context, canvas, width, height);
+                } else {
+                    new MengerWindows(context).draw(canvas, width, height, 0);
+                }
             }
             if (rotate) {
                 // Foldable landscape presets use a counterclockwise rotation from portrait.
