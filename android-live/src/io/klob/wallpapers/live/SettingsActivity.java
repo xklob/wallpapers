@@ -69,6 +69,7 @@ public final class SettingsActivity extends Activity {
     private LinearLayout colorControls;
     private SeekBar zoomSpeed;
     private SeekBar rotationSlider;
+    private final Map<String, SeekBar> toneSliders = new LinkedHashMap<>();
     private Switch audioSync;
     private TextView audioStatus;
     private Button microphoneControl;
@@ -200,6 +201,8 @@ public final class SettingsActivity extends Activity {
         regularButton.setOnClickListener(view -> applyRegularWallpaper());
         previewPanel.addView(regularButton, fullWidth(-2, 8));
 
+        addToneControls(addPanel(column, "Color Adjustments"));
+
         LinearLayout outlines = addPanel(column, "Outlines");
         addAppearanceToggle(outlines, "RGB border", Settings.BORDER);
         addAppearanceToggle(outlines, "Camera ring", Settings.CAMERA);
@@ -278,12 +281,14 @@ public final class SettingsActivity extends Activity {
                 bounds.width() > bounds.height());
         String path = Settings.artPath(model, preferences, target);
         int rotation = Settings.rotation(preferences, target);
+        WallpaperTone tone = Settings.tone(preferences, target, WallpaperTone.NEUTRAL);
         Context context = getApplicationContext();
         regularButton.setEnabled(false);
         wallpaperWriter.execute(() -> {
             String message;
             try {
-                int id = RegularWallpaper.apply(context, path, bounds.width(), bounds.height(), target, model, corners, rotation);
+                int id = RegularWallpaper.apply(context, path, bounds.width(), bounds.height(),
+                        target, model, corners, rotation, tone);
                 message = id > 0 ? target + " wallpaper set." : "Android could not set the wallpaper.";
             } catch (IOException | RuntimeException exception) {
                 android.util.Log.e("RgbGeometryLive", "Could not set regular wallpaper", exception);
@@ -481,6 +486,7 @@ public final class SettingsActivity extends Activity {
         colorControls.setVisibility(pattern == Settings.MENGER ? View.GONE : View.VISIBLE);
         zoomSpeed.setProgress(Settings.zoomSpeed(preferences));
         rotationSlider.setProgress(Settings.rotation(preferences, editingScreen));
+        refreshToneControls();
         int style = Settings.enabled(preferences, editingScreen.key(Settings.BORDER)) ? Catalog.BORDER : 0;
         patterns.setSelection(pattern);
         for (Map.Entry<String, Switch> entry : appearanceToggles.entrySet()) {
@@ -693,6 +699,35 @@ public final class SettingsActivity extends Activity {
             sensitivity.setProgress(Settings.DEFAULT_SENSITIVITY);
         });
         panel.addView(reset, fullWidth(dp(48), 4));
+    }
+
+    private void addToneControls(LinearLayout panel) {
+        addToneSlider(panel, "Brightness", Settings.BRIGHTNESS);
+        addToneSlider(panel, "Contrast", Settings.CONTRAST);
+        addToneSlider(panel, "Saturation", Settings.SATURATION);
+        Button reset = style.button(false);
+        reset.setText("Reset color adjustments");
+        reset.setOnClickListener(view -> {
+            SharedPreferences.Editor editor = preferences.edit();
+            for (String key : toneSliders.keySet()) editor.remove(editingScreen.key(key));
+            editor.apply();
+            refreshToneControls();
+        });
+        panel.addView(reset, fullWidth(-2, 4));
+    }
+
+    private void addToneSlider(LinearLayout panel, String title, String key) {
+        SeekBar slider = addSlider(panel, 0, WallpaperTone.MAX, WallpaperTone.DEFAULT,
+                value -> title + " // " + value + "%",
+                value -> preferences.edit().putInt(editingScreen.key(key), value).apply());
+        slider.setKeyProgressIncrement(1);
+        toneSliders.put(key, slider);
+    }
+
+    private void refreshToneControls() {
+        for (Map.Entry<String, SeekBar> entry : toneSliders.entrySet()) {
+            entry.getValue().setProgress(Settings.adjustment(preferences, editingScreen, entry.getKey()));
+        }
     }
 
     private SeekBar addAudioSlider(LinearLayout panel, String label, String key, int fallback) {

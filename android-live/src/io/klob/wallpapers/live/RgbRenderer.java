@@ -54,6 +54,7 @@ final class RgbRenderer {
     private BitmapShader artworkInput;
     private RuntimeShader artworkColors;
     private int rotation;
+    private WallpaperTone tone = WallpaperTone.NEUTRAL;
     private MengerWindows menger;
     private MandelbrotZoom mandelbrot;
     private int frameRate = 30;
@@ -95,6 +96,7 @@ final class RgbRenderer {
             layoutWidth = layoutHeight = 0;
         }
         rotation = angle;
+        tone = Settings.tone(preferences, screen, tone);
         Catalog.Model selected = Settings.model(context, preferences, screen);
         Catalog.Model rotated = Catalog.get(context).forOrientation(selected, selected.width <= selected.height);
         String path = Settings.artPath(selected, preferences, screen);
@@ -271,7 +273,13 @@ final class RgbRenderer {
         } else {
             paint.setShader(input);
         }
-        if (menger != null || mandelbrot != null || artworkInput != null) {
+        // Single-pass patterns need only a paint filter. Composite multi-pass scenes
+        // first so the color matrix cannot change how translucent outlines blend.
+        boolean composite = menger != null || mandelbrot != null || artworkInput != null;
+        int toneLayer = composite ? tone.saveLayer(canvas, width, height) : 0;
+        paint.setColorFilter(composite ? null : tone.filter());
+        if (composite) {
+            if (toneLayer != 0 && artworkInput != null) canvas.drawColor(Color.BLACK);
             canvas.save();
             ArtworkRotation.apply(canvas, width, height, rotation);
             if (menger != null) {
@@ -287,6 +295,7 @@ final class RgbRenderer {
             canvas.restore();
         }
         canvas.drawRect(destination, paint);
+        if (toneLayer != 0) canvas.restoreToCount(toneLayer);
     }
 
     private void tint(RuntimeShader effect, float gain, float wave, float travel, float diagonal) {

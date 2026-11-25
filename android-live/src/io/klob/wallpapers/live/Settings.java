@@ -13,6 +13,9 @@ final class Settings {
     static final String DOCK = "dock";
     static final String STATUS = "status";
     static final String ROTATION = "rotation_degrees";
+    static final String BRIGHTNESS = "brightness";
+    static final String CONTRAST = "contrast";
+    static final String SATURATION = "saturation";
     static final String PICKER_SCREEN = "active_picker_screen";
     static final String ANIMATE = "animate";
     static final String AUDIO_SYNC = "audio_sync";
@@ -100,6 +103,20 @@ final class Settings {
 
     static int rotation(SharedPreferences preferences, WallpaperScreen screen) {
         return Math.max(0, Math.min(ArtworkRotation.MAX_DEGREES, preferences.getInt(screen.key(ROTATION), 0)));
+    }
+
+    static int adjustment(SharedPreferences prefs, WallpaperScreen screen, String key) {
+        return Math.max(0, Math.min(WallpaperTone.MAX,
+                prefs.getInt(screen.key(key), WallpaperTone.DEFAULT)));
+    }
+
+    static WallpaperTone tone(SharedPreferences prefs, WallpaperScreen screen, WallpaperTone current) {
+        int brightness = adjustment(prefs, screen, BRIGHTNESS);
+        int contrast = adjustment(prefs, screen, CONTRAST);
+        int saturation = adjustment(prefs, screen, SATURATION);
+        if (current.matches(brightness, contrast, saturation)) return current;
+        if (WallpaperTone.NEUTRAL.matches(brightness, contrast, saturation)) return WallpaperTone.NEUTRAL;
+        return new WallpaperTone(brightness, contrast, saturation);
     }
 
     static boolean hasZoom(int pattern) {

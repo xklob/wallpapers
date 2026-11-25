@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.HardwareBufferRenderer;
+import android.graphics.Paint;
 import android.graphics.RenderNode;
 import android.hardware.HardwareBuffer;
 import android.hardware.SyncFence;
@@ -56,6 +57,7 @@ public final class RenderMatrix extends Instrumentation {
             checkMandelbrot();
             checkFramePacing();
             checkRotation();
+            checkToneAdjustments();
             int scaleId = context.getResources().getIdentifier("config_wallpaperMaxScale", "dimen", "android");
             launcherZoom = scaleId == 0 ? 1.10f : Math.max(1f, context.getResources().getFloat(scaleId));
             try (BufferedReader data = new BufferedReader(new InputStreamReader(context.getAssets().open("rings.tsv")))) {
@@ -208,6 +210,89 @@ public final class RenderMatrix extends Instrumentation {
             }
         }
         require(visible > 50 && changed * 50 <= visible, "Device outlines moved or disappeared with rotation");
+    }
+
+    private void checkToneAdjustments() throws Exception {
+        int sample = Color.rgb(96, 64, 32);
+        int dim = filteredPixel(sample, new WallpaperTone(50, 100, 100));
+        require(dim == Color.rgb(48, 32, 16), "Brightness should scale RGB");
+        int flat = filteredPixel(sample, new WallpaperTone(100, 0, 100));
+        require(Math.abs(Color.red(flat) - 128) <= 1 && Color.red(flat) == Color.green(flat)
+                && Color.green(flat) == Color.blue(flat), "Zero contrast should flatten midtones");
+        int vivid = filteredPixel(sample, new WallpaperTone(100, 100, 200));
+        require(Color.red(vivid) - Color.blue(vivid) > 64, "Saturation should increase color separation");
+
+        SharedPreferences colors = context.getSharedPreferences("tone-fixture", Context.MODE_PRIVATE);
+        Catalog.Model model = Catalog.get(context).lookup("pixel_11_pro_xl");
+        colors.edit().clear().putString(Settings.MODEL, model.id).putBoolean(Settings.ANIMATE, false)
+                .putInt(WallpaperScreen.LOCK.key(Settings.BRIGHTNESS), 83)
+                .putInt(WallpaperScreen.LOCK.key(Settings.CONTRAST), 58)
+                .putInt(WallpaperScreen.LOCK.key(Settings.SATURATION), 40).apply();
+        final int width = 240, height = 530;
+        RgbRenderer scene = new RgbRenderer(context);
+        WallpaperTone adjusted = new WallpaperTone(70, 135, 0);
+        require(Settings.tone(colors, WallpaperScreen.HOME, WallpaperTone.NEUTRAL) == WallpaperTone.NEUTRAL,
+                "Existing settings should keep the original colors");
+        try (FrameCapture frames = new FrameCapture(width, height)) {
+            for (int pattern = 0; pattern < Settings.PATTERNS.length; pattern++) {
+                colors.edit().putInt(Settings.PATTERN, pattern).apply();
+                String path = Settings.artPath(model, colors, WallpaperScreen.HOME);
+                for (int rotation : new int[]{0, 37}) {
+                    colors.edit().putInt(Settings.ROTATION, rotation).remove(Settings.BRIGHTNESS)
+                            .remove(Settings.CONTRAST).remove(Settings.SATURATION).apply();
+                    scene.update(colors, WallpaperScreen.HOME);
+                    Bitmap base = frames.draw(scene);
+                    Bitmap still = WallpaperArt.renderStatic(context, path, width, height, model, null, rotation);
+                    colors.edit().putInt(Settings.BRIGHTNESS, 70).putInt(Settings.CONTRAST, 135)
+                            .putInt(Settings.SATURATION, 0).apply();
+                    scene.update(colors, WallpaperScreen.HOME);
+                    Bitmap live = frames.draw(scene);
+                    Bitmap regular = WallpaperArt.renderStatic(context, path, width, height, model, null, rotation, adjusted);
+                    checkColorAdjustment(base, live, adjusted, "live pattern " + pattern);
+                    checkColorAdjustment(still, regular, adjusted, "still pattern " + pattern);
+                    base.recycle();
+                    still.recycle();
+                    live.recycle();
+                    regular.recycle();
+                }
+            }
+        }
+        require(Settings.tone(colors, WallpaperScreen.LOCK, WallpaperTone.NEUTRAL).matches(83, 58, 40),
+                "Home adjustments changed the Lock settings");
+        Log.i(TAG, "Color adjustments: all five patterns, hardware and still output, with and without rotation");
+    }
+
+    private static int filteredPixel(int color, WallpaperTone tone) {
+        Bitmap src = Bitmap.createBitmap(new int[]{color}, 1, 1, Bitmap.Config.ARGB_8888);
+        Bitmap result = filteredImage(src, tone);
+        int pixel = result.getPixel(0, 0);
+        src.recycle();
+        result.recycle();
+        return pixel;
+    }
+
+    private static Bitmap filteredImage(Bitmap source, WallpaperTone tone) {
+        Bitmap result = Bitmap.createBitmap(source.getWidth(), source.getHeight(), Bitmap.Config.ARGB_8888);
+        Paint paint = new Paint();
+        paint.setColorFilter(tone.filter());
+        new Canvas(result).drawBitmap(source, 0, 0, paint);
+        return result;
+    }
+
+    private static void checkColorAdjustment(Bitmap before, Bitmap after, WallpaperTone tone, String description) {
+        Bitmap expected = filteredImage(before, tone);
+        require(meanChannelDifference(before, after) > 2, "Color sliders had no effect on " + description);
+        double error = meanChannelDifference(expected, after);
+        expected.recycle();
+        require(error < 2, "Color filter disagrees with composed output on " + description + " (mean " + error + ")");
+        for (int y = 0; y < after.getHeight(); y += 9) {
+            for (int x = 0; x < after.getWidth(); x += 9) {
+                int color = after.getPixel(x, y);
+                require(Math.abs(Color.red(color) - Color.green(color)) <= 1
+                        && Math.abs(Color.green(color) - Color.blue(color)) <= 1,
+                        "Zero saturation left visible hue on " + description);
+            }
+        }
     }
 
     private static double meanChannelDifference(Bitmap first, Bitmap second) {

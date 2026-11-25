@@ -46,13 +46,19 @@ final class WallpaperArt {
 
     static Bitmap renderStatic(Context context, String path, int width, int height, Catalog.Model model,
                                PanelCorners corners, int rotation) throws IOException {
+        return renderStatic(context, path, width, height, model, corners, rotation, WallpaperTone.NEUTRAL);
+    }
+
+    static Bitmap renderStatic(Context context, String path, int width, int height, Catalog.Model model,
+                               PanelCorners corners, int rotation, WallpaperTone tone) throws IOException {
         // ImageWallpaper zooms the committed bitmap around its center at rest.
         // Submit a padded display-space image so the frame and camera stay visible.
         Resources resources = context.getResources();
         int id = resources.getIdentifier("config_wallpaperMaxScale", "dimen", "android");
         float zoom = id == 0 ? 1.10f : resources.getFloat(id);
         float scale = 1f / Math.max(1f, zoom);
-        if (ArtworkRotation.normalized(rotation) == 0) {
+        boolean turned = ArtworkRotation.normalized(rotation) != 0;
+        if (!turned && tone.filter() == null) {
             return render(context, path, width, height, scale, model, corners);
         }
 
@@ -61,12 +67,19 @@ final class WallpaperArt {
         Canvas canvas = new Canvas(bitmap);
         canvas.scale(scale, scale, width / 2f, height / 2f);
         canvas.clipRect(0, 0, width, height);
-        canvas.save();
-        ArtworkRotation.apply(canvas, width, height, rotation);
-        if (hasScene(path)) drawScene(context, canvas, path, width, height);
-        else drawSvg(svg, canvas, width, height, Layer.ARTWORK);
-        canvas.restore();
-        drawSvg(svg, canvas, width, height, hasScene(path) ? Layer.FULL : Layer.FRAME);
+
+        int toneLayer = tone.saveLayer(canvas, width, height);
+        boolean scene = hasScene(path);
+        if (toneLayer != 0 && !scene) canvas.drawColor(Color.BLACK);
+        if (scene || turned) {
+            canvas.save();
+            ArtworkRotation.apply(canvas, width, height, rotation);
+            if (scene) drawScene(context, canvas, path, width, height);
+            else drawSvg(svg, canvas, width, height, Layer.ARTWORK);
+            canvas.restore();
+        }
+        drawSvg(svg, canvas, width, height, turned && !scene ? Layer.FRAME : Layer.FULL);
+        if (toneLayer != 0) canvas.restoreToCount(toneLayer);
         return bitmap;
     }
 
