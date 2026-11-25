@@ -80,10 +80,22 @@ def add_home_panel(svg, profile):
         '<stop offset=".68" stop-color="#ff00ec"/>'
         '<stop offset="1" stop-color="#ff3030"/></linearGradient>'
     )
-    panel = (
-        f'<rect id="pixel-launcher-panel" x="{x}" y="{y}" width="{width}" height="{height}" '
-        f'rx="{radius}" fill="#000" stroke="url(#home-outline)" stroke-width="{stroke}"/>'
-    )
+    if "right_radius" in profile:
+        right_radius = profile["right_radius"]
+        right, bottom = x + width, y + height
+        left_arc = f"A{radius},{radius} 0 0 1"
+        right_arc = f"A{right_radius},{right_radius} 0 0 1"
+        outline = (
+            f"M{x + radius},{y} H{right - right_radius} {right_arc} {right},{y + right_radius} "
+            f"V{bottom - right_radius} {right_arc} {right - right_radius},{bottom} "
+            f"H{x + radius} {left_arc} {x},{bottom - radius} "
+            f"V{y + radius} {left_arc} {x + radius},{y} Z"
+        )
+        shape = f'<path id="pixel-launcher-panel" d="{outline}"'
+    else:
+        shape = (f'<rect id="pixel-launcher-panel" x="{x}" y="{y}" width="{width}" '
+                 f'height="{height}" rx="{radius}"')
+    panel = f'{shape} fill="#000" stroke="url(#home-outline)" stroke-width="{stroke}"/>'
     return svg.replace("</defs>", definitions + "</defs>", 1).replace("</svg>", panel + "</svg>", 1)
 
 

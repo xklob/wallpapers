@@ -3,13 +3,14 @@
   "frame_width_px": 9,
   "home": {
     "pixel_tablet_landscape": {
-      "calibration": "Pixel Launcher at 1280 x 800. Search and six icons span x=128..1149, y=690..755. Panel coordinates below are native pixels.",
+      "calibration": "Pixel Launcher at 1280 x 800. Search and six icons span x=128..1149, y=690..755. The left cap follows the search pill. The right cap follows the rounded-square folder with about 8 px of clearance to the stroke center. Panel coordinates below are native pixels.",
       "panel": {
         "x": 240,
         "y": 1366,
         "width": 2074,
         "height": 158,
         "radius": 79,
+        "right_radius": 36,
         "stroke": 6
       }
     },

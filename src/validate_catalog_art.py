@@ -18,7 +18,7 @@ from xml.etree import ElementTree
 
 import numpy as np
 import resvg_py
-from PIL import Image
+from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -72,6 +72,19 @@ def check_tablet(image, row, errors, fmt):
         edge = pixels[[y, y + h], x + r:x + w - r]
         if np.any(inside > 16) or np.mean(edge > 64) < 0.99:
             errors.append(f"{fmt} tablet Home panel")
+        if device == "pixel_tablet_landscape":
+            # The 1280 × 800 launcher screenshot shows a rounded-square folder at
+            # (1085, 690) to (1149, 755), with roughly 10 px corner radii. Keep at
+            # least 4 px clear around that footprint at the native 2× resolution.
+            padding = 4
+            x0, x1 = 2 * (1085 - padding), 2 * (1149 + padding)
+            y0, y1 = 2 * (690 - padding), 2 * (755 + padding)
+            footprint = Image.new("1", (x1 - x0, y1 - y0))
+            ImageDraw.Draw(footprint).rounded_rectangle(
+                (0, 0, footprint.width - 1, footprint.height - 1),
+                radius=2 * (10 + padding), fill=1)
+            if np.any(pixels[y0:y1, x0:x1][np.asarray(footprint)] > 16):
+                errors.append(f"{fmt} tablet Home folder clearance")
     elif np.mean(inside > 16) < 0.005:
         errors.append(f"{fmt} unexpected tablet Home cutout")
 
