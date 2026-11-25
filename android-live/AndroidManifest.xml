@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.klob.wallpapers.live" android:versionCode="5" android:versionName="1.1.0">
+    package="io.klob.wallpapers.live" android:versionCode="6" android:versionName="1.2.0">
     <uses-sdk android:minSdkVersion="33" android:targetSdkVersion="34" />
     <uses-feature android:name="android.software.live_wallpaper" android:required="true" />
+    <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />

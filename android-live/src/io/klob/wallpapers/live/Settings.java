@@ -2,8 +2,11 @@ package io.klob.wallpapers.live;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 
 final class Settings {
+    static final String MODEL = "model";
+    static final String SUGGESTED = "suggested_model";
     static final String PATTERN = "pattern";
     static final String BORDER = "border";
     static final String CAMERA = "camera";
@@ -30,6 +33,24 @@ final class Settings {
 
     static SharedPreferences open(Context context) {
         SharedPreferences preferences = context.getSharedPreferences("live_wallpaper", Context.MODE_PRIVATE);
+        if (!preferences.contains(MODEL)) {
+            Catalog catalog = Catalog.get(context);
+            boolean upgrading = !preferences.getAll().isEmpty();
+            Catalog.Model initial = upgrading ? catalog.lookup("pixel_11_pro_xl") : null;
+            if (initial == null) initial = catalog.initialModel(context);
+            boolean suggested = !upgrading && !initial.matches(Build.MODEL);
+            SharedPreferences.Editor defaults = preferences.edit();
+            for (WallpaperScreen screen : WallpaperScreen.values()) {
+                defaults.putString(screen.key(MODEL), initial.id);
+                if (suggested) {
+                    defaults.putBoolean(screen.key(SUGGESTED), true)
+                            .putBoolean(screen.key(CAMERA), false)
+                            .putBoolean(screen.key(STATUS), false);
+                    if (screen == WallpaperScreen.HOME) defaults.putBoolean(DOCK, false);
+                }
+            }
+            defaults.apply();
+        }
         if (!preferences.contains(WallpaperScreen.LOCK.key(PATTERN))) {
             preferences.edit()
                     .putInt(WallpaperScreen.LOCK.key(PATTERN), pattern(preferences, WallpaperScreen.HOME))
@@ -45,11 +66,17 @@ final class Settings {
         return Math.max(0, Math.min(PATTERNS.length - 1, preferences.getInt(screen.key(PATTERN), 0)));
     }
 
-    static String artPath(SharedPreferences preferences, WallpaperScreen screen) {
+    static Catalog.Model model(Context context, SharedPreferences preferences, WallpaperScreen screen) {
+        Catalog catalog = Catalog.get(context);
+        Catalog.Model selected = catalog.lookup(preferences.getString(screen.key(MODEL), null));
+        return selected != null ? selected : catalog.initialModel(context);
+    }
+
+    static String artPath(Context context, SharedPreferences preferences, WallpaperScreen screen) {
         int variant = screen.variant(enabled(preferences, screen.key(BORDER)),
                 enabled(preferences, screen.key(STATUS)), enabled(preferences, DOCK),
                 enabled(preferences, screen.key(CAMERA)));
-        return "art/" + pattern(preferences, screen) + "-" + variant + ".webp";
+        return model(context, preferences, screen).path(pattern(preferences, screen), variant);
     }
 
     static boolean enabled(SharedPreferences preferences, String key) {

@@ -1,12 +1,13 @@
-# RGB Geometry Live for Android
+# rgb geometry live for Android
 
-An Android 13+ live wallpaper with all four RGB Geometry patterns. The frame, camera ring, home row and search outline, and status bar outline use the Pixel 11 Pro XL calibration from the static pack. The app lets you toggle each outline and set a 6–60 second color cycle. Switching animation off restores the original colors.
+The Android 13+ app includes the same four patterns and 603 selectable model and screen profiles as [wallpapers.klob.io](https://wallpapers.klob.io/). The catalog includes separate foldable panels and orientations, tablets, and desktop sizes. Every profile is available offline. Wallpaper installation uses Android's wallpaper services.
 
-Open **RGB Geometry Live**, select **Home screen** or **Lock screen** under **Layout to edit**, and customize the pattern, frame, camera ring, and status outline. The home row and search outline is available on Home only. Existing appearance settings become the initial layouts for both screens. Audio and motion controls are shared.
+Open **rgb geometry live**, choose **Home screen** or **Lock screen**, then tap **Model** to search by name, manufacturer, or resolution. Select the entry for the panel and orientation you want to use. On a fresh install, the app tries to match the hardware model and screen. If Android reports an unfamiliar product code, it suggests a size and leaves hardware-specific outlines off until you choose them. Choose a pattern and toggle **RGB border**. Camera rings appear on supported models. The status bar and home row outlines use the Pixel 11 Pro XL calibration. The home row is available only on Home. Version 1.2.0 installs alongside 1.1.0 and the test preview. Select your Home and Lock layouts in the new app.
 
-Tap **Apply live wallpaper** and select the destination in Android’s wallpaper picker. The choices available for live wallpaper depend on the device and Android version. When one live wallpaper serves both screens, the app switches layouts as the device locks and unlocks. The display fit is tuned for the Pixel 11 Pro XL.
+- **Apply live wallpaper** opens Android’s live wallpaper preview. Confirm the destination in the system picker. A shared wallpaper switches between your Home and Lock layouts as the device locks and unlocks. Audio and animation settings are shared.
+- **Set home wallpaper** or **Set lock wallpaper** applies a still image to the selected destination. The app renders it at the current display dimensions. The app keeps the original colors and accounts for Android’s wallpaper zoom so the frame and model-specific outlines stay visible.
 
-A hardware canvas runs a hue-rotation shader at about 30 FPS while the wallpaper is visible. Geometry and black space stay fixed. The app uses local assets.
+The live wallpaper renders the selected vector artwork for the surface size and animates its colors at about 30 FPS while visible. Turning off **Animate colors** restores the original colors. Camera coordinates marked estimated in the site catalog and the Pixel Launcher outlines can vary with hardware cutouts, launcher zoom, grid and display settings.
 
 ## Audio Sync
 
@@ -20,10 +21,26 @@ Output-mix capture was confirmed on a Pixel over standard playback and Bluetooth
 
 ## Build
 
-From the repository root, install a JDK, Android SDK Platform 36 and Build Tools 36.0.0, Python 3 with Pillow and WebP support, Inkscape, and zip. Set `ANDROID_SDK_ROOT` to your SDK path and run:
+From the repository root, install a JDK, Android SDK Platform 36 and Build Tools 36.0.0, Python 3, curl, and zip. Set `ANDROID_SDK_ROOT` to your SDK path and run:
 
 ```sh
 bash android-live/build.sh
 ```
 
-The build renders assets from `renders/svg/` using `config/camera_profiles_additions.json` and produces `android-live/build/rgb-geometry-live-aligned.apk`. Sign the aligned APK with Android SDK's `apksigner` and your own keystore before installing. Keep the same signing key for future app updates.
+The build packages the checked-in SVGs and resolves the website catalog at build time. It downloads the checksum-pinned AndroidSVG dependency on the first build. Set `ANDROIDSVG_JAR` to an existing copy for an offline build. The build produces `android-live/build/rgb-geometry-live-aligned.apk`. The release application ID is `io.klob.wallpapers.catalog`. Sign the aligned APK with Android SDK's `apksigner` and your own keystore before installing. Keep the same signing key for future app updates.
+
+## Verify the catalog and app
+
+From the repository root, check every local PNG and SVG against the catalog dimensions and compare their visible artwork.
+
+```sh
+uv run --script src/validate_catalog_art.py --report build/qa/regular-art.csv
+```
+
+After building the app, run the Android rendering checks with an API 34+ test target selected in `ANDROID_SERIAL`. The script uses Python with resvg-py and runs in a separate test package.
+
+```sh
+bash android-live/tests/matrix/run.sh
+```
+
+To test Android’s system picker, live service and still wallpaper setter on a disposable emulator, follow the [device test instructions](tests/device/README.md).

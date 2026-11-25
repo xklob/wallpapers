@@ -3,11 +3,9 @@ package io.klob.wallpapers.live;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.RuntimeShader;
@@ -16,7 +14,6 @@ import android.os.SystemClock;
 import android.util.Log;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 final class RgbRenderer {
     static final long FRAME_INTERVAL_MS = 33;
@@ -49,7 +46,6 @@ final class RgbRenderer {
     private final Context context;
     private final Paint paint = new Paint(Paint.FILTER_BITMAP_FLAG);
     private final RectF destination = new RectF();
-    private final Matrix imageMatrix = new Matrix();
     private final RuntimeShader shader = createShader();
     private Bitmap bitmap;
     private BitmapShader input;
@@ -81,20 +77,10 @@ final class RgbRenderer {
     }
 
     void update(SharedPreferences preferences, WallpaperScreen screen) {
-        String path = Settings.artPath(preferences, screen);
+        String path = Settings.artPath(context, preferences, screen);
         if (!path.equals(artPath)) {
-            try (InputStream file = context.getAssets().open(path)) {
-                Bitmap replacement = BitmapFactory.decodeStream(file);
-                if (replacement == null) throw new IOException("Invalid WebP: " + path);
-                bitmap = replacement;
-                input = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-                input.setFilterMode(BitmapShader.FILTER_MODE_LINEAR);
-                artPath = path;
-                layoutWidth = 0;
-                layoutHeight = 0;
-            } catch (IOException exception) {
-                Log.e("RgbGeometryLive", "Could not load wallpaper artwork", exception);
-            }
+            artPath = path;
+            layoutWidth = layoutHeight = 0;
         }
 
         advance(SystemClock.uptimeMillis());
@@ -153,24 +139,27 @@ final class RgbRenderer {
 
     private void layout(int width, int height) {
         if (width == layoutWidth && height == layoutHeight) return;
-        float scale = Math.min(width / (float) bitmap.getWidth(), height / (float) bitmap.getHeight());
-        float imageWidth = bitmap.getWidth() * scale;
-        float imageHeight = bitmap.getHeight() * scale;
-        float left = (width - imageWidth) / 2.0f;
-        float top = (height - imageHeight) / 2.0f;
-        destination.set(left, top, left + imageWidth, top + imageHeight);
-        imageMatrix.setScale(scale, scale);
-        imageMatrix.postTranslate(left, top);
-        input.setLocalMatrix(imageMatrix);
-        if (shader != null) shader.setInputShader("art", input);
+        try {
+            bitmap = WallpaperArt.render(context, artPath, width, height);
+            input = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+            input.setFilterMode(BitmapShader.FILTER_MODE_LINEAR);
+            if (shader != null) shader.setInputShader("art", input);
+        } catch (IOException exception) {
+            bitmap = null;
+            input = null;
+            Log.e("RgbGeometryLive", "Could not load " + artPath, exception);
+        }
+        updateAudio();
+        destination.set(0, 0, width, height);
         layoutWidth = width;
         layoutHeight = height;
     }
 
     void draw(Canvas canvas) {
         canvas.drawColor(Color.BLACK);
-        if (bitmap == null) return;
+        if (artPath == null || canvas.getWidth() <= 0 || canvas.getHeight() <= 0) return;
         layout(canvas.getWidth(), canvas.getHeight());
+        if (bitmap == null) return;
         long now = SystemClock.uptimeMillis();
         advance(now);
 

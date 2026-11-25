@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -28,11 +29,15 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.function.IntFunction;
 
 public final class SettingsActivity extends Activity {
+    private static final ExecutorService wallpaperWriter = Executors.newSingleThreadExecutor();
     private static final int AUDIO_PERMISSION = 31;
     private static final String EDITING_SCREEN = "editing_screen";
     private final Handler uiHandler = new Handler(Looper.getMainLooper());
@@ -45,6 +50,8 @@ public final class SettingsActivity extends Activity {
     private Spinner audioSource;
     private WallpaperScreen editingScreen = WallpaperScreen.HOME;
     private Spinner patterns;
+    private Button modelButton;
+    private Button regularButton;
     private final Map<String, Switch> appearanceToggles = new LinkedHashMap<>();
     private boolean refreshingAppearance;
     private final Runnable audioMeter = new Runnable() {
@@ -78,31 +85,23 @@ public final class SettingsActivity extends Activity {
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         setContentView(scroll);
 
-        TextView title = addText(content, "RGB Geometry Live", 30);
+        TextView title = addText(content, getString(R.string.app_name), 30);
         title.setAccessibilityHeading(true);
-        addText(content, "Calibrated for the Pixel 11 Pro XL", 14);
-
-        Button apply = new Button(this);
-        apply.setText("Apply live wallpaper");
-        apply.setAllCaps(false);
-        apply.setOnClickListener(view -> openWallpaperPicker());
-        content.addView(apply, fullWidth(dp(52), 8));
-        addText(content, "Choose the destination in Android’s wallpaper picker.", 14);
         addLayoutSelector(content);
-
-        LinearLayout.LayoutParams previewLayout = new LinearLayout.LayoutParams(dp(126), dp(280));
-        previewLayout.gravity = Gravity.CENTER_HORIZONTAL;
-        previewLayout.topMargin = dp(12);
-        previewLayout.bottomMargin = dp(16);
-        content.addView(preview, previewLayout);
-
-        addToggle(content, "Animate colors", Settings.ANIMATE);
-        addAudioSync(content);
-        addAudioTuner(content);
-        speed = addSlider(content, Settings.PERIOD, Settings.MIN_PERIOD, Settings.MAX_PERIOD,
-                Settings.period(preferences), seconds -> "Cycle duration · " + seconds + " s");
-        speed.setEnabled(Settings.enabled(preferences, Settings.ANIMATE));
-
+        TextView modelLabel = addText(content, "Model", 16);
+        modelButton = new Button(this);
+        modelButton.setId(View.generateViewId());
+        modelLabel.setLabelFor(modelButton.getId());
+        modelButton.setAllCaps(false);
+        modelButton.setOnClickListener(view -> {
+            Catalog.Model current = Settings.model(this, preferences, editingScreen);
+            ModelPicker.show(this, Catalog.get(this), current, picked -> {
+                preferences.edit().putString(editingScreen.key(Settings.MODEL), picked.id)
+                        .remove(editingScreen.key(Settings.SUGGESTED)).apply();
+                refreshAppearance();
+            });
+        });
+        content.addView(modelButton, fullWidth(ViewGroup.LayoutParams.WRAP_CONTENT, 0));
         TextView patternLabel = addText(content, "Pattern", 16);
         patterns = new Spinner(this, Spinner.MODE_DROPDOWN);
         patterns.setId(View.generateViewId());
@@ -113,7 +112,10 @@ public final class SettingsActivity extends Activity {
         patterns.setAdapter(names);
         patterns.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                if (!refreshingAppearance) preferences.edit().putInt(editingScreen.key(Settings.PATTERN), pos).apply();
+                if (!refreshingAppearance && pos != Settings.pattern(preferences, editingScreen)) {
+                    preferences.edit().putInt(editingScreen.key(Settings.PATTERN), pos).apply();
+                    refreshAppearance();
+                }
             }
             @Override public void onNothingSelected(AdapterView<?> parent) {}
         });
@@ -123,6 +125,27 @@ public final class SettingsActivity extends Activity {
         addAppearanceToggle(content, "Camera ring", Settings.CAMERA);
         addAppearanceToggle(content, "Home row and search outline", Settings.DOCK);
         addAppearanceToggle(content, "Status bar outline", Settings.STATUS);
+        LinearLayout.LayoutParams previewLayout = new LinearLayout.LayoutParams(1, 1);
+        previewLayout.gravity = Gravity.CENTER_HORIZONTAL;
+        previewLayout.topMargin = dp(12);
+        previewLayout.bottomMargin = dp(8);
+        content.addView(preview, previewLayout);
+
+        Button apply = new Button(this);
+        apply.setText("APPLY LIVE WALLPAPER");
+        apply.setOnClickListener(view -> openWallpaperPicker());
+        content.addView(apply, fullWidth(dp(52), 4));
+
+        regularButton = new Button(this);
+        regularButton.setOnClickListener(view -> applyRegularWallpaper());
+        content.addView(regularButton, fullWidth(dp(52), 0));
+
+        addToggle(content, "Animate colors", Settings.ANIMATE);
+        addAudioSync(content);
+        addAudioTuner(content);
+        speed = addSlider(content, Settings.PERIOD, Settings.MIN_PERIOD, Settings.MAX_PERIOD,
+                Settings.period(preferences), seconds -> "Cycle duration · " + seconds + " s");
+        speed.setEnabled(Settings.enabled(preferences, Settings.ANIMATE));
         refreshAppearance();
     }
 
@@ -134,7 +157,7 @@ public final class SettingsActivity extends Activity {
     @Override public void onStart() {
         super.onStart();
         preferences.registerOnSharedPreferenceChangeListener(changes);
-        preview.refresh(preferences);
+        refreshAppearance();
         preview.setActive(true);
         refreshAudioStatus();
     }
@@ -154,9 +177,32 @@ public final class SettingsActivity extends Activity {
         try {
             startActivity(intent);
         } catch (ActivityNotFoundException exception) {
-            Toast.makeText(this, "Open Wallpaper & style and select RGB Geometry Live.",
+            Toast.makeText(this, "Open Wallpaper & style and select rgb geometry live.",
                     Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void applyRegularWallpaper() {
+        WallpaperScreen target = editingScreen;
+        String path = Settings.artPath(this, preferences, target);
+        Rect bounds = getWindowManager().getMaximumWindowMetrics().getBounds();
+        Context context = getApplicationContext();
+        regularButton.setEnabled(false);
+        wallpaperWriter.execute(() -> {
+            String message;
+            try {
+                int id = RegularWallpaper.apply(context, path, bounds.width(), bounds.height(), target);
+                message = id > 0 ? target + " wallpaper set." : "Android could not set the wallpaper.";
+            } catch (IOException | RuntimeException exception) {
+                android.util.Log.e("RgbGeometryLive", "Could not set regular wallpaper", exception);
+                message = "Could not set the wallpaper. Check that wallpaper changes are allowed.";
+            }
+            String result = message;
+            uiHandler.post(() -> {
+                if (!isDestroyed()) regularButton.setEnabled(true);
+                Toast.makeText(context, result, Toast.LENGTH_LONG).show();
+            });
+        });
     }
 
     private int dp(int value) {
@@ -203,7 +249,10 @@ public final class SettingsActivity extends Activity {
         toggle.setText(title);
         toggle.setTextSize(16);
         toggle.setOnCheckedChangeListener((button, enabled) -> {
-            if (!refreshingAppearance) preferences.edit().putBoolean(editingScreen.key(key), enabled).apply();
+            if (!refreshingAppearance) {
+                preferences.edit().putBoolean(editingScreen.key(key), enabled).apply();
+                if (Settings.BORDER.equals(key)) refreshAppearance();
+            }
         });
         appearanceToggles.put(key, toggle);
         content.addView(toggle, fullWidth(dp(48), 0));
@@ -211,15 +260,40 @@ public final class SettingsActivity extends Activity {
 
     private void refreshAppearance() {
         refreshingAppearance = true;
-        patterns.setSelection(Settings.pattern(preferences, editingScreen));
+        Catalog.Model model = Settings.model(this, preferences, editingScreen);
+        String suggestion = preferences.getBoolean(editingScreen.key(Settings.SUGGESTED), false)
+                ? "Suggested // " : "";
+        modelButton.setText(suggestion + model.name + " // " + model.width + " × " + model.height);
+        regularButton.setText(editingScreen == WallpaperScreen.LOCK ? "SET LOCK WALLPAPER" : "SET HOME WALLPAPER");
+        int pattern = Settings.pattern(preferences, editingScreen);
+        int style = Settings.enabled(preferences, editingScreen.key(Settings.BORDER)) ? Catalog.BORDER : 0;
+        patterns.setSelection(pattern);
         for (Map.Entry<String, Switch> entry : appearanceToggles.entrySet()) {
             String key = entry.getKey();
             Switch toggle = entry.getValue();
-            boolean visible = editingScreen == WallpaperScreen.HOME || !Settings.DOCK.equals(key);
+            if (Settings.CAMERA.equals(key)) {
+                toggle.setText(model.estimatedCamera ? "Camera ring (estimated)" : "Camera ring");
+            }
+            boolean visible = Settings.BORDER.equals(key)
+                    || (Settings.CAMERA.equals(key) && model.supports(pattern, style, Catalog.CAMERA))
+                    || (Settings.STATUS.equals(key) && model.supports(pattern, style, Catalog.STATUS))
+                    || (Settings.DOCK.equals(key) && editingScreen == WallpaperScreen.HOME
+                            && model.supports(pattern, style, Catalog.DOCK));
             toggle.setVisibility(visible ? View.VISIBLE : View.GONE);
             toggle.setChecked(visible && Settings.enabled(preferences, editingScreen.key(key)));
         }
         refreshingAppearance = false;
+        int availableWidth = Math.max(1, getWindowManager().getCurrentWindowMetrics().getBounds().width() - dp(48));
+        float scale = Math.min(Math.min(dp(300), availableWidth) / (float) model.width,
+                dp(180) / (float) model.height);
+        ViewGroup.LayoutParams size = preview.getLayoutParams();
+        int width = Math.max(1, Math.round(model.width * scale));
+        int height = Math.max(1, Math.round(model.height * scale));
+        if (size.width != width || size.height != height) {
+            size.width = width;
+            size.height = height;
+            preview.setLayoutParams(size);
+        }
         preview.setScreen(preferences, editingScreen);
     }
 

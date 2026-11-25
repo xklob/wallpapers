@@ -1,0 +1,9 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="io.klob.wallpapers.applytest">
+    <uses-sdk android:minSdkVersion="33" android:targetSdkVersion="34" />
+    <application android:label="Wallpaper apply test">
+        <activity android:name="io.klob.wallpapers.applytest.EmptyLauncher"
+            android:exported="true" android:theme="@android:style/Theme.Wallpaper.NoTitleBar.Fullscreen" />
+    </application>
+    <instrumentation android:name="io.klob.wallpapers.live.ApplyMatrix"
+        android:targetPackage="io.klob.wallpapers.catalog" />
+</manifest>

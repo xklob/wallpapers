@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">RGB Geometry Live</string>
-    <string name="wallpaper_description">RGB patterns fitted for the Pixel 11 Pro XL</string>
+    <string name="app_name">rgb geometry live</string>
+    <string name="wallpaper_description">Animated RGB geometry for your screen</string>
     <style name="AppTheme" parent="android:style/Theme.Material.NoActionBar">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:windowBackground">#101010</item>
