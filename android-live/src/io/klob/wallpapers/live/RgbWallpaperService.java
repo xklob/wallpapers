@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.service.wallpaper.WallpaperService;
+import android.view.Choreographer;
 import android.view.SurfaceHolder;
 import android.view.WindowInsets;
 import android.view.WindowManager;
@@ -22,7 +23,9 @@ public final class RgbWallpaperService extends WallpaperService {
         private final RgbRenderer renderer = new RgbRenderer(RgbWallpaperService.this);
         private final SharedPreferences preferences = Settings.open(RgbWallpaperService.this);
         private final KeyguardManager keyguard = getSystemService(KeyguardManager.class);
-        private final Runnable frame = this::draw;
+        private final Choreographer clock = Choreographer.getInstance();
+        private final FramePacer pace = new FramePacer();
+        private final Choreographer.FrameCallback frame = this::onFrame;
         private final Runnable screenCheck = this::checkSharedScreen;
         private WallpaperScreen screen;
         private boolean visible;
@@ -47,7 +50,7 @@ public final class RgbWallpaperService extends WallpaperService {
             renderer.setVisible(visible && hasSurface);
             scheduleScreenCheck();
             if (visible) draw();
-            else handler.removeCallbacks(frame);
+            else stopFrames();
         }
 
         @Override public void onSurfaceChanged(SurfaceHolder holder, int format, int width, int height) {
@@ -84,13 +87,13 @@ public final class RgbWallpaperService extends WallpaperService {
         @Override public void onSurfaceDestroyed(SurfaceHolder holder) {
             hasSurface = false;
             renderer.setVisible(false);
-            handler.removeCallbacks(frame);
+            stopFrames();
             handler.removeCallbacks(screenCheck);
             super.onSurfaceDestroyed(holder);
         }
 
         @Override public void onDestroy() {
-            handler.removeCallbacks(frame);
+            stopFrames();
             handler.removeCallbacks(screenCheck);
             renderer.setVisible(false);
             preferences.unregisterOnSharedPreferenceChangeListener(changes);
@@ -131,8 +134,27 @@ public final class RgbWallpaperService extends WallpaperService {
             if (visible && hasSurface && shared && !isPreview()) handler.postDelayed(screenCheck, 150);
         }
 
+        private void stopFrames() {
+            clock.removeFrameCallback(frame);
+            pace.reset();
+        }
+
+        private void onFrame(long vsyncNanos) {
+            if (!hasSurface || !renderer.isAnimating()) return;
+            if (pace.ready(vsyncNanos, renderer.frameRate())) drawSurface();
+            if (renderer.isAnimating()) clock.postFrameCallback(frame);
+        }
+
         private void draw() {
-            handler.removeCallbacks(frame);
+            stopFrames();
+            drawSurface();
+            if (hasSurface && renderer.isAnimating()) {
+                pace.ready(System.nanoTime(), renderer.frameRate());
+                clock.postFrameCallback(frame);
+            }
+        }
+
+        private void drawSurface() {
             if (!hasSurface) return;
             SurfaceHolder holder = getSurfaceHolder();
             Canvas canvas = null;
@@ -144,9 +166,16 @@ public final class RgbWallpaperService extends WallpaperService {
                     android.util.Log.w("RgbGeometryLive", "Wallpaper surface draw failed", exception);
                 }
             } finally {
-                if (canvas != null) holder.unlockCanvasAndPost(canvas);
+                if (canvas != null) {
+                    try {
+                        holder.unlockCanvasAndPost(canvas);
+                    } catch (IllegalStateException | IllegalArgumentException exception) {
+                        if (holder.getSurface().isValid()) {
+                            android.util.Log.w("RgbGeometryLive", "Wallpaper surface changed during draw", exception);
+                        }
+                    }
+                }
             }
-            if (renderer.isAnimating()) handler.postDelayed(frame, RgbRenderer.FRAME_INTERVAL_MS);
         }
     }
 }

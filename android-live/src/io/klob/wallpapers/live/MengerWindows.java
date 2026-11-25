@@ -8,21 +8,39 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.graphics.RuntimeShader;
+import android.util.Log;
+
+import java.lang.ref.WeakReference;
 import android.graphics.Shader;
 
 /** An orthographic Menger module with a transparent window looking into the next scale. */
 final class MengerWindows {
     private static final float RATIO = 5f;
     // Projection of the point inside the open window in generate_menger.py.
-    private static final float FOCUS_X = 0.3510348f, FOCUS_Y = 0.5982943f;
+    private static final float FOCUS_X = 0.34971622f, FOCUS_Y = 0.59916291f;
     private static final float DETAIL_WIDTH = .25f;
-    private static Bitmap module;
-    private static Bitmap detailModule;
+    private static final String DETAIL_BLEND =
+            "uniform shader base, detail;\n"
+            + "uniform float4 bounds;\n"
+            + "uniform float mixAmount;\n"
+            + "half4 main(float2 p) {\n"
+            + "    half4 lower = base.eval(p);\n"
+            + "    float2 border = min(p - bounds.xy, bounds.zw - p);\n"
+            + "    float distance = min(border.x, border.y);\n"
+            + "    if (distance <= 0) return lower;\n"
+            + "    half weight = half(smoothstep(0.0, 18.0, distance) * mixAmount);\n"
+            + "    return mix(lower, detail.eval(p), weight);\n"
+            + "}";
+    private static WeakReference<Bitmap> moduleCache = new WeakReference<>(null);
+    private static WeakReference<Bitmap> detailCache = new WeakReference<>(null);
     private final BitmapShader texture;
     private final BitmapShader detailTexture;
     private final Paint paint = new Paint(Paint.FILTER_BITMAP_FLAG);
     private final RectF detailBounds;
     private final int size;
+    private RuntimeShader blend;
+    private boolean attemptedBlend;
 
     MengerWindows(Context context) {
         Bitmap image = module(context);
@@ -46,19 +64,42 @@ final class MengerWindows {
     }
 
     private static synchronized Bitmap module(Context context) {
-        if (module == null) {
-            module = BitmapFactory.decodeResource(context.getResources(), R.drawable.menger_windows);
-            module.setDensity(Bitmap.DENSITY_NONE);
+        Bitmap bitmap = moduleCache.get();
+        if (bitmap == null) {
+            bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.menger_windows);
+            bitmap.setDensity(Bitmap.DENSITY_NONE);
+            bitmap.setHasMipMap(true);
+            moduleCache = new WeakReference<>(bitmap);
         }
-        return module;
+        return bitmap;
     }
 
     private static synchronized Bitmap detailModule(Context context) {
-        if (detailModule == null) {
-            detailModule = BitmapFactory.decodeResource(context.getResources(), R.drawable.menger_windows_detail);
-            detailModule.setDensity(Bitmap.DENSITY_NONE);
+        Bitmap bitmap = detailCache.get();
+        if (bitmap == null) {
+            bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.menger_windows_detail);
+            bitmap.setDensity(Bitmap.DENSITY_NONE);
+            bitmap.setHasMipMap(true);
+            detailCache = new WeakReference<>(bitmap);
         }
-        return detailModule;
+        return bitmap;
+    }
+
+    private RuntimeShader detailBlend() {
+        if (!attemptedBlend) {
+            attemptedBlend = true;
+            try {
+                RuntimeShader candidate = new RuntimeShader(DETAIL_BLEND);
+                candidate.setInputShader("base", texture);
+                candidate.setInputShader("detail", detailTexture);
+                candidate.setFloatUniform("bounds", detailBounds.left, detailBounds.top,
+                        detailBounds.right, detailBounds.bottom);
+                blend = candidate;
+            } catch (IllegalArgumentException exception) {
+                Log.w("RgbGeometryLive", "Menger detail blend unavailable", exception);
+            }
+        }
+        return blend;
     }
 
     static boolean uses(String assetPath) {
@@ -79,8 +120,15 @@ final class MengerWindows {
             canvas.translate(width * .49f - side * FOCUS_X, height * .50f - side * FOCUS_Y);
             canvas.scale(side / size, side / size);
             paint.setShader(texture);
-            if (side > size) {
-                // Both passes sample the same coordinates at different resolutions.
+            RuntimeShader transition = side > size * .8f && canvas.isHardwareAccelerated() ? detailBlend() : null;
+            if (transition != null) {
+                // Use the same projection for each source. Fade in magnification detail
+                // and feather its boundary without stacking two translucent surfaces.
+                float t = Math.min(1, (side / size - .8f) / .5f);
+                transition.setFloatUniform("mixAmount", t * t * (3 - 2 * t));
+                paint.setShader(transition);
+            } else if (side > size) {
+                // Also keep high detail available when baking the still on a software canvas.
                 canvas.save();
                 canvas.clipOutRect(detailBounds);
                 canvas.drawRect(0, 0, size, size, paint);

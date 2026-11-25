@@ -27,7 +27,7 @@ RIGHT = unit(np.cross([0, 1, 0], VIEW))
 UP = np.cross(VIEW, RIGHT)
 SPAN = 3.35
 # Projected focus is the middle of the visible opening at the back of its short jamb.
-FOCUS = np.array([-0.075, -0.068, 0.77])
+FOCUS = np.array([-0.075, -0.068, 7 / 9])
 PORTAL_Z = FOCUS[2]
 FX, FY = .5 + FOCUS @ RIGHT / SPAN, .5 - FOCUS @ UP / SPAN
 
@@ -118,10 +118,17 @@ def trace(origins, solid):
 
 
 def rainbow(distance):
-    # Hue advances uniformly in Android. A linear distance term makes the wave
-    # travel outward at a fixed speed in model space, even across right angles.
+    # The hue is fixed to geodesic distance on the visible surfaces.
+    # Zooming reveals different points of the same physical color field.
     hue = -distance / COLOR_WAVELENGTH
     return np.clip(np.abs((hue[:, None] + [0, 2/3, 1/3]) % 1 * 6 - 3) - 1, 0, 1)
+
+
+def through_portal(origins, pos, hits):
+    t = (origins[:, 2] - PORTAL_Z) / VIEW[2]
+    portal = origins - t[:, None] * VIEW
+    opening = (np.abs(portal[:, :2]).max(axis=1) < 1 / 3) & (~hits | (pos[:, 2] < PORTAL_Z + 1e-7))
+    return portal, opening
 
 
 def portal_lining(origins, portal, opening, rgba):
@@ -137,7 +144,7 @@ def portal_lining(origins, portal, opening, rgba):
     x, y = mouth[:, :2].T
     # Extend the zero-distance jamb inward along the recessed connector plane.
     distance = np.maximum(np.abs(x), np.abs(y)) - 1 / 3
-    separation = (near - far)[gap]
+    separation = np.maximum(near - far, 0)[gap]
     wheel = rainbow(distance)
     # Shade the inner bevel without losing the tunnel's color next to the cube.
     throat = 1 - np.exp(-1.4 * separation)
@@ -153,9 +160,7 @@ def render(rows, resolution, solid, field, left, top, span):
     v = (.5 - top - (y.ravel() + .5) * (span / resolution)) * SPAN
     origins = u[:, None] * RIGHT + v[:, None] * UP + 4 * VIEW
     pos, axis, hits, cells = trace(origins, solid)
-    t_portal = (origins[:, 2] - PORTAL_Z) / VIEW[2]
-    portal = origins - t_portal[:, None] * VIEW
-    opening = (np.abs(portal[:, :2]).max(axis=1) < 1 / 3) & (~hits | (pos[:, 2] < PORTAL_Z + 1e-7))
+    portal, opening = through_portal(origins, pos, hits)
     visible = hits & ~opening
     rgba = np.zeros((len(x.ravel()), 4), dtype=np.uint8)
     p, a = pos[visible], axis[visible]

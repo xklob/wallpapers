@@ -18,7 +18,6 @@ import android.view.WindowMetrics;
 import java.io.IOException;
 
 final class RgbRenderer {
-    static final long FRAME_INTERVAL_MS = 33;
     private static final String SHADER =
             "uniform shader art;\n"
             + "uniform float phase;\n"
@@ -54,7 +53,7 @@ final class RgbRenderer {
     private BitmapShader input;
     private MengerWindows menger;
     private MandelbrotZoom mandelbrot;
-    private RuntimeShader mandelbrotColors;
+    private int frameRate = 30;
     private double zoomPhase;
     private float zoomSpeed = 1f;
     private String artPath, rotatedPath;
@@ -93,6 +92,8 @@ final class RgbRenderer {
         String path = Settings.artPath(selected, preferences, screen);
         String other = rotated == selected ? path : Settings.artPath(rotated, preferences, screen);
         if (selected != model || !path.equals(artPath) || !other.equals(rotatedPath)) {
+            if (MandelbrotZoom.uses(path) != MandelbrotZoom.uses(artPath)
+                    || MengerWindows.uses(path) != MengerWindows.uses(artPath)) zoomPhase = 0;
             model = selected;
             rotatedModel = rotated;
             artPath = path;
@@ -106,15 +107,15 @@ final class RgbRenderer {
             if (MandelbrotZoom.uses(path)) {
                 if (mandelbrot == null) {
                     mandelbrot = new MandelbrotZoom(context);
-                    mandelbrotColors = mandelbrot.isAvailable() ? createShader() : null;
                 }
             } else {
                 mandelbrot = null;
-                mandelbrotColors = null;
             }
         }
 
-        zoomSpeed = Settings.zoomSpeed(preferences) / 4f;
+        zoomSpeed = Settings.zoomSpeed(preferences) / (mandelbrot == null ? 4f : 8f);
+        frameRate = Settings.FRAME_RATES[Settings.frameRateIndex(preferences)];
+        if (mandelbrot != null) mandelbrot.setQuality(Settings.quality(preferences));
         periodMillis = Settings.period(preferences) * 1000;
         setAnimation(menger == null && Settings.enabled(preferences, Settings.ANIMATE));
         audioSync = Settings.audioSync(preferences);
@@ -180,6 +181,10 @@ final class RgbRenderer {
         return menger != null || (mandelbrot != null && mandelbrot.isAvailable());
     }
 
+    int frameRate() {
+        return hasZoom() ? frameRate : 30;
+    }
+
     boolean isAnimating() {
         return visible && bitmap != null && (hasZoom() || (animate && shader != null));
     }
@@ -228,9 +233,7 @@ final class RgbRenderer {
             float wave = audioEffect.waveHue * intensity * pulses.wavePulse(now, audioSmoothness);
             float travel = pulses.travel(now, audioSmoothness);
             tint(shader, gain, wave, travel, destination.width() + destination.height());
-            if (mandelbrotColors != null) {
-                tint(mandelbrotColors, gain, wave, travel, destination.width() + destination.height());
-            }
+            if (mandelbrot != null) mandelbrot.setColor(phase, gain, wave, travel);
             paint.setShader(shader);
         } else {
             paint.setShader(input);
@@ -238,7 +241,8 @@ final class RgbRenderer {
         if (menger != null) {
             menger.draw(canvas, width, height, zoomPhase);
         } else if (mandelbrot != null) {
-            mandelbrot.draw(context, canvas, width, height, zoomPhase, colorize ? mandelbrotColors : null);
+            if (!colorize) mandelbrot.setColor(0, 1, 0, 0);
+            mandelbrot.draw(context, canvas, width, height, zoomPhase);
         }
         canvas.drawRect(destination, paint);
     }

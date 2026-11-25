@@ -54,6 +54,7 @@ public final class RenderMatrix extends Instrumentation {
             PanelCornersTest.run(context);
             MengerWindowsTest.run(context);
             checkMandelbrot();
+            checkFramePacing();
             int scaleId = context.getResources().getIdentifier("config_wallpaperMaxScale", "dimen", "android");
             launcherZoom = scaleId == 0 ? 1.10f : Math.max(1f, context.getResources().getFloat(scaleId));
             try (BufferedReader data = new BufferedReader(new InputStreamReader(context.getAssets().open("rings.tsv")))) {
@@ -104,25 +105,47 @@ public final class RenderMatrix extends Instrumentation {
         }
         MandelbrotZoom scene = new MandelbrotZoom(context);
         require(scene.isAvailable(), "Mandelbrot projection shader did not compile");
-        for (int[] size : new int[][]{{270, 600}, {640, 400}, {400, 400}}) {
+        for (int[] size : new int[][]{{270, 600}, {640, 400}, {400, 400}, {180, 640}}) {
             int width = size[0], height = size[1];
             try (FrameCapture frames = new FrameCapture(width, height)) {
-                Bitmap start = frames.draw(canvas -> scene.draw(context, canvas, width, height, 0, null));
-                Bitmap wrap = frames.draw(canvas -> scene.draw(context, canvas, width, height, .999999, null));
-                Bitmap middle = frames.draw(canvas -> scene.draw(context, canvas, width, height, .47, null));
                 Bitmap still = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
                 MandelbrotZoom.drawStill(context, new Canvas(still), width, height);
-                require(hasColor(start) && hasColor(middle), "Blank Mandelbrot scene");
-                require(meanChannelDifference(start, wrap) < .8, "Mandelbrot zoom jumps at the wrap");
-                require(meanChannelDifference(start, middle) > 5, "Mandelbrot did not zoom with colors fixed");
-                require(meanChannelDifference(start, still) < 5, "Mandelbrot still differs from the initial view");
-                start.recycle();
-                wrap.recycle();
-                middle.recycle();
+                for (int quality = 0; quality < 3; ++quality) {
+                    scene.setQuality(quality);
+                    Bitmap start = frames.draw(canvas -> scene.draw(context, canvas, width, height, 0));
+                    Bitmap wrap = frames.draw(canvas -> scene.draw(context, canvas, width, height, .999999));
+                    Bitmap middle = frames.draw(canvas -> scene.draw(context, canvas, width, height, .47));
+                    require(hasColor(start) && hasColor(middle), "Blank Mandelbrot scene");
+                    require(meanChannelDifference(start, wrap) < .8, "Mandelbrot zoom jumps at the wrap");
+                    require(meanChannelDifference(start, middle) > 5, "Mandelbrot did not zoom with colors fixed");
+                    double difference = meanChannelDifference(start, still);
+                    require(difference < 5, "Mandelbrot still differs from the initial view "
+                            + width + "x" + height + " quality " + quality + " mean " + difference);
+                    require(Color.red(start.getPixel(width / 2, height / 2)) <= 1
+                            && Color.blue(start.getPixel(width / 2, height / 2)) <= 1, "Mandelbrot interior is not black");
+                    require(Color.blue(start.getPixel(3, height - 4)) >= 115, "Mandelbrot lost the cobalt background");
+                    start.recycle();
+                    wrap.recycle();
+                    middle.recycle();
+                }
                 still.recycle();
             }
         }
-        Log.i(TAG, "Mandelbrot: all 603 model profiles, GPU zoom wrap, and matching stills verified");
+        Log.i(TAG, "Mandelbrot: all 603 model profiles, four aspect ratios, three quality modes, GPU wraps and stills verified");
+    }
+
+    private static void checkFramePacing() {
+        for (int refresh : new int[]{60, 90, 120}) {
+            for (int target : new int[]{15, 30, 60}) {
+                FramePacer pace = new FramePacer();
+                int frames = 0;
+                for (int tick = 0; tick < refresh * 4; tick++) {
+                    if (pace.ready(tick * 1_000_000_000L / refresh, target)) frames++;
+                }
+                require(Math.abs(frames - target * 4) <= 1,
+                        "Wrong frame cap at " + refresh + " Hz / " + target + " fps: " + frames);
+            }
+        }
     }
 
     private static double meanChannelDifference(Bitmap first, Bitmap second) {

@@ -29,6 +29,19 @@ final class Settings {
     static final String ZOOM_SPEED = "menger_zoom_speed"; // Keep the saved speed from the original zoom pattern.
     static final int DEFAULT_ZOOM = 4; // quarter-speed increments; 4 is 1×
     static final int MAX_ZOOM = 16;
+    static final String TEXTURE_QUALITY = "mandelbrot_texture_quality";
+    static final String FRAME_RATE = "zoom_frame_rate";
+    static final String THEME = "app_theme";
+    static final int[] FRAME_RATES = {15, 30, 60};
+
+    static int quality(SharedPreferences prefs) {
+        return Math.max(0, Math.min(2, prefs.getInt(TEXTURE_QUALITY, 1)));
+    }
+
+    static int frameRateIndex(SharedPreferences prefs) {
+        return Math.max(0, Math.min(2, prefs.getInt(FRAME_RATE, 1)));
+    }
+
     static final int MENGER = 3;
     static final int MANDELBROT = 4;
 

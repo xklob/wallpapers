@@ -2,12 +2,4 @@
 <resources>
     <string name="app_name">rgb geometry live</string>
     <string name="wallpaper_description">Animated RGB geometry for your screen</string>
-    <style name="AppTheme" parent="android:style/Theme.Material.NoActionBar">
-        <item name="android:fontFamily">sans-serif</item>
-        <item name="android:windowBackground">#101010</item>
-        <item name="android:statusBarColor">#101010</item>
-        <item name="android:navigationBarColor">#101010</item>
-        <item name="android:colorAccent">#9dffb5</item>
-        <item name="android:windowLightStatusBar">false</item>
-    </style>
 </resources>

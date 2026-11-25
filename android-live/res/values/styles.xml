@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="android:style/Theme.Material.NoActionBar">
+        <item name="android:fontFamily">@font/space_grotesk_regular</item>
+        <item name="android:windowBackground">#101010</item>
+        <item name="android:statusBarColor">#101010</item>
+        <item name="android:navigationBarColor">#101010</item>
+        <item name="android:colorAccent">#00ff00</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+    <style name="AppThemeLight" parent="android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:fontFamily">@font/space_grotesk_regular</item>
+        <item name="android:windowBackground">#fafaf8</item>
+        <item name="android:statusBarColor">#fafaf8</item>
+        <item name="android:navigationBarColor">#fafaf8</item>
+        <item name="android:colorAccent">#007500</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+</resources>
