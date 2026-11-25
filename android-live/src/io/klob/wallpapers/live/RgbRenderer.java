@@ -51,6 +51,9 @@ final class RgbRenderer {
     private final RuntimeShader shader = createShader();
     private Bitmap bitmap;
     private BitmapShader input;
+    private BitmapShader artworkInput;
+    private RuntimeShader artworkColors;
+    private int rotation;
     private MengerWindows menger;
     private MandelbrotZoom mandelbrot;
     private int frameRate = 30;
@@ -87,6 +90,11 @@ final class RgbRenderer {
 
     void update(SharedPreferences preferences, WallpaperScreen screen) {
         advance(SystemClock.uptimeMillis());
+        int angle = ArtworkRotation.normalized(Settings.rotation(preferences, screen));
+        if ((rotation == 0) != (angle == 0) && (artPath == null || !WallpaperArt.hasScene(artPath))) {
+            layoutWidth = layoutHeight = 0;
+        }
+        rotation = angle;
         Catalog.Model selected = Settings.model(context, preferences, screen);
         Catalog.Model rotated = Catalog.get(context).forOrientation(selected, selected.width <= selected.height);
         String path = Settings.artPath(selected, preferences, screen);
@@ -193,20 +201,43 @@ final class RgbRenderer {
         if (width == layoutWidth && height == layoutHeight) return;
         try {
             boolean rotate = (width > height) != (model.width > model.height);
-            bitmap = WallpaperArt.render(context, rotate ? rotatedPath : artPath, width, height, 1f,
-                    rotate ? rotatedModel : model, corners, false);
-            input = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-            input.setFilterMode(BitmapShader.FILTER_MODE_LINEAR);
+            Catalog.Model displayed = rotate ? rotatedModel : model;
+            String path = rotate ? rotatedPath : artPath;
+            boolean split = rotation != 0 && !WallpaperArt.hasScene(path);
+            artworkInput = null;
+            if (split) {
+                Bitmap artwork = WallpaperArt.renderLayer(context, path, width, height, displayed, corners,
+                        WallpaperArt.Layer.ARTWORK);
+                artworkInput = sample(artwork);
+                if (shader != null) {
+                    if (artworkColors == null) artworkColors = createShader();
+                    if (artworkColors != null) artworkColors.setInputShader("art", artworkInput);
+                }
+                bitmap = WallpaperArt.renderLayer(context, path, width, height, displayed, corners,
+                        WallpaperArt.Layer.FRAME);
+            } else {
+                artworkColors = null;
+                bitmap = WallpaperArt.render(context, path, width, height, 1f, displayed, corners, false);
+            }
+            input = sample(bitmap);
             if (shader != null) shader.setInputShader("art", input);
         } catch (IOException exception) {
             bitmap = null;
             input = null;
+            artworkInput = null;
+            artworkColors = null;
             Log.e("RgbGeometryLive", "Could not load " + artPath, exception);
         }
         updateAudio();
         destination.set(0, 0, width, height);
         layoutWidth = width;
         layoutHeight = height;
+    }
+
+    private static BitmapShader sample(Bitmap image) {
+        BitmapShader sample = new BitmapShader(image, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+        sample.setFilterMode(BitmapShader.FILTER_MODE_LINEAR);
+        return sample;
     }
 
     void draw(Canvas canvas) {
@@ -232,17 +263,28 @@ final class RgbRenderer {
             float gain = 1f - audioEffect.dimming * intensity * pulses.activity(now) * (1f - pulse);
             float wave = audioEffect.waveHue * intensity * pulses.wavePulse(now, audioSmoothness);
             float travel = pulses.travel(now, audioSmoothness);
-            tint(shader, gain, wave, travel, destination.width() + destination.height());
+            float diagonal = destination.width() + destination.height();
+            tint(shader, gain, wave, travel, diagonal);
+            if (artworkColors != null) tint(artworkColors, gain, wave, travel, diagonal);
             if (mandelbrot != null) mandelbrot.setColor(phase, gain, wave, travel);
             paint.setShader(shader);
         } else {
             paint.setShader(input);
         }
-        if (menger != null) {
-            menger.draw(canvas, width, height, zoomPhase);
-        } else if (mandelbrot != null) {
-            if (!colorize) mandelbrot.setColor(0, 1, 0, 0);
-            mandelbrot.draw(context, canvas, width, height, zoomPhase);
+        if (menger != null || mandelbrot != null || artworkInput != null) {
+            canvas.save();
+            ArtworkRotation.apply(canvas, width, height, rotation);
+            if (menger != null) {
+                menger.draw(canvas, width, height, zoomPhase);
+            } else if (mandelbrot != null) {
+                if (!colorize) mandelbrot.setColor(0, 1, 0, 0);
+                mandelbrot.draw(context, canvas, width, height, zoomPhase);
+            } else {
+                paint.setShader(colorize && artworkColors != null ? artworkColors : artworkInput);
+                canvas.drawRect(destination, paint);
+                paint.setShader(colorize ? shader : input);
+            }
+            canvas.restore();
         }
         canvas.drawRect(destination, paint);
     }

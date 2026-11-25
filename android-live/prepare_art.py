@@ -5,7 +5,6 @@ from collections import defaultdict
 import json
 from pathlib import Path
 import re
-import shutil
 from xml.etree import ElementTree as ET
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -83,45 +82,76 @@ def prepare_file(source, output, row, viewport):
         # Remove only this group's inset. Camera rings use display coordinates.
         inset.attrib.pop("transform")
     calibrated_tablet = row[2].startswith("pixel_tablet_")
-    marked = row[6] == "rgb_border" and not calibrated_tablet and mark_device_frame(svg)
+    if row[6] == "rgb_border" and not calibrated_tablet:
+        mark_device_frame(svg)
     path = Path("display-art" if viewport or inset is not None else "art") / name
     (output / path).parent.mkdir(parents=True, exist_ok=True)
-    if marked or viewport or inset is not None:
-        ET.ElementTree(svg).write(output / path, encoding="utf-8")
-    else:
-        shutil.copyfile(source / name, output / path)
+    mark_rotation_layers(svg, row[6] == "rgb_border")
+    ET.ElementTree(svg).write(output / path, encoding="utf-8")
     if row[1] == PATTERNS[0]:
         write_menger_frame(svg, output / MENGER_FRAMES / path, row[6] == "rgb_border")
     return path.as_posix()
 
 
-def write_menger_frame(svg, output, bordered):
-    """Keep the profile's stationary frame and launcher artwork, exposing the fractal inside."""
-    ns = "{http://www.w3.org/2000/svg}"
+def pattern_layer(svg):
     parents = {child: parent for parent in svg.iter() for child in parent}
     group = svg.find(".//*[@stroke='url(#rainbow)']")
     while group.get("clip-path") is None:
         group = parents[group]
+    return group, parents
+
+
+def add_gutter_mask(svg, group, parents, name):
+    # The gutter shares the authored viewport and calibrated panel silhouette.
+    ns = "{http://www.w3.org/2000/svg}"
+    mask = ET.SubElement(svg.find(ns + "defs"), ns + "mask", id=name)
+    area = dict(x="-100%", y="-100%", width="300%", height="300%")
+    ET.SubElement(mask, ns + "rect", area, fill="white")
+    branch = ET.Element(ns + "g", {"clip-path": group.get("clip-path")})
+    ET.SubElement(branch, ns + "rect", area, fill="black")
+    parent = parents[group]
+    while parent is not svg:
+        branch_parent = ET.Element(ns + "g", {key: value for key, value in parent.attrib.items() if key != "id"})
+        branch_parent.append(branch)
+        branch = branch_parent
+        parent = parents[parent]
+    mask.append(branch)
+
+
+def mark_rotation_layers(svg, bordered):
+    ns = "{http://www.w3.org/2000/svg}"
+    group, parents = pattern_layer(svg)
+    group.set("class", "rotation-pattern")
+    backdrop = svg.find(ns + "rect")
+    backdrop.set("class", "rotation-backdrop")
+    # Offset/scaling ancestors belong to both the art and stationary hardware.
+    # Mark only their other children, not the shared transforms.
+    node = group
+    while node is not svg:
+        parent = parents[node]
+        for child in parent:
+            if child is not node and child is not backdrop and child.tag not in (ns + "defs", ns + "title"):
+                child.set("class", "rotation-overlay")
+        node = parent
+    if bordered:
+        add_gutter_mask(svg, group, parents, "rotation-gutter-mask")
+        # Hidden by default, visible in the stationary-only render.
+        svg.insert(list(svg).index(backdrop) + 1, ET.Element(ns + "rect", {
+            **backdrop.attrib, "class": "rotation-gutter", "display": "none", "mask": "url(#rotation-gutter-mask)"
+        }))
+
+
+def write_menger_frame(svg, output, bordered):
+    """Keep the profile's stationary frame and launcher artwork, exposing the fractal inside."""
+    ns = "{http://www.w3.org/2000/svg}"
+    group, parents = pattern_layer(svg)
     parents[group].remove(group)
     background = svg.find(ns + "rect")
     if bordered:
-        # Paint the black gutter only outside the calibrated silhouette. The clip
-        # shares the original transforms and any runtime hardware-corner adjustment.
-        defs = svg.find(ns + "defs")
-        mask = ET.SubElement(defs, ns + "mask", id="menger-gutter")
-        area = dict(x="-100%", y="-100%", width="300%", height="300%")
-        ET.SubElement(mask, ns + "rect", area, fill="white")
-        branch = ET.Element(ns + "g", {"clip-path": group.get("clip-path")})
-        ET.SubElement(branch, ns + "rect", area, fill="black")
-        parent = parents[group]
-        while parent is not svg:
-            wrapper = ET.Element(ns + "g", dict(parent.attrib))
-            wrapper.attrib.pop("id", None)
-            wrapper.append(branch)
-            branch = wrapper
-            parent = parents[parent]
-        mask.append(branch)
+        add_gutter_mask(svg, group, parents, "menger-gutter")
         background.set("mask", "url(#menger-gutter)")
+        svg.remove(svg.find(f".//*[@class='rotation-gutter']"))
+        svg.find(ns + "defs").remove(svg.find(".//*[@id='rotation-gutter-mask']"))
     else:
         svg.remove(background)
     output.parent.mkdir(parents=True, exist_ok=True)

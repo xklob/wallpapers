@@ -12,6 +12,7 @@ final class Settings {
     static final String CAMERA = "camera";
     static final String DOCK = "dock";
     static final String STATUS = "status";
+    static final String ROTATION = "rotation_degrees";
     static final String PICKER_SCREEN = "active_picker_screen";
     static final String ANIMATE = "animate";
     static final String AUDIO_SYNC = "audio_sync";
@@ -95,6 +96,10 @@ final class Settings {
 
     static int pattern(SharedPreferences preferences, WallpaperScreen screen) {
         return Math.max(0, Math.min(PATTERNS.length - 1, preferences.getInt(screen.key(PATTERN), 0)));
+    }
+
+    static int rotation(SharedPreferences preferences, WallpaperScreen screen) {
+        return Math.max(0, Math.min(ArtworkRotation.MAX_DEGREES, preferences.getInt(screen.key(ROTATION), 0)));
     }
 
     static boolean hasZoom(int pattern) {

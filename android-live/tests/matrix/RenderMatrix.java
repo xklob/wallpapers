@@ -55,6 +55,7 @@ public final class RenderMatrix extends Instrumentation {
             MengerWindowsTest.run(context);
             checkMandelbrot();
             checkFramePacing();
+            checkRotation();
             int scaleId = context.getResources().getIdentifier("config_wallpaperMaxScale", "dimen", "android");
             launcherZoom = scaleId == 0 ? 1.10f : Math.max(1f, context.getResources().getFloat(scaleId));
             try (BufferedReader data = new BufferedReader(new InputStreamReader(context.getAssets().open("rings.tsv")))) {
@@ -146,6 +147,67 @@ public final class RenderMatrix extends Instrumentation {
                         "Wrong frame cap at " + refresh + " Hz / " + target + " fps: " + frames);
             }
         }
+    }
+
+    private void checkRotation() throws Exception {
+        SharedPreferences angles = context.getSharedPreferences("rotation-fixture", Context.MODE_PRIVATE);
+        Catalog.Model model = Catalog.get(context).lookup("pixel_11_pro_xl");
+        angles.edit().clear().putBoolean(Settings.ANIMATE, false)
+                .putString(Settings.MODEL, model.id)
+                .putString(WallpaperScreen.LOCK.key(Settings.MODEL), model.id)
+                .putInt(WallpaperScreen.LOCK.key(Settings.ROTATION), 315).apply();
+        require(Settings.rotation(angles, WallpaperScreen.HOME) == 0, "Existing Home layout must start at zero");
+        final int w = 270, h = 600;
+        RgbRenderer scene = new RgbRenderer(context);
+        for (int pattern = 0; pattern < Settings.PATTERNS.length; pattern++) {
+            angles.edit().putInt(Settings.PATTERN, pattern).putInt(Settings.ROTATION, 0).apply();
+            String path = Settings.artPath(model, angles, WallpaperScreen.HOME);
+            scene.update(angles, WallpaperScreen.HOME);
+            Bitmap before = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+            scene.draw(new Canvas(before));
+            Bitmap still = WallpaperArt.renderStatic(context, path, w, h, model, null, 0);
+            Bitmap overlay = WallpaperArt.hasScene(path)
+                    ? WallpaperArt.render(context, path, w, h, 1, model, null, false)
+                    : WallpaperArt.renderLayer(context, path, w, h, model, null, WallpaperArt.Layer.FRAME);
+            require(Color.alpha(overlay.getPixel(w / 2, h / 2)) == 0, "The frame layer hides the pattern");
+            for (int angle : new int[]{37, 90, 225, 360}) {
+                angles.edit().putInt(Settings.ROTATION, angle).apply();
+                scene.update(angles, WallpaperScreen.HOME);
+                Bitmap live = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+                scene.draw(new Canvas(live));
+                Bitmap regular = WallpaperArt.renderStatic(context, path, w, h, model, null, angle);
+                if (angle == 360) {
+                    require(before.sameAs(live) && still.sameAs(regular), "360° changed the unrotated image");
+                } else {
+                    require(meanChannelDifference(before, live) > 2, "Live art did not rotate for pattern " + pattern);
+                    require(meanChannelDifference(still, regular) > 2, "Still art did not rotate for pattern " + pattern);
+                    checkFixedOutlines(overlay, live);
+                }
+                live.recycle();
+                regular.recycle();
+            }
+            before.recycle();
+            still.recycle();
+            overlay.recycle();
+        }
+        require(Settings.rotation(angles, WallpaperScreen.LOCK) == 315, "Home edits changed the Lock angle");
+        Log.i(TAG, "Rotation: all five patterns, live and still angles, fixed outlines, Home and Lock isolation");
+    }
+
+    private static void checkFixedOutlines(Bitmap overlay, Bitmap wallpaper) {
+        int visible = 0, changed = 0;
+        for (int y = 0; y < overlay.getHeight(); y++) {
+            for (int x = 0; x < overlay.getWidth(); x++) {
+                int pixel = overlay.getPixel(x, y);
+                if (Color.alpha(pixel) < 255 || (pixel & 0x00ffffff) == 0) continue;
+                visible++;
+                int drawn = wallpaper.getPixel(x, y);
+                if (Math.abs(Color.red(pixel) - Color.red(drawn)) > 2
+                        || Math.abs(Color.green(pixel) - Color.green(drawn)) > 2
+                        || Math.abs(Color.blue(pixel) - Color.blue(drawn)) > 2) changed++;
+            }
+        }
+        require(visible > 50 && changed * 50 <= visible, "Device outlines moved or disappeared with rotation");
     }
 
     private static double meanChannelDifference(Bitmap first, Bitmap second) {

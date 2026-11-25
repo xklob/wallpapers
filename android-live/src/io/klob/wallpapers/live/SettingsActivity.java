@@ -39,6 +39,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.function.IntConsumer;
 import java.util.function.IntFunction;
 
 public final class SettingsActivity extends Activity {
@@ -67,6 +68,7 @@ public final class SettingsActivity extends Activity {
     private LinearLayout zoomControls;
     private LinearLayout colorControls;
     private SeekBar zoomSpeed;
+    private SeekBar rotationSlider;
     private Switch audioSync;
     private TextView audioStatus;
     private Button microphoneControl;
@@ -175,6 +177,10 @@ public final class SettingsActivity extends Activity {
             @Override public void onNothingSelected(AdapterView<?> parent) {}
         });
         content.addView(patterns, fullWidth(-2, 0));
+        rotationSlider = addSlider(content, 0, ArtworkRotation.MAX_DEGREES, Settings.rotation(preferences, editingScreen),
+                degrees -> "Rotation // " + degrees + "°",
+                degrees -> preferences.edit().putInt(editingScreen.key(Settings.ROTATION), degrees).apply());
+        rotationSlider.setKeyProgressIncrement(1);
 
         LinearLayout previewPanel = addPanel(column, "Preview");
         LinearLayout stage = new LinearLayout(this);
@@ -271,12 +277,13 @@ public final class SettingsActivity extends Activity {
         Catalog.Model model = Catalog.get(this).forOrientation(Settings.model(this, preferences, target),
                 bounds.width() > bounds.height());
         String path = Settings.artPath(model, preferences, target);
+        int rotation = Settings.rotation(preferences, target);
         Context context = getApplicationContext();
         regularButton.setEnabled(false);
         wallpaperWriter.execute(() -> {
             String message;
             try {
-                int id = RegularWallpaper.apply(context, path, bounds.width(), bounds.height(), target, model, corners);
+                int id = RegularWallpaper.apply(context, path, bounds.width(), bounds.height(), target, model, corners, rotation);
                 message = id > 0 ? target + " wallpaper set." : "Android could not set the wallpaper.";
             } catch (IOException | RuntimeException exception) {
                 android.util.Log.e("RgbGeometryLive", "Could not set regular wallpaper", exception);
@@ -473,6 +480,7 @@ public final class SettingsActivity extends Activity {
         qualityPanel.setVisibility(pattern == Settings.MANDELBROT ? View.VISIBLE : View.GONE);
         colorControls.setVisibility(pattern == Settings.MENGER ? View.GONE : View.VISIBLE);
         zoomSpeed.setProgress(Settings.zoomSpeed(preferences));
+        rotationSlider.setProgress(Settings.rotation(preferences, editingScreen));
         int style = Settings.enabled(preferences, editingScreen.key(Settings.BORDER)) ? Catalog.BORDER : 0;
         patterns.setSelection(pattern);
         for (Map.Entry<String, Switch> entry : appearanceToggles.entrySet()) {
@@ -694,6 +702,12 @@ public final class SettingsActivity extends Activity {
 
     private SeekBar addSlider(LinearLayout content, String key, int min, int max, int value,
             IntFunction<String> formatLabel) {
+        return addSlider(content, min, max, value, formatLabel,
+                progress -> preferences.edit().putInt(key, progress).apply());
+    }
+
+    private SeekBar addSlider(LinearLayout content, int min, int max, int value,
+            IntFunction<String> formatLabel, IntConsumer saveValue) {
         TextView label = addText(content, formatLabel.apply(value), 16);
         SeekBar slider = new SeekBar(this);
         slider.setId(View.generateViewId());
@@ -706,7 +720,7 @@ public final class SettingsActivity extends Activity {
             @Override public void onProgressChanged(SeekBar slider, int progress, boolean fromUser) {
                 label.setText(formatLabel.apply(progress));
                 slider.setStateDescription(label.getText());
-                if (fromUser) preferences.edit().putInt(key, progress).apply();
+                if (fromUser) saveValue.accept(progress);
             }
             @Override public void onStartTrackingTouch(SeekBar slider) {}
             @Override public void onStopTrackingTouch(SeekBar slider) {}
