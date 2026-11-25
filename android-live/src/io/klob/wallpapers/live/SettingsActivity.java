@@ -5,6 +5,7 @@ import android.animation.ValueAnimator;
 import android.graphics.Color;
 import android.view.KeyEvent;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.WallpaperManager;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
@@ -26,6 +27,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.SeekBar;
@@ -35,8 +37,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.EnumMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.IntConsumer;
@@ -44,9 +49,14 @@ import java.util.function.IntFunction;
 
 public final class SettingsActivity extends Activity {
     private static final ExecutorService wallpaperWriter = Executors.newSingleThreadExecutor();
+    // The app can recreate while Android is committing a large still.
+    private static final Set<SettingsActivity> writerObservers = new LinkedHashSet<>();
+    private static WallpaperScreen writingStill;
     private static final int AUDIO_PERMISSION = 31;
     private static final int PICK_WALLPAPER = 32;
     private static final String EDITING_SCREEN = "editing_screen";
+    private static final String PICKER_REQUEST = "picker_request";
+    private static final String EXPANDED = "expanded_preview";
     private final Handler uiHandler = new Handler(Looper.getMainLooper());
     private SharedPreferences preferences;
     private AppStyle style;
@@ -79,6 +89,15 @@ public final class SettingsActivity extends Activity {
     private Spinner patterns;
     private Button modelButton;
     private Button regularButton;
+    private Button liveButton;
+    private TextView pickerHint;
+    private LinearLayout previewTile;
+    private FrameLayout compactStage;
+    private AlertDialog expandedDialog;
+    private int compactWidth, compactHeight;
+    private boolean started;
+    private long pickerRequest;
+    private final Map<WallpaperScreen, Button> screenButtons = new EnumMap<>(WallpaperScreen.class);
     private final Map<String, Switch> appearanceToggles = new LinkedHashMap<>();
     private boolean refreshingAppearance;
     private final Runnable audioMeter = new Runnable() {
@@ -105,21 +124,38 @@ public final class SettingsActivity extends Activity {
         style = new AppStyle(this, light);
         if (savedInstanceState != null) {
             editingScreen = WallpaperScreen.fromPreference(savedInstanceState.getString(EDITING_SCREEN));
+            pickerRequest = savedInstanceState.getLong(PICKER_REQUEST);
+        } else if (PreviewRequest.current() != null) {
+            editingScreen = PreviewRequest.current();
         }
         preview = new Preview(this, preferences, editingScreen);
 
+        android.content.res.Configuration config = getResources().getConfiguration();
+        boolean side = config.screenWidthDp >= 600 && config.screenWidthDp > config.screenHeightDp;
+        boolean shortWindow = config.screenHeightDp < 480;
         scroll = new ScrollView(this);
         scroll.setFillViewport(true);
         scroll.setBackgroundColor(style.surface);
-        LinearLayout wrapper = new LinearLayout(this);
-        wrapper.setGravity(Gravity.CENTER_HORIZONTAL);
         LinearLayout column = new LinearLayout(this);
         column.setOrientation(LinearLayout.VERTICAL);
-        column.setPadding(dp(16), dp(16), dp(16), dp(28));
+        column.setPadding(dp(16), dp(12), dp(16), dp(28));
+        scroll.addView(column, new ScrollView.LayoutParams(-1, -2));
+
+        FrameLayout root = new FrameLayout(this);
+        root.setBackgroundColor(style.surface);
+        LinearLayout workspace = new LinearLayout(this);
+        workspace.setOrientation(side ? LinearLayout.HORIZONTAL : LinearLayout.VERTICAL);
         int windowWidth = getWindowManager().getCurrentWindowMetrics().getBounds().width();
-        wrapper.addView(column, new LinearLayout.LayoutParams(Math.min(windowWidth, dp(680)), -2));
-        scroll.addView(wrapper, new ScrollView.LayoutParams(-1, -2));
-        setContentView(scroll);
+        // WRAP_CONTENT-like outer width with a tablet limit, constrained by actual insets.
+        int available = Math.min(windowWidth, dp(Math.min(config.screenWidthDp, side ? 900 : 680)));
+        root.addView(workspace, new FrameLayout.LayoutParams(available, -1, Gravity.TOP | Gravity.CENTER_HORIZONTAL));
+        LinearLayout studio = createStudio(side, shortWindow);
+        LinearLayout.LayoutParams studioSize = new LinearLayout.LayoutParams(side ? dp(222) : -1, -2);
+        studioSize.setMargins(dp(12), dp(8), dp(12), dp(4));
+        workspace.addView(studio, studioSize);
+        workspace.addView(scroll, side ? new LinearLayout.LayoutParams(0, -1, 1)
+                : new LinearLayout.LayoutParams(-1, 0, 1));
+        setContentView(root);
 
         LinearLayout brand = new LinearLayout(this);
         brand.setGravity(Gravity.CENTER_VERTICAL);
@@ -140,8 +176,9 @@ public final class SettingsActivity extends Activity {
         brand.addView(rainbowButton, new LinearLayout.LayoutParams(dp(48), dp(48)));
 
         addThemePicker(column, theme);
+        addPreviewActions(addPanel(column, "Apply Wallpaper"));
         LinearLayout content = addPanel(column, "Wallpaper");
-        addLayoutSelector(content);
+        addText(content, "If this layout is already live, edits show immediately.", 13);
         TextView modelLabel = addText(content, "Model", 16);
         modelButton = style.button(false);
         modelButton.setGravity(Gravity.START | Gravity.CENTER_VERTICAL);
@@ -165,10 +202,7 @@ public final class SettingsActivity extends Activity {
         patterns.setId(View.generateViewId());
         styleSpinner(patterns);
         patternLabel.setLabelFor(patterns.getId());
-        ArrayAdapter<String> names = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, Settings.PATTERNS);
-        names.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        patterns.setAdapter(names);
+        patterns.setAdapter(wrappingChoices(Settings.PATTERNS));
         patterns.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 if (!refreshingAppearance && pos != Settings.pattern(preferences, editingScreen)) {
@@ -179,35 +213,17 @@ public final class SettingsActivity extends Activity {
             @Override public void onNothingSelected(AdapterView<?> parent) {}
         });
         content.addView(patterns, fullWidth(-2, 0));
-        rotationSlider = addSlider(content, 0, ArtworkTransform.FULL_TURN, Settings.rotation(preferences, editingScreen),
-                degrees -> "Rotation // " + degrees + "°",
+        rotationSlider = addSlider(content, "Rotation", 0, ArtworkTransform.FULL_TURN,
+                Settings.rotation(preferences, editingScreen), degrees -> degrees + "°",
                 degrees -> preferences.edit().putInt(editingScreen.key(Settings.ROTATION), degrees).apply());
         rotationSlider.setKeyProgressIncrement(1);
         int maxZoomStep = (ArtworkTransform.MAX_ZOOM - ArtworkTransform.FIT) / ArtworkTransform.ZOOM_STEP;
-        framingZoomSlider = addSlider(content, 0, maxZoomStep, framingZoomStep(),
-                step -> "Framing zoom // " + java.text.NumberFormat.getNumberInstance().format(
+        framingZoomSlider = addSlider(content, "Framing zoom", 0, maxZoomStep, framingZoomStep(),
+                step -> java.text.NumberFormat.getNumberInstance().format(
                         (ArtworkTransform.FIT + step * ArtworkTransform.ZOOM_STEP) / 100.0) + "×",
                 step -> preferences.edit().putInt(editingScreen.key(Settings.FRAMING_ZOOM),
                         ArtworkTransform.FIT + step * ArtworkTransform.ZOOM_STEP).apply());
         framingZoomSlider.setKeyProgressIncrement(1);
-
-        LinearLayout previewPanel = addPanel(column, "Preview");
-        LinearLayout stage = new LinearLayout(this);
-        stage.setGravity(Gravity.CENTER);
-        stage.setPadding(0, dp(10), 0, dp(10));
-        stage.setBackground(style.shape(style.surface, style.line, 8));
-        previewPanel.addView(stage, fullWidth(-2, 0));
-        preview.setBackground(style.shape(Color.BLACK, 0, 6));
-        stage.addView(preview, new LinearLayout.LayoutParams(1, 1));
-
-        Button apply = style.button(true);
-        apply.setText("APPLY LIVE WALLPAPER");
-        apply.setOnClickListener(view -> openWallpaperPicker());
-        previewPanel.addView(apply, fullWidth(-2, 12));
-
-        regularButton = style.button(false);
-        regularButton.setOnClickListener(view -> applyRegularWallpaper());
-        previewPanel.addView(regularButton, fullWidth(-2, 8));
 
         addToneControls(addPanel(column, "Color Adjustments"));
 
@@ -218,8 +234,9 @@ public final class SettingsActivity extends Activity {
         addAppearanceToggle(outlines, "Status bar outline", Settings.STATUS);
 
         zoomControls = addPanel(column, "Zoom & Performance");
-        zoomSpeed = addSlider(zoomControls, Settings.ZOOM_SPEED, 1, Settings.MAX_ZOOM, Settings.zoomSpeed(preferences),
-                step -> "Zoom speed // " + java.text.NumberFormat.getNumberInstance().format(step / 4.0) + "×");
+        addText(zoomControls, "Shared by Home and Lock. Zoom speed changes motion, not framing.", 13);
+        zoomSpeed = addSlider(zoomControls, "Fractal zoom speed", Settings.ZOOM_SPEED, 1, Settings.MAX_ZOOM,
+                Settings.zoomSpeed(preferences), step -> java.text.NumberFormat.getNumberInstance().format(step / 4.0) + "×");
         addChoice(zoomControls, "Frame-rate cap", Settings.FRAME_RATE, Settings.frameRateIndex(preferences),
                 new String[]{"15 fps", "30 fps", "60 fps"});
         qualityPanel = new LinearLayout(this);
@@ -229,24 +246,32 @@ public final class SettingsActivity extends Activity {
                 new String[]{"Balanced // half resolution", "High // full resolution", "Ultra // full + antialiasing"});
 
         colorControls = addPanel(column, "Color & Audio");
+        addText(colorControls, "Shared by Home and Lock.", 13);
         addToggle(colorControls, "Animate colors", Settings.ANIMATE);
-        speed = addSlider(colorControls, Settings.PERIOD, Settings.MIN_PERIOD, Settings.MAX_PERIOD,
-                Settings.period(preferences), seconds -> "Cycle duration // " + seconds + " s");
+        speed = addSlider(colorControls, "Cycle duration", Settings.PERIOD, Settings.MIN_PERIOD, Settings.MAX_PERIOD,
+                Settings.period(preferences), seconds -> seconds + " s");
         speed.setEnabled(Settings.enabled(preferences, Settings.ANIMATE));
         addAudioSync(colorControls);
         addAudioTuner(audioDetails);
         refreshAppearance();
-        if (savedInstanceState != null) scroll.post(() -> scroll.scrollTo(0, savedInstanceState.getInt("scroll_y")));
+        if (savedInstanceState != null) scroll.post(() -> {
+            scroll.scrollTo(0, savedInstanceState.getInt("scroll_y"));
+            if (savedInstanceState.getBoolean(EXPANDED) && started) showExpandedPreview();
+        });
     }
 
     @Override protected void onSaveInstanceState(Bundle state) {
         state.putString(EDITING_SCREEN, editingScreen.name());
         state.putInt("scroll_y", scroll.getScrollY());
+        state.putLong(PICKER_REQUEST, pickerRequest);
+        state.putBoolean(EXPANDED, expandedDialog != null);
         super.onSaveInstanceState(state);
     }
 
     @Override public void onStart() {
         super.onStart();
+        started = true;
+        writerObservers.add(this);
         preferences.registerOnSharedPreferenceChangeListener(changes);
         refreshAppearance();
         preview.setActive(true);
@@ -254,6 +279,8 @@ public final class SettingsActivity extends Activity {
     }
 
     @Override public void onStop() {
+        started = false;
+        writerObservers.remove(this);
         preferences.unregisterOnSharedPreferenceChangeListener(changes);
         uiHandler.removeCallbacks(audioMeter);
         preview.setActive(false);
@@ -261,15 +288,21 @@ public final class SettingsActivity extends Activity {
         super.onStop();
     }
 
+    @Override protected void onDestroy() {
+        if (!isChangingConfigurations()) PreviewRequest.end(pickerRequest);
+        if (expandedDialog != null) expandedDialog.dismiss();
+        super.onDestroy();
+    }
+
     private void openWallpaperPicker() {
-        preferences.edit().putString(Settings.PICKER_SCREEN, editingScreen.name()).apply();
+        pickerRequest = PreviewRequest.begin(editingScreen);
         Intent intent = new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
         intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,
                 new ComponentName(this, RgbWallpaperService.class));
         try {
             startActivityForResult(intent, PICK_WALLPAPER);
         } catch (ActivityNotFoundException exception) {
-            preferences.edit().remove(Settings.PICKER_SCREEN).apply();
+            finishPickerRequest();
             Toast.makeText(this, "Open Wallpaper & style and select rgb geometry live.",
                     Toast.LENGTH_LONG).show();
         }
@@ -277,10 +310,21 @@ public final class SettingsActivity extends Activity {
 
     @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_WALLPAPER) preferences.edit().remove(Settings.PICKER_SCREEN).apply();
+        if (requestCode == PICK_WALLPAPER) finishPickerRequest();
+    }
+
+    private void finishPickerRequest() {
+        PreviewRequest.end(pickerRequest);
+        pickerRequest = 0;
+    }
+
+    private static void setWritingStill(WallpaperScreen target) {
+        writingStill = target;
+        for (SettingsActivity observer : writerObservers) observer.refreshActions();
     }
 
     private void applyRegularWallpaper() {
+        if (writingStill != null) return;
         WallpaperScreen target = editingScreen;
         android.view.WindowMetrics metrics = getWindowManager().getMaximumWindowMetrics();
         Rect bounds = metrics.getBounds();
@@ -292,7 +336,7 @@ public final class SettingsActivity extends Activity {
         int zoom = Settings.framingZoom(preferences, target);
         WallpaperTone tone = Settings.tone(preferences, target, WallpaperTone.NEUTRAL);
         Context context = getApplicationContext();
-        regularButton.setEnabled(false);
+        setWritingStill(target);
         wallpaperWriter.execute(() -> {
             String message;
             try {
@@ -305,7 +349,7 @@ public final class SettingsActivity extends Activity {
             }
             String result = message;
             uiHandler.post(() -> {
-                if (!isDestroyed()) regularButton.setEnabled(true);
+                setWritingStill(null);
                 Toast.makeText(context, result, Toast.LENGTH_LONG).show();
             });
         });
@@ -378,14 +422,33 @@ public final class SettingsActivity extends Activity {
         spinner.setPopupBackgroundDrawable(style.shape(style.panel, style.line, 8));
     }
 
+    private <T> ArrayAdapter<T> wrappingChoices(T[] items) {
+        ArrayAdapter<T> adapter = new ArrayAdapter<T>(this, android.R.layout.simple_spinner_item, items) {
+            private View wrap(View row) {
+                TextView text = (TextView) row;
+                text.setSingleLine(false);
+                text.setMaxLines(Integer.MAX_VALUE);
+                text.setEllipsize(null);
+                text.setMinimumHeight(dp(48));
+                return text;
+            }
+            @Override public View getView(int position, View convertView, ViewGroup parent) {
+                return wrap(super.getView(position, convertView, parent));
+            }
+            @Override public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                return wrap(super.getDropDownView(position, convertView, parent));
+            }
+        };
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        return adapter;
+    }
+
     private void addChoice(LinearLayout panel, String title, String key, int selected, String[] options) {
         TextView label = addText(panel, title, 14);
         Spinner spinner = new Spinner(this, Spinner.MODE_DROPDOWN);
         spinner.setId(View.generateViewId());
         label.setLabelFor(spinner.getId());
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, options);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        spinner.setAdapter(wrappingChoices(options));
         styleSpinner(spinner);
         spinner.setSelection(selected);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -443,25 +506,142 @@ public final class SettingsActivity extends Activity {
         return super.dispatchKeyEvent(event);
     }
 
-    private void addLayoutSelector(LinearLayout content) {
-        TextView label = addText(content, "Layout to edit", 16);
-        Spinner layouts = new Spinner(this, Spinner.MODE_DROPDOWN);
-        layouts.setId(View.generateViewId());
-        styleSpinner(layouts);
-        label.setLabelFor(layouts.getId());
-        ArrayAdapter<WallpaperScreen> names = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, WallpaperScreen.values());
-        names.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        layouts.setAdapter(names);
-        layouts.setSelection(editingScreen.ordinal());
-        layouts.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                editingScreen = (WallpaperScreen) parent.getItemAtPosition(position);
+    private LinearLayout createStudio(boolean side, boolean shortWindow) {
+        LinearLayout studio = new LinearLayout(this);
+        studio.setOrientation(side ? LinearLayout.VERTICAL : LinearLayout.HORIZONTAL);
+        studio.setGravity(Gravity.TOP);
+        studio.setPadding(dp(10), dp(10), dp(10), dp(10));
+        studio.setBackground(style.shape(style.panel, style.line, 10));
+
+        compactWidth = dp(side ? 192 : 82);
+        compactHeight = dp(side ? 132 : shortWindow ? 64 : 100);
+        previewTile = new LinearLayout(this);
+        previewTile.setOrientation(LinearLayout.VERTICAL);
+        previewTile.setGravity(Gravity.CENTER);
+        previewTile.setBackground(style.shape(style.surface, style.line, 8));
+        previewTile.setFocusable(true);
+        previewTile.setOnClickListener(view -> showExpandedPreview());
+        compactStage = new FrameLayout(this);
+        previewTile.addView(compactStage, new LinearLayout.LayoutParams(-1, compactHeight + dp(6)));
+        preview.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+        compactStage.addView(preview, new FrameLayout.LayoutParams(1, 1, Gravity.CENTER));
+        TextView enlarge = new TextView(this);
+        style.text(enlarge, 12, style.muted, true);
+        enlarge.setText("Enlarge");
+        enlarge.setGravity(Gravity.CENTER);
+        enlarge.setPadding(0, 0, 0, dp(6));
+        enlarge.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+        previewTile.addView(enlarge, new LinearLayout.LayoutParams(-1, -2));
+        studio.addView(previewTile, new LinearLayout.LayoutParams(side ? -1 : compactWidth, -2));
+
+        LinearLayout controls = new LinearLayout(this);
+        controls.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout.LayoutParams controlsSize = side ? fullWidth(-2, 8) : new LinearLayout.LayoutParams(0, -2, 1);
+        if (!side) controlsSize.setMarginStart(dp(10));
+        studio.addView(controls, controlsSize);
+
+        TextView scope = addText(controls, "Layout to edit", 13);
+        scope.setAccessibilityHeading(true);
+        LinearLayout tabs = new LinearLayout(this);
+        controls.addView(tabs, fullWidth(-2, 4));
+        for (WallpaperScreen screen : WallpaperScreen.values()) {
+            Button button = style.segmentButton(shortName(screen));
+            button.setContentDescription("Edit " + screen);
+            button.setOnClickListener(view -> {
+                if (screen == editingScreen) return;
+                editingScreen = screen;
                 refreshAppearance();
-            }
-            @Override public void onNothingSelected(AdapterView<?> parent) {}
+            });
+            LinearLayout.LayoutParams tab = new LinearLayout.LayoutParams(0, -1, 1);
+            if (screen == WallpaperScreen.LOCK) tab.setMarginStart(dp(6));
+            tabs.addView(button, tab);
+            screenButtons.put(screen, button);
+        }
+        return studio;
+    }
+
+    private void addPreviewActions(LinearLayout controls) {
+        liveButton = style.button(true);
+        liveButton.setOnClickListener(view -> openWallpaperPicker());
+        controls.addView(liveButton, fullWidth(-2, 8));
+        regularButton = style.button(false);
+        regularButton.setOnClickListener(view -> applyRegularWallpaper());
+        controls.addView(regularButton, fullWidth(-2, 6));
+        pickerHint = addText(controls, "", 13);
+    }
+
+    private static String shortName(WallpaperScreen screen) {
+        return screen == WallpaperScreen.LOCK ? "Lock" : "Home";
+    }
+
+    private void refreshActions() {
+        String screen = shortName(editingScreen);
+        for (Map.Entry<WallpaperScreen, Button> entry : screenButtons.entrySet()) {
+            entry.getValue().setSelected(entry.getKey() == editingScreen);
+        }
+        previewTile.setContentDescription("Enlarge " + editingScreen + " wallpaper preview");
+        liveButton.setText("Preview " + screen + " live");
+        regularButton.setEnabled(writingStill == null);
+        regularButton.setText(writingStill == null ? "Set " + screen + " still"
+                : "Setting " + shortName(writingStill) + " still…");
+        pickerHint.setText(editingScreen == WallpaperScreen.LOCK && Build.VERSION.SDK_INT == 33
+                ? "Choose where to apply in Android’s picker. For live Lock, your picker may require both screens."
+                : "Choose where to apply in Android’s picker. Each screen uses its own layout.");
+    }
+
+    private Catalog.Model previewModel() {
+        Catalog.Model model = Settings.model(this, preferences, editingScreen);
+        if (model.matches(Build.MODEL) && model.manufacturer.equalsIgnoreCase(Build.MANUFACTURER)) {
+            Rect bounds = getWindowManager().getMaximumWindowMetrics().getBounds();
+            return Catalog.get(this).forOrientation(model, bounds.width() > bounds.height());
+        }
+        return model;
+    }
+
+    private void resizePreview(Catalog.Model model) {
+        int maxWidth = compactWidth - dp(6);
+        int maxHeight = compactHeight;
+        if (expandedDialog != null) {
+            android.content.res.Configuration config = getResources().getConfiguration();
+            maxWidth = dp(Math.max(40, Math.min(config.screenWidthDp - 84, 480)));
+            maxHeight = dp(Math.max(64, Math.min(config.screenHeightDp - 180, 520)));
+        }
+        float scale = Math.min(maxWidth / (float) model.width, maxHeight / (float) model.height);
+        int width = Math.max(1, Math.round(model.width * scale));
+        int height = Math.max(1, Math.round(model.height * scale));
+        ViewGroup.LayoutParams size = preview.getLayoutParams();
+        if (size.width != width || size.height != height) {
+            size.width = width;
+            size.height = height;
+            preview.setLayoutParams(size);
+        }
+    }
+
+    private void showExpandedPreview() {
+        if (expandedDialog != null || !started) return;
+        preview.setActive(false);
+        compactStage.removeView(preview);
+        FrameLayout stage = new FrameLayout(this);
+        stage.setPadding(dp(10), dp(8), dp(10), dp(8));
+        stage.addView(preview, new FrameLayout.LayoutParams(1, 1, Gravity.CENTER));
+        preview.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
+        expandedDialog = new AlertDialog.Builder(this).setTitle(editingScreen + " preview")
+                .setView(stage).setPositiveButton("Done", null).create();
+        expandedDialog.setOnDismissListener(dialog -> {
+            preview.setActive(false);
+            expandedDialog = null;
+            stage.removeView(preview);
+            compactStage.addView(preview, new FrameLayout.LayoutParams(1, 1, Gravity.CENTER));
+            preview.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+            resizePreview(previewModel());
+            preview.setActive(started);
         });
-        content.addView(layouts, fullWidth(-2, 0));
+        resizePreview(previewModel());
+        expandedDialog.show();
+        if (expandedDialog.getWindow() != null) {
+            expandedDialog.getWindow().setBackgroundDrawable(style.shape(style.panel, style.line, 10));
+        }
+        preview.setActive(true);
     }
 
     private void addAppearanceToggle(LinearLayout content, String title, String key) {
@@ -480,15 +660,11 @@ public final class SettingsActivity extends Activity {
 
     private void refreshAppearance() {
         refreshingAppearance = true;
-        Catalog.Model model = Settings.model(this, preferences, editingScreen);
-        if (model.matches(Build.MODEL) && model.manufacturer.equalsIgnoreCase(Build.MANUFACTURER)) {
-            Rect bounds = getWindowManager().getMaximumWindowMetrics().getBounds();
-            model = Catalog.get(this).forOrientation(model, bounds.width() > bounds.height());
-        }
+        Catalog.Model model = previewModel();
         String suggestion = preferences.getBoolean(editingScreen.key(Settings.SUGGESTED), false)
                 ? "Suggested // " : "";
         modelButton.setText(suggestion + model.name + " // " + model.width + " × " + model.height);
-        regularButton.setText(editingScreen == WallpaperScreen.LOCK ? "SET LOCK WALLPAPER" : "SET HOME WALLPAPER");
+        refreshActions();
         int pattern = Settings.pattern(preferences, editingScreen);
         zoomControls.setVisibility(Settings.hasZoom(pattern) ? View.VISIBLE : View.GONE);
         qualityPanel.setVisibility(pattern == Settings.MANDELBROT ? View.VISIBLE : View.GONE);
@@ -517,17 +693,7 @@ public final class SettingsActivity extends Activity {
             toggle.setChecked(visible && Settings.enabled(preferences, editingScreen.key(key)));
         }
         refreshingAppearance = false;
-        int availableWidth = Math.max(1, getWindowManager().getCurrentWindowMetrics().getBounds().width() - dp(64));
-        float scale = Math.min(Math.min(dp(460), availableWidth) / (float) model.width,
-                dp(300) / (float) model.height);
-        ViewGroup.LayoutParams size = preview.getLayoutParams();
-        int width = Math.max(1, Math.round(model.width * scale));
-        int height = Math.max(1, Math.round(model.height * scale));
-        if (size.width != width || size.height != height) {
-            size.width = width;
-            size.height = height;
-            preview.setLayoutParams(size);
-        }
+        resizePreview(model);
         preview.setScreen(preferences, editingScreen);
     }
 
@@ -595,7 +761,7 @@ public final class SettingsActivity extends Activity {
             }
             refreshAudioStatus();
         });
-        content.addView(microphoneControl, fullWidth(dp(48), 4));
+        content.addView(microphoneControl, fullWidth(-2, 4));
     }
 
     private boolean microphoneEnabled() {
@@ -662,7 +828,7 @@ public final class SettingsActivity extends Activity {
         Button tune = style.button(false);
         tune.setAllCaps(false);
         tune.setText("Tune audio effects");
-        content.addView(tune, fullWidth(dp(48), 6));
+        content.addView(tune, fullWidth(-2, 6));
 
         LinearLayout panel = new LinearLayout(this);
         panel.setOrientation(LinearLayout.VERTICAL);
@@ -708,7 +874,7 @@ public final class SettingsActivity extends Activity {
             smoothness.setProgress(Settings.DEFAULT_SMOOTHNESS);
             sensitivity.setProgress(Settings.DEFAULT_SENSITIVITY);
         });
-        panel.addView(reset, fullWidth(dp(48), 4));
+        panel.addView(reset, fullWidth(-2, 4));
     }
 
     private int framingZoomStep() {
@@ -732,8 +898,8 @@ public final class SettingsActivity extends Activity {
     }
 
     private void addToneSlider(LinearLayout panel, String title, String key) {
-        SeekBar slider = addSlider(panel, 0, WallpaperTone.MAX, WallpaperTone.DEFAULT,
-                value -> title + " // " + value + "%",
+        SeekBar slider = addSlider(panel, title, 0, WallpaperTone.MAX, WallpaperTone.DEFAULT,
+                value -> value + "%",
                 value -> preferences.edit().putInt(editingScreen.key(key), value).apply());
         slider.setKeyProgressIncrement(1);
         toneSliders.put(key, slider);
@@ -746,30 +912,31 @@ public final class SettingsActivity extends Activity {
     }
 
     private SeekBar addAudioSlider(LinearLayout panel, String label, String key, int fallback) {
-        return addSlider(panel, key, 0, 100, Settings.percentage(preferences, key, fallback),
-                value -> label + " · " + value + "%");
+        return addSlider(panel, label, key, 0, 100, Settings.percentage(preferences, key, fallback),
+                value -> value + "%");
     }
 
-    private SeekBar addSlider(LinearLayout content, String key, int min, int max, int value,
-            IntFunction<String> formatLabel) {
-        return addSlider(content, min, max, value, formatLabel,
+    private SeekBar addSlider(LinearLayout content, String title, String key, int min, int max, int value,
+            IntFunction<String> formatValue) {
+        return addSlider(content, title, min, max, value, formatValue,
                 progress -> preferences.edit().putInt(key, progress).apply());
     }
 
-    private SeekBar addSlider(LinearLayout content, int min, int max, int value,
-            IntFunction<String> formatLabel, IntConsumer saveValue) {
-        TextView label = addText(content, formatLabel.apply(value), 16);
+    private SeekBar addSlider(LinearLayout content, String title, int min, int max, int value,
+            IntFunction<String> formatValue, IntConsumer saveValue) {
+        TextView label = addText(content, title + " // " + formatValue.apply(value), 16);
+        label.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
         SeekBar slider = new SeekBar(this);
-        slider.setId(View.generateViewId());
-        label.setLabelFor(slider.getId());
+        slider.setContentDescription(title);
         slider.setMin(min);
         slider.setMax(max);
         slider.setProgress(value);
-        slider.setStateDescription(label.getText());
+        slider.setStateDescription(formatValue.apply(value));
         slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override public void onProgressChanged(SeekBar slider, int progress, boolean fromUser) {
-                label.setText(formatLabel.apply(progress));
-                slider.setStateDescription(label.getText());
+                String valueText = formatValue.apply(progress);
+                label.setText(title + " // " + valueText);
+                slider.setStateDescription(valueText);
                 if (fromUser) saveValue.accept(progress);
             }
             @Override public void onStartTrackingTouch(SeekBar slider) {}

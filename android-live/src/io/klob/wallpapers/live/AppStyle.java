@@ -68,6 +68,8 @@ final class AppStyle {
     Button button(boolean primary) {
         Button button = new Button(context);
         text(button, 14, primary ? 0xff101010 : text, true);
+        button.setTextColor(new ColorStateList(new int[][]{{-android.R.attr.state_enabled}, {}},
+                new int[]{muted, primary ? 0xff101010 : text}));
         button.setAllCaps(primary);
         button.setMinHeight(dp(48));
         button.setMinimumHeight(dp(48));
@@ -76,6 +78,16 @@ final class AppStyle {
         button.setPadding(dp(12), dp(9), dp(12), dp(9));
         button.setStateListAnimator(null);
         button.setBackground(control(primary, false));
+        return button;
+    }
+
+    Button segmentButton(String label) {
+        Button button = button(false);
+        button.setText(label);
+        button.setPadding(dp(6), dp(8), dp(6), dp(8));
+        button.setBackground(control(false, true));
+        button.setTextColor(new ColorStateList(new int[][]{{android.R.attr.state_selected}, {}},
+                new int[]{accent, text}));
         return button;
     }
 
@@ -97,6 +109,7 @@ final class AppStyle {
 
     private Drawable control(boolean primary, boolean selectable) {
         StateListDrawable states = new StateListDrawable();
+        states.addState(new int[]{-android.R.attr.state_enabled}, shape(hover, line, 8));
         if (selectable) states.addState(new int[]{android.R.attr.state_selected, android.R.attr.state_focused},
                 shape(soft, accent, 8));
         states.addState(new int[]{android.R.attr.state_focused},

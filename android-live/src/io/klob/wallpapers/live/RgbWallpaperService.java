@@ -28,6 +28,7 @@ public final class RgbWallpaperService extends WallpaperService {
         private final Choreographer.FrameCallback frame = this::onFrame;
         private final Runnable screenCheck = this::checkSharedScreen;
         private WallpaperScreen screen;
+        private PreviewRequest.Routing previewRouting;
         private boolean visible;
         private boolean hasSurface;
         private final SharedPreferences.OnSharedPreferenceChangeListener changes = (prefs, key) -> {
@@ -39,6 +40,11 @@ public final class RgbWallpaperService extends WallpaperService {
         @Override public void onCreate(SurfaceHolder holder) {
             super.onCreate(holder);
             setOffsetNotificationsEnabled(false);
+            if (isPreview()) {
+                int flags = destinationFlags();
+                previewRouting = new PreviewRequest.Routing(PreviewRequest.current(),
+                        (flags & WallpaperManager.FLAG_SYSTEM) != 0, (flags & WallpaperManager.FLAG_LOCK) != 0);
+            }
             screen = resolveScreen();
             renderer.update(preferences, screen);
             preferences.registerOnSharedPreferenceChangeListener(changes);
@@ -80,6 +86,10 @@ public final class RgbWallpaperService extends WallpaperService {
         }
 
         @Override public void onWallpaperFlagsChanged(int which) {
+            if (previewRouting != null && isPreview()) {
+                previewRouting.flagsChanged((which & WallpaperManager.FLAG_SYSTEM) != 0,
+                        (which & WallpaperManager.FLAG_LOCK) != 0);
+            }
             if (refreshScreen() && visible) draw();
             scheduleScreenCheck();
         }
@@ -108,10 +118,9 @@ public final class RgbWallpaperService extends WallpaperService {
             int flags = destinationFlags();
             boolean home = (flags & WallpaperManager.FLAG_SYSTEM) != 0;
             boolean lock = (flags & WallpaperManager.FLAG_LOCK) != 0;
-            String requested = isPreview() ? preferences.getString(Settings.PICKER_SCREEN, null) : null;
-            WallpaperScreen preview = requested == null ? null : WallpaperScreen.fromPreference(requested);
-            boolean locked = preview == null && home == lock && keyguard != null && keyguard.isKeyguardLocked();
-            return WallpaperScreen.resolve(home, lock, locked, preview);
+            WallpaperScreen previewTarget = isPreview() && previewRouting != null ? previewRouting.override() : null;
+            boolean locked = previewTarget == null && home == lock && keyguard != null && keyguard.isKeyguardLocked();
+            return WallpaperScreen.resolve(home, lock, locked, previewTarget);
         }
 
         private boolean refreshScreen() {

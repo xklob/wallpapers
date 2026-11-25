@@ -17,7 +17,6 @@ final class Settings {
     static final String BRIGHTNESS = "brightness";
     static final String CONTRAST = "contrast";
     static final String SATURATION = "saturation";
-    static final String PICKER_SCREEN = "active_picker_screen";
     static final String ANIMATE = "animate";
     static final String AUDIO_SYNC = "audio_sync";
     static final String AUDIO_SOURCE = "audio_source";

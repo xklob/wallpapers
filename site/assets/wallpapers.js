@@ -80,10 +80,14 @@ function patternCard(name, poster, onOpen) {
 }
 function openPatternViewer(name, live) {
   byId('pattern-viewer-title').textContent = name;
+  patternViewer.classList.toggle('live-viewer', live);
   byId('pattern-viewer-still').hidden = live;
   byId('use-pattern').hidden = live;
   viewerVideo.hidden = !live;
   byId('live-app').hidden = !live;
+  byId('live-availability').hidden = !live;
+  if (live) patternViewer.setAttribute('aria-describedby', 'live-availability');
+  else patternViewer.removeAttribute('aria-describedby');
   patternViewer.showModal();
 }
 function updatePatternGallery(active) {
@@ -110,7 +114,7 @@ function updatePatternGallery(active) {
     }));
   }
   for (const {name, poster, video} of active.livePreviews ?? []) {
-    cards.push(patternCard(name + ' · Android live', poster, () => {
+    cards.push(patternCard(name + ' · Android app', poster, () => {
       viewerVideo.poster = poster;
       viewerVideo.src = video;
       openPatternViewer(name, true);
@@ -133,7 +137,10 @@ function updateCollections() {
   const release = byId('release');
   if (active.pngArchive) {
     release.href = active.pngArchive;
-    release.textContent = 'Download PNG Pack';
+    const mib = Number.isFinite(active.pngArchiveBytes) && active.pngArchiveBytes > 0
+      ? Math.round(active.pngArchiveBytes / 1048576) : 0;
+    const size = mib > 0 ? ' // ' + new Intl.NumberFormat().format(mib) + ' MiB' : '';
+    release.textContent = 'Download PNG Pack' + size;
   } else {
     release.href = 'https://github.com/xklob/wallpapers/releases';
     release.textContent = 'View PNG Releases';

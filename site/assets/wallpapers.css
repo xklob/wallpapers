@@ -25,6 +25,9 @@ button.pattern-card { display: flex; flex-direction: column; min-width: 0; paddi
   width: min(94vw, 96rem); max-width: none; max-height: 94dvh;
   padding: 0; border: 1px solid var(--line); background: var(--surface); color: var(--text);
 }
+.pattern-viewer.live-viewer[open] { display: flex; flex-direction: column; }
+.live-viewer .viewer-top, .live-viewer #live-availability, .live-viewer .viewer-actions { flex: none; }
+.live-viewer #pattern-viewer-video { flex: 0 1 auto; min-height: 0; }
 .pattern-viewer::backdrop { background: rgb(0 0 0 / .8); }
 .viewer-top, .viewer-actions { display: flex; align-items: center; gap: .75rem; padding: .6rem .8rem; }
 .viewer-top { justify-content: space-between; }
@@ -46,8 +49,8 @@ select {
 button, .button { cursor: pointer; font-size: .9rem; font-weight: 600; }
 .button { display: inline-flex; align-items: center; text-decoration: none; }
 button:hover, .button:hover { background: var(--hover); }
-button.primary { background: var(--accent); color: var(--surface); border-color: var(--accent); }
-button.primary:hover { filter: brightness(.9); }
+button.primary, .button.primary { background: var(--accent); color: var(--surface); border-color: var(--accent); }
+button.primary:hover, .button.primary:hover { filter: brightness(.9); }
 button:disabled { cursor: default; opacity: .6; }
 .check { min-height: 44px; flex-direction: row; align-items: center; }
 .check input { accent-color: var(--accent); width: 1.1rem; height: 1.1rem; }
