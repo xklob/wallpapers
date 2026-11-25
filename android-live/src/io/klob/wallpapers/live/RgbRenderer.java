@@ -12,6 +12,8 @@ import android.graphics.RuntimeShader;
 import android.graphics.Shader;
 import android.os.SystemClock;
 import android.util.Log;
+import android.view.Display;
+import android.view.WindowMetrics;
 
 import java.io.IOException;
 
@@ -49,7 +51,9 @@ final class RgbRenderer {
     private final RuntimeShader shader = createShader();
     private Bitmap bitmap;
     private BitmapShader input;
-    private String artPath;
+    private String artPath, rotatedPath;
+    private Catalog.Model model, rotatedModel;
+    private PanelCorners corners;
     private int layoutWidth;
     private int layoutHeight;
     private int periodMillis = 18000;
@@ -77,9 +81,15 @@ final class RgbRenderer {
     }
 
     void update(SharedPreferences preferences, WallpaperScreen screen) {
-        String path = Settings.artPath(context, preferences, screen);
-        if (!path.equals(artPath)) {
+        Catalog.Model selected = Settings.model(context, preferences, screen);
+        Catalog.Model rotated = Catalog.get(context).forOrientation(selected, selected.width <= selected.height);
+        String path = Settings.artPath(selected, preferences, screen);
+        String other = rotated == selected ? path : Settings.artPath(rotated, preferences, screen);
+        if (selected != model || !path.equals(artPath) || !other.equals(rotatedPath)) {
+            model = selected;
+            rotatedModel = rotated;
             artPath = path;
+            rotatedPath = other;
             layoutWidth = layoutHeight = 0;
         }
 
@@ -95,6 +105,13 @@ final class RgbRenderer {
         OutputAudio.INSTANCE.pulses().setSensitivity(sensitivity);
         MicrophoneAudioService.pulses().setSensitivity(sensitivity);
         updateAudio();
+    }
+
+    void setPanel(Display display, WindowMetrics metrics) {
+        PanelCorners next = PanelCorners.read(display, metrics);
+        if (corners == null ? next == null : corners.sameGeometry(next)) return;
+        corners = next;
+        layoutWidth = layoutHeight = 0;
     }
 
     void setVisible(boolean visible) {
@@ -140,7 +157,9 @@ final class RgbRenderer {
     private void layout(int width, int height) {
         if (width == layoutWidth && height == layoutHeight) return;
         try {
-            bitmap = WallpaperArt.render(context, artPath, width, height);
+            boolean rotate = (width > height) != (model.width > model.height);
+            bitmap = WallpaperArt.render(context, rotate ? rotatedPath : artPath, width, height, 1f,
+                    rotate ? rotatedModel : model, corners);
             input = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
             input.setFilterMode(BitmapShader.FILTER_MODE_LINEAR);
             if (shader != null) shader.setInputShader("art", input);
@@ -156,9 +175,13 @@ final class RgbRenderer {
     }
 
     void draw(Canvas canvas) {
+        draw(canvas, canvas.getWidth(), canvas.getHeight());
+    }
+
+    void draw(Canvas canvas, int width, int height) {
         canvas.drawColor(Color.BLACK);
-        if (artPath == null || canvas.getWidth() <= 0 || canvas.getHeight() <= 0) return;
-        layout(canvas.getWidth(), canvas.getHeight());
+        if (artPath == null || width <= 0 || height <= 0) return;
+        layout(width, height);
         if (bitmap == null) return;
         long now = SystemClock.uptimeMillis();
         advance(now);

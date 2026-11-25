@@ -22,8 +22,10 @@ enum WallpaperScreen {
     }
 
     static WallpaperScreen resolve(boolean home, boolean lock, boolean locked, WallpaperScreen preview) {
-        if (home != lock) return home ? HOME : LOCK;
+        if (lock && !home) return LOCK;
+        // A picker can attach with FLAG_SYSTEM even when the app requested a Lock preview.
         if (preview != null) return preview;
+        if (home && !lock) return HOME;
         return locked ? LOCK : HOME;
     }
 

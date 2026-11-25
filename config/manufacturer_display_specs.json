@@ -1,0 +1,1031 @@
+{
+  "HONOR Magic V": {
+    "source": "https://www.honor.com/global/phones/honor-magic-v/spec/",
+    "screens": {
+      "cover": [1080, 2560],
+      "inner": [1984, 2272]
+    }
+  },
+  "HONOR Magic V2": {
+    "source": "https://www.honor.com/global/phones/honor-magic-v2/spec/",
+    "screens": {
+      "cover": [1060, 2376],
+      "inner": [2156, 2344]
+    }
+  },
+  "HONOR Magic V3": {
+    "source": "https://www.honor.com/global/phones/honor-magic-v3/spec/",
+    "screens": {
+      "cover": [1060, 2376],
+      "inner": [2156, 2344]
+    }
+  },
+  "HONOR Magic V5": {
+    "source": "https://www.honor.com/global/phones/honor-magic-v5/spec/",
+    "screens": {
+      "cover": [1060, 2376],
+      "inner": [2172, 2352]
+    }
+  },
+  "HONOR Magic Vs": {
+    "source": "https://www.honor.com/global/phones/honor-magic-vs/spec/",
+    "screens": {
+      "cover": [1080, 2560],
+      "inner": [1984, 2272]
+    }
+  },
+  "HONOR Magic3": {
+    "source": "https://www.honor.com/cn/phones/honor-magic3/spec/",
+    "screens": {
+      "main": [1344, 2772]
+    }
+  },
+  "HONOR Magic3 Pro": {
+    "source": "https://www.honor.com/cn/shop/help/category-174.html",
+    "screens": {
+      "main": [1344, 2772]
+    }
+  },
+  "HONOR Magic3 Pro+": {
+    "source": "https://www.honor.com/cn/phones/honor-magic3-pro-plus/spec/",
+    "screens": {
+      "main": [1344, 2772]
+    }
+  },
+  "HONOR Magic4": {
+    "source": "https://www.honor.com/cn/phones/honor-magic4/spec/",
+    "screens": {
+      "main": [1224, 2664]
+    }
+  },
+  "HONOR Magic4 Pro": {
+    "source": "https://www.honor.com/global/phones/honor-magic4-pro/spec/",
+    "screens": {
+      "main": [1312, 2848]
+    }
+  },
+  "HONOR Magic4 Ultimate": {
+    "source": "https://www.honor.com/global/phones/honor-magic4-ultimate/spec/",
+    "screens": {
+      "main": [1312, 2848]
+    }
+  },
+  "HONOR Magic5": {
+    "source": "https://www.honor.com/global/phones/honor-magic5/spec/",
+    "screens": {
+      "main": [1224, 2688]
+    }
+  },
+  "HONOR Magic5 Pro": {
+    "source": "https://www.honor.com/global/phones/honor-magic5-pro/spec/",
+    "screens": {
+      "main": [1312, 2848]
+    }
+  },
+  "HONOR Magic5 Ultimate": {
+    "source": "https://www.honor.com/global/phones/honor-magic5-ultimate/spec/",
+    "screens": {
+      "main": [1312, 2848]
+    }
+  },
+  "HONOR Magic6": {
+    "source": "https://www.honor.com/cn/phones/honor-magic6/spec/",
+    "screens": {
+      "main": [1264, 2800]
+    }
+  },
+  "HONOR Magic6 Pro": {
+    "source": "https://www.honor.com/global/phones/honor-magic6-pro/spec/",
+    "screens": {
+      "main": [1280, 2800]
+    }
+  },
+  "HONOR Magic6 Ultimate": {
+    "source": "https://www.honor.com/cn/phones/honor-magic6-ultimate/spec/",
+    "screens": {
+      "main": [1280, 2800]
+    }
+  },
+  "HONOR Magic7": {
+    "source": "https://www.honor.com/global/phones/honor-magic7/spec/",
+    "screens": {
+      "main": [1264, 2800]
+    }
+  },
+  "HONOR Magic7 Pro": {
+    "source": "https://www.honor.com/global/phones/honor-magic7-pro/spec/",
+    "screens": {
+      "main": [1280, 2800]
+    }
+  },
+  "HONOR Magic8": {
+    "source": "https://www.honor.com/cn/phones/honor-magic8/spec/",
+    "screens": {
+      "main": [1256, 2760]
+    }
+  },
+  "HONOR Magic8 Pro": {
+    "source": "https://www.honor.com/global/phones/honor-magic8-pro/spec/",
+    "screens": {
+      "main": [1256, 2808]
+    }
+  },
+  "HONOR Magic9 Pro Max": {
+    "source": "https://www.honor.com/global/phones/honor-magic9-pro-max/spec/",
+    "screens": {
+      "main": [1320, 2868]
+    }
+  },
+  "HONOR Magic9 Super Power Edition": {
+    "source": "https://www.honor.com/cn/phones/honor-magic9-super-power/spec/",
+    "screens": {
+      "main": [1280, 2788]
+    }
+  },
+  "Motorola Edge 40 Pro": {
+    "source": "https://en-us.support.motorola.com/app/answers/detail/a_id/175747/~/motorola-edge-40-pro---technischen-daten",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "Motorola Edge 50 Pro": {
+    "source": "https://en-us.support.motorola.com/app/answers/detail/a_id/189585",
+    "screens": {
+      "main": [1220, 2712]
+    }
+  },
+  "Motorola Edge 50 Ultra": {
+    "source": "https://en-us.support.motorola.com/app/answers/detail/a_id/187368/~/specifications---motorola-edge-50-ultra/",
+    "screens": {
+      "main": [1220, 2712]
+    }
+  },
+  "Motorola Edge 60 Pro": {
+    "source": "https://en-us.support.motorola.com/app/answers/detail/a_id/185971/~/specifications---motorola-edge-60-pro",
+    "screens": {
+      "main": [1220, 2712]
+    }
+  },
+  "Motorola Edge 70": {
+    "source": "https://en-us.support.motorola.com/app/answers/detail/a_id/193059/~/specifications---motorola-edge-70",
+    "screens": {
+      "main": [1220, 2712]
+    }
+  },
+  "Motorola Edge+ (2020)": {
+    "source": "https://en-us.support.motorola.com/app/answers/detail/a_id/153858/",
+    "screens": {
+      "main": [1080, 2340]
+    }
+  },
+  "Motorola Edge+ (2022)": {
+    "source": "https://en-us.support.motorola.com/app/answers/detail/a_id/169796",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "Motorola Edge+ (2023)": {
+    "source": "https://en-us.support.motorola.com/app/answers/detail/a_id/175688/p/30%2C5439%2C56%2C",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "Motorola Razr (2022)": {
+    "source": "https://globalb2b.motorola.com/smartphones-razr-2022/p",
+    "screens": {
+      "cover": [573, 800],
+      "inner": [1080, 2400]
+    }
+  },
+  "Motorola Razr 40": {
+    "source": "https://en-us.support.motorola.com/app/answers/detail/a_id/175718/p/7901%2C8013%2C",
+    "screens": {
+      "cover": [194, 368],
+      "inner": [1080, 2640]
+    }
+  },
+  "Motorola Razr 40 Ultra": {
+    "source": "https://en-us.support.motorola.com/app/answers/detail/a_id/175719/~/motorola-razr-40-ultra---sp%C3%A9cifications-",
+    "screens": {
+      "cover": [1056, 1066],
+      "inner": [1080, 2640]
+    }
+  },
+  "Motorola Razr 50": {
+    "source": "https://en-us.support.motorola.com/app/answers/detail/a_id/180545/~/motorola-razr-50---specifica%C8%9Biile",
+    "screens": {
+      "cover": [1056, 1066],
+      "inner": [1080, 2640]
+    }
+  },
+  "Motorola Razr 50 Ultra": {
+    "source": "https://en-us.support.motorola.com/app/answers/detail/a_id/183647/~/technischen-daten--motorola-razr-50-ultra-",
+    "screens": {
+      "cover": [1080, 1272],
+      "inner": [1080, 2640]
+    }
+  },
+  "Motorola Razr 60": {
+    "source": "https://en-us.support.motorola.com/app/answers/detail/a_id/187126/~/specifications---motorola-razr-60",
+    "screens": {
+      "cover": [1056, 1066],
+      "inner": [1080, 2640]
+    }
+  },
+  "Motorola Razr 60 Ultra": {
+    "source": "https://en-us.support.motorola.com/app/answers/detail/a_id/187134/~/specifications---motorola-razr-60-ultra",
+    "screens": {
+      "cover": [1080, 1272],
+      "inner": [1224, 2992]
+    }
+  },
+  "Motorola Razr 70 Ultra": {
+    "source": "https://en-us.support.motorola.com/app/answers/detail/a_id/192853",
+    "screens": {
+      "cover": [1080, 1272],
+      "inner": [1224, 2992]
+    }
+  },
+  "Motorola Razr Fold": {
+    "source": "https://en-us.support.motorola.com/app/answers/detail/a_id/192857",
+    "screens": {
+      "cover": [1080, 2520],
+      "inner": [2232, 2484]
+    }
+  },
+  "OPPO Find N": {
+    "source": "https://www.oppo.com/cn/smartphones/series-find-n/find-n/specs/",
+    "screens": {
+      "cover": [988, 1972],
+      "inner": [1792, 1920]
+    }
+  },
+  "OPPO Find N2": {
+    "source": "https://www.oppo.com/cn/smartphones/series-find-n/find-n2/specs/",
+    "screens": {
+      "cover": [1080, 2120],
+      "inner": [1792, 1920]
+    }
+  },
+  "OPPO Find N2 Flip": {
+    "source": "https://www.oppo.com/en/smartphones/series-find-n/find-n2-flip/specs/",
+    "screens": {
+      "cover": [382, 720],
+      "inner": [1080, 2520]
+    }
+  },
+  "OPPO Find N3": {
+    "source": "https://www.oppo.com/en/smartphones/series-find-n/find-n3/specs/",
+    "screens": {
+      "cover": [1116, 2484],
+      "inner": [2268, 2440]
+    }
+  },
+  "OPPO Find N3 Flip": {
+    "source": "https://www.oppo.com/en/smartphones/series-find-n/find-n3-flip/specs/",
+    "screens": {
+      "cover": [382, 720],
+      "inner": [1080, 2520]
+    }
+  },
+  "OPPO Find N5": {
+    "source": "https://www.oppo.com/en/smartphones/series-find-n/find-n5/specs/",
+    "screens": {
+      "cover": [1140, 2616],
+      "inner": [2248, 2480]
+    }
+  },
+  "OPPO Find N6": {
+    "source": "https://www.oppo.com/en/smartphones/series-find-n/find-n6/specs/",
+    "screens": {
+      "cover": [1140, 2616],
+      "inner": [2248, 2480]
+    }
+  },
+  "OPPO Find X10": {
+    "source": "https://www.oppo.com/en/smartphones/series-find-x/find-x10/specs/",
+    "screens": {
+      "main": [1272, 2768]
+    }
+  },
+  "OPPO Find X10 Pro Max": {
+    "source": "https://www.oppo.com/en/smartphones/series-find-x/find-x10-pro-max/specs/",
+    "screens": {
+      "main": [1272, 2772]
+    }
+  },
+  "OPPO Find X2": {
+    "source": "https://www.oppo.com/en/newsroom/press/oppo-launches-all-round-5g-flagship-find-x2-series-with-industry-leading-screen/",
+    "screens": {
+      "main": [1440, 3168]
+    }
+  },
+  "OPPO Find X2 Pro": {
+    "source": "https://www.oppo.com/en/newsroom/press/oppo-launches-all-round-5g-flagship-find-x2-series-with-industry-leading-screen/",
+    "screens": {
+      "main": [1440, 3168]
+    }
+  },
+  "OPPO Find X3": {
+    "source": "https://www.oppo.com/cn/smartphones/series-find-x/find-x3/specs/",
+    "screens": {
+      "main": [1440, 3216]
+    }
+  },
+  "OPPO Find X3 Pro": {
+    "source": "https://www.oppo.com/en/smartphones/series-find-x/find-x3-pro/specs/",
+    "screens": {
+      "main": [1440, 3216]
+    }
+  },
+  "OPPO Find X5": {
+    "source": "https://www.oppo.com/cn/smartphones/series-find-x/find-x5/specs/",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "OPPO Find X5 Pro": {
+    "source": "https://www.oppo.com/cn/smartphones/series-find-x/find-x5-pro/specs/",
+    "screens": {
+      "main": [1440, 3216]
+    }
+  },
+  "OPPO Find X6": {
+    "source": "https://www.oppo.com/cn/smartphones/series-find-x/find-x6/specs/",
+    "screens": {
+      "main": [1240, 2772]
+    }
+  },
+  "OPPO Find X6 Pro": {
+    "source": "https://www.oppo.com/cn/smartphones/series-find-x/find-x6-pro/specs/",
+    "screens": {
+      "main": [1440, 3168]
+    }
+  },
+  "OPPO Find X7": {
+    "source": "https://www.oppo.com/cn/smartphones/series-find-x/find-x7/specs/",
+    "screens": {
+      "main": [1264, 2780]
+    }
+  },
+  "OPPO Find X7 Ultra": {
+    "source": "https://www.oppo.com/cn/smartphones/series-find-x/find-x7-ultra/specs/",
+    "screens": {
+      "main": [1440, 3168]
+    }
+  },
+  "OPPO Find X8": {
+    "source": "https://www.oppo.com/en/smartphones/series-find-x/find-x8/specs/",
+    "screens": {
+      "main": [1256, 2760]
+    }
+  },
+  "OPPO Find X8 Pro": {
+    "source": "https://www.oppo.com/en/smartphones/series-find-x/find-x8-pro/specs/",
+    "screens": {
+      "main": [1264, 2780]
+    }
+  },
+  "OPPO Find X8 Ultra": {
+    "source": "https://www.oppo.com/cn/smartphones/series-find-x/find-x8-ultra/specs/",
+    "screens": {
+      "main": [1440, 3168]
+    }
+  },
+  "OPPO Find X9": {
+    "source": "https://www.oppo.com/en/smartphones/series-find-x/find-x9/specs/",
+    "screens": {
+      "main": [1256, 2760]
+    }
+  },
+  "OPPO Find X9 Pro": {
+    "source": "https://www.oppo.com/en/smartphones/series-find-x/find-x9-pro/specs/",
+    "screens": {
+      "main": [1272, 2772]
+    }
+  },
+  "OPPO Find X9 Ultra": {
+    "source": "https://www.oppo.com/en/smartphones/series-find-x/find-x9-ultra/specs/",
+    "screens": {
+      "main": [1440, 3168]
+    }
+  },
+  "Xiaomi 11T Pro": {
+    "source": "https://www.mi.com/global/product/xiaomi-11t-pro/specs/",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "Xiaomi 12": {
+    "source": "https://www.mi.com/global/product/xiaomi-12/specs/",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "Xiaomi 12 Pro": {
+    "source": "https://www.mi.com/global/product/xiaomi-12-pro/specs/",
+    "screens": {
+      "main": [1440, 3200]
+    }
+  },
+  "Xiaomi 12S": {
+    "source": "https://www.mi.com/mi12s/specs",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "Xiaomi 12S Pro": {
+    "source": "https://www.mi.com/mi12s-pro/specs",
+    "screens": {
+      "main": [1440, 3200]
+    }
+  },
+  "Xiaomi 12S Ultra": {
+    "source": "https://www.mi.com/global/product/xiaomi-12s-ultra/",
+    "screens": {
+      "main": [1440, 3200]
+    }
+  },
+  "Xiaomi 12T Pro": {
+    "source": "https://www.mi.com/global/product/xiaomi-12t-pro/specs/",
+    "screens": {
+      "main": [1220, 2712]
+    }
+  },
+  "Xiaomi 13": {
+    "source": "https://www.mi.com/global/product/xiaomi-13/specs/",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "Xiaomi 13 Pro": {
+    "source": "https://www.mi.com/global/product/xiaomi-13-pro/specs/",
+    "screens": {
+      "main": [1440, 3200]
+    }
+  },
+  "Xiaomi 13 Ultra": {
+    "source": "https://www.mi.com/global/product/xiaomi-13-ultra/specs/",
+    "screens": {
+      "main": [1440, 3200]
+    }
+  },
+  "Xiaomi 13T Pro": {
+    "source": "https://www.mi.com/global/support/faq/details/KA-43102/",
+    "screens": {
+      "main": [1220, 2712]
+    }
+  },
+  "Xiaomi 14": {
+    "source": "https://www.mi.com/global/product/xiaomi-14/specs/",
+    "screens": {
+      "main": [1200, 2670]
+    }
+  },
+  "Xiaomi 14 Pro": {
+    "source": "https://www.mi.com/xiaomi-14-pro/specs",
+    "screens": {
+      "main": [1440, 3200]
+    }
+  },
+  "Xiaomi 14 Ultra": {
+    "source": "https://www.mi.com/global/product/xiaomi-14-ultra/specs/",
+    "screens": {
+      "main": [1440, 3200]
+    }
+  },
+  "Xiaomi 14T Pro": {
+    "source": "https://www.mi.com/global/product/xiaomi-14t-pro/specs/",
+    "screens": {
+      "main": [1220, 2712]
+    }
+  },
+  "Xiaomi 15": {
+    "source": "https://www.mi.com/global/product/xiaomi-15/specs/",
+    "screens": {
+      "main": [1200, 2670]
+    }
+  },
+  "Xiaomi 15 Pro": {
+    "source": "https://www.mi.com/prod/xiaomi-15-pro/specs",
+    "screens": {
+      "main": [1440, 3200]
+    }
+  },
+  "Xiaomi 15 Ultra": {
+    "source": "https://www.mi.com/global/product/xiaomi-15-ultra/specs/",
+    "screens": {
+      "main": [1440, 3200]
+    }
+  },
+  "Xiaomi 15T Pro": {
+    "source": "https://www.mi.com/global/product/xiaomi-15t-pro/specs/",
+    "screens": {
+      "main": [1280, 2772]
+    }
+  },
+  "Xiaomi 17": {
+    "source": "https://www.mi.com/global/product/xiaomi-17/specs/",
+    "screens": {
+      "main": [1220, 2656]
+    }
+  },
+  "Xiaomi 17 Pro": {
+    "source": "https://www.mi.com/prod/xiaomi-17-pro/specs",
+    "screens": {
+      "main": [1220, 2656]
+    }
+  },
+  "Xiaomi 17 Pro Max": {
+    "source": "https://www.mi.com/prod/xiaomi-17-pro-max/specs",
+    "screens": {
+      "main": [1200, 2608]
+    }
+  },
+  "Xiaomi 17 Ultra": {
+    "source": "https://www.mi.com/global/product/xiaomi-17-ultra/specs/",
+    "screens": {
+      "main": [1200, 2608]
+    }
+  },
+  "Xiaomi 17T Pro": {
+    "source": "https://www.mi.com/global/product/xiaomi-17t-pro/specs/",
+    "screens": {
+      "main": [1280, 2772]
+    }
+  },
+  "Xiaomi 18 Pro": {
+    "source": "https://www.mi.com/global/product/xiaomi-18-pro/specs/",
+    "screens": {
+      "main": [1120, 2436]
+    }
+  },
+  "Xiaomi 18 Pro Max": {
+    "source": "https://www.mi.com/global/product/xiaomi-18-pro-max/specs/",
+    "screens": {
+      "main": [1208, 2624]
+    }
+  },
+  "Xiaomi MIX Flip": {
+    "source": "https://www.mi.com/global/product/xiaomi-mix-flip/specs/",
+    "screens": {
+      "cover": [1208, 1392],
+      "inner": [1224, 2912]
+    }
+  },
+  "Xiaomi MIX Flip 2": {
+    "source": "https://www.mi.com/prod/xiaomi-mix-flip2/specs",
+    "screens": {
+      "cover": [1208, 1392],
+      "inner": [1224, 2912]
+    }
+  },
+  "Xiaomi MIX Fold 2": {
+    "source": "https://www.mi.com/xiaomimixfold2/specs",
+    "screens": {
+      "cover": [1080, 2520],
+      "inner": [1914, 2160]
+    }
+  },
+  "Xiaomi MIX Fold 3": {
+    "source": "https://www.mi.com/global/product/xiaomi-mix-fold-3/specs/",
+    "screens": {
+      "cover": [1080, 2520],
+      "inner": [1916, 2160]
+    }
+  },
+  "Xiaomi MIX Fold 4": {
+    "source": "https://www.mi.com/prod/xiaomi-mix-fold-4/specs",
+    "screens": {
+      "cover": [1080, 2520],
+      "inner": [2224, 2488]
+    }
+  },
+  "Xiaomi Mi 10": {
+    "source": "https://www.mi.com/in/mi-10/specs/",
+    "screens": {
+      "main": [1080, 2340]
+    }
+  },
+  "Xiaomi Mi 10 Pro": {
+    "source": "https://www.mi.com/uk/mi-10-pro/specs/",
+    "screens": {
+      "main": [1080, 2340]
+    }
+  },
+  "Xiaomi Mi 10 Ultra": {
+    "source": "https://www.mi.com/mi10ultra/specs",
+    "screens": {
+      "main": [1080, 2340]
+    }
+  },
+  "Xiaomi Mi 10T": {
+    "source": "https://www.mi.com/uk/mi-10t/specs/",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "Xiaomi Mi 10T Pro": {
+    "source": "https://www.mi.com/uk/mi-10t/specs/",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "Xiaomi Mi 11": {
+    "source": "https://www.mi.com/global/product/mi-11/specs/",
+    "screens": {
+      "main": [1440, 3200]
+    }
+  },
+  "Xiaomi Mi 11 Pro": {
+    "source": "https://www.mi.com/global/support/faq/details/KA-07249/",
+    "screens": {
+      "main": [1440, 3200]
+    }
+  },
+  "Xiaomi Mi 11 Ultra": {
+    "source": "https://www.mi.com/global/product/mi-11-ultra/specs/",
+    "screens": {
+      "main": [1440, 3200]
+    }
+  },
+  "Xiaomi Mi MIX Fold": {
+    "source": "https://www.mi.com/mixfold/specs",
+    "screens": {
+      "cover": [840, 2520],
+      "inner": [1860, 2480]
+    }
+  },
+  "Zenfone 10": {
+    "source": "https://www.asus.com/mobile-handhelds/phones/zenfone/zenfone-10/techspec/",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "Zenfone 11 Ultra": {
+    "source": "https://www.asus.com/mobile-handhelds/phones/zenfone/zenfone-11-ultra/techspec/",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "Zenfone 12 Ultra": {
+    "source": "https://www.asus.com/mobile-handhelds/phones/zenfone/zenfone-12-ultra/techspec/",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "Zenfone 7": {
+    "source": "https://www.asus.com/mobile-handhelds/phones/zenfone/zenfone-7/techspec/",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "Zenfone 7 Pro": {
+    "source": "https://www.asus.com/mobile-handhelds/phones/zenfone/zenfone-7-pro/techspec/",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "Zenfone 8": {
+    "source": "https://www.asus.com/mobile-handhelds/phones/zenfone/zenfone-8/techspec/",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "Zenfone 8 Flip": {
+    "source": "https://www.asus.com/mobile-handhelds/phones/zenfone/zenfone-8-flip/techspec/",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "Zenfone 9": {
+    "source": "https://www.asus.com/mobile-handhelds/phones/zenfone/zenfone-9/techspec/",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "iQOO 10 Pro": {
+    "source": "https://www.vivo.com.cn/vivo/param/iqoo10pro",
+    "screens": {
+      "main": [1440, 3200]
+    }
+  },
+  "iQOO 11": {
+    "source": "https://www.vivo.com.cn/vivo/param/iqoo11",
+    "screens": {
+      "main": [1440, 3200]
+    }
+  },
+  "iQOO 11 Pro": {
+    "source": "https://www.vivo.com.cn/vivo/param/iqoo11pro",
+    "screens": {
+      "main": [1440, 3200]
+    }
+  },
+  "iQOO 12": {
+    "source": "https://www.vivo.com.cn/vivo/param/iqoo12",
+    "screens": {
+      "main": [1260, 2800]
+    }
+  },
+  "iQOO 12 Pro": {
+    "source": "https://www.vivo.com.cn/vivo/param/iqoo12pro",
+    "screens": {
+      "main": [1440, 3200]
+    }
+  },
+  "iQOO 13": {
+    "source": "https://www.vivo.com.cn/vivo/param/iqoo13",
+    "screens": {
+      "main": [1440, 3168]
+    }
+  },
+  "iQOO 15": {
+    "source": "https://www.vivo.com.cn/vivo/param/iqoo15",
+    "screens": {
+      "main": [1440, 3168]
+    }
+  },
+  "iQOO 3": {
+    "source": "https://www.vivo.com.cn/vivo/param/iqoo3",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "iQOO 5": {
+    "source": "https://www.vivo.com.cn/vivo/param/iqoo5",
+    "screens": {
+      "main": [1080, 2376]
+    }
+  },
+  "iQOO 5 Pro": {
+    "source": "https://www.vivo.com.cn/vivo/param/iqoo5pro",
+    "screens": {
+      "main": [1080, 2376]
+    }
+  },
+  "iQOO 7": {
+    "source": "https://www.vivo.com.cn/vivo/param/iqoo7",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "iQOO 8 Pro": {
+    "source": "https://www.vivo.com.cn/vivo/param/iqoo8pro",
+    "screens": {
+      "main": [1440, 3200]
+    }
+  },
+  "iQOO 9 Pro": {
+    "source": "https://www.vivo.com.cn/vivo/param/iqoo9pro",
+    "screens": {
+      "main": [1440, 3200]
+    }
+  },
+  "realme GT": {
+    "source": "https://www.realme.com/global/realme-gt/specs",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "realme GT 2": {
+    "source": "https://www.realme.com/global/realme-gt-2/specs",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "realme GT 2 Pro": {
+    "source": "https://www.realme.com/global/realme-gt-2-pro/specs",
+    "screens": {
+      "main": [1440, 3216]
+    }
+  },
+  "realme GT 5": {
+    "source": "https://www.realme.com/cn/realme-gt-5/specs",
+    "screens": {
+      "main": [1240, 2772]
+    }
+  },
+  "realme GT 5 Pro": {
+    "source": "https://www.realme.com/cn/realme-gt-5-pro/specs",
+    "screens": {
+      "main": [1264, 2780]
+    }
+  },
+  "realme GT 6": {
+    "source": "https://www.realme.com/global/realme-gt-6/specs",
+    "screens": {
+      "main": [1264, 2780]
+    }
+  },
+  "realme GT 7 Pro": {
+    "source": "https://www.realme.com/global/realme-gt-7-pro/specs",
+    "screens": {
+      "main": [1264, 2780]
+    }
+  },
+  "realme GT 8 Pro": {
+    "source": "https://www.realme.com/global/realme-gt-8-pro/specs",
+    "screens": {
+      "main": [1440, 3136]
+    }
+  },
+  "vivo X Fold": {
+    "source": "https://www.vivo.com.cn/vivo/param/xfold",
+    "screens": {
+      "cover": [1080, 2520],
+      "inner": [1916, 2160]
+    }
+  },
+  "vivo X Fold+": {
+    "source": "https://www.vivo.com.cn/vivo/param/xfoldplus",
+    "screens": {
+      "cover": [1080, 2520],
+      "inner": [1916, 2160]
+    }
+  },
+  "vivo X Fold2": {
+    "source": "https://www.vivo.com.cn/vivo/param/xfold2",
+    "screens": {
+      "cover": [1080, 2520],
+      "inner": [1916, 2160]
+    }
+  },
+  "vivo X Fold3": {
+    "source": "https://www.vivo.com.cn/vivo/param/xfold3",
+    "screens": {
+      "cover": [1172, 2748],
+      "inner": [2200, 2480]
+    }
+  },
+  "vivo X Fold3 Pro": {
+    "source": "https://www.vivo.com.cn/vivo/param/xfold3pro",
+    "screens": {
+      "cover": [1172, 2748],
+      "inner": [2200, 2480]
+    }
+  },
+  "vivo X Fold5": {
+    "source": "https://www.vivo.com.cn/vivo/param/xfold5",
+    "screens": {
+      "cover": [1172, 2748],
+      "inner": [2200, 2480]
+    }
+  },
+  "vivo X100": {
+    "source": "https://www.vivo.com.cn/vivo/param/x100",
+    "screens": {
+      "main": [1260, 2800]
+    }
+  },
+  "vivo X100 Pro": {
+    "source": "https://www.vivo.com.cn/vivo/param/x100pro",
+    "screens": {
+      "main": [1260, 2800]
+    }
+  },
+  "vivo X100 Ultra": {
+    "source": "https://www.vivo.com.cn/vivo/param/x100ultra",
+    "screens": {
+      "main": [1440, 3200]
+    }
+  },
+  "vivo X200": {
+    "source": "https://www.vivo.com.cn/vivo/param/x200",
+    "screens": {
+      "main": [1260, 2800]
+    }
+  },
+  "vivo X200 Pro": {
+    "source": "https://www.vivo.com.cn/vivo/param/x200pro",
+    "screens": {
+      "main": [1260, 2800]
+    }
+  },
+  "vivo X200 Pro mini": {
+    "source": "https://www.vivo.com.cn/vivo/param/x200promini",
+    "screens": {
+      "main": [1216, 2640]
+    }
+  },
+  "vivo X200 Ultra": {
+    "source": "https://www.vivo.com.cn/vivo/param/x200ultra",
+    "screens": {
+      "main": [1440, 3168]
+    }
+  },
+  "vivo X300": {
+    "source": "https://www.vivo.com.cn/vivo/param/x300",
+    "screens": {
+      "main": [1216, 2640]
+    }
+  },
+  "vivo X300 Pro": {
+    "source": "https://www.vivo.com.cn/vivo/param/x300pro",
+    "screens": {
+      "main": [1260, 2800]
+    }
+  },
+  "vivo X300 Ultra": {
+    "source": "https://www.vivo.com.cn/vivo/param/x300ultra",
+    "screens": {
+      "main": [1440, 3168]
+    }
+  },
+  "vivo X50 Pro": {
+    "source": "https://www.vivo.com.cn/vivo/param/x50pro",
+    "screens": {
+      "main": [1080, 2376]
+    }
+  },
+  "vivo X50 Pro+": {
+    "source": "https://www.vivo.com.cn/vivo/param/x50proplus",
+    "screens": {
+      "main": [1080, 2376]
+    }
+  },
+  "vivo X500": {
+    "source": "https://www.vivo.com.cn/vivo/param/x500",
+    "screens": {
+      "main": [1260, 2750]
+    }
+  },
+  "vivo X500 Pro": {
+    "source": "https://www.vivo.com.cn/vivo/param/x500pro",
+    "screens": {
+      "main": [1216, 2660]
+    }
+  },
+  "vivo X500 Pro Max": {
+    "source": "https://www.vivo.com.cn/vivo/param/x500promax",
+    "screens": {
+      "main": [1440, 3168]
+    }
+  },
+  "vivo X60": {
+    "source": "https://www.vivo.com.cn/vivo/param/x60",
+    "screens": {
+      "main": [1080, 2376]
+    }
+  },
+  "vivo X60 Pro": {
+    "source": "https://www.vivo.com.cn/vivo/param/x60pro",
+    "screens": {
+      "main": [1080, 2376]
+    }
+  },
+  "vivo X60 Pro+": {
+    "source": "https://www.vivo.com.cn/vivo/param/x60proplus",
+    "screens": {
+      "main": [1080, 2376]
+    }
+  },
+  "vivo X70": {
+    "source": "https://www.vivo.com.cn/vivo/param/x70",
+    "screens": {
+      "main": [1080, 2376]
+    }
+  },
+  "vivo X70 Pro": {
+    "source": "https://www.vivo.com.cn/vivo/param/x70pro",
+    "screens": {
+      "main": [1080, 2376]
+    }
+  },
+  "vivo X70 Pro+": {
+    "source": "https://www.vivo.com.cn/vivo/param/x70proplus",
+    "screens": {
+      "main": [1440, 3200]
+    }
+  },
+  "vivo X80": {
+    "source": "https://www.vivo.com.cn/vivo/param/x80",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "vivo X80 Pro": {
+    "source": "https://www.vivo.com.cn/vivo/param/x80pro",
+    "screens": {
+      "main": [1440, 3200]
+    }
+  },
+  "vivo X90": {
+    "source": "https://www.vivo.com.cn/vivo/param/x90",
+    "screens": {
+      "main": [1260, 2800]
+    }
+  },
+  "vivo X90 Pro": {
+    "source": "https://www.vivo.com.cn/vivo/param/x90pro",
+    "screens": {
+      "main": [1260, 2800]
+    }
+  },
+  "vivo X90 Pro+": {
+    "source": "https://www.vivo.com.cn/vivo/param/x90proplus",
+    "screens": {
+      "main": [1440, 3200]
+    }
+  }
+}

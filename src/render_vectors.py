@@ -21,7 +21,7 @@ from PIL import Image
 from pattern_edges import align_vertical_edges
 
 STROKES = {"01_honeycomb_bright": 2.0, "02_hexagons": 2.4,
-           "03_honeycomb_subtle": 1.8, "04_cubes": 2.2}
+           "04_cubes": 2.2}
 
 
 def num(value):
@@ -195,26 +195,6 @@ def camera_svg(camera):
     return "".join(defs),"".join(parts)
 
 
-def soften_honeycomb(svg):
-    """Dim and thin the pattern while preserving any frame or camera ring."""
-    if 'data-palette="subtle"' in svg:
-        return svg
-
-    def dim_gradient(match):
-        gradient = match.group()
-        return re.sub(
-            r'stop-color="#([0-9a-f]{6})"',
-            lambda color: 'stop-color="' + rgbhex(
-                int(color[1][offset:offset+2], 16) * .71 / 255 for offset in (0, 2, 4)
-            ) + '"',
-            gradient.replace('id="rainbow"', 'id="rainbow" data-palette="subtle"'),
-        )
-
-    svg = re.sub(r'<linearGradient id="rainbow"[^>]*>.*?</linearGradient>', dim_gradient, svg)
-    return re.sub(r'(stroke="url\(#rainbow\)" stroke-width=")([\d.]+)"',
-                  lambda match: match[1] + num(float(match[2]) * .8) + '"', svg)
-
-
 def build_svg(meta,base,design,polygons,palette,frame,camera=None):
     width,height=meta["width"],meta["height"]
     x,y,bw,bh=base["source_box"];tw,th=base["pattern_size"]
@@ -250,8 +230,6 @@ def build_svg(meta,base,design,polygons,palette,frame,camera=None):
     pattern=f'<g transform="translate({num(px)} {num(py)}) scale({num(sx)} {num(sy)}) translate({num(-x)} {num(-y)})" clip-path="url(#pattern-clip)">'+"".join(group)+'</g>'
     title=design["id"].replace("_"," ")+" | "+str(width)+"x"+str(height)
     svg = f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}"><title>{title}</title><defs>{defs}</defs><rect width="{width}" height="{height}" fill="#000"/>{frame_paths}{pattern}{camera_paths}</svg>\n'
-    if design["id"] == "03_honeycomb_subtle":
-        svg = soften_honeycomb(svg)
     svg = align_vertical_edges(svg)
     if radius:
         corner = max(0,radius-(pad-.02*min(width,height)))

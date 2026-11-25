@@ -1,0 +1,194 @@
+{
+  "ROG Phone 3": {
+    "source": "https://rog.asus.com/us/support/faq/1043916/",
+    "screens": {
+      "main": [1080, 2340]
+    }
+  },
+  "ROG Phone 5": {
+    "source": "https://rog.asus.com/in/phones/rog-phone-5-model/spec/",
+    "screens": {
+      "main": [1080, 2448]
+    }
+  },
+  "ROG Phone 5 Pro": {
+    "source": "https://rog.asus.com/tw/phones/rog-phone-5-pro-model/spec/",
+    "screens": {
+      "main": [1080, 2448]
+    }
+  },
+  "ROG Phone 5 Ultimate": {
+    "source": "https://rog.asus.com/in/phones/rog-phone-5-ultimate-model/spec/",
+    "screens": {
+      "main": [1080, 2448]
+    }
+  },
+  "ROG Phone 5s": {
+    "source": "https://rog.asus.com/in/phones/rog-phone-5s-model/spec/",
+    "screens": {
+      "main": [1080, 2448]
+    }
+  },
+  "ROG Phone 5s Pro": {
+    "source": "https://rog.asus.com/bn/phones/rog-phone-5s-pro-model/spec/?config=90AI0091-M00500",
+    "screens": {
+      "main": [1080, 2448]
+    }
+  },
+  "ROG Phone 6": {
+    "source": "https://rog.asus.com/ro/phones/rog-phone-6-model/spec/",
+    "screens": {
+      "main": [1080, 2448]
+    }
+  },
+  "ROG Phone 6 Pro": {
+    "source": "https://rog.asus.com/ru/phones/rog-phone-6-pro-model/spec/",
+    "screens": {
+      "main": [1080, 2448]
+    }
+  },
+  "ROG Phone 6D": {
+    "source": "https://rog.asus.com/phones/rog-phone-6d-model/spec/",
+    "screens": {
+      "main": [1080, 2448]
+    }
+  },
+  "ROG Phone 6D Ultimate": {
+    "source": "https://rog.asus.com/phones/rog-phone-6d-ultimate-model/spec/",
+    "screens": {
+      "main": [1080, 2448]
+    }
+  },
+  "ROG Phone 7": {
+    "source": "https://rog.asus.com/phones/rog-phone-7/spec/",
+    "screens": {
+      "main": [1080, 2448]
+    }
+  },
+  "ROG Phone 7 Ultimate": {
+    "source": "https://rog.asus.com/phones/rog-phone-7-ultimate/spec/",
+    "screens": {
+      "main": [1080, 2448]
+    }
+  },
+  "ROG Phone 8": {
+    "source": "https://rog.asus.com/phones/rog-phone-8/spec/",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "ROG Phone 8 Pro": {
+    "source": "https://rog.asus.com/phones/rog-phone-8-pro/spec/",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "ROG Phone 9": {
+    "source": "https://rog.asus.com/phones/rog-phone-9/spec/",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "ROG Phone 9 Pro": {
+    "source": "https://rog.asus.com/phones/rog-phone-9-pro/spec/",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "REDMAGIC 5G": {
+    "source": "https://web.archive.org/web/20220702174742/https://global.redmagic.gg/pages/redmagic-5g-specs",
+    "screens": {
+      "main": [1080, 2340]
+    }
+  },
+  "REDMAGIC 5S": {
+    "source": "https://web.archive.org/web/20220702175712/https://global.redmagic.gg/pages/redmagic-5s-specs",
+    "screens": {
+      "main": [1080, 2340]
+    }
+  },
+  "REDMAGIC 6": {
+    "source": "https://global.redmagic.gg/blogs/product-information/everything-you-want-to-know-about-redmagic-6-series-detailed-spec",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "REDMAGIC 6 Pro": {
+    "source": "https://global.redmagic.gg/blogs/product-information/everything-you-want-to-know-about-redmagic-6-series-detailed-spec",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "REDMAGIC 6S Pro": {
+    "source": "https://global.redmagic.gg/blogs/press/redmagic-announced-new-gaming-flagship-redmagic-6s-pro",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "REDMAGIC 7": {
+    "source": "https://web.archive.org/web/20220521194142/https://global.redmagic.gg/pages/redmagic-7-specs",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "REDMAGIC 7 Pro": {
+    "source": "https://web.archive.org/web/20220521191357/https://global.redmagic.gg/pages/redmagic-7-pro-specs",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "REDMAGIC 7S Pro": {
+    "source": "https://my.redmagic.gg/pages/redmagic-7s-pro-specs",
+    "screens": {
+      "main": [1080, 2400]
+    }
+  },
+  "REDMAGIC 8 Pro": {
+    "source": "https://jp.redmagic.gg/pages/redmagic-8-pro-specs-page",
+    "screens": {
+      "main": [1116, 2480]
+    }
+  },
+  "REDMAGIC 8S Pro": {
+    "source": "https://global.redmagic.gg/pages/redmagic-8s-pro-specs",
+    "screens": {
+      "main": [1116, 2480]
+    }
+  },
+  "REDMAGIC 9 Pro": {
+    "source": "https://global.redmagic.gg/pages/redmagic-9-pro-specs",
+    "screens": {
+      "main": [1116, 2480]
+    }
+  },
+  "REDMAGIC 9S Pro": {
+    "source": "https://my.redmagic.gg/pages/9s-pro-products",
+    "screens": {
+      "main": [1116, 2480]
+    }
+  },
+  "REDMAGIC 10 Pro": {
+    "source": "https://global.redmagic.gg/pages/redmagic-10-pro-specs",
+    "screens": {
+      "main": [1216, 2688]
+    }
+  },
+  "REDMAGIC 10S Pro": {
+    "source": "https://global.redmagic.gg/pages/redmagic-10s-pro-specs",
+    "screens": {
+      "main": [1216, 2688]
+    }
+  },
+  "REDMAGIC 11 Pro": {
+    "source": "https://global.redmagic.gg/pages/redmagic-11-pro-specs",
+    "screens": {
+      "main": [1216, 2688]
+    }
+  },
+  "REDMAGIC 11S Pro": {
+    "source": "https://global.redmagic.gg/pages/redmagic-11s-pro-specs",
+    "screens": {
+      "main": [1216, 2688]
+    }
+  }
+}

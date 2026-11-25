@@ -12,6 +12,7 @@ import csv
 import io
 import json
 from concurrent.futures import ProcessPoolExecutor
+from functools import lru_cache
 from pathlib import Path
 from xml.etree import ElementTree
 
@@ -20,6 +21,59 @@ import resvg_py
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+@lru_cache(maxsize=2)
+def tablet_contour_samples(width, height):
+    spec = json.loads((ROOT / "config/google_display_specs.json").read_text())["devices"]["pixel_tablet"]
+    layout = json.loads((ROOT / "config/pixel_tablet_layout.json").read_text())
+    path = spec["display_shape"]
+    rotation = f"translate({width} 0) rotate(90)" if width < height else ""
+    # Sample the middle of the RGB band and the black reveal independently
+    # against Google's panel silhouette. Include short corner arcs on every side.
+    clearance = layout["outer_clearance_px"]
+    middle = clearance + layout["frame_width_px"] / 2
+    strokes = [(2 * (middle + 1), "white"), (2 * (middle - 1), "black"), (2, "red")]
+    lines = "".join(f'<path d="{path}" fill="none" stroke="{color}" stroke-width="{size}"/>'
+                    for size, color in strokes)
+    ref = (f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}">'
+           f'<g transform="{rotation}"><defs><clipPath id="p"><path d="{path}"/></clipPath></defs>'
+           f'<g clip-path="url(#p)">{lines}</g></g></svg>')
+    with Image.open(io.BytesIO(resvg_py.svg_to_bytes(svg_string=ref, background="#000000"))) as image:
+        mask = np.asarray(image.convert("RGB"))
+    return np.nonzero(mask[:, :, 1] > 180), np.nonzero((mask[:, :, 0] > 160) & (mask[:, :, 1] < 20))
+
+
+def check_tablet(image, row, errors, fmt):
+    _, _, device, _, width, height, style = row[:7]
+    if image.size != (width, height):
+        return
+    pixels = np.asarray(image.convert("RGB")).max(axis=2)
+    if style == "rgb_border":
+        frame, reveal = tablet_contour_samples(width, height)
+        if (pixels[frame] > 64).mean() < 0.99 or (pixels[reveal] > 30).mean() > 0.01:
+            errors.append(f"{fmt} tablet screen perimeter")
+        # The straight edges account for most of the frame. Test each corner separately.
+        ys, xs = frame
+        for top in (True, False):
+            for left in (True, False):
+                corner = (ys < 45 if top else ys >= height - 45) & (xs < 45 if left else xs >= width - 45)
+                if not corner.any() or (pixels[ys[corner], xs[corner]] > 64).mean() < 0.95:
+                    errors.append(f"{fmt} tablet corner")
+                    return
+    layouts = json.loads((ROOT / "config/pixel_tablet_layout.json").read_text())["home"]
+    if device not in layouts:
+        return
+    panel = layouts[device]["panel"]
+    x, y, w, h, r = (panel[k] for k in ("x", "y", "width", "height", "radius"))
+    inside = pixels[y + panel["stroke"]:y + h - panel["stroke"], x + r:x + w - r]
+    home = len(row) > 9 and row[9]
+    if home:
+        edge = pixels[[y, y + h], x + r:x + w - r]
+        if np.any(inside > 16) or np.mean(edge > 64) < 0.99:
+            errors.append(f"{fmt} tablet Home panel")
+    elif np.mean(inside > 16) < 0.005:
+        errors.append(f"{fmt} unexpected tablet Home cutout")
 
 
 def validate(row):
@@ -49,6 +103,11 @@ def validate(row):
         reduced = raster.convert("RGB").resize(vector.size, Image.Resampling.LANCZOS)
         vector_rgb = np.asarray(vector.convert("RGB"))
         raster_rgb = np.asarray(reduced)
+        if row[2] in ("pixel_tablet_landscape", "pixel_tablet_portrait"):
+            check_tablet(raster, row, errors, "PNG")
+            native = resvg_py.svg_to_bytes(svg_path=str(svg), skip_system_fonts=True)
+            with Image.open(io.BytesIO(native)) as native_svg:
+                check_tablet(native_svg, row, errors, "SVG")
     vector_luma = vector_rgb.max(axis=2)
     raster_luma = raster_rgb.max(axis=2)
     correlation = float(np.corrcoef(vector_luma.ravel(), raster_luma.ravel())[0, 1])

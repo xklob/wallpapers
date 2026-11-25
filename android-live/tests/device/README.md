@@ -33,14 +33,18 @@ adb shell wm size reset
 adb shell wm density reset
 ```
 
-For example, boot a disposable AVD with physical dimensions 240 × 643. The shipped catalog's 112 × 300 portrait cover group scales to this panel. Confirm `Physical size: 240x643` before running its eight cases.
+For example, a 112 × 300 portrait cover scales to a 240 × 643 panel with `matchShape`. Confirm `Physical size: 240x643` before running its cases. The following command checks the first case in the sorted catalog.
 
 ```sh
 adb shell wm size
-adb shell am instrument -w -e mode static -e matchShape true -e start 0 -e end 8 \
+adb shell am instrument -w -e mode static -e matchShape true -e start 0 -e end 1 \
   io.klob.wallpapers.applytest/io.klob.wallpapers.live.ApplyMatrix
 ```
 
-Sorting for `matchShape` groups cases by catalog width and then height. Group indices apply to the current catalog. For another example, a physical 240 × 249 panel covers both ranges `[80, 88)` (720 × 748) and `[1832, 1864)` (2076 × 2152).
+Sorting for `matchShape` groups cases by catalog width and then height. Group indices change when the catalog changes.
+
+To exercise each asset in its intended orientation on one panel, pass `-e currentOrientation true` and run each mode once in portrait and once in landscape using Android's display rotation. Square artwork belongs to the portrait pass. The two verified counts should sum to the total distinct assets for each mode. The Pixel Tablet live engine and static setter select the orientation-specific artwork when the screen rotates.
+
+Instrumentation force-stops the target app when each run begins and ends. Allow the live service to rebind between runs. If Android's wallpaper state reports `SET_LIVE_TO_CLEAR`, select the live wallpaper again in the picker before running the next range.
 
 Use a stable matching display before binding the live wallpaper on Android 13. Changing only the logical size while its engine is attached can leave the inherited hardware surface at the previous size on the emulator. Screenshots after a resize exercise that transition as well as the selected artwork. A full run at one fixed panel size exercises every selection through the same Android service and compositor.

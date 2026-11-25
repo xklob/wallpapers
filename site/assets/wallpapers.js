@@ -183,7 +183,11 @@ function updatePreview() {
   byId('dimensions').textContent = width + ' × ' + height + ' px';
   const detail = [];
   if (accuracy === 'estimated') detail.push('Estimated camera placement. Fit can vary with wallpaper zoom.');
-  if (homeOutline || statusOutline) detail.push('Fits the stock Pixel 11 Pro XL layout.');
+  if (homeOutline && device.id === 'pixel_tablet_portrait') {
+    detail.push('Estimated stock Pixel Tablet portrait layout.');
+  } else if (homeOutline || statusOutline) {
+    detail.push('Fits the stock ' + device.name + ' layout.');
+  }
   byId('detail').textContent = detail.join(' ');
   status.textContent = '';
 }

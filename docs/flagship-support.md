@@ -4,15 +4,27 @@ The RGB Geometry device catalog includes mainstream, gaming, and foldable flagsh
 
 For models that share exact dimensions and the same border treatment, the `device_aliases.json` file in each pack maps the model ID to reusable artwork. The site names downloads for the selected model.
 
+## Display specifications
+
+The 370 named phones and foldables have 438 cataloged panels. The Pixel Tablet and seven shared iPad size groups bring the total to 446. The iPad groups cover 25 individually sourced models. Each panel size is the manufacturer's full rectangular pixel resolution. The usable area follows the panel's physical corners and cutouts.
+
+The picker exposes 603 choices. Of those, 589 are named model and orientation entries, including separate portrait and landscape choices for tablets and foldables. Six more are shared or regional device names. The remaining eight offer seven desktop resolutions and a generic 1080 × 2400 Galaxy profile.
+
+Run `python src/validate_display_specs.py` to compare the manufacturer dimensions, model index, dropdown aliases, and catalog artwork dimensions. The per-model records link to product specifications, device overlays, archived manufacturer pages, and manufacturer-issued datasheets. [Display specification files](../config/)
+
 ## Wallpaper fit
 
-On Pixel and other Android phones and foldable screens, the standard RGB Border includes extra black canvas around the artwork. The frame and pattern occupy 84% of their original size. The inset is designed around the Android framework's stock 1.10 wallpaper zoom scale. Launcher cropping and wallpaper offsets can vary.
+Google phone and foldable RGB Border downloads compensate for the stock centered 1.10× Android wallpaper crop. The frame follows the panel with a two-native-pixel outer clearance. The app removes the static crop compensation on live wallpaper surfaces. Other Android launchers or zoom settings can position a downloaded wallpaper differently.
 
-The grid fills the framed area with a narrow gap and solid edge cutoffs. The Pixel 11 Pro XL frame radius is based on Google's front-view product imagery. Other mobile frame radii are scaled to the screen size.
+The Google catalog covers 25 distinct panels. The Google device overlays provide resolution-matched perimeters for 23, including the Pixel Tablet. Both the Pixel 10 Pro Fold and 11 Pro Fold cover overlays describe a taller 2424-pixel panel, so their frames use the stock 115-pixel corner radii on the published 2364- and 2342-pixel canvases. The source versions and numeric paths are in the [Google display specifications](../config/google_display_specs.json). Regenerate the phone and foldable frames with `uv run --script src/fit_google_displays.py`.
 
-The RGB Camera Ring option is available for supported circular cutouts. Pixel cutouts backed by Android resource definitions are marked as published. Profiles based on product imagery or approximate cutout placement are marked as estimated, including the Pixel 11 Pro XL. The 11 Pro XL ring uses the observed wallpaper zoom for each style. The downloads include the camera-ring adjuster.
+The RGB Camera Ring option is available for supported circular cutouts. Pixel cutouts backed by Android resource definitions are marked as published. The Pixel 10 and 11 series use the camera cutouts from Google’s stock vendor overlays. Each profile records the physical radius and center. The RGB ring extends eight native pixels beyond the cutout. The Pixel 11 Pro XL also uses the observed wallpaper zoom for each style. Other camera placements derived from product imagery are marked as estimated. The downloads include the camera-ring adjuster.
 
 The Home Row & Search Outline on Pixel 11 Pro XL follows the supplied Pixel Launcher layout. It places a black rounded rectangle and RGB stroke behind the home row and Google Search bar. The placement is calibrated from the layout and scale seen in the screenshot. Different grid, display size, zoom, or launcher settings can affect the fit.
+
+The Pixel Tablet RGB Border follows Google's 2560 × 1600 display outline in landscape and rotates the same curve into portrait. The colored band begins 3 native pixels inside the visible edge and is 9 pixels wide. [Pixel Tablet display specifications](https://support.google.com/googlepixeltablet/answer/13555146?hl=en) · [Google's display outline](https://android.googlesource.com/device/google/tangorpro/+/383c2db8399c0364122e57b1944fbca11f67720a/tangorpro/overlay/frameworks/base/core/res/res/values/config.xml)
+
+On the Pixel Tablet Home screen, the optional outline fits the search bar and six icons side by side in landscape. The portrait placement is estimated from a stock Pixel Launcher screenshot showing search above the icons. Both options work with the original and RGB Border styles. Lock uses the corresponding artwork with the launcher area clear of outlines. [Portrait layout reference](https://www.thurrott.com/mobile/android/284925/google-pixel-tablet-review)
 
 ## Manufacturer references
 

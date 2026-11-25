@@ -24,6 +24,7 @@ Apple|2025|iPhone 17|1206x2622
 Apple|2025|iPhone Air|1260x2736
 Apple|2025|iPhone 17 Pro|1206x2622
 Apple|2025|iPhone 17 Pro Max|1320x2868
+Apple|2026|iPhone 17e|1170x2532
 Apple|2026|iPhone 18 Pro|1206x2622
 Apple|2026|iPhone 18 Pro Max|1320x2868
 Apple|2026|iPhone Duo|cover:1398x2034,inner:1878x2670

@@ -8,7 +8,9 @@ from scipy import ndimage
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'renders/png'
 files=json.loads((OUT/'files.json').read_text())
-assert len(files)==480
+from device_presets import PRESETS
+designs=json.loads((ROOT/'config/masters.json').read_text())
+assert len(files)==len(designs)*len(PRESETS)*2
 
 def validate(f):
  key=f"{f['design']}_{f['width']}x{f['height']}_{f['style']}"

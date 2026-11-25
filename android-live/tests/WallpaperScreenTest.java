@@ -4,14 +4,17 @@ public final class WallpaperScreenTest {
     public static void main(String[] args) {
         WallpaperScreen home = WallpaperScreen.HOME;
         WallpaperScreen lock = WallpaperScreen.LOCK;
-        expect(home, WallpaperScreen.resolve(true, false, false, null));
-        expect(lock, WallpaperScreen.resolve(false, true, false, null));
-        expect(lock, WallpaperScreen.resolve(true, true, true, null));
-        expect(home, WallpaperScreen.resolve(true, true, false, null));
-        expect(lock, WallpaperScreen.resolve(false, false, true, null));
-        expect(lock, WallpaperScreen.resolve(false, false, false, lock));
-        expect(home, WallpaperScreen.resolve(true, true, false, home));
-        expect(lock, WallpaperScreen.resolve(false, true, false, home));
+        for (int flags = 0; flags < 4; flags++) {
+            boolean hasHome = (flags & 1) != 0;
+            boolean hasLock = (flags & 2) != 0;
+            for (boolean locked : new boolean[] {false, true}) {
+                expect(hasLock && !hasHome ? lock : home, WallpaperScreen.resolve(hasHome, hasLock, locked, home));
+                expect(lock, WallpaperScreen.resolve(hasHome, hasLock, locked, lock));
+                WallpaperScreen applied = hasHome == hasLock ? (locked ? lock : home)
+                        : (hasLock ? lock : home);
+                expect(applied, WallpaperScreen.resolve(hasHome, hasLock, locked, null));
+            }
+        }
         if (!"pattern".equals(home.key("pattern")) || !"lock_pattern".equals(lock.key("pattern"))) {
             throw new AssertionError("Layout settings must be stored separately");
         }

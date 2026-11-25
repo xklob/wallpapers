@@ -1,0 +1,22 @@
+{
+  "Motorola Edge 20 Pro": {
+    "source": "https://media.bechtle.com/asrc/180712/1c4b3d4ee288fc9434f5175bf56070570/c3/-/0db8cc75d66344799834f90b312f6fd0/motorola-edge20-pro-5g-12-256gb-blue-datablad-1",
+    "note": "Motorola Mobility product datasheet distributed by Bechtle.",
+    "screens": {"main": [1080, 2400]}
+  },
+  "Motorola Edge 30 Pro": {
+    "source": "https://media.bechtle.com/asrc/180712/1c4b3d4ee288fc9434f5175bf56070570/c3/-/0defa57ce71f44df94f27aa4fd245e19/motorola-edge30-pro-5g-12-256-white-datablad-1",
+    "note": "Motorola Mobility product datasheet distributed by Bechtle.",
+    "screens": {"main": [1080, 2400]}
+  },
+  "Motorola Edge 30 Ultra": {
+    "source": "https://media.bechtle.com/asrc/180712/1c4b3d4ee288fc9434f5175bf56070570/c3/-/65e1a286cac44f228568b597d0e85f75/",
+    "note": "Motorola Mobility product datasheet distributed by Bechtle.",
+    "screens": {"main": [1080, 2400]}
+  },
+  "Motorola Razr 5G": {
+    "source": "https://irp-cdn.multiscreensite.com/a2e600c2/files/uploaded/Motorola_razr5G_SpecSheet.pdf",
+    "note": "Motorola Mobility 2020 razr 5G datasheet. External display is labeled Quick View.",
+    "screens": {"cover": [600, 800], "inner": [876, 2142]}
+  }
+}

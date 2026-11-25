@@ -1,0 +1,29 @@
+{
+  "outer_clearance_px": 3,
+  "frame_width_px": 9,
+  "home": {
+    "pixel_tablet_landscape": {
+      "calibration": "Pixel Launcher at 1280 x 800. Search and six icons span x=128..1149, y=690..755. Panel coordinates below are native pixels.",
+      "panel": {
+        "x": 240,
+        "y": 1366,
+        "width": 2074,
+        "height": 158,
+        "radius": 79,
+        "stroke": 6
+      }
+    },
+    "pixel_tablet_portrait": {
+      "calibration": "Estimated from a 438 x 700 stock Pixel Launcher screenshot. Search spans x=35..402, y=587..618, with six icons below centered near y=658. Panel coordinates below are native pixels.",
+      "source": "https://www.thurrott.com/mobile/android/284925/google-pixel-tablet-review",
+      "panel": {
+        "x": 110,
+        "y": 2130,
+        "width": 1380,
+        "height": 356,
+        "radius": 72,
+        "stroke": 6
+      }
+    }
+  }
+}

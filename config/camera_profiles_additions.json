@@ -1,94 +1,106 @@
 {
   "pixel_5": {
-    "cx": 81,
-    "cy": 77,
-    "radius": 48,
+    "cx": 81.0,
+    "cy": 77.0,
+    "radius": 48.0,
     "accuracy": "published",
-    "source": "https://android.googlesource.com/device/google/redfin/+/refs/heads/main/redfin/overlay/frameworks/base/core/res/res/values/config.xml"
+    "source": "https://android.googlesource.com/device/google/redfin/+/e58c75c5335e3f65cfba49115c9ceca2a0103265/redfin/overlay/frameworks/base/core/res/res/values/config.xml",
+    "cutout_radius": 40.0
   },
   "pixel_6": {
-    "cx": 540,
-    "cy": 64,
-    "radius": 41,
+    "cx": 540.0,
+    "cy": 64.0,
+    "radius": 41.0,
     "accuracy": "published",
-    "source": "https://android.googlesource.com/device/google/raviole/+/refs/heads/main/oriole/overlay/frameworks/base/core/res/res/values/config.xml"
+    "source": "https://android.googlesource.com/device/google/raviole/+/4128a035ae66f68f17ef82536dfc881e5c0d70a2/oriole/overlay/frameworks/base/core/res/res/values/config.xml",
+    "cutout_radius": 33.0
   },
   "pixel_6_pro": {
-    "cx": 719,
-    "cy": 72,
-    "radius": 50,
+    "cx": 719.0,
+    "cy": 72.0,
+    "radius": 50.0,
     "accuracy": "published",
-    "source": "https://android.googlesource.com/device/google/raviole/+/refs/heads/main/raven/overlay/frameworks/base/core/res/res/values/config.xml"
+    "source": "https://android.googlesource.com/device/google/raviole/+/4128a035ae66f68f17ef82536dfc881e5c0d70a2/raven/overlay/frameworks/base/core/res/res/values/config.xml",
+    "cutout_radius": 42.0
   },
   "pixel_7": {
-    "cx": 540,
-    "cy": 68,
-    "radius": 42,
+    "cx": 540.0,
+    "cy": 68.0,
+    "radius": 42.0,
     "accuracy": "published",
-    "source": "https://android.googlesource.com/device/google/pantah/+/refs/heads/main/panther/overlay/frameworks/base/core/res/res/values/config.xml"
+    "source": "https://android.googlesource.com/device/google/pantah/+/b9712d3e5c48fb58c93aad8b00fd77629ec77a28/panther/overlay/frameworks/base/core/res/res/values/config.xml",
+    "cutout_radius": 34.0
   },
   "pixel_7_pro": {
-    "cx": 720,
-    "cy": 72,
-    "radius": 51,
+    "cx": 720.0,
+    "cy": 72.0,
+    "radius": 51.0,
     "accuracy": "published",
-    "source": "https://android.googlesource.com/device/google/pantah/+/refs/heads/main/cheetah/overlay/frameworks/base/core/res/res/values/config.xml"
+    "source": "https://android.googlesource.com/device/google/pantah/+/b9712d3e5c48fb58c93aad8b00fd77629ec77a28/cheetah/overlay/frameworks/base/core/res/res/values/config.xml",
+    "cutout_radius": 43.0
   },
   "pixel_8": {
     "cx": 539.75,
     "cy": 65.75,
     "radius": 44.25,
     "accuracy": "published",
-    "source": "https://android.googlesource.com/device/google/shusky/+/refs/heads/main/shiba/overlay/frameworks/base/core/res/res/values/config.xml"
+    "source": "https://android.googlesource.com/device/google/shusky/+/a3188edbe84db3d3a2269db543c215d2d739f367/shiba/overlay/frameworks/base/core/res/res/values/config.xml",
+    "cutout_radius": 36.25
   },
   "pixel_8_pro": {
-    "cx": 672,
-    "cy": 75,
+    "cx": 672.0,
+    "cy": 75.0,
     "radius": 51.25,
     "accuracy": "published",
-    "source": "https://android.googlesource.com/device/google/shusky/+/refs/heads/main/husky/overlay/frameworks/base/core/res/res/values/config.xml"
+    "source": "https://android.googlesource.com/device/google/shusky/+/a3188edbe84db3d3a2269db543c215d2d739f367/husky/overlay/frameworks/base/core/res/res/values/config.xml",
+    "cutout_radius": 43.25
   },
   "pixel_10": {
-    "cx": 540,
-    "cy": 86.5,
-    "radius": 50,
-    "accuracy": "estimated",
-    "source": "https://store.google.com/product/pixel_10_specs"
+    "cx": 539.5,
+    "cy": 86.0,
+    "radius": 50.0,
+    "accuracy": "published",
+    "source": "https://dl.google.com/dl/android/aosp/frankel-ota-cp4a.261105.040.a1-47547d9a.zip",
+    "cutout_radius": 42.0
   },
   "pixel_10_pro": {
-    "cx": 640,
-    "cy": 102,
-    "radius": 57,
-    "accuracy": "estimated",
-    "source": "https://store.google.com/product/pixel_10_pro_specs"
+    "cx": 640.0,
+    "cy": 102.0,
+    "radius": 57.0,
+    "accuracy": "published",
+    "source": "https://dl.google.com/dl/android/aosp/blazer-ota-cp4a.261105.040.a1-40bbd90f.zip",
+    "cutout_radius": 49.0
   },
   "pixel_10_pro_xl": {
-    "cx": 672,
-    "cy": 99.5,
-    "radius": 55,
-    "accuracy": "estimated",
-    "source": "https://store.google.com/product/pixel_10_pro_specs"
+    "cx": 671.5,
+    "cy": 100.0,
+    "radius": 56.0,
+    "accuracy": "published",
+    "source": "https://dl.google.com/dl/android/aosp/mustang-ota-cp4a.261105.040.a1-739cd1e6.zip",
+    "cutout_radius": 48.0
   },
   "pixel_11": {
-    "cx": 540,
-    "cy": 86.5,
-    "radius": 50,
-    "accuracy": "estimated",
-    "source": "https://store.google.com/product/pixel_11_specs"
+    "cx": 539.5,
+    "cy": 86.0,
+    "radius": 50.0,
+    "accuracy": "published",
+    "source": "https://dl.google.com/dl/android/aosp/cubs-ota-cp4a.261105.040.d1-37020ad7.zip",
+    "cutout_radius": 42.0
   },
   "pixel_11_pro": {
-    "cx": 640,
-    "cy": 102,
-    "radius": 55,
-    "accuracy": "estimated",
-    "source": "https://storage.googleapis.com/gweb-mobius-cdn/pixel-b2b/pdfs/8c5a6f6180c3b18caaa04530fafc67e7cc9d53a3/Pixel%2011%20Pro%20and%20Pixel%2011%20Pro%20XL%20One-Pager.pdf"
+    "cx": 640.0,
+    "cy": 102.0,
+    "radius": 57.0,
+    "accuracy": "published",
+    "source": "https://dl.google.com/dl/android/aosp/grizzly-ota-cp4a.261105.040.d1-4988ad30.zip",
+    "cutout_radius": 49.0
   },
   "pixel_11_pro_xl": {
-    "cx": 672,
-    "cy": 107,
-    "radius": 57,
-    "accuracy": "estimated",
-    "source": "https://storage.googleapis.com/gweb-mobius-cdn/pixel-b2b/pdfs/8c5a6f6180c3b18caaa04530fafc67e7cc9d53a3/Pixel%2011%20Pro%20and%20Pixel%2011%20Pro%20XL%20One-Pager.pdf",
+    "cx": 671.5,
+    "cy": 100.0,
+    "radius": 56.0,
+    "accuracy": "published",
+    "source": "https://dl.google.com/dl/android/aosp/kodiak-ota-cp4a.261105.040.d1-7e2c83ec.zip",
     "wallpaper_viewports": {
       "original": {
         "zoom": 1.04514344,
@@ -100,77 +112,88 @@
         "shift_x": 0,
         "shift_y": 0
       }
-    }
+    },
+    "cutout_radius": 48.0
   },
   "pixel_fold_cover_portrait": {
-    "cx": 540,
-    "cy": 69,
-    "radius": 33,
-    "accuracy": "estimated",
-    "source": "https://support.google.com/pixelphone/answer/7158570"
+    "cx": 539.7,
+    "cy": 66.53,
+    "radius": 44.5,
+    "accuracy": "published",
+    "source": "https://android.googlesource.com/device/google/felix/+/6b54b2accc2ffa9cdc5607588e84424a5f93b6c2/felix/overlay/frameworks/base/core/res/res/values/config.xml",
+    "cutout_radius": 36.5
   },
   "pixel_fold_cover_landscape": {
-    "cx": 69,
-    "cy": 539,
-    "radius": 33,
-    "accuracy": "estimated",
-    "source": "https://support.google.com/pixelphone/answer/7158570"
+    "cx": 66.53,
+    "cy": 540.3,
+    "radius": 44.5,
+    "accuracy": "published",
+    "source": "https://android.googlesource.com/device/google/felix/+/6b54b2accc2ffa9cdc5607588e84424a5f93b6c2/felix/overlay/frameworks/base/core/res/res/values/config.xml",
+    "cutout_radius": 36.5
   },
   "pixel_9_pro_fold_cover_portrait": {
-    "cx": 540,
-    "cy": 86,
-    "radius": 46,
-    "accuracy": "estimated",
-    "source": "https://support.google.com/pixelphone/answer/7158570"
+    "cx": 540.0,
+    "cy": 86.0,
+    "radius": 49.5,
+    "accuracy": "published",
+    "source": "https://android.googlesource.com/device/google/comet/+/1b6172963be3d5be246622a664c8c5deba729a8b/comet/overlay/frameworks/base/core/res/res/values/config.xml",
+    "cutout_radius": 41.5
   },
   "pixel_9_pro_fold_cover_landscape": {
-    "cx": 86,
-    "cy": 539,
-    "radius": 46,
-    "accuracy": "estimated",
-    "source": "https://support.google.com/pixelphone/answer/7158570"
+    "cx": 86.0,
+    "cy": 540.0,
+    "radius": 49.5,
+    "accuracy": "published",
+    "source": "https://android.googlesource.com/device/google/comet/+/1b6172963be3d5be246622a664c8c5deba729a8b/comet/overlay/frameworks/base/core/res/res/values/config.xml",
+    "cutout_radius": 41.5
   },
   "pixel_9_pro_fold_inner_portrait": {
-    "cx": 1970,
-    "cy": 108,
-    "radius": 46,
-    "accuracy": "estimated",
-    "source": "https://support.google.com/pixelphone/answer/7158570"
+    "cx": 1987.5,
+    "cy": 80.0,
+    "radius": 47.5,
+    "accuracy": "published",
+    "source": "https://android.googlesource.com/device/google/comet/+/1b6172963be3d5be246622a664c8c5deba729a8b/comet/overlay/frameworks/base/core/res/res/values/config.xml",
+    "cutout_radius": 39.5
   },
   "pixel_9_pro_fold_inner_landscape": {
-    "cx": 108,
-    "cy": 105,
-    "radius": 46,
-    "accuracy": "estimated",
-    "source": "https://support.google.com/pixelphone/answer/7158570"
+    "cx": 80.0,
+    "cy": 88.5,
+    "radius": 47.5,
+    "accuracy": "published",
+    "source": "https://android.googlesource.com/device/google/comet/+/1b6172963be3d5be246622a664c8c5deba729a8b/comet/overlay/frameworks/base/core/res/res/values/config.xml",
+    "cutout_radius": 39.5
   },
   "pixel_11_pro_fold_cover_portrait": {
-    "cx": 540,
-    "cy": 82,
-    "radius": 45,
-    "accuracy": "estimated",
-    "source": "https://support.google.com/pixelphone/answer/7158570"
+    "cx": 539.5,
+    "cy": 91.0,
+    "radius": 45.5,
+    "accuracy": "published",
+    "source": "https://dl.google.com/dl/android/aosp/yogi-ota-cp4a.261105.040.d1-23a81d95.zip",
+    "cutout_radius": 37.5
   },
   "pixel_11_pro_fold_cover_landscape": {
-    "cx": 82,
-    "cy": 539,
-    "radius": 45,
-    "accuracy": "estimated",
-    "source": "https://support.google.com/pixelphone/answer/7158570"
+    "cx": 91.0,
+    "cy": 540.5,
+    "radius": 45.5,
+    "accuracy": "published",
+    "source": "https://dl.google.com/dl/android/aosp/yogi-ota-cp4a.261105.040.d1-23a81d95.zip",
+    "cutout_radius": 37.5
   },
   "pixel_11_pro_fold_inner_portrait": {
-    "cx": 1970,
-    "cy": 108,
-    "radius": 46,
-    "accuracy": "estimated",
-    "source": "https://support.google.com/pixelphone/answer/7158570"
+    "cx": 1987.5,
+    "cy": 80.0,
+    "radius": 47.5,
+    "accuracy": "published",
+    "source": "https://dl.google.com/dl/android/aosp/yogi-ota-cp4a.261105.040.d1-23a81d95.zip",
+    "cutout_radius": 39.5
   },
   "pixel_11_pro_fold_inner_landscape": {
-    "cx": 108,
-    "cy": 105,
-    "radius": 46,
-    "accuracy": "estimated",
-    "source": "https://support.google.com/pixelphone/answer/7158570"
+    "cx": 80.0,
+    "cy": 88.5,
+    "radius": 47.5,
+    "accuracy": "published",
+    "source": "https://dl.google.com/dl/android/aosp/yogi-ota-cp4a.261105.040.d1-23a81d95.zip",
+    "cutout_radius": 39.5
   },
   "galaxy_s20": {
     "cx": 720.0,

@@ -35,6 +35,7 @@ final class Catalog {
         private final JSONObject variants;
         private final String hardwareName;
         private final String hardwareId;
+        private final List<String> hardwareModels = new ArrayList<>();
 
         Model(JSONObject object) throws JSONException {
             id = object.getString("id");
@@ -48,11 +49,15 @@ final class Catalog {
             // Foldable and tablet entries identify the active screen in the model name.
             hardwareName = hardwareName(name);
             hardwareId = hardwareName(id);
+            JSONArray codes = object.optJSONArray("hardwareModels");
+            if (codes != null) {
+                for (int i = 0; i < codes.length(); i++) hardwareModels.add(normalize(codes.getString(i)));
+            }
         }
 
         boolean matches(String hardware) {
             String model = normalize(hardware);
-            return hardwareName.equals(model) || hardwareId.equals(model);
+            return hardwareName.equals(model) || hardwareId.equals(model) || hardwareModels.contains(model);
         }
 
         private static String hardwareName(String name) {
@@ -112,6 +117,13 @@ final class Catalog {
 
     Model lookup(String id) {
         return byId.get(id);
+    }
+
+    Model forOrientation(Model selected, boolean landscape) {
+        if (!selected.id.startsWith("pixel_tablet_") || landscape == (selected.width > selected.height))
+            return selected;
+        Model rotated = lookup(landscape ? "pixel_tablet_landscape" : "pixel_tablet_portrait");
+        return rotated == null ? selected : rotated;
     }
 
     Model initialModel(Context context) {

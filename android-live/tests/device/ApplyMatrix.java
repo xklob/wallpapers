@@ -102,17 +102,19 @@ public final class ApplyMatrix extends Instrumentation {
                 .createWindowContext(WindowManager.LayoutParams.TYPE_APPLICATION, null);
         Rect bounds = display.getSystemService(WindowManager.class).getMaximumWindowMetrics().getBounds();
         boolean matchShape = "true".equals(options.getString("matchShape", "false"));
+        boolean currentOrientation = "true".equals(options.getString("currentOrientation", "false"));
         List<Map.Entry<String, Selection>> cases = new ArrayList<>(artwork.entrySet());
         if (matchShape) {
             cases.sort(Comparator.comparingInt((Map.Entry<String, Selection> c) -> c.getValue().width)
                     .thenComparingInt(c -> c.getValue().height));
         }
-        int count = 0, shapes = 0;
+        int count = 0, shapes = 0, verified = 0;
         for (Map.Entry<String, Selection> device : cases) {
             int index = count++;
             if (index < startAt || index >= endAt) continue;
             String path = device.getKey();
             Selection selection = device.getValue();
+            if (currentOrientation && (selection.width > selection.height) != (bounds.width() > bounds.height())) continue;
             if (matchShape) {
                 float scale = 240f / Math.min(selection.width, selection.height);
                 int w = Math.round(selection.width * scale), h = Math.round(selection.height * scale);
@@ -130,19 +132,27 @@ public final class ApplyMatrix extends Instrumentation {
             if (!path.equals(Settings.artPath(context, prefs, WallpaperScreen.HOME))) {
                 throw new AssertionError("Persisted selection mismatch at " + index + " " + path);
             }
+            Catalog.Model selected = Catalog.get(context).lookup(selection.model);
+            Catalog.Model visible = Catalog.get(context).forOrientation(selected, bounds.width() > bounds.height());
+            String visiblePath = Settings.artPath(visible, prefs, WallpaperScreen.HOME);
+            PanelCorners corners = PanelCorners.read(display.getDisplay(),
+                    display.getSystemService(WindowManager.class).getMaximumWindowMetrics());
             if (!live) {
-                int id = RegularWallpaper.apply(context, path, bounds.width(), bounds.height(), WallpaperScreen.HOME);
+                int id = RegularWallpaper.apply(context, visiblePath, bounds.width(), bounds.height(),
+                        WallpaperScreen.HOME, visible, corners);
                 if (id <= 0 || manager.getWallpaperId(WallpaperManager.FLAG_SYSTEM) != id) {
                     throw new AssertionError("Android did not commit the wallpaper at " + index + " " + path);
                 }
             }
             float[] ring = matchShape && (selection.mask & Catalog.CAMERA) != 0
-                    ? cameraRing(context, path, bounds) : null;
-            checkVisible(context, path, bounds, index, live, ring);
-            if (index % 50 == 0) Log.i(TAG, "Verified " + index + " / " + endAt + " " + path);
+                    ? cameraRing(context, visiblePath, bounds) : null;
+            checkVisible(context, visiblePath, bounds, index, live, ring, visible, corners);
+            verified++;
+            if (verified == 1 || verified % 50 == 0) Log.i(TAG, "Verified " + verified + ", case " + index + " / " + endAt + " " + path);
         }
+        if (verified == 0) throw new AssertionError("No selected assets matched this panel orientation");
         return (live ? "live " : "static ") + "[" + startAt + "," + endAt + ") of " + artwork.size()
-                + " distinct assets " + (matchShape ? "with matching model aspects across " + shapes + " resizes"
+                + " distinct assets, " + verified + " verified " + (matchShape ? "with matching model aspects across " + shapes + " resizes"
                         : "at " + bounds.width() + "x" + bounds.height());
     }
 
@@ -220,8 +230,9 @@ public final class ApplyMatrix extends Instrumentation {
         return light;
     }
 
-    private void checkVisible(Context context, String path, Rect bounds, int index, boolean live, float[] ring) throws Exception {
-        Bitmap expected = WallpaperArt.render(context, path, bounds.width(), bounds.height());
+    private void checkVisible(Context context, String path, Rect bounds, int index, boolean live, float[] ring,
+                              Catalog.Model model, PanelCorners corners) throws Exception {
+        Bitmap expected = WallpaperArt.render(context, path, bounds.width(), bounds.height(), 1f, model, corners);
         int[] target = samples(expected, live);
         int[] expectedRing = ring == null ? null : ringLight(expected, ring);
         expected.recycle();

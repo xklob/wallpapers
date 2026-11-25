@@ -1,0 +1,402 @@
+{
+  "iPhone 12 mini": {
+    "source": "https://support.apple.com/en-us/111877",
+    "screens": {
+      "main": [1080, 2340]
+    }
+  },
+  "iPhone 12": {
+    "source": "https://support.apple.com/en-us/111876",
+    "screens": {
+      "main": [1170, 2532]
+    }
+  },
+  "iPhone 12 Pro": {
+    "source": "https://support.apple.com/en-us/111875",
+    "screens": {
+      "main": [1170, 2532]
+    }
+  },
+  "iPhone 12 Pro Max": {
+    "source": "https://support.apple.com/en-us/111874",
+    "screens": {
+      "main": [1284, 2778]
+    }
+  },
+  "iPhone 13 mini": {
+    "source": "https://support.apple.com/en-us/111873",
+    "screens": {
+      "main": [1080, 2340]
+    }
+  },
+  "iPhone 13": {
+    "source": "https://support.apple.com/en-us/111872",
+    "screens": {
+      "main": [1170, 2532]
+    }
+  },
+  "iPhone 13 Pro": {
+    "source": "https://support.apple.com/en-us/111871",
+    "screens": {
+      "main": [1170, 2532]
+    }
+  },
+  "iPhone 13 Pro Max": {
+    "source": "https://support.apple.com/en-us/111870",
+    "screens": {
+      "main": [1284, 2778]
+    }
+  },
+  "iPhone 14": {
+    "source": "https://support.apple.com/en-us/111850",
+    "screens": {
+      "main": [1170, 2532]
+    }
+  },
+  "iPhone 14 Plus": {
+    "source": "https://support.apple.com/en-us/111854",
+    "screens": {
+      "main": [1284, 2778]
+    }
+  },
+  "iPhone 14 Pro": {
+    "source": "https://support.apple.com/en-us/111849",
+    "screens": {
+      "main": [1179, 2556]
+    }
+  },
+  "iPhone 14 Pro Max": {
+    "source": "https://support.apple.com/en-us/111846",
+    "screens": {
+      "main": [1290, 2796]
+    }
+  },
+  "iPhone 15": {
+    "source": "https://support.apple.com/en-us/111831",
+    "screens": {
+      "main": [1179, 2556]
+    }
+  },
+  "iPhone 15 Plus": {
+    "source": "https://support.apple.com/en-us/111830",
+    "screens": {
+      "main": [1290, 2796]
+    }
+  },
+  "iPhone 15 Pro": {
+    "source": "https://support.apple.com/en-us/111829",
+    "screens": {
+      "main": [1179, 2556]
+    }
+  },
+  "iPhone 15 Pro Max": {
+    "source": "https://support.apple.com/en-us/111828",
+    "screens": {
+      "main": [1290, 2796]
+    }
+  },
+  "iPhone 16": {
+    "source": "https://support.apple.com/en-us/121029",
+    "screens": {
+      "main": [1179, 2556]
+    }
+  },
+  "iPhone 16 Plus": {
+    "source": "https://support.apple.com/en-us/121030",
+    "screens": {
+      "main": [1290, 2796]
+    }
+  },
+  "iPhone 16 Pro": {
+    "source": "https://support.apple.com/en-us/121031",
+    "screens": {
+      "main": [1206, 2622]
+    }
+  },
+  "iPhone 16 Pro Max": {
+    "source": "https://support.apple.com/en-us/121032",
+    "screens": {
+      "main": [1320, 2868]
+    }
+  },
+  "iPhone 17": {
+    "source": "https://support.apple.com/en-us/125089",
+    "screens": {
+      "main": [1206, 2622]
+    }
+  },
+  "iPhone Air": {
+    "source": "https://support.apple.com/en-us/125092",
+    "screens": {
+      "main": [1260, 2736]
+    }
+  },
+  "iPhone 17 Pro": {
+    "source": "https://support.apple.com/en-us/125090",
+    "screens": {
+      "main": [1206, 2622]
+    }
+  },
+  "iPhone 17 Pro Max": {
+    "source": "https://support.apple.com/en-us/125091",
+    "screens": {
+      "main": [1320, 2868]
+    }
+  },
+  "iPhone 18 Pro": {
+    "source": "https://support.apple.com/en-us/148590",
+    "screens": {
+      "main": [1206, 2622]
+    }
+  },
+  "iPhone 18 Pro Max": {
+    "source": "https://support.apple.com/en-us/148591",
+    "screens": {
+      "main": [1320, 2868]
+    }
+  },
+  "iPhone Duo": {
+    "source": "https://support.apple.com/en-us/148588",
+    "screens": {
+      "inner": [1878, 2670],
+      "cover": [1398, 2034]
+    }
+  },
+  "iPhone 17e": {
+    "source": "https://support.apple.com/en-us/126470",
+    "screens": {
+      "main": [1170, 2532]
+    }
+  },
+  "ipad_mini_6_a17_pro": {
+    "source": "https://support.apple.com/en-us/111886",
+    "screens": {
+      "main": [1488, 2266]
+    },
+    "models": [
+      {
+        "model": "iPad mini (6th generation)",
+        "source": "https://support.apple.com/en-us/111886",
+        "screens": {
+          "main": [1488, 2266]
+        }
+      },
+      {
+        "model": "iPad mini (A17 Pro)",
+        "source": "https://support.apple.com/en-us/121456",
+        "screens": {
+          "main": [1488, 2266]
+        }
+      }
+    ]
+  },
+  "ipad_9": {
+    "source": "https://support.apple.com/en-us/111898",
+    "screens": {
+      "main": [1620, 2160]
+    },
+    "models": [
+      {
+        "model": "iPad (9th generation)",
+        "source": "https://support.apple.com/en-us/111898",
+        "screens": {
+          "main": [1620, 2160]
+        }
+      }
+    ]
+  },
+  "ipad_10_a16_air_11": {
+    "source": "https://support.apple.com/en-us/111840",
+    "screens": {
+      "main": [1640, 2360]
+    },
+    "models": [
+      {
+        "model": "iPad (10th generation)",
+        "source": "https://support.apple.com/en-us/111840",
+        "screens": {
+          "main": [1640, 2360]
+        }
+      },
+      {
+        "model": "iPad (A16)",
+        "source": "https://support.apple.com/en-us/122240",
+        "screens": {
+          "main": [1640, 2360]
+        }
+      },
+      {
+        "model": "iPad Air 11-inch (M2)",
+        "source": "https://support.apple.com/en-us/119894",
+        "screens": {
+          "main": [1640, 2360]
+        }
+      },
+      {
+        "model": "iPad Air 11-inch (M3)",
+        "source": "https://support.apple.com/en-us/122241",
+        "screens": {
+          "main": [1640, 2360]
+        }
+      },
+      {
+        "model": "iPad Air 11-inch (M4)",
+        "source": "https://support.apple.com/en-us/126471",
+        "screens": {
+          "main": [1640, 2360]
+        }
+      }
+    ]
+  },
+  "ipad_pro_11_2018_2022": {
+    "source": "https://support.apple.com/en-us/111974",
+    "screens": {
+      "main": [1668, 2388]
+    },
+    "models": [
+      {
+        "model": "iPad Pro 11-inch (1st generation)",
+        "source": "https://support.apple.com/en-us/111974",
+        "screens": {
+          "main": [1668, 2388]
+        }
+      },
+      {
+        "model": "iPad Pro 11-inch (2nd generation)",
+        "source": "https://support.apple.com/en-us/118452",
+        "screens": {
+          "main": [1668, 2388]
+        }
+      },
+      {
+        "model": "iPad Pro 11-inch (3rd generation)",
+        "source": "https://support.apple.com/en-us/111897",
+        "screens": {
+          "main": [1668, 2388]
+        }
+      },
+      {
+        "model": "iPad Pro 11-inch (4th generation)",
+        "source": "https://support.apple.com/en-us/111842",
+        "screens": {
+          "main": [1668, 2388]
+        }
+      }
+    ]
+  },
+  "ipad_pro_11_m4_m5": {
+    "source": "https://support.apple.com/en-us/119892",
+    "screens": {
+      "main": [1668, 2420]
+    },
+    "models": [
+      {
+        "model": "iPad Pro 11-inch (M4)",
+        "source": "https://support.apple.com/en-us/119892",
+        "screens": {
+          "main": [1668, 2420]
+        }
+      },
+      {
+        "model": "iPad Pro 11-inch (M5)",
+        "source": "https://support.apple.com/en-us/125406",
+        "screens": {
+          "main": [1668, 2420]
+        }
+      }
+    ]
+  },
+  "ipad_air_13_pro_12_9": {
+    "source": "https://support.apple.com/en-us/119893",
+    "screens": {
+      "main": [2048, 2732]
+    },
+    "models": [
+      {
+        "model": "iPad Air 13-inch (M2)",
+        "source": "https://support.apple.com/en-us/119893",
+        "screens": {
+          "main": [2048, 2732]
+        }
+      },
+      {
+        "model": "iPad Air 13-inch (M3)",
+        "source": "https://support.apple.com/en-us/122242",
+        "screens": {
+          "main": [2048, 2732]
+        }
+      },
+      {
+        "model": "iPad Air 13-inch (M4)",
+        "source": "https://support.apple.com/en-us/126472",
+        "screens": {
+          "main": [2048, 2732]
+        }
+      },
+      {
+        "model": "iPad Pro 12.9-inch (1st generation)",
+        "source": "https://support.apple.com/en-us/112024",
+        "screens": {
+          "main": [2048, 2732]
+        }
+      },
+      {
+        "model": "iPad Pro 12.9-inch (2nd generation)",
+        "source": "https://support.apple.com/en-us/111964",
+        "screens": {
+          "main": [2048, 2732]
+        }
+      },
+      {
+        "model": "iPad Pro 12.9-inch (3rd generation)",
+        "source": "https://support.apple.com/en-us/111979",
+        "screens": {
+          "main": [2048, 2732]
+        }
+      },
+      {
+        "model": "iPad Pro 12.9-inch (4th generation)",
+        "source": "https://support.apple.com/en-us/111977",
+        "screens": {
+          "main": [2048, 2732]
+        }
+      },
+      {
+        "model": "iPad Pro 12.9-inch (5th generation)",
+        "source": "https://support.apple.com/en-us/111896",
+        "screens": {
+          "main": [2048, 2732]
+        }
+      },
+      {
+        "model": "iPad Pro 12.9-inch (6th generation)",
+        "source": "https://support.apple.com/en-us/111841",
+        "screens": {
+          "main": [2048, 2732]
+        }
+      }
+    ]
+  },
+  "ipad_pro_13_m4_m5": {
+    "source": "https://support.apple.com/en-us/119891",
+    "screens": {
+      "main": [2064, 2752]
+    },
+    "models": [
+      {
+        "model": "iPad Pro 13-inch (M4)",
+        "source": "https://support.apple.com/en-us/119891",
+        "screens": {
+          "main": [2064, 2752]
+        }
+      },
+      {
+        "model": "iPad Pro 13-inch (M5)",
+        "source": "https://support.apple.com/en-us/125407",
+        "screens": {
+          "main": [2064, 2752]
+        }
+      }
+    ]
+  }
+}

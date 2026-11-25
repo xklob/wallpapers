@@ -9,6 +9,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.service.wallpaper.WallpaperService;
 import android.view.SurfaceHolder;
+import android.view.WindowInsets;
+import android.view.WindowManager;
 
 public final class RgbWallpaperService extends WallpaperService {
     @Override public Engine onCreateEngine() {
@@ -51,9 +53,21 @@ public final class RgbWallpaperService extends WallpaperService {
         @Override public void onSurfaceChanged(SurfaceHolder holder, int format, int width, int height) {
             super.onSurfaceChanged(holder, format, width, height);
             hasSurface = true;
+            refreshPanel();
             refreshScreen();
             renderer.setVisible(visible);
             scheduleScreenCheck();
+            if (visible) draw();
+        }
+
+        private void refreshPanel() {
+            android.content.Context display = getDisplayContext();
+            renderer.setPanel(display.getDisplay(), display.getSystemService(WindowManager.class).getMaximumWindowMetrics());
+        }
+
+        @Override public void onApplyWindowInsets(WindowInsets insets) {
+            super.onApplyWindowInsets(insets);
+            refreshPanel();
             if (visible) draw();
         }
 
@@ -91,8 +105,8 @@ public final class RgbWallpaperService extends WallpaperService {
             int flags = destinationFlags();
             boolean home = (flags & WallpaperManager.FLAG_SYSTEM) != 0;
             boolean lock = (flags & WallpaperManager.FLAG_LOCK) != 0;
-            WallpaperScreen preview = isPreview() ? WallpaperScreen.fromPreference(
-                    preferences.getString(Settings.PREVIEW_SCREEN, null)) : null;
+            String requested = isPreview() ? preferences.getString(Settings.PICKER_SCREEN, null) : null;
+            WallpaperScreen preview = requested == null ? null : WallpaperScreen.fromPreference(requested);
             boolean locked = preview == null && home == lock && keyguard != null && keyguard.isKeyguardLocked();
             return WallpaperScreen.resolve(home, lock, locked, preview);
         }

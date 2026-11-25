@@ -1,10 +1,10 @@
 # klob // wallpapers
 
-Browse [wallpapers.klob.io](https://wallpapers.klob.io/) and download the [PNG or SVG packs](https://github.com/xklob/wallpapers/releases/tag/v1.2.7).
+Browse [wallpapers.klob.io](https://wallpapers.klob.io/) and download the [PNG or SVG packs](https://github.com/xklob/wallpapers/releases/tag/v1.2.8).
 
-RGB Geometry includes Bright Honeycomb, Spaced Hexagons, Subtle Honeycomb, and Wireframe Cubes. The site previews each pattern in an expandable gallery and filters available sizes by device type, manufacturer, and model.
+RGB Geometry includes Bright Honeycomb, Spaced Hexagons, and Wireframe Cubes. The site previews each pattern in an expandable gallery and filters available sizes by device type, manufacturer, and model.
 
-This release contains 2,808 wallpapers per format. The flagship index covers 369 named phone and foldable models from 2020 through November 2026. Models with matching native dimensions share artwork where possible. See [flagship support](docs/flagship-support.md) for the device index, border treatment, camera rings, and Pixel Launcher outline.
+The flagship index covers 370 named phone and foldable models from 2020 through November 2026. Each named panel has a manufacturer source for its native pixel dimensions. Models can share artwork when their dimensions and frame treatment match. [Device support and display specifications](docs/flagship-support.md)
 
 - `assets/` contains artwork and frame references.
 - `config/` contains resolution, cutout, and launcher profiles.
@@ -17,7 +17,7 @@ This release contains 2,808 wallpapers per format. The flagship index covers 369
 - `wear-live/` contains the always-on 30 FPS Wear OS live clock companion app.
 - `wear-tesseract/` contains the standalone Wear OS rave app (`rgb poly`), running Poly's 6-solid morph loop with RGB hue rotation and bass pulse.
 
-Download the [Android & Wear OS apps (`apps-v1.4.0`)](https://github.com/xklob/wallpapers/releases/tag/apps-v1.4.0), or view build instructions for [Android Live](android-live/README.md), [Wear OS Watch Face](wear-watch/README.md), [Wear OS Always-On Live](wear-live/README.md), and [rgb poly](wear-tesseract/README.md).
+Download the [Android & Wear OS apps (`apps-v1.4.1`)](https://github.com/xklob/wallpapers/releases/tag/apps-v1.4.1), or view build instructions for [Android Live](android-live/README.md), [Wear OS Watch Face](wear-watch/README.md), [Wear OS Always-On Live](wear-live/README.md), and [rgb poly](wear-tesseract/README.md).
 
 ## Build the site locally
 

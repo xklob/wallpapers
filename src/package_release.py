@@ -23,8 +23,11 @@ for theme in themes:
                      compresslevel=7) as archive:
             archive.write(root / "docs/device-guide.md", "README.md")
             archive.write(root / "config/Camera_Ring_Adjuster.html", "Camera_Ring_Adjuster.html")
-            archive.write(root / "docs/flagship-support.md", "Flagship_Support.md")
+            guide = (root / "docs/flagship-support.md").read_text()
+            archive.writestr("Flagship_Support.md", guide.replace("](../config/", "](display-specs/"))
             archive.write(root / "config/flagship_phones.txt", "Device_Sizes.txt")
+            for spec in sorted((root / "config").glob("*_display_specs.json")):
+                archive.write(spec, "display-specs/" + spec.name)
             archive.writestr("device_aliases.json", json.dumps(theme["deviceAliases"], indent=2)+"\n")
             archive.writestr("catalog.json", json.dumps(theme["files"], separators=(",", ":"))+"\n")
             for path in images:

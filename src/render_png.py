@@ -90,7 +90,7 @@ def content(d,iw,ih,key):
     x,y,bw,bh=box
     scale=min(iw/bw,ih/bh);tw=round(bw*scale);th=round(bh*scale)
     sx,sy=tw/bw,th/bh
-    stroke_source={'01_honeycomb_bright':2.0,'02_hexagons':2.4,'03_honeycomb_subtle':1.8,'04_cubes':2.2}[d['id']]
+    stroke_source={'01_honeycomb_bright':2.0,'02_hexagons':2.4,'04_cubes':2.2}[d['id']]
     stroke=max(1.5,stroke_source*scale)
     rect=(x,y,x+bw-1,y+bh-1)
     caps=[c for poly in POLYGONS[d['id']] for c in cap_segments(poly,rect)]

@@ -10,11 +10,6 @@
     "master": "assets/frames/02_hexagons.png"
   },
   {
-    "id": "03_honeycomb_subtle",
-    "source": "assets/originals/03_honeycomb_subtle.jpg",
-    "master": "assets/frames/03_honeycomb_subtle.png"
-  },
-  {
     "id": "04_cubes",
     "source": "assets/originals/04_cubes.jpg",
     "master": "assets/frames/04_cubes.png"

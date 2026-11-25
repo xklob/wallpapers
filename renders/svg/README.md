@@ -1,6 +1,6 @@
 # Vector wallpaper collection
 
-720 genuine SVG wallpapers, totaling 7,769,698 bytes (7.77 MB).
+The base generator manifest describes 540 SVG wallpapers. The full collection is listed in `site/catalog.json`.
 All artwork uses native polygon paths, clipped paths, solid closing segments,
 linear gradients, and circular camera outlines. No embedded raster image data.
 

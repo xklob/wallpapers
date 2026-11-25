@@ -71,7 +71,7 @@ def add_camera_ring(svg, profile, style, width, height):
     return svg.replace("</defs>", definitions + "</defs>", 1).replace("</svg>", ring + "</svg>", 1)
 
 
-def add_home_outline(svg, profile, style, canvas_width, canvas_height):
+def add_home_panel(svg, profile):
     x, y, width, height, radius, stroke = (profile[k] for k in ("x", "y", "width", "height", "radius", "stroke"))
     definitions = (
         '<linearGradient id="home-outline" x1="0%" y1="0%" x2="100%" y2="100%">'
@@ -84,17 +84,21 @@ def add_home_outline(svg, profile, style, canvas_width, canvas_height):
         f'<rect id="pixel-launcher-panel" x="{x}" y="{y}" width="{width}" height="{height}" '
         f'rx="{radius}" fill="#000" stroke="url(#home-outline)" stroke-width="{stroke}"/>'
     )
+    return svg.replace("</defs>", definitions + "</defs>", 1).replace("</svg>", panel + "</svg>", 1)
+
+
+def add_home_outline(svg, profile, style, canvas_width, canvas_height):
     if style == "rgb_border":
         # Fit the framed field above the launcher panel without stretching it.
         start = svg.index('<g id="android-wallpaper-inset"')
         end = svg.index("</g></g>", start) + len("</g></g>")
         top = canvas_height * (1 - BORDER_SCALE) / 2
-        scale = (y - 30 - top) / (canvas_height * BORDER_SCALE)
+        scale = (profile["y"] - 30 - top) / (canvas_height * BORDER_SCALE)
         shift_x = vector.num(canvas_width * (1 - scale) / 2)
         shift_y = vector.num(top * (1 - scale))
         svg = (svg[:start] + f'<g transform="translate({shift_x} {shift_y}) scale({vector.num(scale)})">'
                + svg[start:end] + "</g>" + svg[end:])
-    return svg.replace("</defs>", definitions + "</defs>", 1).replace("</svg>", panel + "</svg>", 1)
+    return add_home_panel(svg, profile)
 
 
 def inset_applies(folder, family):
@@ -194,8 +198,6 @@ def build(source_root, site_dist, output_root):
             continue
         original = (art / path).read_text()
         svg = original
-        if design == "03_honeycomb_subtle":
-            svg = vector.soften_honeycomb(svg)
         svg = vector.align_vertical_edges(svg)
         if svg != original:
             save_svg(path, svg, width, height)

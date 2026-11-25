@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -39,6 +40,7 @@ import java.util.function.IntFunction;
 public final class SettingsActivity extends Activity {
     private static final ExecutorService wallpaperWriter = Executors.newSingleThreadExecutor();
     private static final int AUDIO_PERMISSION = 31;
+    private static final int PICK_WALLPAPER = 32;
     private static final String EDITING_SCREEN = "editing_screen";
     private final Handler uiHandler = new Handler(Looper.getMainLooper());
     private SharedPreferences preferences;
@@ -170,28 +172,38 @@ public final class SettingsActivity extends Activity {
     }
 
     private void openWallpaperPicker() {
-        preferences.edit().putString(Settings.PREVIEW_SCREEN, editingScreen.name()).apply();
+        preferences.edit().putString(Settings.PICKER_SCREEN, editingScreen.name()).apply();
         Intent intent = new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
         intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,
                 new ComponentName(this, RgbWallpaperService.class));
         try {
-            startActivity(intent);
+            startActivityForResult(intent, PICK_WALLPAPER);
         } catch (ActivityNotFoundException exception) {
+            preferences.edit().remove(Settings.PICKER_SCREEN).apply();
             Toast.makeText(this, "Open Wallpaper & style and select rgb geometry live.",
                     Toast.LENGTH_LONG).show();
         }
     }
 
+    @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_WALLPAPER) preferences.edit().remove(Settings.PICKER_SCREEN).apply();
+    }
+
     private void applyRegularWallpaper() {
         WallpaperScreen target = editingScreen;
-        String path = Settings.artPath(this, preferences, target);
-        Rect bounds = getWindowManager().getMaximumWindowMetrics().getBounds();
+        android.view.WindowMetrics metrics = getWindowManager().getMaximumWindowMetrics();
+        Rect bounds = metrics.getBounds();
+        PanelCorners corners = PanelCorners.read(getDisplay(), metrics);
+        Catalog.Model model = Catalog.get(this).forOrientation(Settings.model(this, preferences, target),
+                bounds.width() > bounds.height());
+        String path = Settings.artPath(model, preferences, target);
         Context context = getApplicationContext();
         regularButton.setEnabled(false);
         wallpaperWriter.execute(() -> {
             String message;
             try {
-                int id = RegularWallpaper.apply(context, path, bounds.width(), bounds.height(), target);
+                int id = RegularWallpaper.apply(context, path, bounds.width(), bounds.height(), target, model, corners);
                 message = id > 0 ? target + " wallpaper set." : "Android could not set the wallpaper.";
             } catch (IOException | RuntimeException exception) {
                 android.util.Log.e("RgbGeometryLive", "Could not set regular wallpaper", exception);
@@ -261,6 +273,10 @@ public final class SettingsActivity extends Activity {
     private void refreshAppearance() {
         refreshingAppearance = true;
         Catalog.Model model = Settings.model(this, preferences, editingScreen);
+        if (model.matches(Build.MODEL) && model.manufacturer.equalsIgnoreCase(Build.MANUFACTURER)) {
+            Rect bounds = getWindowManager().getMaximumWindowMetrics().getBounds();
+            model = Catalog.get(this).forOrientation(model, bounds.width() > bounds.height());
+        }
         String suggestion = preferences.getBoolean(editingScreen.key(Settings.SUGGESTED), false)
                 ? "Suggested // " : "";
         modelButton.setText(suggestion + model.name + " // " + model.width + " × " + model.height);
@@ -273,6 +289,9 @@ public final class SettingsActivity extends Activity {
             Switch toggle = entry.getValue();
             if (Settings.CAMERA.equals(key)) {
                 toggle.setText(model.estimatedCamera ? "Camera ring (estimated)" : "Camera ring");
+            } else if (Settings.DOCK.equals(key)) {
+                toggle.setText(model.id.equals("pixel_tablet_portrait")
+                        ? "Home row and search outline (estimated)" : "Home row and search outline");
             }
             boolean visible = Settings.BORDER.equals(key)
                     || (Settings.CAMERA.equals(key) && model.supports(pattern, style, Catalog.CAMERA))
@@ -505,6 +524,8 @@ public final class SettingsActivity extends Activity {
         Preview(Context context, SharedPreferences preferences, WallpaperScreen screen) {
             super(context);
             renderer = new RgbRenderer(context);
+            renderer.setPanel(context.getDisplay(), context.getSystemService(android.view.WindowManager.class)
+                    .getMaximumWindowMetrics());
             setScreen(preferences, screen);
         }
 
@@ -534,7 +555,7 @@ public final class SettingsActivity extends Activity {
         }
 
         @Override protected void onDraw(Canvas canvas) {
-            renderer.draw(canvas);
+            renderer.draw(canvas, getWidth(), getHeight());
             if (renderer.isAnimating()) postInvalidateDelayed(RgbRenderer.FRAME_INTERVAL_MS);
         }
     }

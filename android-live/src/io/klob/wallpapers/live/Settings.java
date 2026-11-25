@@ -12,7 +12,7 @@ final class Settings {
     static final String CAMERA = "camera";
     static final String DOCK = "dock";
     static final String STATUS = "status";
-    static final String PREVIEW_SCREEN = "preview_screen";
+    static final String PICKER_SCREEN = "active_picker_screen";
     static final String ANIMATE = "animate";
     static final String AUDIO_SYNC = "audio_sync";
     static final String AUDIO_SOURCE = "audio_source";
@@ -28,10 +28,10 @@ final class Settings {
     static final int MAX_PERIOD = 60;
 
     static final String[] PATTERNS = {
-        "Bright Honeycomb", "Spaced Hexagons", "Subtle Honeycomb", "Wireframe Cubes"
+        "Bright Honeycomb", "Spaced Hexagons", "Wireframe Cubes"
     };
 
-    static SharedPreferences open(Context context) {
+    static synchronized SharedPreferences open(Context context) {
         SharedPreferences preferences = context.getSharedPreferences("live_wallpaper", Context.MODE_PRIVATE);
         if (!preferences.contains(MODEL)) {
             Catalog catalog = Catalog.get(context);
@@ -51,15 +51,28 @@ final class Settings {
             }
             defaults.apply();
         }
-        if (!preferences.contains(WallpaperScreen.LOCK.key(PATTERN))) {
-            preferences.edit()
-                    .putInt(WallpaperScreen.LOCK.key(PATTERN), pattern(preferences, WallpaperScreen.HOME))
-                    .putBoolean(WallpaperScreen.LOCK.key(BORDER), enabled(preferences, BORDER))
-                    .putBoolean(WallpaperScreen.LOCK.key(CAMERA), enabled(preferences, CAMERA))
-                    .putBoolean(WallpaperScreen.LOCK.key(STATUS), enabled(preferences, STATUS))
-                    .apply();
+        if (!preferences.getBoolean("three_pattern_catalog", false)) {
+            SharedPreferences.Editor migration = preferences.edit();
+            int home = preferences.getInt(PATTERN, 0);
+            String lockPattern = WallpaperScreen.LOCK.key(PATTERN);
+            int lock = preferences.getInt(lockPattern, home);
+            if (!preferences.contains(lockPattern)) {
+                for (String key : new String[]{BORDER, CAMERA, STATUS}) {
+                    migration.putBoolean(WallpaperScreen.LOCK.key(key), enabled(preferences, key));
+                }
+            }
+            migration.putInt(PATTERN, migratePattern(home))
+                    .putInt(lockPattern, migratePattern(lock))
+                    .putBoolean("three_pattern_catalog", true).apply();
         }
         return preferences;
+    }
+
+    private static int migratePattern(int previous) {
+        // The four-pattern catalog stored Spaced Hexagons at 1 and Wireframe Cubes at 3.
+        if (previous == 1) return 1;
+        if (previous == 3) return 2;
+        return 0;
     }
 
     static int pattern(SharedPreferences preferences, WallpaperScreen screen) {
@@ -73,10 +86,14 @@ final class Settings {
     }
 
     static String artPath(Context context, SharedPreferences preferences, WallpaperScreen screen) {
+        return artPath(model(context, preferences, screen), preferences, screen);
+    }
+
+    static String artPath(Catalog.Model model, SharedPreferences preferences, WallpaperScreen screen) {
         int variant = screen.variant(enabled(preferences, screen.key(BORDER)),
                 enabled(preferences, screen.key(STATUS)), enabled(preferences, DOCK),
                 enabled(preferences, screen.key(CAMERA)));
-        return model(context, preferences, screen).path(pattern(preferences, screen), variant);
+        return model.path(pattern(preferences, screen), variant);
     }
 
     static boolean enabled(SharedPreferences preferences, String key) {
