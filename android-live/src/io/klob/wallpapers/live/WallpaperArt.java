@@ -80,6 +80,7 @@ final class WallpaperArt {
             canvas.save();
             float magnification = ArtworkTransform.apply(canvas, width, height, rotation, zoom);
             if (scene) drawScene(context, canvas, path, width, height, magnification);
+            else if (zoom < ArtworkTransform.FIT) WideGrid.load(context, path).draw(canvas, width, height, magnification * scale);
             else drawSvg(svg, canvas, width, height, Layer.ARTWORK);
             canvas.restore();
         }
@@ -143,16 +144,19 @@ final class WallpaperArt {
     }
 
     static ArtworkLayer artworkLayer(Context context, String path, int width, int height,
-                                     Catalog.Model model, PanelCorners corners) throws IOException {
-        return new ArtworkLayer(loadSvg(context, path, width, height, model, corners), width, height);
+                                     Catalog.Model model, PanelCorners corners, boolean wide) throws IOException {
+        return new ArtworkLayer(wide ? null : loadSvg(context, path, width, height, model, corners),
+                wide ? WideGrid.load(context, path) : null, width, height);
     }
 
     static final class ArtworkLayer {
         private final SVG svg;
+        private final WideGrid wide;
         private final int width, height;
 
-        ArtworkLayer(SVG svg, int width, int height) {
+        ArtworkLayer(SVG svg, WideGrid wide, int width, int height) {
             this.svg = svg;
+            this.wide = wide;
             this.width = width;
             this.height = height;
         }
@@ -160,8 +164,9 @@ final class WallpaperArt {
         Bitmap rasterize(int rotation, int zoom) {
             Bitmap bitmap = createBitmap(width, height, true);
             Canvas canvas = new Canvas(bitmap);
-            ArtworkTransform.apply(canvas, width, height, rotation, zoom);
-            drawSvg(svg, canvas, width, height, Layer.ARTWORK);
+            float magnification = ArtworkTransform.apply(canvas, width, height, rotation, zoom);
+            if (wide != null) wide.draw(canvas, width, height, magnification);
+            else drawSvg(svg, canvas, width, height, Layer.ARTWORK);
             return bitmap;
         }
     }
@@ -174,13 +179,20 @@ final class WallpaperArt {
 
     private static void drawSvg(SVG svg, Canvas canvas, int width, int height, Layer layer) {
         RectF source = svg.getDocumentViewBox();
-        boolean rotate = (source.width() > source.height()) != (width > height);
+        canvas.save();
+        boolean rotate = orient(canvas, source.width(), source.height(), width, height);
         int viewWidth = rotate ? height : width;
         int viewHeight = rotate ? width : height;
         svg.setDocumentWidth(viewWidth);
         svg.setDocumentHeight(viewHeight);
         svg.setDocumentPreserveAspectRatio(PreserveAspectRatio.FULLSCREEN);
-        canvas.save();
+        if (layer.css == null) svg.renderToCanvas(canvas, new RectF(0, 0, viewWidth, viewHeight));
+        else svg.renderToCanvas(canvas, RenderOptions.create().viewPort(0, 0, viewWidth, viewHeight).css(layer.css));
+        canvas.restore();
+    }
+
+    static boolean orient(Canvas canvas, float sourceWidth, float sourceHeight, int width, int height) {
+        boolean rotate = (sourceWidth > sourceHeight) != (width > height);
         if (rotate) {
             // Foldable landscape presets use a counterclockwise rotation from portrait.
             if (width > height) {
@@ -191,9 +203,7 @@ final class WallpaperArt {
                 canvas.rotate(90);
             }
         }
-        if (layer.css == null) svg.renderToCanvas(canvas, new RectF(0, 0, viewWidth, viewHeight));
-        else svg.renderToCanvas(canvas, RenderOptions.create().viewPort(0, 0, viewWidth, viewHeight).css(layer.css));
-        canvas.restore();
+        return rotate;
     }
 
     private WallpaperArt() {}

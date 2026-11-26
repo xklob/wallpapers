@@ -107,7 +107,7 @@ final class Settings {
 
     static int framingZoom(SharedPreferences prefs, WallpaperScreen screen) {
         int zoom = prefs.getInt(screen.key(FRAMING_ZOOM), ArtworkTransform.FIT);
-        return Math.max(ArtworkTransform.FIT, Math.min(ArtworkTransform.MAX_ZOOM, zoom));
+        return Math.max(ArtworkTransform.MIN_ZOOM, Math.min(ArtworkTransform.MAX_ZOOM, zoom));
     }
 
     static int adjustment(SharedPreferences prefs, WallpaperScreen screen, String key) {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.klob.wallpapers.live" android:versionCode="17" android:versionName="1.8.0">
+    package="io.klob.wallpapers.live" android:versionCode="18" android:versionName="1.9.0">
     <uses-sdk android:minSdkVersion="33" android:targetSdkVersion="34" />
     <uses-feature android:name="android.software.live_wallpaper" android:required="true" />
     <uses-permission android:name="android.permission.SET_WALLPAPER" />

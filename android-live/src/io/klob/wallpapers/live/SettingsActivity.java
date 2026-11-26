@@ -217,12 +217,12 @@ public final class SettingsActivity extends Activity {
                 Settings.rotation(preferences, editingScreen), degrees -> degrees + "°",
                 degrees -> preferences.edit().putInt(editingScreen.key(Settings.ROTATION), degrees).apply());
         rotationSlider.setKeyProgressIncrement(1);
-        int maxZoomStep = (ArtworkTransform.MAX_ZOOM - ArtworkTransform.FIT) / ArtworkTransform.ZOOM_STEP;
+        int maxZoomStep = (ArtworkTransform.MAX_ZOOM - ArtworkTransform.MIN_ZOOM) / ArtworkTransform.ZOOM_STEP;
         framingZoomSlider = addSlider(content, "Framing zoom", 0, maxZoomStep, framingZoomStep(),
                 step -> java.text.NumberFormat.getNumberInstance().format(
-                        (ArtworkTransform.FIT + step * ArtworkTransform.ZOOM_STEP) / 100.0) + "×",
+                        (ArtworkTransform.MIN_ZOOM + step * ArtworkTransform.ZOOM_STEP) / 100.0) + "×",
                 step -> preferences.edit().putInt(editingScreen.key(Settings.FRAMING_ZOOM),
-                        ArtworkTransform.FIT + step * ArtworkTransform.ZOOM_STEP).apply());
+                        ArtworkTransform.MIN_ZOOM + step * ArtworkTransform.ZOOM_STEP).apply());
         framingZoomSlider.setKeyProgressIncrement(1);
 
         addToneControls(addPanel(column, "Color Adjustments"));
@@ -878,7 +878,7 @@ public final class SettingsActivity extends Activity {
     }
 
     private int framingZoomStep() {
-        return (Settings.framingZoom(preferences, editingScreen) - ArtworkTransform.FIT)
+        return (Settings.framingZoom(preferences, editingScreen) - ArtworkTransform.MIN_ZOOM)
                 / ArtworkTransform.ZOOM_STEP;
     }
 

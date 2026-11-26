@@ -118,7 +118,8 @@ final class MengerWindows {
         // Start below a pixel. Stop once the clear aperture contains the whole display.
         while (span > 1) span /= RATIO;
         // At 13×, the clear square (radius .04) already contains the display.
-        for (; span < extent * 13; span *= RATIO) {
+        float limit = extent * 13 / Math.min(1f, magnification);
+        for (; span < limit; span *= RATIO) {
             float side = (float) span;
             canvas.save();
             canvas.translate(width * .49f - side * FOCUS_X, height * .50f - side * FOCUS_Y);

@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 final class ArtworkTransform {
     static final int FULL_TURN = 360;
     static final int FIT = 100;
+    static final int MIN_ZOOM = 25;
     static final int MAX_ZOOM = 400;
     static final int ZOOM_STEP = 5;
 

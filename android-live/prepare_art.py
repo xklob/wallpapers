@@ -5,6 +5,8 @@ from collections import defaultdict
 import json
 from pathlib import Path
 import re
+from statistics import median
+import struct
 from xml.etree import ElementTree as ET
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -88,6 +90,7 @@ def prepare_file(source, output, row, viewport):
     (output / path).parent.mkdir(parents=True, exist_ok=True)
     mark_rotation_layers(svg, row[6] == "rgb_border")
     ET.ElementTree(svg).write(output / path, encoding="utf-8")
+    write_wide_grid(svg, output / "wide-grid" / path.with_suffix(".bin"), row[1] == PATTERNS[2])
     if row[1] == PATTERNS[0]:
         write_menger_frame(svg, output / MENGER_FRAMES / path, row[6] == "rgb_border")
     return path.as_posix()
@@ -99,6 +102,78 @@ def pattern_layer(svg):
     while group.get("clip-path") is None:
         group = parents[group]
     return group, parents
+
+
+def write_wide_grid(svg, output, cubes):
+    """Export a finite set of authored cells and a recipe to continue their lattice."""
+    outline = svg.find(".//*[@stroke='url(#rainbow)']")
+    group, parents = pattern_layer(svg)
+    assert group is not None
+    cells = []
+    for polygon in outline.get("d").rstrip("Z").split("Z"):
+        points = [tuple(map(float, point.split(","))) for point in re.split("M|L", polygon)[1:]]
+        if len(points) != 6:
+            raise ValueError(f"Expected hexagonal outlines in {output}")
+        (cx, top), (right, _), _, (_, bottom), (left, _), _ = points
+        cells.append((cx, (top + bottom) / 2, (right - left) / 2, (bottom - top) / 2))
+    rows = []
+    for cell in sorted(cells, key=lambda c: c[1]):
+        if not rows or cell[1] - rows[-1][0][1] > 4:
+            rows.append([])
+        rows[-1].append(cell)
+    ordinates = [median(c[1] for c in row) for row in rows]
+    abscissae = [sorted(c[0] for c in row) for row in rows]
+    dy = median(b - a for a, b in zip(ordinates, ordinates[1:]))
+    dx = median(b - a for row in abscissae for a, b in zip(row, row[1:]))
+    anchor = len(rows) // 2
+    x0, y0 = abscissae[anchor][0], ordinates[anchor]
+    hw, hh = (median(c[i] for c in cells) for i in (2, 3))
+    if dx <= 0 or dy <= 0:
+        raise ValueError(f"Invalid lattice pitch in {output}")
+
+    # Map cell coordinates through the same SVG transforms and view box used
+    # for the corresponding model, orientation and stationary frame.
+    chain = []
+    node = outline
+    while node is not svg:
+        chain.append(node.get("transform", ""))
+        node = parents[node]
+    sx, sy, tx, ty = 1., 1., 0., 0.
+    for transform in reversed(chain):
+        remaining = transform.strip()
+        while remaining:
+            match = re.match(r"(translate|scale)\(([^)]*)\)", remaining)
+            if match is None:
+                raise ValueError(f"Unexpected lattice transform in {output}: {transform}")
+            op, values = match.groups()
+            args = list(map(float, re.split(r"[\s,]+", values.strip())))
+            if op == "translate":
+                tx += sx * args[0]
+                ty += sy * (args[1] if len(args) == 2 else 0)
+            else:
+                sx *= args[0]
+                sy *= args[-1]
+            remaining = remaining[match.end():].strip()
+    vx, vy, vw, vh = map(float, svg.get("viewBox").split())
+    ramp = svg.find(".//*[@id='rainbow']")
+    gradient = [float(ramp.get(key)) for key in ("x1", "y1", "x2", "y2")]
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with output.open("wb") as out:
+        out.write(struct.pack(">19f?", vw, vh, sx/vw, sy/vh, (tx-vx)/vw, (ty-vy)/vh,
+                              x0, y0, dx, dy, hw, hh, float(outline.get("stroke-width")),
+                              *gradient, 1.2, 0.18, cubes))
+        out.write(struct.pack(">H", len(ramp)))
+        for stop in ramp:
+            out.write(struct.pack(">fI", float(stop.get("offset")), 0xff000000 | int(stop.get("stop-color")[1:], 16)))
+        out.write(struct.pack(">H", len(cells)))
+        seen = set()
+        for x, y, w, h in cells:
+            row = round((y-y0)/dy)
+            col = round((x-x0)/dx - (row % 2)/2)
+            if (row, col) in seen:
+                raise ValueError(f"Two authored cells share a lattice index in {output}")
+            seen.add((row, col))
+            out.write(struct.pack(">hhffff", row, col, x, y, w, h))
 
 
 def add_gutter_mask(svg, group, parents, name):

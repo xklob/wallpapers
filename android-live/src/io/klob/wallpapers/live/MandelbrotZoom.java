@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.RuntimeShader;
 import android.graphics.Shader;
@@ -92,6 +93,7 @@ final class MandelbrotZoom {
     private static BitmapShader palette;
     private final RuntimeShader projection;
     private final Paint paint = new Paint();
+    private final Rect expandedFrame = new Rect();
     private Texture overview, current, previous;
     private int sampleSize = 1, lastStage = -1;
     private boolean antialias;
@@ -262,7 +264,8 @@ final class MandelbrotZoom {
         projection.setFloatUniform("gain", gain);
         projection.setFloatUniform("audioWave", wave, travel, 0, 1f / (width + height));
         paint.setShader(projection);
-        canvas.drawRect(0, 0, width, height, paint);
+        if (magnification >= 1) canvas.drawRect(0, 0, width, height, paint);
+        else if (canvas.getClipBounds(expandedFrame)) canvas.drawRect(expandedFrame, paint);
     }
 
     private void map(String uniform, Texture texture, float base, float length, double scale) {

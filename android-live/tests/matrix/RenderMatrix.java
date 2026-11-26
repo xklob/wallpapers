@@ -317,7 +317,7 @@ public final class RenderMatrix extends Instrumentation {
                         ? WallpaperArt.render(context, path, width, height, 1, model, null, false)
                         : WallpaperArt.renderLayer(context, path, width, height, model, null, WallpaperArt.Layer.FRAME);
                 Bitmap previous = base;
-                for (int zoom : new int[]{175, 300, 400}) {
+                for (int zoom : new int[]{25, 55, 95, 175, 300, 400}) {
                     int rotation = zoom == 400 ? 37 : 0;
                     prefs.edit().putInt(Settings.FRAMING_ZOOM, zoom).putInt(Settings.ROTATION, rotation).apply();
                     scene.update(prefs, WallpaperScreen.HOME);
@@ -329,6 +329,19 @@ public final class RenderMatrix extends Instrumentation {
                     require(meanChannelDifference(still, regular) > 1.5,
                             "Framing did not change at " + zoom + "% for still pattern " + pattern);
                     checkFixedOutlines(overlay, live);
+                    if (zoom == ArtworkTransform.MIN_ZOOM && pattern < Settings.MENGER) {
+                        checkWideGrid(live, pattern, "live", 1);
+                        int id = context.getResources().getIdentifier("config_wallpaperMaxScale", "dimen", "android");
+                        float zoomAtRest = id == 0 ? 1.10f : Math.max(1, context.getResources().getFloat(id));
+                        checkWideGrid(regular, pattern, "still", 1 / zoomAtRest);
+                        int wideRotation = 37;
+                        prefs.edit().putInt(Settings.ROTATION, wideRotation).apply();
+                        scene.update(prefs, WallpaperScreen.HOME);
+                        Bitmap turned = frames.draw(scene);
+                        checkFixedOutlines(overlay, turned);
+                        checkWideGrid(turned, pattern, "rotated", 1);
+                        turned.recycle();
+                    }
                     if (previous != base) previous.recycle();
                     previous = live;
                     regular.recycle();
@@ -348,7 +361,30 @@ public final class RenderMatrix extends Instrumentation {
         require(Settings.zoomSpeed(prefs) == 7, "Framing zoom changed the animation speed");
         prefs.edit().putInt(Settings.FRAMING_ZOOM, 999).apply();
         require(Settings.framingZoom(prefs, WallpaperScreen.HOME) == ArtworkTransform.MAX_ZOOM, "Wrong zoom cap");
-        Log.i(TAG, "Framing zoom: all five patterns, hardware and still output, fixed outlines, fit and speed isolation");
+        prefs.edit().putInt(Settings.FRAMING_ZOOM, -5).apply();
+        require(Settings.framingZoom(prefs, WallpaperScreen.HOME) == ArtworkTransform.MIN_ZOOM, "Wrong minimum zoom");
+        Log.i(TAG, "Framing zoom: 0.25× to 4×, edge-to-edge grids, fixed outlines and fit/speed isolation");
+    }
+
+    private static void checkWideGrid(Bitmap image, int pattern, String kind, float paddingScale) {
+        // Test four bands outside the original artwork footprint. Ignore the
+        // outermost border and launcher padding so only the repeated art counts.
+        int[][] bands = {{8, 11, 24, 75}, {76, 11, 92, 75}, {24, 9, 76, 25}, {24, 68, 76, 80}};
+        for (int[] band : bands) {
+            int lit = 0, total = 0;
+            for (int y = at(band[1], image.getHeight(), paddingScale); y < at(band[3], image.getHeight(), paddingScale); y++) {
+                for (int x = at(band[0], image.getWidth(), paddingScale); x < at(band[2], image.getWidth(), paddingScale); x++) {
+                    int pixel = image.getPixel(x, y);
+                    if (Math.max(Color.red(pixel), Math.max(Color.green(pixel), Color.blue(pixel))) > 64) lit++;
+                    total++;
+                }
+            }
+            require(lit > total * .025, "Blank edge at 0.25×, " + kind + " pattern " + pattern);
+        }
+    }
+
+    private static int at(int percent, int length, float paddingScale) {
+        return Math.round(length * (.5f + (percent / 100f - .5f) * paddingScale));
     }
 
     private static double meanChannelDifference(Bitmap first, Bitmap second) {

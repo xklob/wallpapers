@@ -98,7 +98,8 @@ final class RgbRenderer {
         int zoom = Settings.framingZoom(preferences, screen);
         boolean splitBefore = ArtworkTransform.isActive(rotation, framingZoom);
         boolean splitAfter = ArtworkTransform.isActive(angle, zoom);
-        if (splitBefore != splitAfter && !WallpaperArt.hasScene(artPath)) layoutWidth = layoutHeight = 0;
+        boolean wideChanged = (framingZoom < ArtworkTransform.FIT) != (zoom < ArtworkTransform.FIT);
+        if ((splitBefore != splitAfter || wideChanged) && !WallpaperArt.hasScene(artPath)) layoutWidth = layoutHeight = 0;
         rotation = angle;
         framingZoom = zoom;
         tone = Settings.tone(preferences, screen, tone);
@@ -214,7 +215,8 @@ final class RgbRenderer {
             artworkInput = null;
             artworkLayer = null;
             if (split) {
-                artworkLayer = WallpaperArt.artworkLayer(context, path, width, height, displayed, corners);
+                artworkLayer = WallpaperArt.artworkLayer(context, path, width, height, displayed, corners,
+                        framingZoom < ArtworkTransform.FIT);
                 bitmap = WallpaperArt.renderLayer(context, path, width, height, displayed, corners,
                         WallpaperArt.Layer.FRAME);
             } else {
