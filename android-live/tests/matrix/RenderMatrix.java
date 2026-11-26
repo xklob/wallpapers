@@ -59,6 +59,7 @@ public final class RenderMatrix extends Instrumentation {
             checkRotation();
             checkToneAdjustments();
             checkFramingZoom();
+            checkPerimeterHue();
             int scaleId = context.getResources().getIdentifier("config_wallpaperMaxScale", "dimen", "android");
             launcherZoom = scaleId == 0 ? 1.10f : Math.max(1f, context.getResources().getFloat(scaleId));
             try (BufferedReader data = new BufferedReader(new InputStreamReader(context.getAssets().open("rings.tsv")))) {
@@ -341,6 +342,13 @@ public final class RenderMatrix extends Instrumentation {
                         checkFixedOutlines(overlay, turned);
                         checkWideGrid(turned, pattern, "rotated", 1);
                         turned.recycle();
+                        prefs.edit().putBoolean(Settings.ANIMATE, true).apply();
+                        scene.update(prefs, WallpaperScreen.HOME);
+                        Bitmap colored = frames.draw(scene);
+                        checkWideGrid(colored, pattern, "animated", 1);
+                        checkFixedOutlines(overlay, colored);
+                        colored.recycle();
+                        prefs.edit().putBoolean(Settings.ANIMATE, false).apply();
                     }
                     if (previous != base) previous.recycle();
                     previous = live;
@@ -364,6 +372,66 @@ public final class RenderMatrix extends Instrumentation {
         prefs.edit().putInt(Settings.FRAMING_ZOOM, -5).apply();
         require(Settings.framingZoom(prefs, WallpaperScreen.HOME) == ArtworkTransform.MIN_ZOOM, "Wrong minimum zoom");
         Log.i(TAG, "Framing zoom: 0.25× to 4×, edge-to-edge grids, fixed outlines and fit/speed isolation");
+    }
+
+    private void checkPerimeterHue() throws Exception {
+        Bitmap image = Bitmap.createBitmap(500, 260, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(image);
+        // Stretch the cell so its diagonal and vertical edges have different lengths.
+        // Equal hue change per side or per polar angle should fail this fixture.
+        canvas.scale(2, 1);
+        float centerX = 120, centerY = 120, a = 64, b = 58;
+        new PerimeterInk(Color.RED, 2, 1, 4, 1.2f, 46, true, false)
+                .draw(canvas, 0, 0, centerX, centerY, a, b);
+        float[] x = {a, a, 0, -a, -a, 0, a, a};
+        float[] y = {0, b/2, b, b/2, -b/2, -b, -b/2, 0};
+        float base = hueAt(image, 2 * (centerX + a), centerY);
+        double perimeter = 2 * b + 4 * Math.hypot(2 * a, b / 2);
+        double distance = 0;
+        for (int edge = 0; edge < x.length - 1; edge++) {
+            float dx = x[edge + 1] - x[edge], dy = y[edge + 1] - y[edge];
+            double length = Math.hypot(2 * dx, dy);
+            for (float t : new float[]{.04f, .27f, .65f, .96f}) {
+                float hue = hueAt(image, 2 * (centerX + x[edge] + dx * t), centerY + y[edge] + dy * t);
+                double difference = hue - base + (distance + length * t) / perimeter;
+                require(Math.abs(difference - Math.round(difference)) < .022,
+                        "Hue did not follow display-space edge length around the hexagon");
+            }
+            distance += length;
+        }
+        // The bottom spoke's endpoint uses the same hue as the outline.
+        float corner = hueAt(image, 2 * centerX, centerY + b);
+        float spoke = hueAt(image, 2 * centerX, centerY + b - 6);
+        float atCenter = hueAt(image, 2 * centerX, centerY + 4);
+        require(Math.abs(spoke - corner) < .06 && Math.abs(atCenter - spoke) > .025,
+                "Cube spoke did not carry color into its corner");
+        image.recycle();
+
+        SharedPreferences prefs = context.getSharedPreferences("perimeter-fixture", Context.MODE_PRIVATE);
+        prefs.edit().clear().putString(Settings.MODEL, "pixel_11_pro_xl").putInt(Settings.PATTERN, 1)
+                .putBoolean(Settings.BORDER, false).putBoolean(Settings.CAMERA, false)
+                .putBoolean(Settings.DOCK, false).putBoolean(Settings.STATUS, false)
+                .putBoolean(Settings.ANIMATE, true).putInt(Settings.PERIOD, 6).apply();
+        RgbRenderer scene = new RgbRenderer(context);
+        scene.update(prefs, WallpaperScreen.HOME);
+        try (FrameCapture frames = new FrameCapture(270, 600)) {
+            Bitmap start = frames.draw(scene);
+            scene.setVisible(true);
+            SystemClock.sleep(650);
+            Bitmap later = frames.draw(scene);
+            scene.setVisible(false);
+            require(colorChanged(start, later), "Perimeter hues did not move on the live renderer");
+            start.recycle();
+            later.recycle();
+        }
+        Log.i(TAG, "Perimeter hue: matched cumulative edge lengths across six edges, the wrap, and a cube spoke");
+    }
+
+    private static float hueAt(Bitmap image, float x, float y) {
+        float[] hsv = new float[3];
+        Color.colorToHSV(image.getPixel(Math.round(x), Math.round(y)), hsv);
+        require(hsv[1] > .7f && hsv[2] > .5f, "Missing color on a sampled line");
+        return hsv[0] / 360;
     }
 
     private static void checkWideGrid(Bitmap image, int pattern, String kind, float paddingScale) {
@@ -452,7 +520,7 @@ public final class RenderMatrix extends Instrumentation {
         }
         Bitmap animated = capture.draw(renderer);
         if (!colorChanged(idle, animated)) {
-            // A frame at the start of the hue cycle should match the static image.
+            // If the first frame is close to the original palette, let the hue advance.
             animated.recycle();
             SystemClock.sleep(100);
             animated = capture.draw(renderer);

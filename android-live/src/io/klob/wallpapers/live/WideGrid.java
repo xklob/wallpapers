@@ -22,6 +22,7 @@ final class WideGrid {
     private final float stroke, faintStroke, faintAlpha;
     private final boolean cubes;
     private final LinearGradient gradient;
+    private final int paletteColor;
     private final Map<Integer, float[]> authoredCells = new HashMap<>();
 
     static WideGrid load(Context context, String svgPath) throws IOException {
@@ -52,6 +53,7 @@ final class WideGrid {
         // The authored gradient is exact in its original range. Mirror it outside
         // that range to keep the color continuous rather than clamp to one hue.
         gradient = new LinearGradient(x1, y1, x2, y2, colors, offsets, Shader.TileMode.MIRROR);
+        paletteColor = colors[0];
         int count = in.readUnsignedShort();
         for (int i = 0; i < count; i++) {
             int row = in.readShort(), col = in.readShort();
@@ -60,14 +62,30 @@ final class WideGrid {
     }
 
     void draw(Canvas canvas, int width, int height, float magnification) {
+        draw(canvas, width, height, magnification, false, false);
+    }
+
+    void drawTravelingColors(Canvas canvas, int width, int height, float magnification, boolean extend) {
+        draw(canvas, width, height, magnification, true, extend);
+    }
+
+    private void draw(Canvas canvas, int width, int height, float magnification, boolean traveling, boolean extend) {
         canvas.save();
         boolean rotate = WallpaperArt.orient(canvas, viewWidth, viewHeight, width, height);
         int w = rotate ? height : width;
         int h = rotate ? width : height;
         canvas.translate(tx * w, ty * h);
-        canvas.scale(sx * w, sy * h);
+        float scaleX = sx * w, scaleY = sy * h;
+        canvas.scale(scaleX, scaleY);
         Rect bounds = new Rect();
         if (canvas.getClipBounds(bounds)) {
+            float minStroke = .8f / (Math.min(scaleX, scaleY) * magnification);
+            float outlineWidth = Math.max(stroke, minStroke);
+            float faintWidth = Math.max(faintStroke, minStroke * .6f);
+            // Let the color reach all subpixels at the edge of the original mask.
+            float padding = traveling ? 2 * Math.max(.6f, minStroke) : 0;
+            PerimeterInk perimeterInk = traveling ? new PerimeterInk(paletteColor, scaleX, scaleY,
+                    outlineWidth + padding, faintWidth + padding, Math.round(faintAlpha * 255), cubes, true) : null;
             // One extra row and column includes any cell that crosses an edge.
             int first = (int)Math.floor((bounds.top - y0) / dy) - 1;
             int last = (int)Math.ceil((bounds.bottom - y0) / dy) + 1;
@@ -78,17 +96,16 @@ final class WideGrid {
                 int right = (int)Math.ceil((bounds.right - start) / dx) + 1;
                 for (int col = left; col <= right; col++) {
                     float[] cell = authoredCells.get(index(row, col));
+                    if (traveling && !extend && cell == null) continue;
                     float x = cell == null ? start + col * dx : cell[0];
                     float y = cell == null ? y0 + row * dy : cell[1];
                     float a = cell == null ? halfWidth : cell[2];
                     float b = cell == null ? halfHeight : cell[3];
-                    outlines.moveTo(x, y - b);
-                    outlines.lineTo(x + a, y - b / 2);
-                    outlines.lineTo(x + a, y + b / 2);
-                    outlines.lineTo(x, y + b);
-                    outlines.lineTo(x - a, y + b / 2);
-                    outlines.lineTo(x - a, y - b / 2);
-                    outlines.close();
+                    if (perimeterInk != null) {
+                        perimeterInk.draw(canvas, row, col, x, y, a, b);
+                        continue;
+                    }
+                    traceHexagon(outlines, x, y, a, b);
                     if (cubes) {
                         spoke(lightSpokes, x, y, x + a, y - b / 2);
                         spoke(lightSpokes, x, y, x, y + b);
@@ -99,23 +116,34 @@ final class WideGrid {
                     }
                 }
             }
-            Paint ink = new Paint(Paint.ANTI_ALIAS_FLAG);
-            ink.setStyle(Paint.Style.STROKE);
-            ink.setShader(gradient);
-            float minStroke = .8f / (Math.min(sx * w, sy * h) * magnification);
-            ink.setStrokeJoin(Paint.Join.ROUND);
-            ink.setStrokeWidth(Math.max(stroke, minStroke));
-            canvas.drawPath(outlines, ink);
-            if (cubes) {
-                ink.setStrokeWidth(Math.max(faintStroke, minStroke * .6f));
-                ink.setAlpha(Math.round(255 * faintAlpha));
-                canvas.drawPath(darkSpokes, ink);
-                ink.setAlpha(255);
-                ink.setStrokeWidth(Math.max(stroke, minStroke));
-                canvas.drawPath(lightSpokes, ink);
+            if (!traveling) {
+                Paint ink = new Paint(Paint.ANTI_ALIAS_FLAG);
+                ink.setStyle(Paint.Style.STROKE);
+                ink.setShader(gradient);
+                ink.setStrokeJoin(Paint.Join.ROUND);
+                ink.setStrokeWidth(outlineWidth);
+                canvas.drawPath(outlines, ink);
+                if (cubes) {
+                    ink.setStrokeWidth(faintWidth);
+                    ink.setAlpha(Math.round(255 * faintAlpha));
+                    canvas.drawPath(darkSpokes, ink);
+                    ink.setAlpha(255);
+                    ink.setStrokeWidth(outlineWidth);
+                    canvas.drawPath(lightSpokes, ink);
+                }
             }
         }
         canvas.restore();
+    }
+
+    static void traceHexagon(Path path, float x, float y, float a, float b) {
+        path.moveTo(x, y - b);
+        path.lineTo(x + a, y - b / 2f);
+        path.lineTo(x + a, y + b / 2f);
+        path.lineTo(x, y + b);
+        path.lineTo(x - a, y + b / 2f);
+        path.lineTo(x - a, y - b / 2f);
+        path.close();
     }
 
     private static void spoke(Path path, float x, float y, float endX, float endY) {

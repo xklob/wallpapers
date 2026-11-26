@@ -55,6 +55,7 @@ final class RgbRenderer {
     private BitmapShader artworkInput;
     private int rasterRotation, rasterZoom;
     private RuntimeShader artworkColors;
+    private boolean traveling;
     private int rotation;
     private int framingZoom = ArtworkTransform.FIT;
     private WallpaperTone tone = WallpaperTone.NEUTRAL;
@@ -205,23 +206,26 @@ final class RgbRenderer {
         return visible && bitmap != null && (hasZoom() || (animate && shader != null));
     }
 
-    private void layout(int width, int height) {
-        if (width == layoutWidth && height == layoutHeight) return;
+    private void layout(int width, int height, boolean traveling) {
+        if (width == layoutWidth && height == layoutHeight && traveling == this.traveling) return;
+        this.traveling = traveling;
         try {
             boolean rotate = (width > height) != (model.width > model.height);
             Catalog.Model displayed = rotate ? rotatedModel : model;
             String path = rotate ? rotatedPath : artPath;
-            boolean split = ArtworkTransform.isActive(rotation, framingZoom) && !WallpaperArt.hasScene(path);
+            boolean transformed = ArtworkTransform.isActive(rotation, framingZoom);
+            boolean split = !WallpaperArt.hasScene(path) && transformed;
             artworkInput = null;
             artworkLayer = null;
             if (split) {
                 artworkLayer = WallpaperArt.artworkLayer(context, path, width, height, displayed, corners,
-                        framingZoom < ArtworkTransform.FIT);
+                        framingZoom < ArtworkTransform.FIT, traveling);
                 bitmap = WallpaperArt.renderLayer(context, path, width, height, displayed, corners,
                         WallpaperArt.Layer.FRAME);
             } else {
                 artworkColors = null;
-                bitmap = WallpaperArt.render(context, path, width, height, 1f, displayed, corners, false);
+                bitmap = traveling ? WallpaperArt.renderTravelingColors(context, path, width, height, displayed, corners)
+                        : WallpaperArt.render(context, path, width, height, 1f, displayed, corners, false);
             }
             input = sample(bitmap);
             if (shader != null) shader.setInputShader("art", input);
@@ -269,14 +273,14 @@ final class RgbRenderer {
             canvas.drawColor(Color.BLACK);
             return;
         }
-        layout(width, height);
+        boolean colorize = animate && shader != null && canvas.isHardwareAccelerated();
+        layout(width, height, colorize && !WallpaperArt.hasScene(artPath));
         if (bitmap == null || (menger == null && mandelbrot == null)) canvas.drawColor(Color.BLACK);
         if (bitmap == null) return;
         refreshArtwork();
         long now = SystemClock.uptimeMillis();
         advance(now);
 
-        boolean colorize = animate && shader != null && canvas.isHardwareAccelerated();
         if (colorize) {
             BassPulse pulses = pulses();
             float pulse = audioSync ? pulses.pulse(now, audioSmoothness) : 0f;
