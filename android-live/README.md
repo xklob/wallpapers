@@ -33,6 +33,8 @@ bash android-live/build.sh
 
 The build packages the checked-in SVGs and resolves the website catalog at build time. It downloads the checksum-pinned AndroidSVG dependency on the first build. Set `ANDROIDSVG_JAR` to an existing copy for an offline build. The build produces `android-live/build/rgb-geometry-live-aligned.apk`. The release application ID is `io.klob.wallpapers.catalog`. Sign the aligned APK with Android SDK's `apksigner` and your own keystore before installing. Keep the same signing key for future app updates.
 
+Version 1.10.0 starts using a new release signing key. When updating from 1.9.0 or earlier, uninstall the old app before installing this release. Reinstalling resets saved app settings. Subsequent releases will use the new key for normal updates.
+
 The Mandelbrot artwork can be regenerated with Python, NumPy and Pillow via `python3 android-live/generate_mandelbrot.py`. It packs overlapping tiles from the actual set using 520–856 escape iterations. With FFmpeg installed, `python3 android-live/render_mandelbrot_preview.py` recreates the gallery poster and video from the same tiles. For the Menger gallery media, run `python3 android-live/render_menger_preview.py` after baking its two textures.
 
 ## Verify the catalog and app
