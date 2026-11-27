@@ -11,7 +11,7 @@ from xml.etree import ElementTree as ET
 
 ROOT = Path(__file__).resolve().parent.parent
 PATTERNS = ("01_honeycomb_bright", "02_hexagons", "04_cubes")
-MENGER_FRAMES = "menger-frames"
+FRACTAL_FRAMES = "fractal-frames"
 SPECIAL = {"ipad": "iPad", "iphone": "iPhone", "rgb": "RGB", "xl": "XL", "oppo": "OPPO",
            "huawei": "HUAWEI", "oneplus": "OnePlus", "honor": "HONOR", "fhd": "FHD", "4k": "4K"}
 BRANDS = {"iphone": "Apple", "ipad": "Apple", "pixel": "Google", "google": "Google"}
@@ -92,7 +92,7 @@ def prepare_file(source, output, row, viewport):
     ET.ElementTree(svg).write(output / path, encoding="utf-8")
     write_wide_grid(svg, output / "wide-grid" / path.with_suffix(".bin"), row[1] == PATTERNS[2])
     if row[1] == PATTERNS[0]:
-        write_menger_frame(svg, output / MENGER_FRAMES / path, row[6] == "rgb_border")
+        write_fractal_frame(svg, output / FRACTAL_FRAMES / path, row[6] == "rgb_border")
     return path.as_posix()
 
 
@@ -110,7 +110,8 @@ def write_wide_grid(svg, output, cubes):
     group, parents = pattern_layer(svg)
     assert group is not None
     cells = []
-    for polygon in outline.get("d").rstrip("Z").split("Z"):
+    connected = outline.get("data-connected-honeycomb")
+    for polygon in ([] if connected else outline.get("d").rstrip("Z").split("Z")):
         points = [tuple(map(float, point.split(","))) for point in re.split("M|L", polygon)[1:]]
         if len(points) != 6:
             raise ValueError(f"Expected hexagonal outlines in {output}")
@@ -121,13 +122,17 @@ def write_wide_grid(svg, output, cubes):
         if not rows or cell[1] - rows[-1][0][1] > 4:
             rows.append([])
         rows[-1].append(cell)
-    ordinates = [median(c[1] for c in row) for row in rows]
-    abscissae = [sorted(c[0] for c in row) for row in rows]
-    dy = median(b - a for a, b in zip(ordinates, ordinates[1:]))
-    dx = median(b - a for row in abscissae for a, b in zip(row, row[1:]))
-    anchor = len(rows) // 2
-    x0, y0 = abscissae[anchor][0], ordinates[anchor]
-    hw, hh = (median(c[i] for c in cells) for i in (2, 3))
+    if connected:
+        x0, y0, dx, dy = map(float, connected.split())
+        hw, hh = dx / 2, 2 * dy / 3
+    else:
+        ordinates = [median(c[1] for c in row) for row in rows]
+        abscissae = [sorted(c[0] for c in row) for row in rows]
+        dy = median(b - a for a, b in zip(ordinates, ordinates[1:]))
+        dx = median(b - a for row in abscissae for a, b in zip(row, row[1:]))
+        anchor = len(rows) // 2
+        x0, y0 = abscissae[anchor][0], ordinates[anchor]
+        hw, hh = (median(c[i] for c in cells) for i in (2, 3))
     if dx <= 0 or dy <= 0:
         raise ValueError(f"Invalid lattice pitch in {output}")
 
@@ -159,9 +164,9 @@ def write_wide_grid(svg, output, cubes):
     gradient = [float(ramp.get(key)) for key in ("x1", "y1", "x2", "y2")]
     output.parent.mkdir(parents=True, exist_ok=True)
     with output.open("wb") as out:
-        out.write(struct.pack(">19f?", vw, vh, sx/vw, sy/vh, (tx-vx)/vw, (ty-vy)/vh,
+        out.write(struct.pack(">19f??", vw, vh, sx/vw, sy/vh, (tx-vx)/vw, (ty-vy)/vh,
                               x0, y0, dx, dy, hw, hh, float(outline.get("stroke-width")),
-                              *gradient, 1.2, 0.18, cubes))
+                              *gradient, 1.2, 0.18, cubes, bool(connected)))
         out.write(struct.pack(">H", len(ramp)))
         for stop in ramp:
             out.write(struct.pack(">fI", float(stop.get("offset")), 0xff000000 | int(stop.get("stop-color")[1:], 16)))
@@ -216,15 +221,15 @@ def mark_rotation_layers(svg, bordered):
         }))
 
 
-def write_menger_frame(svg, output, bordered):
+def write_fractal_frame(svg, output, bordered):
     """Keep the profile's stationary frame and launcher artwork, exposing the fractal inside."""
     ns = "{http://www.w3.org/2000/svg}"
     group, parents = pattern_layer(svg)
     parents[group].remove(group)
     background = svg.find(ns + "rect")
     if bordered:
-        add_gutter_mask(svg, group, parents, "menger-gutter")
-        background.set("mask", "url(#menger-gutter)")
+        add_gutter_mask(svg, group, parents, "fractal-gutter")
+        background.set("mask", "url(#fractal-gutter)")
         svg.remove(svg.find(f".//*[@class='rotation-gutter']"))
         svg.find(ns + "defs").remove(svg.find(".//*[@id='rotation-gutter-mask']"))
     else:
@@ -264,9 +269,8 @@ def assets(source, profiles, output, catalog):
             raise ValueError(f"Duplicate artwork for {preset} {key}")
         group[preset][key] = path
         if pattern == PATTERNS[0]:
-            frame = f"{MENGER_FRAMES}/{path}"
-            group[preset][f"{len(PATTERNS)}-{mask}"] = frame
-            group[preset][f"{len(PATTERNS) + 1}-{mask}"] = f"mandelbrot/{frame}"
+            frame = f"{FRACTAL_FRAMES}/{path}"
+            group[preset][f"{len(PATTERNS)}-{mask}"] = f"mandelbrot/{frame}"
 
     hidden = set(active.get("hiddenPresets", []))
     devices = [{**presets[a["preset"]], **a} for a in active["deviceAliases"]]

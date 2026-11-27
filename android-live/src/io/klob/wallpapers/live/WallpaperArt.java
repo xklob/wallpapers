@@ -35,7 +35,7 @@ final class WallpaperArt {
     }
 
     static boolean hasScene(String path) {
-        return MengerWindows.uses(path) || MandelbrotZoom.uses(path);
+        return MandelbrotZoom.uses(path);
     }
 
     static Bitmap renderStatic(Context context, String path, int width, int height) throws IOException {
@@ -254,7 +254,6 @@ final class WallpaperArt {
     private static void drawScene(Context context, Canvas canvas, String path, int width, int height,
                                   float magnification) {
         if (MandelbrotZoom.uses(path)) MandelbrotZoom.drawStill(context, canvas, width, height);
-        else new MengerWindows(context).draw(canvas, width, height, 0, magnification);
     }
 
     private static void drawSvg(SVG svg, Canvas canvas, int width, int height, Layer layer) {

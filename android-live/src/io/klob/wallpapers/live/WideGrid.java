@@ -20,7 +20,7 @@ final class WideGrid {
     private final float sx, sy, tx, ty;
     private final float x0, y0, dx, dy, halfWidth, halfHeight;
     private final float stroke, faintStroke, faintAlpha;
-    private final boolean cubes;
+    private final boolean cubes, connected;
     private final LinearGradient gradient;
     private final int paletteColor;
     private final Map<Integer, float[]> authoredCells = new HashMap<>();
@@ -43,6 +43,7 @@ final class WideGrid {
         faintStroke = in.readFloat();
         faintAlpha = in.readFloat();
         cubes = in.readBoolean();
+        connected = in.readBoolean();
         int stops = in.readUnsignedShort();
         int[] colors = new int[stops];
         float[] offsets = new float[stops];
@@ -81,6 +82,13 @@ final class WideGrid {
         if (canvas.getClipBounds(bounds)) {
             float minStroke = .8f / (Math.min(scaleX, scaleY) * magnification);
             float outlineWidth = Math.max(stroke, minStroke);
+            if (connected) {
+                ConnectedHoneycomb.draw(canvas, bounds, x0, y0, dx, dy, scaleX, scaleY,
+                        outlineWidth, traveling ? outlineWidth + 2 * Math.max(.6f, minStroke) : outlineWidth,
+                        gradient, paletteColor, traveling);
+                canvas.restore();
+                return;
+            }
             float faintWidth = Math.max(faintStroke, minStroke * .6f);
             // Let the color reach all subpixels at the edge of the original mask.
             float padding = traveling ? 2 * Math.max(.6f, minStroke) : 0;

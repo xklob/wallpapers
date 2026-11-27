@@ -67,6 +67,32 @@ final class SettingsMigrationTest {
                 expect(!Settings.enabled(isolated, "lock_border"), "Keep independent Lock border");
             }
 
+            for (int home = 0; home < 5; home++) {
+                for (int lock = 0; lock < 5; lock++) {
+                    isolated.edit().clear().putBoolean("three_pattern_catalog", true)
+                            .putString("model", "pixel_9").putString("lock_model", "pixel_tablet_landscape")
+                            .putInt("pattern", home).putInt("lock_pattern", lock)
+                            .putInt("menger_zoom_speed", 7).putInt("framing_zoom", 25)
+                            .putInt("lock_rotation_degrees", 135).putBoolean("animate", false).commit();
+                    Settings.open(context);
+                    Settings.open(context);
+                    expect(Settings.pattern(isolated, WallpaperScreen.HOME) == Math.min(home, 3),
+                            "Home pattern migration from " + home);
+                    expect(Settings.pattern(isolated, WallpaperScreen.LOCK) == Math.min(lock, 3),
+                            "Lock pattern migration from " + lock);
+                    expect(Settings.zoomSpeed(isolated) == 7 && !isolated.contains("menger_zoom_speed"),
+                            "Retain animation speed after removing old zoom");
+                    expect(Settings.framingZoom(isolated, WallpaperScreen.HOME) == 25
+                            && Settings.rotation(isolated, WallpaperScreen.LOCK) == 135
+                            && !Settings.enabled(isolated, "animate"), "Keep independent appearance settings");
+                    expect(Settings.model(context, isolated, WallpaperScreen.LOCK).id.equals("pixel_tablet_landscape"),
+                            "Retain Lock display model");
+                    expect(Settings.artPath(context, isolated, WallpaperScreen.HOME) != null
+                            && Settings.artPath(context, isolated, WallpaperScreen.LOCK) != null,
+                            "Migrated selections resolve to bundled artwork");
+                }
+            }
+
             expect(!catalog.lookup("pixel_11_pro_xl").estimatedCamera
                     && !catalog.lookup("pixel_9_pro_xl").estimatedCamera
                     && catalog.lookup("galaxy_s24").estimatedCamera, "Camera accuracy follows the preset");

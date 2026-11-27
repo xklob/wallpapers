@@ -668,7 +668,6 @@ public final class SettingsActivity extends Activity {
         int pattern = Settings.pattern(preferences, editingScreen);
         zoomControls.setVisibility(Settings.hasZoom(pattern) ? View.VISIBLE : View.GONE);
         qualityPanel.setVisibility(pattern == Settings.MANDELBROT ? View.VISIBLE : View.GONE);
-        colorControls.setVisibility(pattern == Settings.MENGER ? View.GONE : View.VISIBLE);
         zoomSpeed.setProgress(Settings.zoomSpeed(preferences));
         rotationSlider.setProgress(Settings.rotation(preferences, editingScreen));
         framingZoomSlider.setProgress(framingZoomStep());

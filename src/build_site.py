@@ -12,6 +12,7 @@ published = {art / theme["id"] / row[0] for theme in catalog["themes"] for row i
 for previous in art.rglob("*.svg"):
     if previous not in published:
         previous.unlink()
+shutil.rmtree(output / "assets", ignore_errors=True)
 shutil.copytree(root / "site", output, dirs_exist_ok=True)
 for theme in catalog["themes"]:
     for file, *_ in theme["files"]:

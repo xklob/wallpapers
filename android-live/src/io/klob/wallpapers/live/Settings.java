@@ -30,7 +30,7 @@ final class Settings {
     static final String PERIOD = "period";
     static final int MIN_PERIOD = 6;
     static final int MAX_PERIOD = 60;
-    static final String ZOOM_SPEED = "menger_zoom_speed"; // Keep the saved speed from the original zoom pattern.
+    static final String ZOOM_SPEED = "zoom_speed";
     static final int DEFAULT_ZOOM = 4; // quarter-speed increments; 4 is 1×
     static final int MAX_ZOOM = 16;
     static final String TEXTURE_QUALITY = "mandelbrot_texture_quality";
@@ -46,11 +46,10 @@ final class Settings {
         return Math.max(0, Math.min(2, prefs.getInt(FRAME_RATE, 1)));
     }
 
-    static final int MENGER = 3;
-    static final int MANDELBROT = 4;
+    static final int MANDELBROT = 3;
 
     static final String[] PATTERNS = {
-        "Bright Honeycomb", "Spaced Hexagons", "Wireframe Cubes", "Menger Windows", "Mandelbrot Zoom"
+        "Bright Honeycomb", "Spaced Hexagons", "Wireframe Cubes", "Mandelbrot Zoom"
     };
 
     static synchronized SharedPreferences open(Context context) {
@@ -86,6 +85,19 @@ final class Settings {
             migration.putInt(PATTERN, migratePattern(home))
                     .putInt(lockPattern, migratePattern(lock))
                     .putBoolean("three_pattern_catalog", true).apply();
+        }
+        if (!preferences.getBoolean("four_pattern_catalog", false)) {
+            SharedPreferences.Editor migration = preferences.edit();
+            if (!preferences.contains(ZOOM_SPEED) && preferences.contains("menger_zoom_speed")) {
+                migration.putInt(ZOOM_SPEED, preferences.getInt("menger_zoom_speed", DEFAULT_ZOOM));
+            }
+            for (WallpaperScreen screen : WallpaperScreen.values()) {
+                String key = screen.key(PATTERN);
+                int previous = preferences.getInt(key, 0);
+                // Former Menger (3) and Mandelbrot (4) both select the remaining zoom.
+                if (previous == 3 || previous == 4) migration.putInt(key, MANDELBROT);
+            }
+            migration.remove("menger_zoom_speed").putBoolean("four_pattern_catalog", true).apply();
         }
         return preferences;
     }
@@ -125,7 +137,7 @@ final class Settings {
     }
 
     static boolean hasZoom(int pattern) {
-        return pattern == MENGER || pattern == MANDELBROT;
+        return pattern == MANDELBROT;
     }
 
     static Catalog.Model model(Context context, SharedPreferences preferences, WallpaperScreen screen) {

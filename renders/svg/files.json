@@ -284,7 +284,7 @@
     ],
     "cap_stroke": 3.9303482587064678,
     "format": "svg",
-    "bytes": 6377
+    "bytes": 22746
   },
   {
     "file": "01_honeycomb_bright/phone/pixel/rgb_border/pixel_9_1080x2424_rgb_border.svg",
@@ -560,7 +560,7 @@
     ],
     "cap_stroke": 3.714759535655058,
     "format": "svg",
-    "bytes": 16081
+    "bytes": 34855
   },
   {
     "file": "01_honeycomb_bright/phone/pixel/original/pixel_9_pro_1280x2856_original.svg",
@@ -847,7 +847,7 @@
     ],
     "cap_stroke": 4.630182421227198,
     "format": "svg",
-    "bytes": 6377
+    "bytes": 22746
   },
   {
     "file": "01_honeycomb_bright/phone/pixel/rgb_border/pixel_9_pro_1280x2856_rgb_border.svg",
@@ -1123,7 +1123,7 @@
     ],
     "cap_stroke": 4.374792703150912,
     "format": "svg",
-    "bytes": 16599
+    "bytes": 35373
   },
   {
     "file": "01_honeycomb_bright/phone/pixel/original/pixel_9_pro_xl_1344x2992_original.svg",
@@ -1410,7 +1410,7 @@
     ],
     "cap_stroke": 4.849087893864013,
     "format": "svg",
-    "bytes": 6377
+    "bytes": 22746
   },
   {
     "file": "01_honeycomb_bright/phone/pixel/rgb_border/pixel_9_pro_xl_1344x2992_rgb_border.svg",
@@ -1686,7 +1686,7 @@
     ],
     "cap_stroke": 4.583747927031509,
     "format": "svg",
-    "bytes": 13862
+    "bytes": 32636
   },
   {
     "file": "01_honeycomb_bright/phone/samsung/original/galaxy_s24_1080x2340_original.svg",
@@ -1973,7 +1973,7 @@
     ],
     "cap_stroke": 3.791044776119403,
     "format": "svg",
-    "bytes": 6377
+    "bytes": 22746
   },
   {
     "file": "01_honeycomb_bright/phone/samsung/rgb_border/galaxy_s24_1080x2340_rgb_border.svg",
@@ -2260,7 +2260,7 @@
     ],
     "cap_stroke": 3.506849315068493,
     "format": "svg",
-    "bytes": 11802
+    "bytes": 30576
   },
   {
     "file": "01_honeycomb_bright/phone/samsung/original/galaxy_fhd_20x9_1080x2400_original.svg",
@@ -2547,7 +2547,7 @@
     ],
     "cap_stroke": 3.890547263681592,
     "format": "svg",
-    "bytes": 6377
+    "bytes": 22746
   },
   {
     "file": "01_honeycomb_bright/phone/samsung/rgb_border/galaxy_fhd_20x9_1080x2400_rgb_border.svg",
@@ -2823,7 +2823,7 @@
     ],
     "cap_stroke": 3.6749585406301826,
     "format": "svg",
-    "bytes": 11798
+    "bytes": 30572
   },
   {
     "file": "01_honeycomb_bright/phone/samsung/original/galaxy_s24_plus_ultra_1440x3120_original.svg",
@@ -3110,7 +3110,7 @@
     ],
     "cap_stroke": 5.054726368159204,
     "format": "svg",
-    "bytes": 6382
+    "bytes": 22747
   },
   {
     "file": "01_honeycomb_bright/phone/samsung/rgb_border/galaxy_s24_plus_ultra_1440x3120_rgb_border.svg",
@@ -3397,7 +3397,7 @@
     ],
     "cap_stroke": 4.681017612524462,
     "format": "svg",
-    "bytes": 11805
+    "bytes": 30579
   },
   {
     "file": "01_honeycomb_bright/phone/iphone/original/iphone_15_16_1179x2556_original.svg",
@@ -3684,7 +3684,7 @@
     ],
     "cap_stroke": 4.1426202321724706,
     "format": "svg",
-    "bytes": 6381
+    "bytes": 22746
   },
   {
     "file": "01_honeycomb_bright/phone/iphone/rgb_border/iphone_15_16_1179x2556_rgb_border.svg",
@@ -3971,7 +3971,7 @@
     ],
     "cap_stroke": 3.831702544031311,
     "format": "svg",
-    "bytes": 11762
+    "bytes": 30536
   },
   {
     "file": "01_honeycomb_bright/phone/iphone/original/iphone_16_pro_1206x2622_original.svg",
@@ -4258,7 +4258,7 @@
     ],
     "cap_stroke": 4.248756218905473,
     "format": "svg",
-    "bytes": 6377
+    "bytes": 22746
   },
   {
     "file": "01_honeycomb_bright/phone/iphone/rgb_border/iphone_16_pro_1206x2622_rgb_border.svg",
@@ -4545,7 +4545,7 @@
     ],
     "cap_stroke": 3.9138943248532287,
     "format": "svg",
-    "bytes": 11762
+    "bytes": 30536
   },
   {
     "file": "01_honeycomb_bright/phone/iphone/original/iphone_16_pro_max_1320x2868_original.svg",
@@ -4832,7 +4832,7 @@
     ],
     "cap_stroke": 4.646766169154229,
     "format": "svg",
-    "bytes": 6377
+    "bytes": 22746
   },
   {
     "file": "01_honeycomb_bright/phone/iphone/rgb_border/iphone_16_pro_max_1320x2868_rgb_border.svg",
@@ -5119,7 +5119,7 @@
     ],
     "cap_stroke": 4.289628180039139,
     "format": "svg",
-    "bytes": 11706
+    "bytes": 30480
   },
   {
     "file": "01_honeycomb_bright/desktop/original/desktop_1080p_1920x1080_original.svg",
@@ -5483,7 +5483,7 @@
     ],
     "cap_stroke": 3.004830917874396,
     "format": "svg",
-    "bytes": 16838
+    "bytes": 34525
   },
   {
     "file": "01_honeycomb_bright/desktop/rgb_border/desktop_1080p_1920x1080_rgb_border.svg",
@@ -5847,7 +5847,7 @@
     ],
     "cap_stroke": 2.7954911433172303,
     "format": "svg",
-    "bytes": 22133
+    "bytes": 44410
   },
   {
     "file": "01_honeycomb_bright/desktop/original/desktop_1440p_2560x1440_original.svg",
@@ -6211,7 +6211,7 @@
     ],
     "cap_stroke": 4.006441223832528,
     "format": "svg",
-    "bytes": 16805
+    "bytes": 34523
   },
   {
     "file": "01_honeycomb_bright/desktop/rgb_border/desktop_1440p_2560x1440_rgb_border.svg",
@@ -6575,7 +6575,7 @@
     ],
     "cap_stroke": 3.7294685990338166,
     "format": "svg",
-    "bytes": 22133
+    "bytes": 44410
   },
   {
     "file": "01_honeycomb_bright/desktop/original/desktop_4k_3840x2160_original.svg",
@@ -6939,7 +6939,7 @@
     ],
     "cap_stroke": 6.009661835748792,
     "format": "svg",
-    "bytes": 16836
+    "bytes": 34524
   },
   {
     "file": "01_honeycomb_bright/desktop/rgb_border/desktop_4k_3840x2160_rgb_border.svg",
@@ -7303,7 +7303,7 @@
     ],
     "cap_stroke": 5.5909822866344605,
     "format": "svg",
-    "bytes": 22137
+    "bytes": 44414
   },
   {
     "file": "01_honeycomb_bright/desktop/original/wide_21x9_1440p_3440x1440_original.svg",
@@ -7645,7 +7645,7 @@
     ],
     "cap_stroke": 5.423510466988728,
     "format": "svg",
-    "bytes": 12170
+    "bytes": 27760
   },
   {
     "file": "01_honeycomb_bright/desktop/rgb_border/wide_21x9_1440p_3440x1440_rgb_border.svg",
@@ -7987,7 +7987,7 @@
     ],
     "cap_stroke": 5.146537842190016,
     "format": "svg",
-    "bytes": 17828
+    "bytes": 35935
   },
   {
     "file": "01_honeycomb_bright/desktop/original/wide_21x9_2160p_5120x2160_original.svg",
@@ -8329,7 +8329,7 @@
     ],
     "cap_stroke": 8.07085346215781,
     "format": "svg",
-    "bytes": 12163
+    "bytes": 27758
   },
   {
     "file": "01_honeycomb_bright/desktop/rgb_border/wide_21x9_2160p_5120x2160_rgb_border.svg",
@@ -8671,7 +8671,7 @@
     ],
     "cap_stroke": 7.6521739130434785,
     "format": "svg",
-    "bytes": 17832
+    "bytes": 35939
   },
   {
     "file": "01_honeycomb_bright/desktop/original/ultrawide_32x9_1440p_5120x1440_original.svg",
@@ -9024,7 +9024,7 @@
     ],
     "cap_stroke": 8.128824476650564,
     "format": "svg",
-    "bytes": 11993
+    "bytes": 26160
   },
   {
     "file": "01_honeycomb_bright/desktop/rgb_border/ultrawide_32x9_1440p_5120x1440_rgb_border.svg",
@@ -9344,7 +9344,7 @@
     ],
     "cap_stroke": 7.851851851851852,
     "format": "svg",
-    "bytes": 12738
+    "bytes": 24545
   },
   {
     "file": "01_honeycomb_bright/desktop/original/ultrawide_32x9_2160p_7680x2160_original.svg",
@@ -9697,7 +9697,7 @@
     ],
     "cap_stroke": 12.193236714975846,
     "format": "svg",
-    "bytes": 11863
+    "bytes": 26160
   },
   {
     "file": "01_honeycomb_bright/desktop/rgb_border/ultrawide_32x9_2160p_7680x2160_rgb_border.svg",
@@ -10017,7 +10017,7 @@
     ],
     "cap_stroke": 11.774557165861514,
     "format": "svg",
-    "bytes": 12742
+    "bytes": 24549
   },
   {
     "file": "01_honeycomb_bright/tablet/pixel/original/pixel_tablet_portrait_1600x2560_original.svg",
@@ -10348,7 +10348,7 @@
     ],
     "cap_stroke": 4.112769485903814,
     "format": "svg",
-    "bytes": 8417
+    "bytes": 29464
   },
   {
     "file": "01_honeycomb_bright/tablet/pixel/rgb_border/pixel_tablet_portrait_1600x2560_rgb_border.svg",
@@ -10668,7 +10668,7 @@
     ],
     "cap_stroke": 3.7943615257048093,
     "format": "svg",
-    "bytes": 16987
+    "bytes": 38457
   },
   {
     "file": "01_honeycomb_bright/tablet/pixel/original/pixel_tablet_landscape_2560x1600_original.svg",
@@ -11065,7 +11065,7 @@
     ],
     "cap_stroke": 3.993558776167472,
     "format": "svg",
-    "bytes": 8801
+    "bytes": 25608
   },
   {
     "file": "01_honeycomb_bright/tablet/pixel/rgb_border/pixel_tablet_landscape_2560x1600_rgb_border.svg",
@@ -11462,7 +11462,7 @@
     ],
     "cap_stroke": 3.684380032206119,
     "format": "svg",
-    "bytes": 16948
+    "bytes": 36053
   },
   {
     "file": "01_honeycomb_bright/tablet/ipad/original/ipad_mini_6_a17_pro_portrait_1488x2266_original.svg",
@@ -11804,7 +11804,7 @@
     ],
     "cap_stroke": 3.566204287515763,
     "format": "svg",
-    "bytes": 8890
+    "bytes": 29464
   },
   {
     "file": "01_honeycomb_bright/tablet/ipad/rgb_border/ipad_mini_6_a17_pro_portrait_1488x2266_rgb_border.svg",
@@ -12135,7 +12135,7 @@
     ],
     "cap_stroke": 3.339966832504146,
     "format": "svg",
-    "bytes": 14140
+    "bytes": 35108
   },
   {
     "file": "01_honeycomb_bright/tablet/ipad/original/ipad_mini_6_a17_pro_landscape_2266x1488_original.svg",
@@ -12532,7 +12532,7 @@
     ],
     "cap_stroke": 3.529790660225443,
     "format": "svg",
-    "bytes": 8802
+    "bytes": 25609
   },
   {
     "file": "01_honeycomb_bright/tablet/ipad/rgb_border/ipad_mini_6_a17_pro_landscape_2266x1488_rgb_border.svg",
@@ -12929,7 +12929,7 @@
     ],
     "cap_stroke": 3.243156199677939,
     "format": "svg",
-    "bytes": 14592
+    "bytes": 35202
   },
   {
     "file": "01_honeycomb_bright/tablet/ipad/original/ipad_9_portrait_1620x2160_original.svg",
@@ -13293,7 +13293,7 @@
     ],
     "cap_stroke": 3.403314917127072,
     "format": "svg",
-    "bytes": 9922
+    "bytes": 31791
   },
   {
     "file": "01_honeycomb_bright/tablet/ipad/rgb_border/ipad_9_portrait_1620x2160_rgb_border.svg",
@@ -13646,7 +13646,7 @@
     ],
     "cap_stroke": 3.1243781094527363,
     "format": "svg",
-    "bytes": 15126
+    "bytes": 39723
   },
   {
     "file": "01_honeycomb_bright/tablet/ipad/original/ipad_9_landscape_2160x1620_original.svg",
@@ -14065,7 +14065,7 @@
     ],
     "cap_stroke": 3.349436392914654,
     "format": "svg",
-    "bytes": 10504
+    "bytes": 31896
   },
   {
     "file": "01_honeycomb_bright/tablet/ipad/rgb_border/ipad_9_landscape_2160x1620_rgb_border.svg",
@@ -14451,7 +14451,7 @@
     ],
     "cap_stroke": 3.033816425120773,
     "format": "svg",
-    "bytes": 14552
+    "bytes": 35162
   },
   {
     "file": "01_honeycomb_bright/tablet/ipad/original/ipad_10_a16_air_11_portrait_1640x2360_original.svg",
@@ -14804,7 +14804,7 @@
     ],
     "cap_stroke": 3.67020023557126,
     "format": "svg",
-    "bytes": 9430
+    "bytes": 29464
   },
   {
     "file": "01_honeycomb_bright/tablet/ipad/rgb_border/ipad_10_a16_air_11_portrait_1640x2360_rgb_border.svg",
@@ -15146,7 +15146,7 @@
     ],
     "cap_stroke": 3.4350567465321564,
     "format": "svg",
-    "bytes": 14556
+    "bytes": 37395
   },
   {
     "file": "01_honeycomb_bright/tablet/ipad/original/ipad_10_a16_air_11_landscape_2360x1640_original.svg",
@@ -15532,7 +15532,7 @@
     ],
     "cap_stroke": 3.6682769726247986,
     "format": "svg",
-    "bytes": 9562
+    "bytes": 29555
   },
   {
     "file": "01_honeycomb_bright/tablet/ipad/rgb_border/ipad_10_a16_air_11_landscape_2360x1640_rgb_border.svg",
@@ -15918,7 +15918,7 @@
     ],
     "cap_stroke": 3.338235294117647,
     "format": "svg",
-    "bytes": 14552
+    "bytes": 35162
   },
   {
     "file": "01_honeycomb_bright/tablet/ipad/original/ipad_pro_11_2018_2022_portrait_1668x2388_original.svg",
@@ -16271,7 +16271,7 @@
     ],
     "cap_stroke": 3.7314487632508833,
     "format": "svg",
-    "bytes": 9430
+    "bytes": 29464
   },
   {
     "file": "01_honeycomb_bright/tablet/ipad/rgb_border/ipad_pro_11_2018_2022_portrait_1668x2388_rgb_border.svg",
@@ -16613,7 +16613,7 @@
     ],
     "cap_stroke": 3.4892205638474296,
     "format": "svg",
-    "bytes": 14600
+    "bytes": 37439
   },
   {
     "file": "01_honeycomb_bright/tablet/ipad/original/ipad_pro_11_2018_2022_landscape_2388x1668_original.svg",
@@ -16999,7 +16999,7 @@
     ],
     "cap_stroke": 3.710144927536232,
     "format": "svg",
-    "bytes": 9562
+    "bytes": 29555
   },
   {
     "file": "01_honeycomb_bright/tablet/ipad/rgb_border/ipad_pro_11_2018_2022_landscape_2388x1668_rgb_border.svg",
@@ -17385,7 +17385,7 @@
     ],
     "cap_stroke": 3.388083735909823,
     "format": "svg",
-    "bytes": 14596
+    "bytes": 35206
   },
   {
     "file": "01_honeycomb_bright/tablet/ipad/original/ipad_pro_11_m4_m5_portrait_1668x2420_original.svg",
@@ -17738,7 +17738,7 @@
     ],
     "cap_stroke": 3.7314487632508833,
     "format": "svg",
-    "bytes": 9430
+    "bytes": 29464
   },
   {
     "file": "01_honeycomb_bright/tablet/ipad/rgb_border/ipad_pro_11_m4_m5_portrait_1668x2420_rgb_border.svg",
@@ -18080,7 +18080,7 @@
     ],
     "cap_stroke": 3.490542244640605,
     "format": "svg",
-    "bytes": 14600
+    "bytes": 37439
   },
   {
     "file": "01_honeycomb_bright/tablet/ipad/original/ipad_pro_11_m4_m5_landscape_2420x1668_original.svg",
@@ -18466,7 +18466,7 @@
     ],
     "cap_stroke": 3.761674718196457,
     "format": "svg",
-    "bytes": 9562
+    "bytes": 29555
   },
   {
     "file": "01_honeycomb_bright/tablet/ipad/rgb_border/ipad_pro_11_m4_m5_landscape_2420x1668_rgb_border.svg",
@@ -18863,7 +18863,7 @@
     ],
     "cap_stroke": 3.4396135265700485,
     "format": "svg",
-    "bytes": 14596
+    "bytes": 35206
   },
   {
     "file": "01_honeycomb_bright/tablet/ipad/original/ipad_air_13_pro_12_9_portrait_2048x2732_original.svg",
@@ -19227,7 +19227,7 @@
     ],
     "cap_stroke": 4.300552486187845,
     "format": "svg",
-    "bytes": 9920
+    "bytes": 31789
   },
   {
     "file": "01_honeycomb_bright/tablet/ipad/rgb_border/ipad_air_13_pro_12_9_portrait_2048x2732_rgb_border.svg",
@@ -19580,7 +19580,7 @@
     ],
     "cap_stroke": 3.953565505804312,
     "format": "svg",
-    "bytes": 15107
+    "bytes": 39767
   },
   {
     "file": "01_honeycomb_bright/tablet/ipad/original/ipad_air_13_pro_12_9_landscape_2732x2048_original.svg",
@@ -19999,7 +19999,7 @@
     ],
     "cap_stroke": 4.235104669887279,
     "format": "svg",
-    "bytes": 10504
+    "bytes": 31896
   },
   {
     "file": "01_honeycomb_bright/tablet/ipad/rgb_border/ipad_air_13_pro_12_9_landscape_2732x2048_rgb_border.svg",
@@ -20385,7 +20385,7 @@
     ],
     "cap_stroke": 3.8389694041867957,
     "format": "svg",
-    "bytes": 14596
+    "bytes": 35206
   },
   {
     "file": "01_honeycomb_bright/tablet/ipad/original/ipad_pro_13_m4_m5_portrait_2064x2752_original.svg",
@@ -20749,7 +20749,7 @@
     ],
     "cap_stroke": 4.331491712707182,
     "format": "svg",
-    "bytes": 9922
+    "bytes": 31791
   },
   {
     "file": "01_honeycomb_bright/tablet/ipad/rgb_border/ipad_pro_13_m4_m5_portrait_2064x2752_rgb_border.svg",
@@ -21102,7 +21102,7 @@
     ],
     "cap_stroke": 3.9834162520729683,
     "format": "svg",
-    "bytes": 15170
+    "bytes": 39767
   },
   {
     "file": "01_honeycomb_bright/tablet/ipad/original/ipad_pro_13_m4_m5_landscape_2752x2064_original.svg",
@@ -21521,7 +21521,7 @@
     ],
     "cap_stroke": 4.264090177133656,
     "format": "svg",
-    "bytes": 10504
+    "bytes": 31896
   },
   {
     "file": "01_honeycomb_bright/tablet/ipad/rgb_border/ipad_pro_13_m4_m5_landscape_2752x2064_rgb_border.svg",
@@ -21907,7 +21907,7 @@
     ],
     "cap_stroke": 3.867954911433172,
     "format": "svg",
-    "bytes": 14596
+    "bytes": 35206
   },
   {
     "file": "01_honeycomb_bright/foldable/samsung/original/galaxy_z_fold7_cover_portrait_1080x2520_original.svg",
@@ -22194,7 +22194,7 @@
     ],
     "cap_stroke": 4.015655577299413,
     "format": "svg",
-    "bytes": 6377
+    "bytes": 22746
   },
   {
     "file": "01_honeycomb_bright/foldable/samsung/rgb_border/galaxy_z_fold7_cover_portrait_1080x2520_rgb_border.svg",
@@ -22470,7 +22470,7 @@
     ],
     "cap_stroke": 3.8739635157545607,
     "format": "svg",
-    "bytes": 11784
+    "bytes": 30558
   },
   {
     "file": "01_honeycomb_bright/foldable/samsung/original/galaxy_z_fold7_cover_landscape_2520x1080_original.svg",
@@ -22845,7 +22845,7 @@
     ],
     "cap_stroke": 3.9310344827586206,
     "format": "svg",
-    "bytes": 7306
+    "bytes": 22829
   },
   {
     "file": "01_honeycomb_bright/foldable/samsung/rgb_border/galaxy_z_fold7_cover_landscape_2520x1080_rgb_border.svg",
@@ -23187,7 +23187,7 @@
     ],
     "cap_stroke": 3.761674718196457,
     "format": "svg",
-    "bytes": 11414
+    "bytes": 26157
   },
   {
     "file": "01_honeycomb_bright/foldable/samsung/original/galaxy_z_fold7_inner_portrait_1968x2184_original.svg",
@@ -23584,7 +23584,7 @@
     ],
     "cap_stroke": 3.459369817578773,
     "format": "svg",
-    "bytes": 11458
+    "bytes": 34119
   },
   {
     "file": "01_honeycomb_bright/foldable/samsung/rgb_border/galaxy_z_fold7_inner_portrait_1968x2184_rgb_border.svg",
@@ -23981,7 +23981,7 @@
     ],
     "cap_stroke": 3.04,
     "format": "svg",
-    "bytes": 16518
+    "bytes": 42176
   },
   {
     "file": "01_honeycomb_bright/foldable/samsung/original/galaxy_z_fold7_inner_landscape_2184x1968_original.svg",
@@ -24422,7 +24422,7 @@
     ],
     "cap_stroke": 3.359098228663446,
     "format": "svg",
-    "bytes": 12055
+    "bytes": 34248
   },
   {
     "file": "01_honeycomb_bright/foldable/samsung/rgb_border/galaxy_z_fold7_inner_landscape_2184x1968_rgb_border.svg",
@@ -24863,7 +24863,7 @@
     ],
     "cap_stroke": 2.949458483754513,
     "format": "svg",
-    "bytes": 16272
+    "bytes": 39847
   },
   {
     "file": "01_honeycomb_bright/foldable/google/original/pixel_10_pro_fold_cover_portrait_1080x2364_original.svg",
@@ -25150,7 +25150,7 @@
     ],
     "cap_stroke": 3.8308457711442787,
     "format": "svg",
-    "bytes": 6377
+    "bytes": 22746
   },
   {
     "file": "01_honeycomb_bright/foldable/google/rgb_border/pixel_10_pro_fold_cover_portrait_1080x2364_rgb_border.svg",
@@ -25437,7 +25437,7 @@
     ],
     "cap_stroke": 3.506849315068493,
     "format": "svg",
-    "bytes": 15771
+    "bytes": 34545
   },
   {
     "file": "01_honeycomb_bright/foldable/google/original/pixel_10_pro_fold_cover_landscape_2364x1080_original.svg",
@@ -25812,7 +25812,7 @@
     ],
     "cap_stroke": 3.7198067632850242,
     "format": "svg",
-    "bytes": 7304
+    "bytes": 22827
   },
   {
     "file": "01_honeycomb_bright/foldable/google/rgb_border/pixel_10_pro_fold_cover_landscape_2364x1080_rgb_border.svg",
@@ -26154,7 +26154,7 @@
     ],
     "cap_stroke": 3.5104669887278583,
     "format": "svg",
-    "bytes": 16159
+    "bytes": 32382
   },
   {
     "file": "01_honeycomb_bright/foldable/google/original/pixel_10_pro_fold_inner_portrait_2076x2152_original.svg",
@@ -26573,7 +26573,7 @@
     ],
     "cap_stroke": 3.3226621735467567,
     "format": "svg",
-    "bytes": 12482
+    "bytes": 38771
   },
   {
     "file": "01_honeycomb_bright/foldable/google/rgb_border/pixel_10_pro_fold_inner_portrait_2076x2152_rgb_border.svg",
@@ -26992,7 +26992,7 @@
     ],
     "cap_stroke": 2.9048020219039596,
     "format": "svg",
-    "bytes": 21020
+    "bytes": 47914
   },
   {
     "file": "01_honeycomb_bright/foldable/google/original/pixel_10_pro_fold_inner_landscape_2152x2076_original.svg",
@@ -27422,7 +27422,7 @@
     ],
     "cap_stroke": 3.270315091210614,
     "format": "svg",
-    "bytes": 13000
+    "bytes": 38768
   },
   {
     "file": "01_honeycomb_bright/foldable/google/rgb_border/pixel_10_pro_fold_inner_landscape_2152x2076_rgb_border.svg",
@@ -27863,7 +27863,7 @@
     ],
     "cap_stroke": 2.898550724637681,
     "format": "svg",
-    "bytes": 21616
+    "bytes": 47892
   },
   {
     "file": "01_honeycomb_bright/foldable/oneplus/original/oneplus_open_cover_portrait_1116x2484_original.svg",
@@ -28150,7 +28150,7 @@
     ],
     "cap_stroke": 4.02653399668325,
     "format": "svg",
-    "bytes": 6377
+    "bytes": 22746
   },
   {
     "file": "01_honeycomb_bright/foldable/oneplus/rgb_border/oneplus_open_cover_portrait_1116x2484_rgb_border.svg",
@@ -28426,7 +28426,7 @@
     ],
     "cap_stroke": 3.804311774461028,
     "format": "svg",
-    "bytes": 11829
+    "bytes": 30603
   },
   {
     "file": "01_honeycomb_bright/foldable/oneplus/original/oneplus_open_cover_landscape_2484x1116_original.svg",
@@ -28801,7 +28801,7 @@
     ],
     "cap_stroke": 3.9098228663446055,
     "format": "svg",
-    "bytes": 7311
+    "bytes": 22830
   },
   {
     "file": "01_honeycomb_bright/foldable/oneplus/rgb_border/oneplus_open_cover_landscape_2484x1116_rgb_border.svg",
@@ -29143,7 +29143,7 @@
     ],
     "cap_stroke": 3.6940418679549114,
     "format": "svg",
-    "bytes": 11459
+    "bytes": 26202
   },
   {
     "file": "01_honeycomb_bright/foldable/oneplus/original/oneplus_open_inner_portrait_2268x2440_original.svg",
@@ -29551,7 +29551,7 @@
     ],
     "cap_stroke": 3.8090185676392574,
     "format": "svg",
-    "bytes": 11871
+    "bytes": 36443
   },
   {
     "file": "01_honeycomb_bright/foldable/oneplus/rgb_border/oneplus_open_inner_portrait_2268x2440_rgb_border.svg",
@@ -29959,7 +29959,7 @@
     ],
     "cap_stroke": 3.3280282935455348,
     "format": "svg",
-    "bytes": 17609
+    "bytes": 44503
   },
   {
     "file": "01_honeycomb_bright/foldable/oneplus/original/oneplus_open_inner_landscape_2440x2268_original.svg",
@@ -30400,7 +30400,7 @@
     ],
     "cap_stroke": 3.745571658615137,
     "format": "svg",
-    "bytes": 12057
+    "bytes": 34250
   },
   {
     "file": "01_honeycomb_bright/foldable/oneplus/rgb_border/oneplus_open_inner_landscape_2440x2268_rgb_border.svg",
@@ -30841,7 +30841,7 @@
     ],
     "cap_stroke": 3.3075684380032206,
     "format": "svg",
-    "bytes": 17169
+    "bytes": 42169
   },
   {
     "file": "01_honeycomb_bright/foldable/oppo/original/oppo_find_n5_cover_portrait_1140x2616_original.svg",
@@ -31128,7 +31128,7 @@
     ],
     "cap_stroke": 4.2426614481409,
     "format": "svg",
-    "bytes": 6377
+    "bytes": 22746
   },
   {
     "file": "01_honeycomb_bright/foldable/oppo/rgb_border/oppo_find_n5_cover_portrait_1140x2616_rgb_border.svg",
@@ -31404,7 +31404,7 @@
     ],
     "cap_stroke": 4.016583747927031,
     "format": "svg",
-    "bytes": 11788
+    "bytes": 30562
   },
   {
     "file": "01_honeycomb_bright/foldable/oppo/original/oppo_find_n5_cover_landscape_2616x1140_original.svg",
@@ -31779,7 +31779,7 @@
     ],
     "cap_stroke": 4.122383252818035,
     "format": "svg",
-    "bytes": 7306
+    "bytes": 22829
   },
   {
     "file": "01_honeycomb_bright/foldable/oppo/rgb_border/oppo_find_n5_cover_landscape_2616x1140_rgb_border.svg",
@@ -32121,7 +32121,7 @@
     ],
     "cap_stroke": 3.900161030595813,
     "format": "svg",
-    "bytes": 11418
+    "bytes": 26161
   },
   {
     "file": "01_honeycomb_bright/foldable/oppo/original/oppo_find_n5_inner_portrait_2248x2480_original.svg",
@@ -32529,7 +32529,7 @@
     ],
     "cap_stroke": 3.777188328912467,
     "format": "svg",
-    "bytes": 11872
+    "bytes": 36444
   },
   {
     "file": "01_honeycomb_bright/foldable/oppo/rgb_border/oppo_find_n5_inner_portrait_2248x2480_rgb_border.svg",
@@ -32926,7 +32926,7 @@
     ],
     "cap_stroke": 3.471627906976744,
     "format": "svg",
-    "bytes": 17098
+    "bytes": 44503
   },
   {
     "file": "01_honeycomb_bright/foldable/oppo/original/oppo_find_n5_inner_landscape_2480x2248_original.svg",
@@ -33367,7 +33367,7 @@
     ],
     "cap_stroke": 3.813204508856683,
     "format": "svg",
-    "bytes": 12057
+    "bytes": 34250
   },
   {
     "file": "01_honeycomb_bright/foldable/oppo/rgb_border/oppo_find_n5_inner_landscape_2480x2248_rgb_border.svg",
@@ -33808,7 +33808,7 @@
     ],
     "cap_stroke": 3.368231046931408,
     "format": "svg",
-    "bytes": 16271
+    "bytes": 39846
   },
   {
     "file": "01_honeycomb_bright/foldable/honor/original/honor_magic_v5_cover_portrait_1060x2376_original.svg",
@@ -34095,7 +34095,7 @@
     ],
     "cap_stroke": 3.854063018242123,
     "format": "svg",
-    "bytes": 6377
+    "bytes": 22746
   },
   {
     "file": "01_honeycomb_bright/foldable/honor/rgb_border/honor_magic_v5_cover_portrait_1060x2376_rgb_border.svg",
@@ -34371,7 +34371,7 @@
     ],
     "cap_stroke": 3.6417910447761193,
     "format": "svg",
-    "bytes": 11786
+    "bytes": 30560
   },
   {
     "file": "01_honeycomb_bright/foldable/honor/original/honor_magic_v5_cover_landscape_2376x1060_original.svg",
@@ -34746,7 +34746,7 @@
     ],
     "cap_stroke": 3.742351046698873,
     "format": "svg",
-    "bytes": 7306
+    "bytes": 22829
   },
   {
     "file": "01_honeycomb_bright/foldable/honor/rgb_border/honor_magic_v5_cover_landscape_2376x1060_rgb_border.svg",
@@ -35088,7 +35088,7 @@
     ],
     "cap_stroke": 3.536231884057971,
     "format": "svg",
-    "bytes": 11416
+    "bytes": 26159
   },
   {
     "file": "01_honeycomb_bright/foldable/honor/original/honor_magic_v5_inner_portrait_2172x2352_original.svg",
@@ -35496,7 +35496,7 @@
     ],
     "cap_stroke": 3.649867374005305,
     "format": "svg",
-    "bytes": 11871
+    "bytes": 36443
   },
   {
     "file": "01_honeycomb_bright/foldable/honor/rgb_border/honor_magic_v5_inner_portrait_2172x2352_rgb_border.svg",
@@ -35904,7 +35904,7 @@
     ],
     "cap_stroke": 3.1865605658709106,
     "format": "svg",
-    "bytes": 17610
+    "bytes": 44504
   },
   {
     "file": "01_honeycomb_bright/foldable/honor/original/honor_magic_v5_inner_landscape_2352x2172_original.svg",
@@ -36345,7 +36345,7 @@
     ],
     "cap_stroke": 3.6135265700483092,
     "format": "svg",
-    "bytes": 12033
+    "bytes": 34250
   },
   {
     "file": "01_honeycomb_bright/foldable/honor/rgb_border/honor_magic_v5_inner_landscape_2352x2172_rgb_border.svg",
@@ -36786,7 +36786,7 @@
     ],
     "cap_stroke": 3.1916264090177133,
     "format": "svg",
-    "bytes": 17170
+    "bytes": 42170
   },
   {
     "file": "01_honeycomb_bright/foldable/samsung/original/galaxy_z_flip7_cover_portrait_948x1048_original.svg",
@@ -37183,7 +37183,7 @@
     ],
     "cap_stroke": 1.658374792703151,
     "format": "svg",
-    "bytes": 11460
+    "bytes": 34117
   },
   {
     "file": "01_honeycomb_bright/foldable/samsung/rgb_border/galaxy_z_flip7_cover_portrait_948x1048_rgb_border.svg",
@@ -37580,7 +37580,7 @@
     ],
     "cap_stroke": 1.5,
     "format": "svg",
-    "bytes": 17050
+    "bytes": 44455
   },
   {
     "file": "01_honeycomb_bright/foldable/samsung/original/galaxy_z_flip7_cover_landscape_1048x948_original.svg",
@@ -38021,7 +38021,7 @@
     ],
     "cap_stroke": 1.6103059581320451,
     "format": "svg",
-    "bytes": 12053
+    "bytes": 34246
   },
   {
     "file": "01_honeycomb_bright/foldable/samsung/rgb_border/galaxy_z_flip7_cover_landscape_1048x948_rgb_border.svg",
@@ -38462,7 +38462,7 @@
     ],
     "cap_stroke": 1.5,
     "format": "svg",
-    "bytes": 16223
+    "bytes": 39798
   },
   {
     "file": "01_honeycomb_bright/foldable/samsung/original/galaxy_z_flip7_inner_portrait_1080x2520_original.svg",
@@ -38749,7 +38749,7 @@
     ],
     "cap_stroke": 4.015655577299413,
     "format": "svg",
-    "bytes": 6377
+    "bytes": 22746
   },
   {
     "file": "01_honeycomb_bright/foldable/samsung/rgb_border/galaxy_z_flip7_inner_portrait_1080x2520_rgb_border.svg",
@@ -39025,7 +39025,7 @@
     ],
     "cap_stroke": 3.8739635157545607,
     "format": "svg",
-    "bytes": 11784
+    "bytes": 30558
   },
   {
     "file": "01_honeycomb_bright/foldable/samsung/original/galaxy_z_flip7_inner_landscape_2520x1080_original.svg",
@@ -39400,7 +39400,7 @@
     ],
     "cap_stroke": 3.9310344827586206,
     "format": "svg",
-    "bytes": 7306
+    "bytes": 22829
   },
   {
     "file": "01_honeycomb_bright/foldable/samsung/rgb_border/galaxy_z_flip7_inner_landscape_2520x1080_rgb_border.svg",
@@ -39742,7 +39742,7 @@
     ],
     "cap_stroke": 3.761674718196457,
     "format": "svg",
-    "bytes": 11414
+    "bytes": 26157
   },
   {
     "file": "01_honeycomb_bright/foldable/motorola/original/motorola_razr_ultra_2025_cover_portrait_1080x1272_original.svg",
@@ -40128,7 +40128,7 @@
     ],
     "cap_stroke": 2.013738959764475,
     "format": "svg",
-    "bytes": 11310
+    "bytes": 34120
   },
   {
     "file": "01_honeycomb_bright/foldable/motorola/rgb_border/motorola_razr_ultra_2025_cover_portrait_1080x1272_rgb_border.svg",
@@ -40514,7 +40514,7 @@
     ],
     "cap_stroke": 1.7585868498527968,
     "format": "svg",
-    "bytes": 16454
+    "bytes": 42112
   },
   {
     "file": "01_honeycomb_bright/foldable/motorola/original/motorola_razr_ultra_2025_cover_landscape_1272x1080_original.svg",
@@ -40922,7 +40922,7 @@
     ],
     "cap_stroke": 1.961352657004831,
     "format": "svg",
-    "bytes": 11127
+    "bytes": 34113
   },
   {
     "file": "01_honeycomb_bright/foldable/motorola/rgb_border/motorola_razr_ultra_2025_cover_landscape_1272x1080_rgb_border.svg",
@@ -41330,7 +41330,7 @@
     ],
     "cap_stroke": 1.752012882447665,
     "format": "svg",
-    "bytes": 16208
+    "bytes": 39783
   },
   {
     "file": "01_honeycomb_bright/foldable/motorola/original/motorola_razr_ultra_2025_inner_portrait_1224x2992_original.svg",
@@ -41606,7 +41606,7 @@
     ],
     "cap_stroke": 4.859038142620232,
     "format": "svg",
-    "bytes": 5882
+    "bytes": 20415
   },
   {
     "file": "01_honeycomb_bright/foldable/motorola/rgb_border/motorola_razr_ultra_2025_inner_portrait_1224x2992_rgb_border.svg",
@@ -41882,7 +41882,7 @@
     ],
     "cap_stroke": 4.475770925110132,
     "format": "svg",
-    "bytes": 11828
+    "bytes": 30602
   },
   {
     "file": "01_honeycomb_bright/foldable/motorola/original/motorola_razr_ultra_2025_inner_landscape_2992x1224_original.svg",
@@ -42224,7 +42224,7 @@
     ],
     "cap_stroke": 4.718196457326892,
     "format": "svg",
-    "bytes": 6426
+    "bytes": 20488
   },
   {
     "file": "01_honeycomb_bright/foldable/motorola/rgb_border/motorola_razr_ultra_2025_inner_landscape_2992x1224_rgb_border.svg",
@@ -42566,7 +42566,7 @@
     ],
     "cap_stroke": 4.483091787439614,
     "format": "svg",
-    "bytes": 11458
+    "bytes": 26201
   },
   {
     "file": "02_hexagons/phone/pixel/original/pixel_9_1080x2424_original.svg",
@@ -64955,7 +64955,7 @@
     ],
     "ring_outer_radius": 50.0,
     "format": "svg",
-    "bytes": 8308
+    "bytes": 24696
   },
   {
     "file": "01_honeycomb_bright/phone/pixel/rgb_border/camera_outline/pixel_9_1080x2424_rgb_border_camera_outline.svg",
@@ -64972,7 +64972,7 @@
     ],
     "ring_outer_radius": 50.0,
     "format": "svg",
-    "bytes": 18031
+    "bytes": 36805
   },
   {
     "file": "01_honeycomb_bright/phone/pixel/original/camera_outline/pixel_9_pro_1280x2856_original_camera_outline.svg",
@@ -64989,7 +64989,7 @@
     ],
     "ring_outer_radius": 57.0,
     "format": "svg",
-    "bytes": 8289
+    "bytes": 24677
   },
   {
     "file": "01_honeycomb_bright/phone/pixel/rgb_border/camera_outline/pixel_9_pro_1280x2856_rgb_border_camera_outline.svg",
@@ -65006,7 +65006,7 @@
     ],
     "ring_outer_radius": 57.0,
     "format": "svg",
-    "bytes": 18530
+    "bytes": 37304
   },
   {
     "file": "01_honeycomb_bright/phone/pixel/original/camera_outline/pixel_9_pro_xl_1344x2992_original_camera_outline.svg",
@@ -65023,7 +65023,7 @@
     ],
     "ring_outer_radius": 55.0,
     "format": "svg",
-    "bytes": 8274
+    "bytes": 24662
   },
   {
     "file": "01_honeycomb_bright/phone/pixel/rgb_border/camera_outline/pixel_9_pro_xl_1344x2992_rgb_border_camera_outline.svg",
@@ -65040,7 +65040,7 @@
     ],
     "ring_outer_radius": 55.0,
     "format": "svg",
-    "bytes": 15778
+    "bytes": 34552
   },
   {
     "file": "01_honeycomb_bright/phone/samsung/original/camera_outline_estimated/galaxy_s24_1080x2340_original_camera_outline_estimated.svg",
@@ -65057,7 +65057,7 @@
     ],
     "ring_outer_radius": 29,
     "format": "svg",
-    "bytes": 8256
+    "bytes": 24644
   },
   {
     "file": "01_honeycomb_bright/phone/samsung/rgb_border/camera_outline_estimated/galaxy_s24_1080x2340_rgb_border_camera_outline_estimated.svg",
@@ -65074,7 +65074,7 @@
     ],
     "ring_outer_radius": 29,
     "format": "svg",
-    "bytes": 13700
+    "bytes": 32474
   },
   {
     "file": "01_honeycomb_bright/phone/samsung/original/camera_outline_estimated/galaxy_fhd_20x9_1080x2400_original_camera_outline_estimated.svg",
@@ -65091,7 +65091,7 @@
     ],
     "ring_outer_radius": 29,
     "format": "svg",
-    "bytes": 8256
+    "bytes": 24644
   },
   {
     "file": "01_honeycomb_bright/phone/samsung/rgb_border/camera_outline_estimated/galaxy_fhd_20x9_1080x2400_rgb_border_camera_outline_estimated.svg",
@@ -65108,7 +65108,7 @@
     ],
     "ring_outer_radius": 29,
     "format": "svg",
-    "bytes": 13696
+    "bytes": 32470
   },
   {
     "file": "01_honeycomb_bright/phone/samsung/original/camera_outline_estimated/galaxy_s24_plus_ultra_1440x3120_original_camera_outline_estimated.svg",
@@ -65125,7 +65125,7 @@
     ],
     "ring_outer_radius": 34,
     "format": "svg",
-    "bytes": 8269
+    "bytes": 24653
   },
   {
     "file": "01_honeycomb_bright/phone/samsung/rgb_border/camera_outline_estimated/galaxy_s24_plus_ultra_1440x3120_rgb_border_camera_outline_estimated.svg",
@@ -65142,7 +65142,7 @@
     ],
     "ring_outer_radius": 34,
     "format": "svg",
-    "bytes": 13711
+    "bytes": 32485
   },
   {
     "file": "01_honeycomb_bright/foldable/samsung/original/camera_outline_estimated/galaxy_z_fold7_cover_portrait_1080x2520_original_camera_outline_estimated.svg",
@@ -65159,7 +65159,7 @@
     ],
     "ring_outer_radius": 30,
     "format": "svg",
-    "bytes": 8276
+    "bytes": 24664
   },
   {
     "file": "01_honeycomb_bright/foldable/samsung/rgb_border/camera_outline_estimated/galaxy_z_fold7_cover_portrait_1080x2520_rgb_border_camera_outline_estimated.svg",
@@ -65176,7 +65176,7 @@
     ],
     "ring_outer_radius": 30,
     "format": "svg",
-    "bytes": 13702
+    "bytes": 32476
   },
   {
     "file": "01_honeycomb_bright/foldable/samsung/original/camera_outline_estimated/galaxy_z_fold7_cover_landscape_2520x1080_original_camera_outline_estimated.svg",
@@ -65193,7 +65193,7 @@
     ],
     "ring_outer_radius": 30,
     "format": "svg",
-    "bytes": 9205
+    "bytes": 24747
   },
   {
     "file": "01_honeycomb_bright/foldable/samsung/rgb_border/camera_outline_estimated/galaxy_z_fold7_cover_landscape_2520x1080_rgb_border_camera_outline_estimated.svg",
@@ -65210,7 +65210,7 @@
     ],
     "ring_outer_radius": 30,
     "format": "svg",
-    "bytes": 13332
+    "bytes": 28075
   },
   {
     "file": "01_honeycomb_bright/foldable/samsung/original/camera_outline_estimated/galaxy_z_fold7_inner_portrait_1968x2184_original_camera_outline_estimated.svg",
@@ -65227,7 +65227,7 @@
     ],
     "ring_outer_radius": 33,
     "format": "svg",
-    "bytes": 13386
+    "bytes": 36066
   },
   {
     "file": "01_honeycomb_bright/foldable/samsung/rgb_border/camera_outline_estimated/galaxy_z_fold7_inner_portrait_1968x2184_rgb_border_camera_outline_estimated.svg",
@@ -65244,7 +65244,7 @@
     ],
     "ring_outer_radius": 33,
     "format": "svg",
-    "bytes": 18465
+    "bytes": 44123
   },
   {
     "file": "01_honeycomb_bright/foldable/samsung/original/camera_outline_estimated/galaxy_z_fold7_inner_landscape_2184x1968_original_camera_outline_estimated.svg",
@@ -65261,7 +65261,7 @@
     ],
     "ring_outer_radius": 33,
     "format": "svg",
-    "bytes": 13962
+    "bytes": 36174
   },
   {
     "file": "01_honeycomb_bright/foldable/samsung/rgb_border/camera_outline_estimated/galaxy_z_fold7_inner_landscape_2184x1968_rgb_border_camera_outline_estimated.svg",
@@ -65278,7 +65278,7 @@
     ],
     "ring_outer_radius": 33,
     "format": "svg",
-    "bytes": 18198
+    "bytes": 41773
   },
   {
     "file": "01_honeycomb_bright/foldable/google/original/camera_outline/pixel_10_pro_fold_cover_portrait_1080x2364_original_camera_outline.svg",
@@ -65295,7 +65295,7 @@
     ],
     "ring_outer_radius": 45.5,
     "format": "svg",
-    "bytes": 8339
+    "bytes": 24694
   },
   {
     "file": "01_honeycomb_bright/foldable/google/rgb_border/camera_outline/pixel_10_pro_fold_cover_portrait_1080x2364_rgb_border_camera_outline.svg",
@@ -65312,7 +65312,7 @@
     ],
     "ring_outer_radius": 45.5,
     "format": "svg",
-    "bytes": 17719
+    "bytes": 36493
   },
   {
     "file": "01_honeycomb_bright/foldable/google/original/camera_outline/pixel_10_pro_fold_cover_landscape_2364x1080_original_camera_outline.svg",
@@ -65329,7 +65329,7 @@
     ],
     "ring_outer_radius": 45.5,
     "format": "svg",
-    "bytes": 9262
+    "bytes": 24771
   },
   {
     "file": "01_honeycomb_bright/foldable/google/rgb_border/camera_outline/pixel_10_pro_fold_cover_landscape_2364x1080_rgb_border_camera_outline.svg",
@@ -65346,7 +65346,7 @@
     ],
     "ring_outer_radius": 45.5,
     "format": "svg",
-    "bytes": 18103
+    "bytes": 34326
   },
   {
     "file": "01_honeycomb_bright/foldable/google/original/camera_outline/pixel_10_pro_fold_inner_portrait_2076x2152_original_camera_outline.svg",
@@ -65363,7 +65363,7 @@
     ],
     "ring_outer_radius": 47.5,
     "format": "svg",
-    "bytes": 14431
+    "bytes": 40706
   },
   {
     "file": "01_honeycomb_bright/foldable/google/rgb_border/camera_outline/pixel_10_pro_fold_inner_portrait_2076x2152_rgb_border_camera_outline.svg",
@@ -65380,7 +65380,7 @@
     ],
     "ring_outer_radius": 47.5,
     "format": "svg",
-    "bytes": 22955
+    "bytes": 49849
   },
   {
     "file": "01_honeycomb_bright/foldable/google/original/camera_outline/pixel_10_pro_fold_inner_landscape_2152x2076_original_camera_outline.svg",
@@ -65397,7 +65397,7 @@
     ],
     "ring_outer_radius": 47.5,
     "format": "svg",
-    "bytes": 14891
+    "bytes": 40645
   },
   {
     "file": "01_honeycomb_bright/foldable/google/rgb_border/camera_outline/pixel_10_pro_fold_inner_landscape_2152x2076_rgb_border_camera_outline.svg",
@@ -65414,7 +65414,7 @@
     ],
     "ring_outer_radius": 47.5,
     "format": "svg",
-    "bytes": 23493
+    "bytes": 49769
   },
   {
     "file": "01_honeycomb_bright/foldable/oneplus/original/camera_outline_estimated/oneplus_open_cover_portrait_1116x2484_original_camera_outline_estimated.svg",
@@ -65431,7 +65431,7 @@
     ],
     "ring_outer_radius": 33,
     "format": "svg",
-    "bytes": 8280
+    "bytes": 24668
   },
   {
     "file": "01_honeycomb_bright/foldable/oneplus/rgb_border/camera_outline_estimated/oneplus_open_cover_portrait_1116x2484_rgb_border_camera_outline_estimated.svg",
@@ -65448,7 +65448,7 @@
     ],
     "ring_outer_radius": 33,
     "format": "svg",
-    "bytes": 13751
+    "bytes": 32525
   },
   {
     "file": "01_honeycomb_bright/foldable/oneplus/original/camera_outline_estimated/oneplus_open_cover_landscape_2484x1116_original_camera_outline_estimated.svg",
@@ -65465,7 +65465,7 @@
     ],
     "ring_outer_radius": 33,
     "format": "svg",
-    "bytes": 9210
+    "bytes": 24748
   },
   {
     "file": "01_honeycomb_bright/foldable/oneplus/rgb_border/camera_outline_estimated/oneplus_open_cover_landscape_2484x1116_rgb_border_camera_outline_estimated.svg",
@@ -65482,7 +65482,7 @@
     ],
     "ring_outer_radius": 33,
     "format": "svg",
-    "bytes": 13377
+    "bytes": 28120
   },
   {
     "file": "01_honeycomb_bright/foldable/oneplus/original/camera_outline_estimated/oneplus_open_inner_portrait_2268x2440_original_camera_outline_estimated.svg",
@@ -65499,7 +65499,7 @@
     ],
     "ring_outer_radius": 36,
     "format": "svg",
-    "bytes": 13808
+    "bytes": 38399
   },
   {
     "file": "01_honeycomb_bright/foldable/oneplus/rgb_border/camera_outline_estimated/oneplus_open_inner_portrait_2268x2440_rgb_border_camera_outline_estimated.svg",
@@ -65516,7 +65516,7 @@
     ],
     "ring_outer_radius": 36,
     "format": "svg",
-    "bytes": 19565
+    "bytes": 46459
   },
   {
     "file": "01_honeycomb_bright/foldable/oneplus/original/camera_outline_estimated/oneplus_open_inner_landscape_2440x2268_original_camera_outline_estimated.svg",
@@ -65533,7 +65533,7 @@
     ],
     "ring_outer_radius": 36,
     "format": "svg",
-    "bytes": 13961
+    "bytes": 36173
   },
   {
     "file": "01_honeycomb_bright/foldable/oneplus/rgb_border/camera_outline_estimated/oneplus_open_inner_landscape_2440x2268_rgb_border_camera_outline_estimated.svg",
@@ -65550,7 +65550,7 @@
     ],
     "ring_outer_radius": 36,
     "format": "svg",
-    "bytes": 19092
+    "bytes": 44092
   },
   {
     "file": "01_honeycomb_bright/foldable/oppo/original/camera_outline_estimated/oppo_find_n5_cover_portrait_1140x2616_original_camera_outline_estimated.svg",
@@ -65567,7 +65567,7 @@
     ],
     "ring_outer_radius": 33,
     "format": "svg",
-    "bytes": 8280
+    "bytes": 24668
   },
   {
     "file": "01_honeycomb_bright/foldable/oppo/rgb_border/camera_outline_estimated/oppo_find_n5_cover_portrait_1140x2616_rgb_border_camera_outline_estimated.svg",
@@ -65584,7 +65584,7 @@
     ],
     "ring_outer_radius": 33,
     "format": "svg",
-    "bytes": 13710
+    "bytes": 32484
   },
   {
     "file": "01_honeycomb_bright/foldable/oppo/original/camera_outline_estimated/oppo_find_n5_cover_landscape_2616x1140_original_camera_outline_estimated.svg",
@@ -65601,7 +65601,7 @@
     ],
     "ring_outer_radius": 33,
     "format": "svg",
-    "bytes": 9213
+    "bytes": 24755
   },
   {
     "file": "01_honeycomb_bright/foldable/oppo/rgb_border/camera_outline_estimated/oppo_find_n5_cover_landscape_2616x1140_rgb_border_camera_outline_estimated.svg",
@@ -65618,7 +65618,7 @@
     ],
     "ring_outer_radius": 33,
     "format": "svg",
-    "bytes": 13344
+    "bytes": 28087
   },
   {
     "file": "01_honeycomb_bright/foldable/oppo/original/camera_outline_estimated/oppo_find_n5_inner_portrait_2248x2480_original_camera_outline_estimated.svg",
@@ -65635,7 +65635,7 @@
     ],
     "ring_outer_radius": 36,
     "format": "svg",
-    "bytes": 13809
+    "bytes": 38400
   },
   {
     "file": "01_honeycomb_bright/foldable/oppo/rgb_border/camera_outline_estimated/oppo_find_n5_inner_portrait_2248x2480_rgb_border_camera_outline_estimated.svg",
@@ -65652,7 +65652,7 @@
     ],
     "ring_outer_radius": 36,
     "format": "svg",
-    "bytes": 19054
+    "bytes": 46459
   },
   {
     "file": "01_honeycomb_bright/foldable/oppo/original/camera_outline_estimated/oppo_find_n5_inner_landscape_2480x2248_original_camera_outline_estimated.svg",
@@ -65669,7 +65669,7 @@
     ],
     "ring_outer_radius": 36,
     "format": "svg",
-    "bytes": 13961
+    "bytes": 36173
   },
   {
     "file": "01_honeycomb_bright/foldable/oppo/rgb_border/camera_outline_estimated/oppo_find_n5_inner_landscape_2480x2248_rgb_border_camera_outline_estimated.svg",
@@ -65686,7 +65686,7 @@
     ],
     "ring_outer_radius": 36,
     "format": "svg",
-    "bytes": 18194
+    "bytes": 41769
   },
   {
     "file": "01_honeycomb_bright/foldable/honor/original/camera_outline_estimated/honor_magic_v5_cover_portrait_1060x2376_original_camera_outline_estimated.svg",
@@ -65703,7 +65703,7 @@
     ],
     "ring_outer_radius": 31,
     "format": "svg",
-    "bytes": 8276
+    "bytes": 24664
   },
   {
     "file": "01_honeycomb_bright/foldable/honor/rgb_border/camera_outline_estimated/honor_magic_v5_cover_portrait_1060x2376_rgb_border_camera_outline_estimated.svg",
@@ -65720,7 +65720,7 @@
     ],
     "ring_outer_radius": 31,
     "format": "svg",
-    "bytes": 13704
+    "bytes": 32478
   },
   {
     "file": "01_honeycomb_bright/foldable/honor/original/camera_outline_estimated/honor_magic_v5_cover_landscape_2376x1060_original_camera_outline_estimated.svg",
@@ -65737,7 +65737,7 @@
     ],
     "ring_outer_radius": 31,
     "format": "svg",
-    "bytes": 9205
+    "bytes": 24747
   },
   {
     "file": "01_honeycomb_bright/foldable/honor/rgb_border/camera_outline_estimated/honor_magic_v5_cover_landscape_2376x1060_rgb_border_camera_outline_estimated.svg",
@@ -65754,7 +65754,7 @@
     ],
     "ring_outer_radius": 31,
     "format": "svg",
-    "bytes": 13334
+    "bytes": 28077
   },
   {
     "file": "01_honeycomb_bright/foldable/honor/original/camera_outline_estimated/honor_magic_v5_inner_portrait_2172x2352_original_camera_outline_estimated.svg",
@@ -65771,7 +65771,7 @@
     ],
     "ring_outer_radius": 35,
     "format": "svg",
-    "bytes": 13808
+    "bytes": 38399
   },
   {
     "file": "01_honeycomb_bright/foldable/honor/rgb_border/camera_outline_estimated/honor_magic_v5_inner_portrait_2172x2352_rgb_border_camera_outline_estimated.svg",
@@ -65788,7 +65788,7 @@
     ],
     "ring_outer_radius": 35,
     "format": "svg",
-    "bytes": 19566
+    "bytes": 46460
   },
   {
     "file": "01_honeycomb_bright/foldable/honor/original/camera_outline_estimated/honor_magic_v5_inner_landscape_2352x2172_original_camera_outline_estimated.svg",
@@ -65805,7 +65805,7 @@
     ],
     "ring_outer_radius": 35,
     "format": "svg",
-    "bytes": 13937
+    "bytes": 36173
   },
   {
     "file": "01_honeycomb_bright/foldable/honor/rgb_border/camera_outline_estimated/honor_magic_v5_inner_landscape_2352x2172_rgb_border_camera_outline_estimated.svg",
@@ -65822,7 +65822,7 @@
     ],
     "ring_outer_radius": 35,
     "format": "svg",
-    "bytes": 19093
+    "bytes": 44093
   },
   {
     "file": "01_honeycomb_bright/foldable/samsung/original/camera_outline_estimated/galaxy_z_flip7_inner_portrait_1080x2520_original_camera_outline_estimated.svg",
@@ -65839,7 +65839,7 @@
     ],
     "ring_outer_radius": 30,
     "format": "svg",
-    "bytes": 8276
+    "bytes": 24664
   },
   {
     "file": "01_honeycomb_bright/foldable/samsung/rgb_border/camera_outline_estimated/galaxy_z_flip7_inner_portrait_1080x2520_rgb_border_camera_outline_estimated.svg",
@@ -65856,7 +65856,7 @@
     ],
     "ring_outer_radius": 30,
     "format": "svg",
-    "bytes": 13702
+    "bytes": 32476
   },
   {
     "file": "01_honeycomb_bright/foldable/samsung/original/camera_outline_estimated/galaxy_z_flip7_inner_landscape_2520x1080_original_camera_outline_estimated.svg",
@@ -65873,7 +65873,7 @@
     ],
     "ring_outer_radius": 30,
     "format": "svg",
-    "bytes": 9205
+    "bytes": 24747
   },
   {
     "file": "01_honeycomb_bright/foldable/samsung/rgb_border/camera_outline_estimated/galaxy_z_flip7_inner_landscape_2520x1080_rgb_border_camera_outline_estimated.svg",
@@ -65890,7 +65890,7 @@
     ],
     "ring_outer_radius": 30,
     "format": "svg",
-    "bytes": 13332
+    "bytes": 28075
   },
   {
     "file": "01_honeycomb_bright/foldable/motorola/original/camera_outline_estimated/motorola_razr_ultra_2025_inner_portrait_1224x2992_original_camera_outline_estimated.svg",
@@ -65907,7 +65907,7 @@
     ],
     "ring_outer_radius": 33,
     "format": "svg",
-    "bytes": 7785
+    "bytes": 22337
   },
   {
     "file": "01_honeycomb_bright/foldable/motorola/rgb_border/camera_outline_estimated/motorola_razr_ultra_2025_inner_portrait_1224x2992_rgb_border_camera_outline_estimated.svg",
@@ -65924,7 +65924,7 @@
     ],
     "ring_outer_radius": 33,
     "format": "svg",
-    "bytes": 13750
+    "bytes": 32524
   },
   {
     "file": "01_honeycomb_bright/foldable/motorola/original/camera_outline_estimated/motorola_razr_ultra_2025_inner_landscape_2992x1224_original_camera_outline_estimated.svg",
@@ -65941,7 +65941,7 @@
     ],
     "ring_outer_radius": 33,
     "format": "svg",
-    "bytes": 8333
+    "bytes": 22414
   },
   {
     "file": "01_honeycomb_bright/foldable/motorola/rgb_border/camera_outline_estimated/motorola_razr_ultra_2025_inner_landscape_2992x1224_rgb_border_camera_outline_estimated.svg",
@@ -65958,7 +65958,7 @@
     ],
     "ring_outer_radius": 33,
     "format": "svg",
-    "bytes": 13384
+    "bytes": 28127
   },
   {
     "file": "02_hexagons/phone/pixel/original/camera_outline/pixel_9_1080x2424_original_camera_outline.svg",

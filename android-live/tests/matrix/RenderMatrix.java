@@ -53,7 +53,6 @@ public final class RenderMatrix extends Instrumentation {
             context = getTargetContext();
             SettingsMigrationTest.run(context);
             PanelCornersTest.run(context);
-            MengerWindowsTest.run(context);
             checkMandelbrot();
             checkFramePacing();
             checkRotation();
@@ -104,7 +103,7 @@ public final class RenderMatrix extends Instrumentation {
         for (Catalog.Model model : Catalog.get(context).models) {
             for (int mask = 0; mask < 16; mask++) {
                 String path = model.path(Settings.MANDELBROT, mask);
-                require(MandelbrotZoom.uses(path) && WallpaperArt.assetPath(path).equals(model.path(Settings.MENGER, mask)),
+                require(MandelbrotZoom.uses(path) && WallpaperArt.assetPath(path).equals("fractal-frames/" + model.path(0, mask)),
                         "Wrong Mandelbrot overlay for " + model.id);
             }
         }
@@ -195,7 +194,7 @@ public final class RenderMatrix extends Instrumentation {
             overlay.recycle();
         }
         require(Settings.rotation(angles, WallpaperScreen.LOCK) == 315, "Home edits changed the Lock angle");
-        Log.i(TAG, "Rotation: all five patterns, live and still angles, fixed outlines, Home and Lock isolation");
+        Log.i(TAG, "Rotation: all four patterns, live and still angles, fixed outlines, Home and Lock isolation");
     }
 
     private static void checkFixedOutlines(Bitmap overlay, Bitmap wallpaper) {
@@ -261,7 +260,7 @@ public final class RenderMatrix extends Instrumentation {
         }
         require(Settings.tone(colors, WallpaperScreen.LOCK, WallpaperTone.NEUTRAL).matches(83, 58, 40),
                 "Home adjustments changed the Lock settings");
-        Log.i(TAG, "Color adjustments: all five patterns, hardware and still output, with and without rotation");
+        Log.i(TAG, "Color adjustments: all four patterns, hardware and still output, with and without rotation");
     }
 
     private static int filteredPixel(int color, WallpaperTone tone) {
@@ -330,7 +329,7 @@ public final class RenderMatrix extends Instrumentation {
                     require(meanChannelDifference(still, regular) > 1.5,
                             "Framing did not change at " + zoom + "% for still pattern " + pattern);
                     checkFixedOutlines(overlay, live);
-                    if (zoom == ArtworkTransform.MIN_ZOOM && pattern < Settings.MENGER) {
+                    if (zoom == ArtworkTransform.MIN_ZOOM && pattern < Settings.MANDELBROT) {
                         checkWideGrid(live, pattern, "live", 1);
                         int id = context.getResources().getIdentifier("config_wallpaperMaxScale", "dimen", "android");
                         float zoomAtRest = id == 0 ? 1.10f : Math.max(1, context.getResources().getFloat(id));
@@ -407,8 +406,36 @@ public final class RenderMatrix extends Instrumentation {
                 "Cube spoke did not carry color into its corner");
         image.recycle();
 
+        Bitmap network = Bitmap.createBitmap(500, 260, Bitmap.Config.ARGB_8888);
+        Canvas lattice = new Canvas(network);
+        lattice.scale(2, 1);
+        android.graphics.Rect bounds = new android.graphics.Rect(0, 0, 250, 260);
+        android.graphics.Shader white = new android.graphics.LinearGradient(0, 0, 200, 200,
+                Color.WHITE, Color.WHITE, android.graphics.Shader.TileMode.CLAMP);
+        ConnectedHoneycomb.draw(lattice, bounds, 120, 120, 90, 66, 2, 1, 4, 4, white, Color.RED, false);
+        ConnectedHoneycomb.draw(lattice, bounds, 120, 120, 90, 66, 2, 1, 4, 4, white, Color.RED, true);
+        double diagonal = Math.hypot(90, 22);
+        double lap = 4 * diagonal + 88;
+        // A wave follows a diagonal into a three-way junction, then continues
+        // down the shared vertical edge or along the neighboring diagonal.
+        for (float t : new float[]{.05f, .27f, .66f, .95f}) {
+            float first = hueAt(network, 2 * (120 + 45 * t), 76 + 22 * t);
+            double firstError = first + t * diagonal / lap;
+            require(Math.abs(firstError - Math.round(firstError)) < .025,
+                    "Connected hue did not follow the first edge");
+            float vertical = hueAt(network, 330, 98 + 44 * t);
+            double verticalError = vertical + (diagonal + 44 * t) / lap;
+            require(Math.abs(verticalError - Math.round(verticalError)) < .025,
+                    "Connected hue changed speed at the shared junction");
+            float branch = hueAt(network, 2 * (165 + 45 * t), 98 - 22 * t);
+            double branchError = branch + (diagonal + diagonal * t) / lap;
+            require(Math.abs(branchError - Math.round(branchError)) < .025,
+                    "Connected hue did not continue into the neighboring cell");
+        }
+        network.recycle();
+
         SharedPreferences prefs = context.getSharedPreferences("perimeter-fixture", Context.MODE_PRIVATE);
-        prefs.edit().clear().putString(Settings.MODEL, "pixel_11_pro_xl").putInt(Settings.PATTERN, 1)
+        prefs.edit().clear().putString(Settings.MODEL, "pixel_11_pro_xl").putInt(Settings.PATTERN, 0)
                 .putBoolean(Settings.BORDER, false).putBoolean(Settings.CAMERA, false)
                 .putBoolean(Settings.DOCK, false).putBoolean(Settings.STATUS, false)
                 .putBoolean(Settings.ANIMATE, true).putInt(Settings.PERIOD, 6).apply();

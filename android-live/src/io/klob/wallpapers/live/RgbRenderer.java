@@ -59,7 +59,6 @@ final class RgbRenderer {
     private int rotation;
     private int framingZoom = ArtworkTransform.FIT;
     private WallpaperTone tone = WallpaperTone.NEUTRAL;
-    private MengerWindows menger;
     private MandelbrotZoom mandelbrot;
     private int frameRate = 30;
     private double zoomPhase;
@@ -109,18 +108,12 @@ final class RgbRenderer {
         String path = Settings.artPath(selected, preferences, screen);
         String other = rotated == selected ? path : Settings.artPath(rotated, preferences, screen);
         if (selected != model || !path.equals(artPath) || !other.equals(rotatedPath)) {
-            if (MandelbrotZoom.uses(path) != MandelbrotZoom.uses(artPath)
-                    || MengerWindows.uses(path) != MengerWindows.uses(artPath)) zoomPhase = 0;
+            if (MandelbrotZoom.uses(path) != MandelbrotZoom.uses(artPath)) zoomPhase = 0;
             model = selected;
             rotatedModel = rotated;
             artPath = path;
             rotatedPath = other;
             layoutWidth = layoutHeight = 0;
-            if (MengerWindows.uses(path)) {
-                if (menger == null) menger = new MengerWindows(context);
-            } else {
-                menger = null;
-            }
             if (MandelbrotZoom.uses(path)) {
                 if (mandelbrot == null) {
                     mandelbrot = new MandelbrotZoom(context);
@@ -130,11 +123,11 @@ final class RgbRenderer {
             }
         }
 
-        zoomSpeed = Settings.zoomSpeed(preferences) / (mandelbrot == null ? 4f : 8f);
+        zoomSpeed = Settings.zoomSpeed(preferences) / 8f;
         frameRate = Settings.FRAME_RATES[Settings.frameRateIndex(preferences)];
         if (mandelbrot != null) mandelbrot.setQuality(Settings.quality(preferences));
         periodMillis = Settings.period(preferences) * 1000;
-        setAnimation(menger == null && Settings.enabled(preferences, Settings.ANIMATE));
+        setAnimation(Settings.enabled(preferences, Settings.ANIMATE));
         audioSync = Settings.audioSync(preferences);
         audioSource = Settings.audioSource(preferences);
         audioEffect = Settings.audioEffect(preferences);
@@ -195,7 +188,7 @@ final class RgbRenderer {
     }
 
     private boolean hasZoom() {
-        return menger != null || (mandelbrot != null && mandelbrot.isAvailable());
+        return mandelbrot != null && mandelbrot.isAvailable();
     }
 
     int frameRate() {
@@ -275,7 +268,7 @@ final class RgbRenderer {
         }
         boolean colorize = animate && shader != null && canvas.isHardwareAccelerated();
         layout(width, height, colorize && !WallpaperArt.hasScene(artPath));
-        if (bitmap == null || (menger == null && mandelbrot == null)) canvas.drawColor(Color.BLACK);
+        if (bitmap == null || mandelbrot == null) canvas.drawColor(Color.BLACK);
         if (bitmap == null) return;
         refreshArtwork();
         long now = SystemClock.uptimeMillis();
@@ -298,18 +291,14 @@ final class RgbRenderer {
         }
         // Single-pass patterns need only a paint filter. Composite multi-pass scenes
         // first so the color matrix cannot change how translucent outlines blend.
-        boolean composite = menger != null || mandelbrot != null || artworkInput != null;
+        boolean composite = mandelbrot != null || artworkInput != null;
         int toneLayer = composite ? tone.saveLayer(canvas, width, height) : 0;
         paint.setColorFilter(composite ? null : tone.filter());
-        if (menger != null || mandelbrot != null) {
+        if (mandelbrot != null) {
             canvas.save();
             float magnification = ArtworkTransform.apply(canvas, width, height, rotation, framingZoom);
-            if (menger != null) {
-                menger.draw(canvas, width, height, zoomPhase, magnification);
-            } else {
-                if (!colorize) mandelbrot.setColor(0, 1, 0, 0);
-                mandelbrot.draw(context, canvas, width, height, zoomPhase, magnification);
-            }
+            if (!colorize) mandelbrot.setColor(0, 1, 0, 0);
+            mandelbrot.draw(context, canvas, width, height, zoomPhase, magnification);
             canvas.restore();
         } else if (artworkInput != null) {
             paint.setShader(colorize && artworkColors != null ? artworkColors : artworkInput);

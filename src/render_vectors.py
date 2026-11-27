@@ -19,6 +19,7 @@ import xml.etree.ElementTree as ET
 import numpy as np
 from PIL import Image
 from pattern_edges import align_vertical_edges
+from connected_honeycomb import connect
 
 STROKES = {"01_honeycomb_bright": 2.0, "02_hexagons": 2.4,
            "04_cubes": 2.2}
@@ -235,7 +236,7 @@ def build_svg(meta,base,design,polygons,palette,frame,camera=None):
         corner = max(0,radius-(pad-.02*min(width,height)))
         rounded = f' rx="{num(corner/sx)}" ry="{num(corner/sy)}"'
         svg = re.sub(r'(<clipPath id="pattern-clip"[^>]*><rect[^>]*?)/>', r'\1'+rounded+'/>',svg)
-    return svg
+    return connect(svg) if design["id"] == "01_honeycomb_bright" else svg
 
 
 def main():
